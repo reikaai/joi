@@ -1,0 +1,163 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - close
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://api.themoviedb.org/3/discover/movie?page=1&with_genres=28
+  response:
+    body:
+      string: "{\"page\":1,\"results\":[{\"adult\":false,\"backdrop_path\":\"/3F2EXWF1thX0BdrVaKvnm6mAhqh.jpg\",\"genre_ids\":[28,53,80],\"id\":1306368,\"original_language\":\"en\",\"original_title\":\"The
+        Rip\",\"overview\":\"Trust frays when a team of Miami cops discovers millions
+        in cash inside a run-down stash house, calling everyone \u2014 and everything
+        \u2014 into question.\",\"popularity\":346.4826,\"poster_path\":\"/p4bW2sJKAwcHuLpfoZK7Zo63osA.jpg\",\"release_date\":\"2026-01-13\",\"title\":\"The
+        Rip\",\"video\":false,\"vote_average\":7.039,\"vote_count\":851},{\"adult\":false,\"backdrop_path\":\"/AecGG1XVCmkk7fT10ko3FC0dLIP.jpg\",\"genre_ids\":[28,14,53],\"id\":1043197,\"original_language\":\"en\",\"original_title\":\"Dust
+        Bunny\",\"overview\":\"Ten-year-old Aurora asks her hitman neighbor to kill
+        the monster under her bed that she claims ate her family. To protect her,
+        he must battle an onslaught of assassins while accepting that some monsters
+        are real.\",\"popularity\":288.1896,\"poster_path\":\"/vobigFZFvbYPf6ElYJu07P9rH8C.jpg\",\"release_date\":\"2025-12-11\",\"title\":\"Dust
+        Bunny\",\"video\":false,\"vote_average\":6.564,\"vote_count\":128},{\"adult\":false,\"backdrop_path\":\"/xGbNoh7aWmU81oYuxJoFI07Rz5I.jpg\",\"genre_ids\":[28,53,80],\"id\":1326878,\"original_language\":\"en\",\"original_title\":\"Strangers\",\"overview\":\"Seeking
+        revenge on her abusive husband, a woman's life takes a dark turn when she
+        meets a mysterious hitman. Drawn into a whirlwind romance, she spirals into
+        a dangerous vigilante spree. As the body count rises, she begins to unravel
+        the true nature of her partner and the secrets they both conceal.\",\"popularity\":279.0559,\"poster_path\":\"/ohpuwSBMgP44OPduPkpOtLxh90w.jpg\",\"release_date\":\"2024-08-16\",\"title\":\"Strangers\",\"video\":false,\"vote_average\":5.479,\"vote_count\":24},{\"adult\":false,\"backdrop_path\":\"/ebyxeBh56QNXxSJgTnmz7fXAlwk.jpg\",\"genre_ids\":[28,878,12],\"id\":1242898,\"original_language\":\"en\",\"original_title\":\"Predator:
+        Badlands\",\"overview\":\"Cast out from his clan, a young Predator finds an
+        unlikely ally in a damaged android and embarks on a treacherous journey in
+        search of the ultimate adversary.\",\"popularity\":247.4768,\"poster_path\":\"/pHpq9yNUIo6aDoCXEBzjSolywgz.jpg\",\"release_date\":\"2025-11-05\",\"title\":\"Predator:
+        Badlands\",\"video\":false,\"vote_average\":7.752,\"vote_count\":1690},{\"adult\":false,\"backdrop_path\":\"/gQimJqYMKCkwHIo8wwYKhmnCfBr.jpg\",\"genre_ids\":[28,80,53],\"id\":1242501,\"original_language\":\"en\",\"original_title\":\"Icefall\",\"overview\":\"A
+        young Indigenous game warden arrests an infamous poacher only to discover
+        that the poacher knows the location of a plane carrying millions of dollars
+        that has crashed in a frozen lake. When a group of criminals and dirty cops
+        are alerted to the poacher\u2019s whereabouts, the warden and the poacher
+        team up to fight back and escape across the treacherous lake before the ice
+        melts.\",\"popularity\":146.4326,\"poster_path\":\"/5Byv6nznAb2Izd0gHpODOXnuSbo.jpg\",\"release_date\":\"2025-10-16\",\"title\":\"Icefall\",\"video\":false,\"vote_average\":6.471,\"vote_count\":105},{\"adult\":false,\"backdrop_path\":\"/ykigHs1OIyqqV04zfFqIlSHp546.jpg\",\"genre_ids\":[53,27,28,9648,878],\"id\":1412598,\"original_language\":\"en\",\"original_title\":\"Killer
+        Whale\",\"overview\":\"Follows best friends Maddie and Trish as they find
+        themselves trapped in a remote lagoon with the dangerous killer whale named
+        Ceto.\",\"popularity\":132.9477,\"poster_path\":\"/cqbXxAw9sUr4tJ5ffEwtnz6IL9o.jpg\",\"release_date\":\"2026-01-16\",\"title\":\"Killer
+        Whale\",\"video\":false,\"vote_average\":5.733,\"vote_count\":43},{\"adult\":false,\"backdrop_path\":\"/vMxOmgmBGegjVObjlb8ugsjGgkD.jpg\",\"genre_ids\":[10752,28,18],\"id\":1252037,\"original_language\":\"de\",\"original_title\":\"Der
+        Tiger\",\"overview\":\"A German Tiger tank crew is sent on a dangerous mission
+        to rescue the missing officer Paul von Hardenburg from a top-secret bunker
+        behind enemy lines. As they make their way through the lethal no-man's land,
+        they must confront not only the enemy, but also their own fears and inner
+        demons. Fueled by the Wehrmacht's methamphetamine, their mission increasingly
+        becomes a journey into the heart of darkness.\",\"popularity\":122.1432,\"poster_path\":\"/65Jr1JAgWlu9em8zHhAfrNJJQBt.jpg\",\"release_date\":\"2025-09-18\",\"title\":\"The
+        Tank\",\"video\":false,\"vote_average\":7.0,\"vote_count\":284},{\"adult\":false,\"backdrop_path\":\"/1RgPyOhN4DRs225BGTlHJqCudII.jpg\",\"genre_ids\":[16,28,14],\"id\":1311031,\"original_language\":\"ja\",\"original_title\":\"\u5287\u5834\u7248\u300C\u9B3C\u6EC5\u306E\u5203\u300D\u7121\u9650\u57CE\u7DE8
+        \u7B2C\u4E00\u7AE0 \u7317\u7AA9\u5EA7\u518D\u6765\",\"overview\":\"The Demon
+        Slayer Corps are drawn into the Infinity Castle, where Tanjiro, Nezuko, and
+        the Hashira face terrifying Upper Rank demons in a desperate fight as the
+        final battle against Muzan Kibutsuji begins.\",\"popularity\":104.8142,\"poster_path\":\"/fWVSwgjpT2D78VUh6X8UBd2rorW.jpg\",\"release_date\":\"2025-07-18\",\"title\":\"Demon
+        Slayer: Kimetsu no Yaiba Infinity Castle\",\"video\":false,\"vote_average\":7.675,\"vote_count\":684},{\"adult\":false,\"backdrop_path\":\"/7dQTILcUKw8chDiLj8TgPXxRuED.jpg\",\"genre_ids\":[27,28,53],\"id\":1233413,\"original_language\":\"en\",\"original_title\":\"Sinners\",\"overview\":\"Trying
+        to leave their troubled lives behind, twin brothers return to their hometown
+        to start again, only to discover that an even greater evil is waiting to welcome
+        them back.\",\"popularity\":108.5574,\"poster_path\":\"/qTvFWCGeGXgBRaINLY1zqgTPSpn.jpg\",\"release_date\":\"2025-04-16\",\"title\":\"Sinners\",\"video\":false,\"vote_average\":7.483,\"vote_count\":3415},{\"adult\":false,\"backdrop_path\":\"/4BtL2vvEufDXDP4u6xQjjQ1Y2aT.jpg\",\"genre_ids\":[28,80,18,53],\"id\":1419406,\"original_language\":\"zh\",\"original_title\":\"\u6355\u98CE\u8FFD\u5F71\",\"overview\":\"Macau
+        Police brings the tracking expert police officer out of retirement to help
+        catch a dangerous group of professional thieves.\",\"popularity\":263.2491,\"poster_path\":\"/e0RU6KpdnrqFxDKlI3NOqN8nHL6.jpg\",\"release_date\":\"2025-08-16\",\"title\":\"The
+        Shadow's Edge\",\"video\":false,\"vote_average\":7.211,\"vote_count\":349},{\"adult\":false,\"backdrop_path\":\"/wCwZ4ljSsWyZyTiyk1tGQtBHTDx.jpg\",\"genre_ids\":[28,18],\"id\":1511417,\"original_language\":\"te\",\"original_title\":\"Baahubali:
+        The Epic\",\"overview\":\"When a mysterious child is found by a tribal couple
+        near a roaring waterfall, they raise him as their own. As he grows, Sivudu
+        is drawn to the world beyond the cliffs, where he discovers the ancient kingdom
+        of Mahishmati, ruled by a cruel tyrant, haunted by rebellion, and bound to
+        his past. What begins as a quest for love soon unravels a legacy of betrayal,
+        sacrifice, and a forgotten prince.\",\"popularity\":81.1586,\"poster_path\":\"/z9YIo2qscyaXYgRqIdRJtND3bw8.jpg\",\"release_date\":\"2025-10-29\",\"title\":\"B\u0101hubali:
+        The Epic\",\"video\":false,\"vote_average\":6.1,\"vote_count\":26},{\"adult\":false,\"backdrop_path\":\"/oIJjO1CvEdTMFNkWfHaV0RB584G.jpg\",\"genre_ids\":[28,80,53],\"id\":628847,\"original_language\":\"en\",\"original_title\":\"Trap
+        House\",\"overview\":\"An undercover DEA agent and his partner embark on a
+        game of cat and mouse with an audacious, and surprising group of thieves -
+        their own rebellious teenagers, who have begun robbing from a dangerous cartel,
+        using their parents' tactics and top-secret intel to do it.\",\"popularity\":79.8994,\"poster_path\":\"/6tpAPeuuqbVnYWWPoOLEDLSBU7a.jpg\",\"release_date\":\"2025-11-14\",\"title\":\"Trap
+        House\",\"video\":false,\"vote_average\":6.612,\"vote_count\":187},{\"adult\":false,\"backdrop_path\":\"/tVwFrpeGPYyk75rS82benPjtK6.jpg\",\"genre_ids\":[28,12,14],\"id\":1131759,\"original_language\":\"ko\",\"original_title\":\"\uC804\uC9C0\uC801
+        \uB3C5\uC790 \uC2DC\uC810\",\"overview\":\"Kim Dok-ja, an ordinary man in
+        his 20s, is the only reader of an obscure web novel titled \\\"Three Ways
+        to Survive the Apocalypse\\\". After having read the last chapter, the novel
+        suddenly becomes reality, and its omnipotent hero Yu Jung-hyeok appears before
+        Kim. As the only person who knows how to survive in this world, Kim and his
+        companions strive to save the world by writing his own, new ending.\",\"popularity\":84.0426,\"poster_path\":\"/3R3dXO2nm8JyR5NG7SEfii7RzlV.jpg\",\"release_date\":\"2025-07-23\",\"title\":\"Omniscient
+        Reader: The Prophecy\",\"video\":false,\"vote_average\":6.4,\"vote_count\":52},{\"adult\":false,\"backdrop_path\":\"/2OHa6ukEq3Hce7Pc2kvu8wkmMFY.jpg\",\"genre_ids\":[28,12,53,80,18],\"id\":7451,\"original_language\":\"en\",\"original_title\":\"xXx\",\"overview\":\"Xander
+        Cage is your standard adrenaline junkie with no fear and a lousy attitude.
+        When the US Government \\\"recruits\\\" him to go on a mission, he's not exactly
+        thrilled. His mission: to gather information on an organization that may just
+        be planning the destruction of the world, led by the nihilistic Yorgi.\",\"popularity\":73.2506,\"poster_path\":\"/xeEw3eLeSFmJgXZzmF2Efww0q3s.jpg\",\"release_date\":\"2002-08-09\",\"title\":\"xXx\",\"video\":false,\"vote_average\":5.981,\"vote_count\":4758},{\"adult\":false,\"backdrop_path\":\"/sW0X1265yuRHUorLKCrJDv9TJD7.jpg\",\"genre_ids\":[28,53],\"id\":1491902,\"original_language\":\"th\",\"original_title\":\"\u0E1B\u0E31\u0E07\",\"overview\":\"Follows
+        a ruthless hitman who, after narrowly escaping a fatal attempt on his life,
+        betrays his gang in an effort to find forgiveness but ends up becoming a target
+        himself.\",\"popularity\":72.9888,\"poster_path\":\"/8SUzKOqe2ectvhYdSnR7Vq2F3n1.jpg\",\"release_date\":\"2025-07-11\",\"title\":\"Bang\",\"video\":false,\"vote_average\":6.6,\"vote_count\":60},{\"adult\":false,\"backdrop_path\":\"/mHC8tSRYfAKGh2jaSNQMSzGdbOW.jpg\",\"genre_ids\":[878,28,53],\"id\":1236153,\"original_language\":\"en\",\"original_title\":\"Mercy\",\"overview\":\"In
+        the near future, a detective stands on trial accused of murdering his wife.
+        He has ninety minutes to prove his innocence to the advanced AI Judge he once
+        championed, before it determines his fate.\",\"popularity\":76.8102,\"poster_path\":\"/pyok1kZJCfyuFapYXzHcy7BLlQa.jpg\",\"release_date\":\"2026-01-19\",\"title\":\"Mercy\",\"video\":false,\"vote_average\":6.8,\"vote_count\":67},{\"adult\":false,\"backdrop_path\":\"/9BBTo63ANSmhC4e6r62OJFuK2GL.jpg\",\"genre_ids\":[878,28,12],\"id\":24428,\"original_language\":\"en\",\"original_title\":\"The
+        Avengers\",\"overview\":\"When an unexpected enemy emerges and threatens global
+        safety and security, Nick Fury, director of the international peacekeeping
+        agency known as S.H.I.E.L.D., finds himself in need of a team to pull the
+        world back from the brink of disaster. Spanning the globe, a daring recruitment
+        effort begins!\",\"popularity\":69.8586,\"poster_path\":\"/RYMX2wcKCBAr24UyPD7xwmjaTn.jpg\",\"release_date\":\"2012-04-25\",\"title\":\"The
+        Avengers\",\"video\":false,\"vote_average\":7.922,\"vote_count\":35447},{\"adult\":false,\"backdrop_path\":\"/si68lkhkMfIospVeLEBtl7HWKDh.jpg\",\"genre_ids\":[53,80,28],\"id\":1054867,\"original_language\":\"en\",\"original_title\":\"One
+        Battle After Another\",\"overview\":\"Washed-up revolutionary Bob exists in
+        a state of stoned paranoia, surviving off-grid with his spirited, self-reliant
+        daughter, Willa. When his evil nemesis resurfaces after 16 years and she goes
+        missing, the former radical scrambles to find her, father and daughter both
+        battling the consequences of his past.\",\"popularity\":73.5564,\"poster_path\":\"/m1jFoahEbeQXtx4zArT2FKdbNIj.jpg\",\"release_date\":\"2025-09-23\",\"title\":\"One
+        Battle After Another\",\"video\":false,\"vote_average\":7.423,\"vote_count\":2604},{\"adult\":false,\"backdrop_path\":\"/9pdoEzieGdUTlRWTAO7QP8q1tIo.jpg\",\"genre_ids\":[80,28,35,18,53],\"id\":1137179,\"original_language\":\"ko\",\"original_title\":\"\uC57C\uB2F9\",\"overview\":\"Navigating
+        both the criminal underworld and law enforcement agencies, professional snitches
+        called \\\"yadang\\\" provide covert information about the drug world to prosecutors
+        and police. When a drug bust at a party attended by high-profile second-generation
+        VIPs entangles those involved into a dangerous conspiracy, a seasoned yadang
+        must do everything in his power not just to make it out on top, but alive.\",\"popularity\":59.7606,\"poster_path\":\"/y7dsDbG8zVWkrkyOhA6ckZXX1uC.jpg\",\"release_date\":\"2025-04-16\",\"title\":\"Yadang:
+        The Snitch\",\"video\":false,\"vote_average\":6.9,\"vote_count\":34},{\"adult\":false,\"backdrop_path\":\"/ncI1PlBcANixIkgQSnjsSRz4OyT.jpg\",\"genre_ids\":[28,53,9648],\"id\":1439112,\"original_language\":\"en\",\"original_title\":\"Muzzle:
+        City of Wolves\",\"overview\":\"LAPD officer Jake Rosser endeavors to lead
+        a peaceful life with his family and retired K-9 officer, Socks. However, tranquility
+        dissolves into chaos when a gang targets them in a brutal attack. Alongside
+        his new K-9 partner Argos, Jake launches into a relentless pursuit of justice,
+        determined to protect his loved ones.\",\"popularity\":59.5247,\"poster_path\":\"/8qTMRmC07XCGidnKQFLbRM3FoDU.jpg\",\"release_date\":\"2025-11-13\",\"title\":\"Muzzle:
+        City of Wolves\",\"video\":false,\"vote_average\":6.752,\"vote_count\":101}],\"total_pages\":2358,\"total_results\":47159}"
+    headers:
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Cache-Control:
+      - public, max-age=10132
+      Connection:
+      - close
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Wed, 28 Jan 2026 16:18:12 GMT
+      ETag:
+      - W/"02e320c04995f715d9b4ac1066b29a58"
+      Server:
+      - openresty
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - accept-encoding
+      - Origin
+      Via:
+      - 1.1 46f3c2e92915bc1f81dadef931ddfe6a.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - LpxeisYY-WrTt685IwDyvms8h_WgXScAW6Y1F0T8ZXP_z609Q-lAFg==
+      X-Amz-Cf-Pop:
+      - IST50-P3
+      X-Cache:
+      - Miss from cloudfront
+      x-az:
+      - us-east-1c
+      x-memc:
+      - HIT
+      x-memc-age:
+      - '11565'
+      x-memc-expires:
+      - '10132'
+      x-memc-key:
+      - 53c612df0c16a43d7e41650c3a1d9cbba04de8e728b0a88f7c3cc9665fe6a07c
+      x-task-id:
+      - a9646ac0980b4ed1a137a84bb5fe45b6
+    status:
+      code: 200
+      message: OK
+version: 1
