@@ -1,0 +1,158 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - close
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://api.themoviedb.org/3/movie/603/similar_movies
+  response:
+    body:
+      string: "{\"page\":1,\"results\":[{\"adult\":false,\"backdrop_path\":\"/sHJmDOvewSELRmTUbYovR5nSFiJ.jpg\",\"genre_ids\":[18,878,10402,14],\"id\":671109,\"original_language\":\"rw\",\"original_title\":\"Neptune
+        Frost\",\"overview\":\"In the hilltops of Burundi, a group of escaped coltan
+        miners form an anti-colonialist computer hacker collective. From their camp
+        in an otherworldly e-waste dump, they attempt a takeover of the authoritarian
+        regime exploiting the region's natural resources \u2013 and its people. When
+        an intersex runaway and an escaped coltan miner find each other through cosmic
+        forces, their connection sparks glitches within the greater divine circuitry.\",\"popularity\":0.6826,\"poster_path\":\"/emlTdAiMcJDomw6Tjz2lFCSen8W.jpg\",\"release_date\":\"2022-06-03\",\"title\":\"Neptune
+        Frost\",\"video\":false,\"vote_average\":5.806,\"vote_count\":31},{\"adult\":false,\"backdrop_path\":\"/qFI716p7GH8f11tcBfabKmt115k.jpg\",\"genre_ids\":[28,18,35],\"id\":22024,\"original_language\":\"ja\",\"original_title\":\"\u30A2\u30AD\u30CF\u30D0\u30E9@DEEP\",\"overview\":\"Set
+        in Tokyo's otaku mecca Akihabara, \\\"Akihabara@DEEP\\\" tells the story of
+        five otaku who drop out of society and end up founding their own successful
+        IT venture called Crook. But Nakagomi, president of an influential electronics
+        company called Digital Capital, will do anything to get his hands on Crook.\",\"popularity\":2.691,\"poster_path\":\"/7ySn21gaFKejhX6z0RODWi3tt1E.jpg\",\"release_date\":\"2006-09-02\",\"title\":\"Akihabara@DEEP\",\"video\":false,\"vote_average\":5.5,\"vote_count\":11},{\"adult\":false,\"backdrop_path\":\"/e8UpxePQDqAwP21wOxfIEnBgMVF.jpg\",\"genre_ids\":[28,18],\"id\":22058,\"original_language\":\"en\",\"original_title\":\"That
+        Man Bolt\",\"overview\":\"Fred Williamson chop-sockeys his way through this
+        popular blaxploitation adventure as Jefferson Bolt, a Kung Fu expert assigned
+        to deliver a cool $1 million to Mexico City from Hong Kong with a stop in
+        Los Angeles. When Bolt discovers the cash is dirty mob money and his gal has
+        been killed, he heads back to the Far East to get even.\",\"popularity\":3.4651,\"poster_path\":\"/iOhAfB61HJud4sOXGRuilYpCVjq.jpg\",\"release_date\":\"1973-12-01\",\"title\":\"That
+        Man Bolt\",\"video\":false,\"vote_average\":4.773,\"vote_count\":11},{\"adult\":false,\"backdrop_path\":null,\"genre_ids\":[878,10770],\"id\":22082,\"original_language\":\"en\",\"original_title\":\"Encrypt\",\"overview\":\"2068,
+        the ozone layer is gone and the world is a wasteland. A band of mercenaries
+        attempt to break into a Estate that is guarded by a automated defence system
+        called \\\"Encrypt\\\" in order to steal priceless artwork.\",\"popularity\":0.7394,\"poster_path\":\"/lntsce7nOIdQ2lvYEj06aydqxQR.jpg\",\"release_date\":\"2003-06-14\",\"title\":\"Encrypt\",\"video\":false,\"vote_average\":5.067,\"vote_count\":15},{\"adult\":false,\"backdrop_path\":\"/cjA8bxjXcw3I63DlO3qa6uFwrH4.jpg\",\"genre_ids\":[18,28,80],\"id\":22094,\"original_language\":\"en\",\"original_title\":\"Hard
+        Times\",\"overview\":\"In the depression, Chaney, a strong silent streetfighter,
+        joins with Speed, a promoter of no-holds-barred street boxing bouts. They
+        go to New Orleans where Speed borrows money to set up fights for Chaney, but
+        Speed gambles away any winnings.\",\"popularity\":1.9518,\"poster_path\":\"/yWIh8cMGd9XubkdhJB2TJ7buGy3.jpg\",\"release_date\":\"1975-08-13\",\"title\":\"Hard
+        Times\",\"video\":false,\"vote_average\":6.8,\"vote_count\":217},{\"adult\":false,\"backdrop_path\":\"/2LJ64eFD5eV0MeGdAGwLuAPdjLC.jpg\",\"genre_ids\":[28,18],\"id\":22124,\"original_language\":\"zh\",\"original_title\":\"\u6D2A\u7199\u5B98\",\"overview\":\"A
+        couple unite - she is fluent in the crane style of kung fu, he in tiger style.
+        They have a son, but the boy's father is killed by the evil eunuch Pai Mei.
+        Disguised as a girl, his mom trains him in crane style while he secretly learns
+        tiger style from his father's training manual.\",\"popularity\":1.3566,\"poster_path\":\"/9PJyuHP1nNDMyJDZMpZWpwEduSL.jpg\",\"release_date\":\"1977-02-16\",\"title\":\"Executioners
+        from Shaolin\",\"video\":false,\"vote_average\":6.8,\"vote_count\":51},{\"adult\":false,\"backdrop_path\":\"/1ecpXOwhQrMzoV3TrzqJELduQjo.jpg\",\"genre_ids\":[28,80,53,18],\"id\":22164,\"original_language\":\"en\",\"original_title\":\"Blood
+        and Bone\",\"overview\":\"In Los Angeles, an ex-con takes the underground
+        fighting world by storm in his quest to fulfill a promise to a dead friend.\",\"popularity\":5.7656,\"poster_path\":\"/4XoqjwKhqN3GlGt0fQtcY2OhkZq.jpg\",\"release_date\":\"2009-02-07\",\"title\":\"Blood
+        and Bone\",\"video\":false,\"vote_average\":7.346,\"vote_count\":856},{\"adult\":false,\"backdrop_path\":null,\"genre_ids\":[878],\"id\":1258601,\"original_language\":\"en\",\"original_title\":\"Synapse\",\"overview\":\"Synapse
+        follows a story of a female shut-in gig worker who does whatever it takes
+        to have breakfast with her husband once again.\",\"popularity\":0.2797,\"poster_path\":\"/rxmuz3LCGPUj4vWIFQ0VavCbH3a.jpg\",\"release_date\":\"2023-09-04\",\"title\":\"Synapse\",\"video\":false,\"vote_average\":0.0,\"vote_count\":0},{\"adult\":false,\"backdrop_path\":\"/lcdSU4xSicHJEG5kXewW95bAcJl.jpg\",\"genre_ids\":[28],\"id\":20966,\"original_language\":\"zh\",\"original_title\":\"\u5C11\u6797\u4E0E\u6B66\u5F53\",\"overview\":\"Master
+        Liu and Master Law are rival masters of Shaolin style kung fu, and Wudang
+        style sword fighting, running schools in the same city. Their top students,
+        Chao Fung-wu, and Hung Jun-kit, are actually close friends. After observing
+        the two students fighting at a brothel, the Lord determines that the two styles
+        are dangerous, and he must learn both.\",\"popularity\":2.3111,\"poster_path\":\"/m8WDiah1B7cUAJlFd5kVeD776Ol.jpg\",\"release_date\":\"1983-07-02\",\"title\":\"Shaolin
+        and Wu Tang\",\"video\":false,\"vote_average\":6.6,\"vote_count\":17},{\"adult\":false,\"backdrop_path\":\"/y5Bksp9KOjw3BVwJNJiFhThZchn.jpg\",\"genre_ids\":[28,53],\"id\":20971,\"original_language\":\"hi\",\"original_title\":\"Zinda\",\"overview\":\"The
+        film is about a man, who has been imprisoned for 14 years, who has been released
+        and has four days to figure out why he was imprisoned in the first place.\",\"popularity\":4.1295,\"poster_path\":\"/o5u3Rx0hFvPEGsZGTi3faAiIQMQ.jpg\",\"release_date\":\"2006-01-12\",\"title\":\"Zinda\",\"video\":false,\"vote_average\":3.904,\"vote_count\":26},{\"adult\":false,\"backdrop_path\":\"/xIwkG2zwJdpveLysqgSiUpMr4Vg.jpg\",\"genre_ids\":[28,35,16],\"id\":20986,\"original_language\":\"ja\",\"original_title\":\"\u5287\u5834\u7248
+        \u5929\u5143\u7A81\u7834\u30B0\u30EC\u30F3\u30E9\u30AC\u30F3 \u7D05\u84EE\u7BC7\",\"overview\":\"Simon
+        and Kamina live in an underground city monitored by the village chief. When
+        Simon stumbles upon an artifact and beastmen invade from the surface, Simon
+        and Kamina rebel against them.\",\"popularity\":2.3831,\"poster_path\":\"/nNjFlv4mJlkGLzfnLoU68YSy9KH.jpg\",\"release_date\":\"2008-09-06\",\"title\":\"Gurren
+        Lagann The Movie: Childhood's End\",\"video\":false,\"vote_average\":7.6,\"vote_count\":112},{\"adult\":false,\"backdrop_path\":\"/iQcCAm8hKWZyUntqrvzyEGtXyJl.jpg\",\"genre_ids\":[878,28,12],\"id\":670292,\"original_language\":\"en\",\"original_title\":\"The
+        Creator\",\"overview\":\"Amid a future war between the human race and the
+        forces of artificial intelligence, a hardened ex-special forces agent grieving
+        the disappearance of his wife, is recruited to hunt down and kill the Creator,
+        the elusive architect of advanced AI who has developed a mysterious weapon
+        with the power to end the war\u2014and mankind itself.\",\"popularity\":8.7386,\"poster_path\":\"/3dSivDtOuyxLDxPH4v2tcNG1fP7.jpg\",\"release_date\":\"2023-09-27\",\"title\":\"The
+        Creator\",\"video\":false,\"vote_average\":7.021,\"vote_count\":3643},{\"adult\":false,\"backdrop_path\":\"/b37uMr1hvzkcVFcPOfs8D5UypMp.jpg\",\"genre_ids\":[99,28],\"id\":868578,\"original_language\":\"cn\",\"original_title\":\"\u9F8D\u864E\u6B66\u5E2B\",\"overview\":\"A
+        new documentary film revisits the golden age of kung fu stuntmen and action
+        directors in Hong Kong during the 1960s-'80s, exploring their pain and struggles.
+        The documentary is a tribute to kung fu stuntmen. \u201CThey risked their
+        lives for stunts,\u201D said kung fu choreographer Yuen Bin. In their heyday,
+        these stuntmen and choreographers presented the best, most creative and most
+        complicated kung fu fight sequences anywhere in the world, creating stunts
+        that looked seemingly impossible.\",\"popularity\":1.8263,\"poster_path\":\"/Yf9qo58jIYxRI32uIZ22RUjUx6.jpg\",\"release_date\":\"2021-08-28\",\"title\":\"Kung
+        Fu Stuntmen\",\"video\":false,\"vote_average\":7.25,\"vote_count\":16},{\"adult\":false,\"backdrop_path\":\"/iLGPSH7FOnPCANAW5ZUwy05UFUp.jpg\",\"genre_ids\":[28,12,80,18,53],\"id\":21376,\"original_language\":\"en\",\"original_title\":\"A
+        Force of One\",\"overview\":\"Karate champion Matt Logan is enlisted by the
+        police to train officers in self-defense after narcotics agents are killed
+        by an assailant using the martial arts.\",\"popularity\":0.6162,\"poster_path\":\"/7VrGDSXa7TD0fTljibymINxQ5Hg.jpg\",\"release_date\":\"1979-06-01\",\"title\":\"A
+        Force of One\",\"video\":false,\"vote_average\":4.8,\"vote_count\":110},{\"adult\":false,\"backdrop_path\":\"/9GXU40cPceT5L4AgQs4cl0yjA8l.jpg\",\"genre_ids\":[18,9648,878],\"id\":21430,\"original_language\":\"en\",\"original_title\":\"New
+        Rose Hotel\",\"overview\":\"A corporate raider and his henchman use a chanteuse
+        to lure a scientific genius away from his employer and family.\",\"popularity\":1.1427,\"poster_path\":\"/pMk6iJSmbt5uovZ1LEhhBZdR5cz.jpg\",\"release_date\":\"1999-03-19\",\"title\":\"New
+        Rose Hotel\",\"video\":false,\"vote_average\":5.2,\"vote_count\":141},{\"adult\":false,\"backdrop_path\":\"/4SHACXdVAxg464kuRuqxurDAUl5.jpg\",\"genre_ids\":[28,12,878],\"id\":21512,\"original_language\":\"en\",\"original_title\":\"The
+        Blood of Heroes\",\"overview\":\"Set in a futuristic world where the only
+        sport that has survived in a wasted society is the brutal game known as jugging.
+        Sallow, the leader of a rag-tag team, has played in the main Leagues before,
+        but was cast out because of indiscretions with a lady. Now joined by a talented
+        newcomer, Kidda, an ambitious young peasant girl, he and his team find they
+        have one last chance for glory.\",\"popularity\":1.0903,\"poster_path\":\"/ykdEyq2GCKRr8TsUBuVkRWuWkLj.jpg\",\"release_date\":\"1989-10-19\",\"title\":\"The
+        Blood of Heroes\",\"video\":false,\"vote_average\":5.8,\"vote_count\":150},{\"adult\":false,\"backdrop_path\":\"/q44ti4QwHJidHhqAUeU33QnUanR.jpg\",\"genre_ids\":[28,12,35],\"id\":21519,\"original_language\":\"cn\",\"original_title\":\"A\u8A08\u5283\",\"overview\":\"In
+        late 19th century Hong Kong, the British may rule the land, but the pirates
+        rule the waters. Coast Guard officer Dragon Ma is determined that his beloved
+        Coast Guard will not be made a fool of.\",\"popularity\":3.9328,\"poster_path\":\"/AvTu2bmJbVZGXPxdx6VllGXCtLG.jpg\",\"release_date\":\"1983-12-22\",\"title\":\"Project
+        A\",\"video\":false,\"vote_average\":7.198,\"vote_count\":520},{\"adult\":false,\"backdrop_path\":\"/w46M9qW9KqOrhZPydTch6ta1RIH.jpg\",\"genre_ids\":[28,35],\"id\":21521,\"original_language\":\"cn\",\"original_title\":\"A\u8A08\u5283\u7E8C\u96C6\",\"overview\":\"Dragon
+        is now transferred to be the police head of Sai Wan district, and has to contend
+        with a gangster kingpin, anti-Manchu revolutionaries, some runaway pirates,
+        Manchu Loyalists and a corrupt police superintendent.\",\"popularity\":2.2876,\"poster_path\":\"/oY6wOuPmeeDoKjPdPlMwwmDCYmA.jpg\",\"release_date\":\"1987-07-25\",\"title\":\"Project
+        A Part II\",\"video\":false,\"vote_average\":7.16,\"vote_count\":318},{\"adult\":false,\"backdrop_path\":\"/s4LEUGP03RVY4ctR0CBYIuX7UML.jpg\",\"genre_ids\":[28,18,36],\"id\":21537,\"original_language\":\"cn\",\"original_title\":\"\u9876\u5929\u7ACB\u5730\",\"overview\":\"Historical
+        movie set during the Japanese occupation of China during WWII. Jackie Chan
+        is one of the good guys but has nothing much more than a supporting role.\",\"popularity\":1.9689,\"poster_path\":\"/xOxoM1mr6ePsOMXDdv5zBHkjZsn.jpg\",\"release_date\":\"1973-01-12\",\"title\":\"Eagle
+        Shadow Fist\",\"video\":false,\"vote_average\":5.6,\"vote_count\":35},{\"adult\":false,\"backdrop_path\":\"/bgRspmkYtoj9srqvICNZcoXWUr8.jpg\",\"genre_ids\":[12,878,28],\"id\":21886,\"original_language\":\"en\",\"original_title\":\"No
+        Blade of Grass\",\"overview\":\"A strange new virus has appeared, which only
+        attacks strains of grasses such as wheat and rice, and the world is descending
+        into famine and chaos. Architect John, along with his family and friends,
+        is making his way from London to his brother's farm in northern England where
+        there will hopefully be food and safety for all of them.\",\"popularity\":0.384,\"poster_path\":\"/pJw5cPZHVo2phCIIIxgK0KOvauk.jpg\",\"release_date\":\"1970-06-20\",\"title\":\"No
+        Blade of Grass\",\"video\":false,\"vote_average\":5.2,\"vote_count\":42}],\"total_pages\":3717,\"total_results\":74340}"
+    headers:
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Cache-Control:
+      - public, max-age=12969
+      Connection:
+      - close
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Wed, 28 Jan 2026 16:18:11 GMT
+      ETag:
+      - W/"b41497ae6ac99dd7f249f936bd96c7ee"
+      Server:
+      - openresty
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - accept-encoding
+      - Origin
+      Via:
+      - 1.1 bfe9d994abba969f95c1b3b4712cf2ea.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - LG9GJ9pIM4UJjAlYJG5rke8dU69G4_iVXY9fB0uYNdN6rhZSPYX9tQ==
+      X-Amz-Cf-Pop:
+      - IST50-P3
+      X-Cache:
+      - Miss from cloudfront
+      x-az:
+      - us-east-1c
+      x-memc:
+      - HIT
+      x-memc-age:
+      - '12089'
+      x-memc-expires:
+      - '12969'
+      x-memc-key:
+      - ba9818b32760a1b3c98d7d4902235ec80a452e7b233cfcbc0f507e8c7b1f4769
+      x-task-id:
+      - babd203e8cac426ab7c69f65f0f4b85e
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -1,0 +1,173 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - close
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://api.themoviedb.org/3/movie/603/recommendations
+  response:
+    body:
+      string: "{\"page\":1,\"results\":[{\"adult\":false,\"backdrop_path\":\"/hgWDZ0UlGEf8LvrAkKt6VqAH0bu.jpg\",\"id\":604,\"title\":\"The
+        Matrix Reloaded\",\"original_title\":\"The Matrix Reloaded\",\"overview\":\"The
+        Resistance builds in numbers as humans are freed from the Matrix and brought
+        to the city of Zion. Neo discovers his superpowers, including the ability
+        to see the code inside the Matrix. With machine sentinels digging to Zion
+        in 72 hours, Neo, Morpheus and Trinity must find the Keymaker to ultimately
+        reach the Source.\",\"poster_path\":\"/aA5qHS0FbSXO8PxcxUIHbDrJyuh.jpg\",\"media_type\":\"movie\",\"original_language\":\"en\",\"genre_ids\":[12,28,53,878],\"popularity\":10.3376,\"release_date\":\"2003-05-15\",\"video\":false,\"vote_average\":7.069,\"vote_count\":11665},{\"adult\":false,\"backdrop_path\":\"/kJYPag1YrA4PsXIftFdq3QEaanV.jpg\",\"id\":605,\"title\":\"The
+        Matrix Revolutions\",\"original_title\":\"The Matrix Revolutions\",\"overview\":\"The
+        human city of Zion defends itself against the massive invasion of the machines
+        as Neo fights to end the war at another front while also opposing the rogue
+        Agent Smith.\",\"poster_path\":\"/bkkS61w94ZVMNVd8KEyyJl2tnY5.jpg\",\"media_type\":\"movie\",\"original_language\":\"en\",\"genre_ids\":[12,28,53,878],\"popularity\":7.6611,\"release_date\":\"2003-11-05\",\"video\":false,\"vote_average\":6.751,\"vote_count\":10539},{\"adult\":false,\"backdrop_path\":\"/a0lfia8tk8ifkrve0Tn8wkISUvs.jpg\",\"id\":120,\"title\":\"The
+        Lord of the Rings: The Fellowship of the Ring\",\"original_title\":\"The Lord
+        of the Rings: The Fellowship of the Ring\",\"overview\":\"Young hobbit Frodo
+        Baggins, after inheriting a mysterious ring from his uncle Bilbo, must leave
+        his home in order to keep it from falling into the hands of its evil creator.
+        Along the way, a fellowship is formed to protect the ringbearer and make sure
+        that the ring arrives at its final destination: Mt. Doom, the only place where
+        it can be destroyed.\",\"poster_path\":\"/6oom5QYQ2yQTMJIbnvbkBL9cHo6.jpg\",\"media_type\":\"movie\",\"original_language\":\"en\",\"genre_ids\":[12,14,28],\"popularity\":31.3289,\"release_date\":\"2001-12-18\",\"video\":false,\"vote_average\":8.427,\"vote_count\":26906},{\"adult\":false,\"backdrop_path\":\"/4P71rDf6roxVskbvdcbNayVMpXd.jpg\",\"id\":14161,\"title\":\"2012\",\"original_title\":\"2012\",\"overview\":\"Dr.
+        Adrian Helmsley, part of a worldwide geophysical team investigating the effect
+        on the earth of radiation from unprecedented solar storms, learns that the
+        earth's core is heating up. He warns U.S. President Thomas Wilson that the
+        crust of the earth is becoming unstable and that without proper preparations
+        for saving a fraction of the world's population, the entire race is doomed.
+        Meanwhile, writer Jackson Curtis stumbles on the same information. While the
+        world's leaders race to build \\\"arks\\\" to escape the impending cataclysm,
+        Curtis struggles to find a way to save his family. Meanwhile, volcanic eruptions
+        and earthquakes of unprecedented strength wreak havoc around the world.\",\"poster_path\":\"/c2PkTPT5D9zB8SIm5wNlDAANEqM.jpg\",\"media_type\":\"movie\",\"original_language\":\"en\",\"genre_ids\":[28,12,878],\"popularity\":12.165,\"release_date\":\"2009-10-10\",\"video\":false,\"vote_average\":5.865,\"vote_count\":12490},{\"adult\":false,\"backdrop_path\":\"/7CAEkkp07JBPHGIxmagu181f4CP.jpg\",\"id\":11452,\"title\":\"National
+        Lampoon's Van Wilder\",\"original_title\":\"National Lampoon's Van Wilder\",\"overview\":\"Van
+        Wilder has been attending college for far too many years and is scared to
+        graduate, but Van\u2019s father eventually realizes what is going on. When
+        he stops paying his son's tuition fees, Van must come up with the money if
+        he wants to stay in college, so he and his friends come up with a great fund-raising
+        idea \u2013 throwing parties. However, when the college magazine finds out
+        and reporter Gwen is sent to do a story on Van Wilder, things get a little
+        complicated.\",\"poster_path\":\"/4IvM4qnzlo62oLmS54FtyRt54ze.jpg\",\"media_type\":\"movie\",\"original_language\":\"en\",\"genre_ids\":[35,10749],\"popularity\":3.2013,\"release_date\":\"2002-03-29\",\"video\":false,\"vote_average\":6.025,\"vote_count\":1905},{\"adult\":false,\"backdrop_path\":\"/85g84VtSf9tu1A9JqqruXEHspb7.jpg\",\"id\":10528,\"title\":\"Sherlock
+        Holmes\",\"original_title\":\"Sherlock Holmes\",\"overview\":\"Eccentric consulting
+        detective Sherlock Holmes and Doctor John Watson battle to bring down a new
+        nemesis and unravel a deadly plot that could destroy England.\",\"poster_path\":\"/zz0vClg5NdYbhpqaEGyJENrGVSw.jpg\",\"media_type\":\"movie\",\"original_language\":\"en\",\"genre_ids\":[28,12,80,9648],\"popularity\":8.5358,\"release_date\":\"2009-12-23\",\"video\":false,\"vote_average\":7.216,\"vote_count\":14540},{\"adult\":false,\"backdrop_path\":\"/2w4xG178RpB4MDAIfTkqAuSJzec.jpg\",\"id\":11,\"title\":\"Star
+        Wars\",\"original_title\":\"Star Wars\",\"overview\":\"Princess Leia is captured
+        and held hostage by the evil Imperial forces in their effort to take over
+        the galactic Empire. Venturesome Luke Skywalker and dashing captain Han Solo
+        team together with the loveable robot duo R2-D2 and C-3PO to rescue the beautiful
+        princess and restore peace and justice in the Empire.\",\"poster_path\":\"/6FfCtAuVAW8XJjZ7eWeLibRLWTw.jpg\",\"media_type\":\"movie\",\"original_language\":\"en\",\"genre_ids\":[12,28,878],\"popularity\":19.9163,\"release_date\":\"1977-05-25\",\"video\":false,\"vote_average\":8.202,\"vote_count\":21872},{\"adult\":false,\"backdrop_path\":\"/sd4xN5xi8tKRPrJOWwNiZEile7f.jpg\",\"id\":920,\"title\":\"Cars\",\"original_title\":\"Cars\",\"overview\":\"Lightning
+        McQueen, a hotshot rookie race car driven to succeed, discovers that life
+        is about the journey, not the finish line, when he finds himself unexpectedly
+        detoured in the sleepy Route 66 town of Radiator Springs. On route across
+        the country to the big Piston Cup Championship in California to compete against
+        two seasoned pros, McQueen gets to know the town's offbeat characters.\",\"poster_path\":\"/2Touk3m5gzsqr1VsvxypdyHY5ci.jpg\",\"media_type\":\"movie\",\"original_language\":\"en\",\"genre_ids\":[16,12,35,10751],\"popularity\":10.2462,\"release_date\":\"2006-06-08\",\"video\":false,\"vote_average\":7.02,\"vote_count\":14833},{\"adult\":false,\"backdrop_path\":\"/9IIBboV7MCT0bTxzXHmWK1Hq558.jpg\",\"id\":272,\"title\":\"Batman
+        Begins\",\"original_title\":\"Batman Begins\",\"overview\":\"Driven by tragedy,
+        billionaire Bruce Wayne dedicates his life to uncovering and defeating the
+        corruption that plagues his home, Gotham City.  Unable to work within the
+        system, he instead creates a new identity, a symbol of fear for the criminal
+        underworld - The Batman.\",\"poster_path\":\"/sPX89Td70IDDjVr85jdSBb4rWGr.jpg\",\"media_type\":\"movie\",\"original_language\":\"en\",\"genre_ids\":[18,80,28],\"popularity\":13.3293,\"release_date\":\"2005-06-10\",\"video\":false,\"vote_average\":7.721,\"vote_count\":22174},{\"adult\":false,\"backdrop_path\":\"/2u7zbn8EudG6kLlBzUYqP8RyFU4.jpg\",\"id\":122,\"title\":\"The
+        Lord of the Rings: The Return of the King\",\"original_title\":\"The Lord
+        of the Rings: The Return of the King\",\"overview\":\"As armies mass for a
+        final battle that will decide the fate of the world--and powerful, ancient
+        forces of Light and Dark compete to determine the outcome--one member of the
+        Fellowship of the Ring is revealed as the noble heir to the throne of the
+        Kings of Men. Yet, the sole hope for triumph over evil lies with a brave hobbit,
+        Frodo, who, accompanied by his loyal friend Sam and the hideous, wretched
+        Gollum, ventures deep into the very dark heart of Mordor on his seemingly
+        impossible quest to destroy the Ring of Power.\u200B\",\"poster_path\":\"/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg\",\"media_type\":\"movie\",\"original_language\":\"en\",\"genre_ids\":[12,14,28],\"popularity\":25.4917,\"release_date\":\"2003-12-17\",\"video\":false,\"vote_average\":8.492,\"vote_count\":25934},{\"adult\":false,\"backdrop_path\":\"/96hiUXEuYsu4tcnvlaY8tEMFM0m.jpg\",\"id\":680,\"title\":\"Pulp
+        Fiction\",\"original_title\":\"Pulp Fiction\",\"overview\":\"A burger-loving
+        hit man, his philosophical partner, a drug-addled gangster's moll and a washed-up
+        boxer converge in this sprawling, comedic crime caper. Their adventures unfurl
+        in three stories that ingeniously trip back and forth in time.\",\"poster_path\":\"/vQWk5YBFWF4bZaofAbv0tShwBvQ.jpg\",\"media_type\":\"movie\",\"original_language\":\"en\",\"genre_ids\":[53,80,35],\"popularity\":21.2866,\"release_date\":\"1994-09-10\",\"video\":false,\"vote_average\":8.486,\"vote_count\":29597},{\"adult\":false,\"backdrop_path\":\"/5TiwfWEaPSwD20uwXjCTUqpQX70.jpg\",\"id\":550,\"title\":\"Fight
+        Club\",\"original_title\":\"Fight Club\",\"overview\":\"A ticking-time-bomb
+        insomniac and a slippery soap salesman channel primal male aggression into
+        a shocking new form of therapy. Their concept catches on, with underground
+        \\\"fight clubs\\\" forming in every town, until an eccentric gets in the
+        way and ignites an out-of-control spiral toward oblivion.\",\"poster_path\":\"/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg\",\"media_type\":\"movie\",\"original_language\":\"en\",\"genre_ids\":[18,53],\"popularity\":22.5139,\"release_date\":\"1999-10-15\",\"video\":false,\"vote_average\":8.4,\"vote_count\":31327},{\"adult\":false,\"backdrop_path\":\"/y2DB71C4nyIdMrANijz8mzvQtk6.jpg\",\"id\":49026,\"title\":\"The
+        Dark Knight Rises\",\"original_title\":\"The Dark Knight Rises\",\"overview\":\"Following
+        the death of District Attorney Harvey Dent, Batman assumes responsibility
+        for Dent's crimes to protect the late attorney's reputation and is subsequently
+        hunted by the Gotham City Police Department. Eight years later, Batman encounters
+        the mysterious Selina Kyle and the villainous Bane, a new terrorist leader
+        who overwhelms Gotham's finest. The Dark Knight resurfaces to protect a city
+        that has branded him an enemy.\",\"poster_path\":\"/hr0L2aueqlP2BYUblTTjmtn0hw4.jpg\",\"media_type\":\"movie\",\"original_language\":\"en\",\"genre_ids\":[28,80,18,53],\"popularity\":17.638,\"release_date\":\"2012-07-17\",\"video\":false,\"vote_average\":7.791,\"vote_count\":23925},{\"adult\":false,\"backdrop_path\":\"/aCHn2TXYJfzPXQKA6r9mKPbMlUB.jpg\",\"id\":37165,\"title\":\"The
+        Truman Show\",\"original_title\":\"The Truman Show\",\"overview\":\"An insurance
+        salesman begins to suspect that his whole life is actually some sort of reality
+        TV show.\",\"poster_path\":\"/vuza0WqY239yBXOadKlGwJsZJFE.jpg\",\"media_type\":\"movie\",\"original_language\":\"en\",\"genre_ids\":[35,18],\"popularity\":13.118,\"release_date\":\"1998-06-04\",\"video\":false,\"vote_average\":8.15,\"vote_count\":19721},{\"adult\":false,\"backdrop_path\":\"/67HggiWaP9ZLv5sPYmyRV37yAJM.jpg\",\"id\":13,\"title\":\"Forrest
+        Gump\",\"original_title\":\"Forrest Gump\",\"overview\":\"A man with a low
+        IQ has accomplished great things in his life and been present during significant
+        historic events\u2014in each case, far exceeding what anyone imagined he could
+        do. But despite all he has achieved, his one true love eludes him.\",\"poster_path\":\"/saHP97rTPS5eLmrLQEcANmKrsFl.jpg\",\"media_type\":\"movie\",\"original_language\":\"en\",\"genre_ids\":[35,18,10749],\"popularity\":19.0684,\"release_date\":\"1994-06-23\",\"video\":false,\"vote_average\":8.462,\"vote_count\":29158},{\"adult\":false,\"backdrop_path\":\"/xnHVX37XZEp33hhCbYlQFq7ux1J.jpg\",\"id\":597,\"title\":\"Titanic\",\"original_title\":\"Titanic\",\"overview\":\"101-year-old
+        Rose DeWitt Bukater tells the story of her life aboard the Titanic, 84 years
+        later. A young Rose boards the ship with her mother and fianc\xE9. Meanwhile,
+        Jack Dawson and Fabrizio De Rossi win third-class tickets aboard the ship.
+        Rose tells the whole story from Titanic's departure through to its death\u2014on
+        its first and last voyage\u2014on April 15, 1912.\",\"poster_path\":\"/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg\",\"media_type\":\"movie\",\"original_language\":\"en\",\"genre_ids\":[18,10749],\"popularity\":30.3112,\"release_date\":\"1997-12-18\",\"video\":false,\"vote_average\":7.9,\"vote_count\":26705},{\"adult\":false,\"backdrop_path\":\"/rW2xRFlJRbTnBJlQTSjQmjevIwb.jpg\",\"id\":857,\"title\":\"Saving
+        Private Ryan\",\"original_title\":\"Saving Private Ryan\",\"overview\":\"As
+        U.S. troops storm the beaches of Normandy, three brothers lie dead on the
+        battlefield, with a fourth trapped behind enemy lines. Ranger captain John
+        Miller and seven men are tasked with penetrating German-held territory and
+        bringing the boy home.\",\"poster_path\":\"/uqx37cS8cpHg8U35f9U5IBlrCV3.jpg\",\"media_type\":\"movie\",\"original_language\":\"en\",\"genre_ids\":[10752,18,36],\"popularity\":11.9668,\"release_date\":\"1998-07-24\",\"video\":false,\"vote_average\":8.221,\"vote_count\":16823},{\"adult\":false,\"backdrop_path\":\"/hXsy4XCCHrUk81XoRhcooyWejao.jpg\",\"id\":115,\"title\":\"The
+        Big Lebowski\",\"original_title\":\"The Big Lebowski\",\"overview\":\"Jeffrey
+        'The Dude' Lebowski, a Los Angeles slacker who only wants to bowl and drink
+        White Russians, is mistaken for another Jeffrey Lebowski, a wheelchair-bound
+        millionaire, and finds himself dragged into a strange series of events involving
+        nihilists, adult film producers, ferrets, errant toes, and large sums of money.\",\"poster_path\":\"/9mprbw31MGdd66LR0AQKoDMoFRv.jpg\",\"media_type\":\"movie\",\"original_language\":\"en\",\"genre_ids\":[35,80],\"popularity\":8.9117,\"release_date\":\"1998-03-06\",\"video\":false,\"vote_average\":7.84,\"vote_count\":11893},{\"adult\":false,\"backdrop_path\":\"/tSPT36ZKlP2WVHJLM4cQPLSzv3b.jpg\",\"id\":238,\"title\":\"The
+        Godfather\",\"original_title\":\"The Godfather\",\"overview\":\"Spanning the
+        years 1945 to 1955, a chronicle of the fictional Italian-American Corleone
+        crime family. When organized crime family patriarch, Vito Corleone barely
+        survives an attempt on his life, his youngest son, Michael steps in to take
+        care of the would-be killers, launching a campaign of bloody revenge.\",\"poster_path\":\"/3bhkrj58Vtu7enYsRolD1fZdja1.jpg\",\"media_type\":\"movie\",\"original_language\":\"en\",\"genre_ids\":[18,80],\"popularity\":29.1345,\"release_date\":\"1972-03-14\",\"video\":false,\"vote_average\":8.687,\"vote_count\":22369},{\"adult\":false,\"backdrop_path\":\"/ii8QGacT3MXESqBckQlyrATY0lT.jpg\",\"id\":27205,\"title\":\"Inception\",\"original_title\":\"Inception\",\"overview\":\"Cobb,
+        a skilled thief who commits corporate espionage by infiltrating the subconscious
+        of his targets is offered a chance to regain his old life as payment for a
+        task considered to be impossible: \\\"inception\\\", the implantation of another
+        person's idea into a target's subconscious.\",\"poster_path\":\"/xlaY2zyzMfkhk0HSC5VUwzoZPU1.jpg\",\"media_type\":\"movie\",\"original_language\":\"en\",\"genre_ids\":[28,878,12],\"popularity\":29.6005,\"release_date\":\"2010-07-15\",\"video\":false,\"vote_average\":8.4,\"vote_count\":38578}],\"total_pages\":2,\"total_results\":40}"
+    headers:
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Cache-Control:
+      - public, max-age=18195
+      Connection:
+      - close
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Wed, 28 Jan 2026 16:18:11 GMT
+      ETag:
+      - W/"39497343ec9b5b73ff7b2edfba5f45ad"
+      Server:
+      - openresty
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - accept-encoding
+      - Origin
+      Via:
+      - 1.1 4ad4ff2e4140c3a105d6c0fe236d159e.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - nxcbQ0FUVFJM5lDAk0EU1W0q1ylwhPPf19oTccIob1wdC-RdTCKOJA==
+      X-Amz-Cf-Pop:
+      - IST50-P3
+      X-Cache:
+      - Miss from cloudfront
+      x-az:
+      - us-east-1c
+      x-memc:
+      - HIT
+      x-memc-age:
+      - '4268'
+      x-memc-expires:
+      - '18195'
+      x-memc-key:
+      - a321b67491688bd7101ba5d0a6cc7895993b2b162193740cb0c5cff12a07911e
+      x-task-id:
+      - 94b8cb7bb6e44605abeb6b56d4884119
+    status:
+      code: 200
+      message: OK
+version: 1

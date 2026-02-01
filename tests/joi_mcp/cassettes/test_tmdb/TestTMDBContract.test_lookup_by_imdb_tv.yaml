@@ -1,0 +1,70 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - close
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://api.themoviedb.org/3/find/tt0903747?external_source=imdb_id
+  response:
+    body:
+      string: '{"movie_results":[],"person_results":[],"tv_results":[{"adult":false,"backdrop_path":"/tsRy63Mu5cu8etL1X7ZLyf7UP1M.jpg","id":1396,"name":"Breaking
+        Bad","original_name":"Breaking Bad","overview":"Walter White, a New Mexico
+        chemistry teacher, is diagnosed with Stage III cancer and given a prognosis
+        of only two years left to live. He becomes filled with a sense of fearlessness
+        and an unrelenting desire to secure his family''s financial future at any
+        cost as he enters the dangerous world of drugs and crime.","poster_path":"/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg","media_type":"tv","original_language":"en","genre_ids":[18,80],"popularity":108.2612,"first_air_date":"2008-01-20","vote_average":8.936,"vote_count":16965,"origin_country":["US"]}],"tv_episode_results":[],"tv_season_results":[]}'
+    headers:
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Cache-Control:
+      - public, max-age=8734
+      Connection:
+      - close
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Wed, 28 Jan 2026 16:18:11 GMT
+      ETag:
+      - W/"3b59704ccdf4f9d524f20bc353987c34"
+      Server:
+      - openresty
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - accept-encoding
+      - Origin
+      Via:
+      - 1.1 5882eb3fa1379910a4b2194b6fc6ecf8.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - wFchDirZdfJXXsZZKCgSo-oM8sAKvJoUpkv4KDqdySDDhIv9MVc8DA==
+      X-Amz-Cf-Pop:
+      - IST50-P3
+      X-Cache:
+      - Miss from cloudfront
+      x-az:
+      - us-east-1a
+      x-memc:
+      - HIT
+      x-memc-age:
+      - '18327'
+      x-memc-expires:
+      - '8734'
+      x-memc-key:
+      - 16874528c37042f23d06a0a5f036fb36c4f9ff8458ec50c8540aef38eaebc2dd
+      x-task-id:
+      - 771588e5b0c0472b80e052eac04202e3
+    status:
+      code: 200
+      message: OK
+version: 1

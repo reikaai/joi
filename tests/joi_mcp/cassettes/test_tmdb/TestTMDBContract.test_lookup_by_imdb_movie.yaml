@@ -1,0 +1,68 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - close
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://api.themoviedb.org/3/find/tt0133093?external_source=imdb_id
+  response:
+    body:
+      string: '{"movie_results":[{"adult":false,"backdrop_path":"/tlm8UkiQsitc8rSuIAscQDCnP8d.jpg","id":603,"title":"The
+        Matrix","original_title":"The Matrix","overview":"Set in the 22nd century,
+        The Matrix tells the story of a computer hacker who joins a group of underground
+        insurgents fighting the vast and powerful computers who now rule the earth.","poster_path":"/p96dm7sCMn4VYAStA6siNz30G1r.jpg","media_type":"movie","original_language":"en","genre_ids":[28,878],"popularity":22.9277,"release_date":"1999-03-31","video":false,"vote_average":8.237,"vote_count":27283}],"person_results":[],"tv_results":[],"tv_episode_results":[],"tv_season_results":[]}'
+    headers:
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Cache-Control:
+      - public, max-age=16219
+      Connection:
+      - close
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Wed, 28 Jan 2026 16:18:11 GMT
+      ETag:
+      - W/"76ed5debc8dfb5e75f6412844e6f47c4"
+      Server:
+      - openresty
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - accept-encoding
+      - Origin
+      Via:
+      - 1.1 69a10b66d89f36667ccbb3842b1892d0.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - gtXuxB57V3Gx4e_SWiNKEJcB0YYRuCNASxFYc5LlVqmsnICOYDD-ig==
+      X-Amz-Cf-Pop:
+      - IST50-P3
+      X-Cache:
+      - Miss from cloudfront
+      x-az:
+      - us-east-1c
+      x-memc:
+      - HIT
+      x-memc-age:
+      - '11896'
+      x-memc-expires:
+      - '16219'
+      x-memc-key:
+      - 4a272bdb510f147b8942e194af96da4070d1ca6313cb1d19baf4e8b3e8b58451
+      x-task-id:
+      - babd203e8cac426ab7c69f65f0f4b85e
+    status:
+      code: 200
+      message: OK
+version: 1
