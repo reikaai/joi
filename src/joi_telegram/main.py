@@ -1,23 +1,21 @@
 import asyncio
 import os
-import re
-import tempfile
+import signal
 import uuid
 from pathlib import Path
 
-import edge_tts
 import telegramify_markdown
 from agno.client import AgentOSClient
-from agno.tools.mlx_transcribe import MLXTranscribeTools
+from agno.run.agent import IntermediateRunContentEvent, RunContentEvent
 from aiogram import Bot, Dispatcher, Router
 from aiogram.enums import ChatAction, ParseMode
 from aiogram.filters import CommandStart
 from aiogram.filters.callback_data import CallbackData
-from aiogram.types import BufferedInputFile, CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup, Message
+from aiogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup, Message
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from dotenv import load_dotenv
 from loguru import logger
-from pydub import AudioSegment
+from pydantic import BaseModel
 
 load_dotenv()
 
@@ -26,7 +24,6 @@ LOGS_DIR.mkdir(exist_ok=True)
 logger.add(LOGS_DIR / "joi_telegram.log", rotation="10 MB", retention="7 days")
 
 AGENTOS_URL = os.getenv("AGENTOS_URL", "http://localhost:7777")
-TTS_ENABLED = os.getenv("TTS_ENABLED", "false").lower() == "true"
 
 
 class ActionCallback(CallbackData, prefix="act"):
@@ -57,52 +54,11 @@ dp = Dispatcher()
 dp.include_router(router)
 
 client = AgentOSClient(base_url=AGENTOS_URL)
-mlx_transcribe = MLXTranscribeTools(restrict_to_base_dir=False)
-
-CYRILLIC_PATTERN = re.compile(r"[\u0400-\u04FF]")
 
 
-class TranscriptionError(Exception):
-    pass
-
-
-def detect_language(text: str) -> str:
-    cyrillic_count = len(CYRILLIC_PATTERN.findall(text))
-    total_alpha = sum(1 for c in text if c.isalpha())
-    if total_alpha > 0 and cyrillic_count / total_alpha > 0.3:
-        return "ru"
-    return "en"
-
-
-async def text_to_voice(text: str) -> bytes:
-    lang = detect_language(text)
-    voice = "ru-RU-DmitryNeural" if lang == "ru" else "en-US-GuyNeural"
-    with tempfile.TemporaryDirectory() as tmpdir:
-        mp3_path = Path(tmpdir) / "voice.mp3"
-        communicate = edge_tts.Communicate(text, voice)
-        await communicate.save(str(mp3_path))
-        ogg_path = Path(tmpdir) / "voice.ogg"
-        audio = AudioSegment.from_mp3(str(mp3_path))
-        audio.export(str(ogg_path), format="ogg", codec="libopus", bitrate="64k")
-        return ogg_path.read_bytes()
-
-
-async def get_message_content(message: Message) -> str | None:
-    if message.text:
-        return message.text
-    if message.voice:
-        voice_file = await bot.download(message.voice)
-        if voice_file is None:
-            return None
-        with tempfile.NamedTemporaryFile(suffix=".ogg", delete=False) as f:
-            f.write(voice_file.read())
-            temp_path = f.name
-        result = mlx_transcribe.transcribe(temp_path)
-        os.unlink(temp_path)
-        if result.startswith("Error:") or result.startswith("Failed"):
-            raise TranscriptionError(result)
-        return result
-    return None
+class AgentResponse(BaseModel):
+    content: str
+    suggested_actions: list[str] = []
 
 
 @router.message(CommandStart())
@@ -118,29 +74,51 @@ async def on_ask(callback: CallbackQuery) -> None:
         await callback.message.answer("Type your question:")
 
 
-async def run_agent(content: str, user_id: str, chat_id: int, chat_action: ChatAction):
+async def run_agent(content: str, user_id: str, chat_id: int, message: Message) -> None:
+    """Stream agent responses, sending each to Telegram immediately."""
+
     async def keep_typing():
         while True:
-            await bot.send_chat_action(chat_id, chat_action)
+            await bot.send_chat_action(chat_id, ChatAction.TYPING)
             await asyncio.sleep(4)
 
     typing_task = asyncio.create_task(keep_typing())
+    sent_contents: set[str] = set()
+
+    async def send_response(response: AgentResponse) -> None:
+        if not response.content or response.content in sent_contents:
+            return
+        sent_contents.add(response.content)
+        keyboard = build_actions_keyboard(response.suggested_actions) if response.suggested_actions else None
+        converted = telegramify_markdown.markdownify(response.content)
+        try:
+            await message.answer(converted, parse_mode=ParseMode.MARKDOWN_V2, reply_markup=keyboard)
+        except Exception as e:
+            logger.error(f"Telegram send failed: {e}\nOriginal: {response.content!r}\nConverted: {converted!r}")
+            await message.answer(response.content, reply_markup=keyboard)
+
     try:
-        result = await client.run_agent(
+        stream = client.run_agent_stream(
             agent_id="joi",
             message=content,
             user_id=user_id,
             session_id=user_id,
         )
+
+        async for event in stream:
+            logger.debug(f"Stream event: {type(event).__name__}")
+            match event:
+                case IntermediateRunContentEvent(content=c) | RunContentEvent(content=c) if c:
+                    logger.debug(f"Event content type={type(c).__name__}, value={c!r}")
+                    response = AgentResponse.model_validate_json(c) if isinstance(c, str) else AgentResponse.model_validate(c)
+                    await send_response(response)
+                case _:
+                    pass
+    except Exception as e:
+        logger.exception(f"Agent stream error: {e}")
+        await message.answer("Sorry, something went wrong.")
     finally:
         typing_task.cancel()
-
-    parsed = result.content
-    if not parsed:
-        return "No response from agent", build_actions_keyboard([])
-    response_text: str = parsed["content"]
-    keyboard = build_actions_keyboard(parsed["suggested_actions"])
-    return response_text, keyboard
 
 
 @router.callback_query(ActionCallback.filter())
@@ -151,50 +129,51 @@ async def on_action(callback: CallbackQuery, callback_data: ActionCallback) -> N
         return
     if not callback.message or not callback.from_user:
         return
+    if not isinstance(callback.message, Message):
+        return
 
     await callback.answer()
     await callback.message.answer(f"➡️ {action_text}")
-
-    user_id = str(callback.from_user.id)
-    response_text, keyboard = await run_agent(action_text, user_id, callback.message.chat.id, ChatAction.TYPING)
-    converted = telegramify_markdown.markdownify(response_text)
-    await callback.message.answer(converted, parse_mode=ParseMode.MARKDOWN_V2, reply_markup=keyboard)
+    await run_agent(action_text, str(callback.from_user.id), callback.message.chat.id, callback.message)
 
 
 @router.message()
 async def handle(message: Message) -> None:
     if not message.from_user:
         return
-    is_voice_input = message.voice is not None
-
-    try:
-        content = await get_message_content(message)
-    except TranscriptionError as e:
-        logger.error(f"Transcription failed: {e}")
-        await message.answer("Failed to transcribe voice message.")
-        return
+    content = message.text
     if not content:
         return
-
-    user_id = str(message.from_user.id)
-    chat_action = ChatAction.RECORD_VOICE if is_voice_input else ChatAction.TYPING
-    response_text, keyboard = await run_agent(content, user_id, message.chat.id, chat_action)
-
-    converted = telegramify_markdown.markdownify(response_text)
-    await message.answer(converted, parse_mode=ParseMode.MARKDOWN_V2, reply_markup=keyboard)
-
-    if is_voice_input and TTS_ENABLED:
-        try:
-            await bot.send_chat_action(message.chat.id, ChatAction.RECORD_VOICE)
-            voice_data = await text_to_voice(response_text)
-            await message.answer_voice(BufferedInputFile(voice_data, filename="voice.ogg"))
-        except Exception as e:
-            logger.exception(f"Voice generation error: {e}")
+    await run_agent(content, str(message.from_user.id), message.chat.id, message)
 
 
 async def main() -> None:
-    logger.info(f"Starting Joi Telegram bot... AGENTOS_URL={AGENTOS_URL}, TTS_ENABLED={TTS_ENABLED}")
-    await dp.start_polling(bot)
+    logger.info(f"Starting Joi Telegram bot... AGENTOS_URL={AGENTOS_URL}")
+
+    loop = asyncio.get_running_loop()
+    stop_event = asyncio.Event()
+
+    def shutdown_handler():
+        logger.info("Shutdown signal received")
+        stop_event.set()
+
+    for sig in (signal.SIGTERM, signal.SIGINT):
+        loop.add_signal_handler(sig, shutdown_handler)
+
+    polling_task = asyncio.create_task(dp.start_polling(bot))
+
+    await stop_event.wait()
+    logger.info("Stopping polling...")
+
+    await dp.stop_polling()
+    await bot.session.close()
+    polling_task.cancel()
+    try:
+        await polling_task
+    except asyncio.CancelledError:
+        pass
+
+    logger.info("Bot shutdown complete")
 
 
 if __name__ == "__main__":

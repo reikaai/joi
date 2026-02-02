@@ -20,7 +20,16 @@ app = FastAPI(title="Joi MCP", lifespan=lifespan)
 app.mount("/tmdb", tmdb_app)
 app.mount("/transmission", transmission_app)
 
+
+@app.get("/")
+async def health():
+    return {"status": "ok"}
+
 if __name__ == "__main__":
+    import os
+
     import uvicorn
 
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    host = os.getenv("HOST", "127.0.0.1")
+    port = int(os.getenv("PORT", "8000"))
+    uvicorn.run(app, host=host, port=port)
