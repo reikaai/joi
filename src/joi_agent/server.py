@@ -2,7 +2,6 @@ import os
 from pathlib import Path
 
 from agno.agent import Agent
-from agno.db.sqlite import SqliteDb
 from agno.models.openrouter import OpenRouter
 from agno.os import AgentOS
 from agno.session import SessionSummaryManager
@@ -19,7 +18,16 @@ logger.add(LOGS_DIR / "joi_agent.log", rotation="10 MB", retention="7 days")
 
 DATA_DIR = Path(__file__).parent.parent.parent / "data"
 DATA_DIR.mkdir(exist_ok=True)
-db = SqliteDb(db_file=str(DATA_DIR / "joi.db"))
+
+DATABASE_URL = os.getenv("DATABASE_URL")
+if DATABASE_URL:
+    from agno.db.postgres import PostgresDb
+    db = PostgresDb(db_url=DATABASE_URL)
+    logger.info("Using PostgreSQL database")
+else:
+    from agno.db.sqlite import SqliteDb
+    db = SqliteDb(db_file=str(DATA_DIR / "joi.db"))
+    logger.info("Using SQLite database")
 
 PERSONA_PATH = Path(__file__).parent / "persona.md"
 MCP_BASE_URL = os.getenv("MCP_URL", "http://127.0.0.1:8000")

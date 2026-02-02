@@ -1,0 +1,102 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: joi
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: joi
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U joi"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  mcp:
+    image: ghcr.io/reikaai/joi:latest
+    command: uv run python -m joi_mcp.server
+    ports:
+      - "8000:8000"
+    env_file: .env
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  agent:
+    image: ghcr.io/reikaai/joi:latest
+    command: uv run python -m joi_agent.server
+    ports:
+      - "7777:8000"
+    env_file: .env
+    environment:
+      MCP_URL: http://mcp:8000
+      DATABASE_URL: postgresql+psycopg://joi:${POSTGRES_PASSWORD}@postgres:5432/joi
+    depends_on:
+      mcp:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    volumes:
+      - agent_data:/app/data
+      - agent_logs:/app/logs
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  telegram:
+    image: ghcr.io/reikaai/joi:latest
+    command: uv run python -m joi_telegram.main
+    env_file: .env
+    environment:
+      AGENTOS_URL: http://agent:8000
+    depends_on:
+      agent:
+        condition: service_healthy
+    volumes:
+      - telegram_logs:/app/logs
+    healthcheck:
+      test: ["CMD", "pgrep", "-f", "joi_telegram"]
+      interval: 30s
+      timeout: 3s
+      start_period: 5s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  postgres_data:
+  agent_data:
+  agent_logs:
+  telegram_logs:
