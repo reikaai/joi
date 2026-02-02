@@ -5,6 +5,7 @@ from agno.agent import Agent
 from agno.db.sqlite import SqliteDb
 from agno.models.openrouter import OpenRouter
 from agno.os import AgentOS
+from agno.session import SessionSummaryManager
 from agno.tools.mcp import MCPTools
 from dotenv import load_dotenv
 from loguru import logger
@@ -21,8 +22,37 @@ DATA_DIR.mkdir(exist_ok=True)
 db = SqliteDb(db_file=str(DATA_DIR / "joi.db"))
 
 PERSONA_PATH = Path(__file__).parent / "persona.md"
-MCP_TMDB_URL = "http://127.0.0.1:8000/tmdb"
-MCP_TRANSMISSION_URL = "http://127.0.0.1:8000/transmission"
+MCP_BASE_URL = os.getenv("MCP_URL", "http://127.0.0.1:8000")
+MCP_TMDB_URL = f"{MCP_BASE_URL}/tmdb"
+MCP_TRANSMISSION_URL = f"{MCP_BASE_URL}/transmission"
+
+SUMMARY_PROMPT = """Summarize this conversation between user and Joi (AI assistant).
+
+FORMAT - Use shorthand:
+- → for causes/leads to
+- | for alternatives
+- @ for mentions/references
+- Keep names, numbers, colors, dates EXACT
+- Use emoji sparingly for tone: 😤 annoyed, 🤔 curious, 💬 casual
+
+MUST PRESERVE:
+- References to Joi/assistant ("you", "testing you", "experimenting with you") → note Joi is the subject
+- Specific facts: colors mentioned, numbers, preferences stated
+- Emotional state changes: user mood, Joi's reactions
+- Unresolved questions or promises
+
+OUTPUT:
+- Summary (str): Condensed bullet points, max 3-5 lines
+- Topics (Optional[List[str]]): 2-4 keywords
+
+Example format:
+"user testing Joi's memory → asked about blue color | Joi: 🤔 about experiment subject | user frustrated w/ vague answers"
+
+NO fabrication. If uncertain, say "unclear"."""
+
+summary_manager = SessionSummaryManager(
+    session_summary_prompt=SUMMARY_PROMPT,
+)
 
 
 class AgentResponse(BaseModel):
@@ -40,19 +70,23 @@ transmission_tools = MCPTools(url=MCP_TRANSMISSION_URL, transport="streamable-ht
 joi = Agent(
     id="joi",
     name="Joi",
-    model=OpenRouter(id="openai/gpt-4o-mini"),
+    model=OpenRouter(id=os.getenv("LLM_MODEL", "openai/gpt-4o-mini")),
     tools=[tmdb_tools, transmission_tools],
     instructions=PERSONA_PATH.read_text(),
     markdown=True,
     output_schema=AgentResponse,
     db=db,
-    enable_user_memories=True,
-    enable_agentic_memory=True,
+    enable_user_memories=False,  # Disabled: mutually exclusive with agentic_memory
+    enable_agentic_memory=True,  # Agent decides when to save memories via tools
+    session_summary_manager=summary_manager,
     enable_session_summaries=True,
+    add_session_summary_to_context=True,  # Inject summary into context
     add_history_to_context=True,
-    num_history_runs=5,
+    num_history_runs=5,  # TODO: tune later
+    max_tool_calls_from_history=2,  # Limit tool result bloat in context
+    read_chat_history=True,  # Agent can query full history via get_chat_history()
     add_datetime_to_context=True,
-    learning=True,
+    learning=False,  # Disabled: agentic_memory handles this, avoids 2 extra API calls/msg
     debug_mode=os.getenv("AGNO_DEBUG", "").lower() == "true",
 )
 
@@ -66,4 +100,6 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 
 if __name__ == "__main__":
-    agent_os.serve(app="joi_agent.server:app", port=7777)
+    host = os.getenv("HOST", "127.0.0.1")
+    port = int(os.getenv("PORT", "7777"))
+    agent_os.serve(app="joi_agent.server:app", host=host, port=port)

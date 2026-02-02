@@ -144,7 +144,14 @@
       "WebFetch(domain:llmlingua.com)",
       "WebFetch(domain:rentry.co)",
       "WebFetch(domain:docs.sillytavern.app)",
-      "WebFetch(domain:wikia.schneedc.com)"
+      "WebFetch(domain:wikia.schneedc.com)",
+      "Bash(grep:*)",
+      "Bash(for i in 1 2 3)",
+      "Bash(do echo \"=== Run $i ===\")",
+      "WebFetch(domain:www.emergentmind.com)",
+      "WebFetch(domain:tilburg.ai)",
+      "Bash(docker compose build:*)",
+      "Bash(docker compose:*)"
     ],
     "deny": [],
     "ask": []

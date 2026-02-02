@@ -1,4 +1,4 @@
-.PHONY: dev-mcp dev-agent dev-agent-debug dev-telegram test lint
+.PHONY: dev-mcp dev-agent dev-agent-debug dev-telegram test lint docker-build docker-up docker-down docker-logs
 
 dev-mcp:
 	uv run uvicorn joi_mcp.server:app --reload --reload-dir src/joi_mcp --host 127.0.0.1 --port 8000
@@ -18,3 +18,15 @@ test:
 lint:
 	uv run ruff check src tests
 	uv run ruff format --check src tests
+
+docker-build:
+	docker compose build
+
+docker-up:
+	docker compose up -d
+
+docker-down:
+	docker compose down
+
+docker-logs:
+	docker compose logs -f
