@@ -24,6 +24,8 @@ LOGS_DIR.mkdir(exist_ok=True)
 logger.add(LOGS_DIR / "joi_telegram.log", rotation="10 MB", retention="7 days")
 
 AGENTOS_URL = os.getenv("AGENTOS_URL", "http://localhost:7777")
+OS_SECURITY_KEY = os.getenv("OS_SECURITY_KEY")
+AUTH_HEADERS = {"Authorization": f"Bearer {OS_SECURITY_KEY}"} if OS_SECURITY_KEY else None
 
 
 class ActionCallback(CallbackData, prefix="act"):
@@ -103,6 +105,7 @@ async def run_agent(content: str, user_id: str, chat_id: int, message: Message) 
             message=content,
             user_id=user_id,
             session_id=user_id,
+            headers=AUTH_HEADERS,
         )
 
         async for event in stream:
