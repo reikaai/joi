@@ -72,8 +72,8 @@ class AgentResponse(BaseModel):
     )
 
 
-tmdb_tools = MCPTools(url=MCP_TMDB_URL, transport="streamable-http")
-transmission_tools = MCPTools(url=MCP_TRANSMISSION_URL, transport="streamable-http")
+tmdb_tools = MCPTools(url=MCP_TMDB_URL, transport="streamable-http", tool_name_prefix="tmdb")
+transmission_tools = MCPTools(url=MCP_TRANSMISSION_URL, transport="streamable-http", tool_name_prefix="transmission")
 
 joi = Agent(
     id="joi",

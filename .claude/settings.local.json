@@ -151,7 +151,10 @@
       "WebFetch(domain:www.emergentmind.com)",
       "WebFetch(domain:tilburg.ai)",
       "Bash(docker compose build:*)",
-      "Bash(docker compose:*)"
+      "Bash(docker compose:*)",
+      "Bash(uv lock:*)",
+      "Bash(docker build:*)",
+      "Bash(ty check:*)"
     ],
     "deny": [],
     "ask": []

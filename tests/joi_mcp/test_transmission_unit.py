@@ -20,6 +20,9 @@ def make_fake_torrent(
     rate_download=1024,
     rate_upload=512,
     eta=3600,
+    total_size=1073741824,
+    comment="",
+    error_string="",
 ):
     t = MagicMock()
     t.id = id
@@ -29,6 +32,9 @@ def make_fake_torrent(
     t.rate_download = rate_download
     t.rate_upload = rate_upload
     t.eta = eta
+    t.total_size = total_size
+    t.comment = comment
+    t.error_string = error_string
     return t
 
 
@@ -43,6 +49,9 @@ class TestModels:
             "download_speed": 1024000,
             "upload_speed": 512000,
             "eta": 3600,
+            "total_size": 4294967296,
+            "comment": "https://ubuntu.com",
+            "error_string": "",
         }
         torrent = Torrent.model_validate(data)
         assert torrent.id == 1
@@ -52,6 +61,9 @@ class TestModels:
         assert torrent.download_speed == 1024000
         assert torrent.upload_speed == 512000
         assert torrent.eta == 3600
+        assert torrent.total_size == 4294967296
+        assert torrent.comment == "https://ubuntu.com"
+        assert torrent.error_string == ""
 
     def test_torrent_handles_none_eta(self):
         data = {
@@ -62,6 +74,9 @@ class TestModels:
             "download_speed": 0,
             "upload_speed": 256000,
             "eta": None,
+            "total_size": 1073741824,
+            "comment": "",
+            "error_string": "",
         }
         torrent = Torrent.model_validate(data)
         assert torrent.eta is None
@@ -77,6 +92,9 @@ class TestModels:
                     "download_speed": 1024,
                     "upload_speed": 512,
                     "eta": 1800,
+                    "total_size": 1073741824,
+                    "comment": "",
+                    "error_string": "",
                 },
                 {
                     "id": 2,
@@ -86,6 +104,9 @@ class TestModels:
                     "download_speed": 0,
                     "upload_speed": 2048,
                     "eta": None,
+                    "total_size": 2147483648,
+                    "comment": "tracker.example.com",
+                    "error_string": "",
                 },
             ]
         }
@@ -143,6 +164,9 @@ class TestTorrentToModel:
             rate_download=0,
             rate_upload=1024,
             eta=-1,
+            total_size=5368709120,
+            comment="https://example.com",
+            error_string="Tracker error",
         )
         result = _torrent_to_model(fake)
         assert result.id == 42
@@ -152,3 +176,12 @@ class TestTorrentToModel:
         assert result.download_speed == 0
         assert result.upload_speed == 1024
         assert result.eta is None
+        assert result.total_size == 5368709120
+        assert result.comment == "https://example.com"
+        assert result.error_string == "Tracker error"
+
+    def test_handles_none_comment_and_error(self):
+        fake = make_fake_torrent(comment=None, error_string=None)
+        result = _torrent_to_model(fake)
+        assert result.comment == ""
+        assert result.error_string == ""

@@ -85,12 +85,10 @@ async def run_agent(content: str, user_id: str, chat_id: int, message: Message) 
             await asyncio.sleep(4)
 
     typing_task = asyncio.create_task(keep_typing())
-    sent_contents: set[str] = set()
 
     async def send_response(response: AgentResponse) -> None:
-        if not response.content or response.content in sent_contents:
+        if not response.content:
             return
-        sent_contents.add(response.content)
         keyboard = build_actions_keyboard(response.suggested_actions) if response.suggested_actions else None
         converted = telegramify_markdown.markdownify(response.content)
         try:
@@ -108,15 +106,20 @@ async def run_agent(content: str, user_id: str, chat_id: int, message: Message) 
             headers=AUTH_HEADERS,
         )
 
+        event_count = 0
         async for event in stream:
             logger.debug(f"Stream event: {type(event).__name__}")
             match event:
-                case IntermediateRunContentEvent(content=c) | RunContentEvent(content=c) if c:
-                    logger.debug(f"Event content type={type(c).__name__}, value={c!r}")
+                case RunContentEvent(content=c) if c:
+                    event_count += 1
+                    logger.info(f"RunContentEvent #{event_count}, content_type={type(c).__name__}")
                     response = AgentResponse.model_validate_json(c) if isinstance(c, str) else AgentResponse.model_validate(c)
                     await send_response(response)
+                case IntermediateRunContentEvent():
+                    pass  # Skip partial content
                 case _:
                     pass
+        logger.info(f"Stream completed with {event_count} RunContentEvent(s)")
     except Exception as e:
         logger.exception(f"Agent stream error: {e}")
         await message.answer("Sorry, something went wrong.")
