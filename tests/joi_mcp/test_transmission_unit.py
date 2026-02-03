@@ -3,13 +3,21 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from joi_mcp.transmission import Torrent, TorrentList, _torrent_to_model
+from joi_mcp.transmission import Torrent, TorrentFile, TorrentFileList, TorrentList, _torrent_to_model
 
 
 class FakeStatus(Enum):
     DOWNLOADING = "downloading"
     SEEDING = "seeding"
     STOPPED = "stopped"
+
+
+class FakeFile:
+    def __init__(self, name="test.txt", size=1024, completed=512, priority=1):
+        self.name = name
+        self.size = size
+        self.completed = completed
+        self.priority = priority
 
 
 def make_fake_torrent(
@@ -23,6 +31,7 @@ def make_fake_torrent(
     total_size=1073741824,
     comment="",
     error_string="",
+    files=None,
 ):
     t = MagicMock()
     t.id = id
@@ -35,11 +44,24 @@ def make_fake_torrent(
     t.total_size = total_size
     t.comment = comment
     t.error_string = error_string
+    if files is not None:
+        t.files = MagicMock(return_value=files)
+    else:
+        t.files = None
     return t
 
 
 @pytest.mark.unit
 class TestModels:
+    def test_torrent_file_model(self):
+        data = {"index": 0, "name": "movie.mkv", "size": 1073741824, "completed": 536870912, "priority": 1}
+        f = TorrentFile.model_validate(data)
+        assert f.index == 0
+        assert f.name == "movie.mkv"
+        assert f.size == 1073741824
+        assert f.completed == 536870912
+        assert f.priority == 1
+
     def test_torrent_parses_full_response(self):
         data = {
             "id": 1,
@@ -52,6 +74,7 @@ class TestModels:
             "total_size": 4294967296,
             "comment": "https://ubuntu.com",
             "error_string": "",
+            "file_count": 1,
         }
         torrent = Torrent.model_validate(data)
         assert torrent.id == 1
@@ -64,6 +87,7 @@ class TestModels:
         assert torrent.total_size == 4294967296
         assert torrent.comment == "https://ubuntu.com"
         assert torrent.error_string == ""
+        assert torrent.file_count == 1
 
     def test_torrent_handles_none_eta(self):
         data = {
@@ -77,6 +101,7 @@ class TestModels:
             "total_size": 1073741824,
             "comment": "",
             "error_string": "",
+            "file_count": 0,
         }
         torrent = Torrent.model_validate(data)
         assert torrent.eta is None
@@ -95,6 +120,7 @@ class TestModels:
                     "total_size": 1073741824,
                     "comment": "",
                     "error_string": "",
+                    "file_count": 0,
                 },
                 {
                     "id": 2,
@@ -107,6 +133,7 @@ class TestModels:
                     "total_size": 2147483648,
                     "comment": "tracker.example.com",
                     "error_string": "",
+                    "file_count": 1,
                 },
             ]
         }
@@ -114,6 +141,21 @@ class TestModels:
         assert len(tlist.torrents) == 2
         assert tlist.torrents[0].name == "Torrent 1"
         assert tlist.torrents[1].progress == 100.0
+        assert tlist.torrents[1].file_count == 1
+
+    def test_torrent_file_list_model(self):
+        data = {
+            "torrent_id": 42,
+            "files": [
+                {"index": 0, "name": "video.mkv", "size": 1000, "completed": 1000, "priority": 1},
+                {"index": 1, "name": "subs.srt", "size": 100, "completed": 50, "priority": 0},
+            ],
+        }
+        flist = TorrentFileList.model_validate(data)
+        assert flist.torrent_id == 42
+        assert len(flist.files) == 2
+        assert flist.files[0].index == 0
+        assert flist.files[1].name == "subs.srt"
 
 
 @pytest.mark.unit
@@ -167,6 +209,7 @@ class TestTorrentToModel:
             total_size=5368709120,
             comment="https://example.com",
             error_string="Tracker error",
+            files=[FakeFile(name="movie.mkv", size=5368709120, completed=5368709120, priority=1)],
         )
         result = _torrent_to_model(fake)
         assert result.id == 42
@@ -179,9 +222,29 @@ class TestTorrentToModel:
         assert result.total_size == 5368709120
         assert result.comment == "https://example.com"
         assert result.error_string == "Tracker error"
+        assert result.file_count == 1
 
     def test_handles_none_comment_and_error(self):
         fake = make_fake_torrent(comment=None, error_string=None)
         result = _torrent_to_model(fake)
         assert result.comment == ""
         assert result.error_string == ""
+
+    def test_handles_no_files(self):
+        fake = make_fake_torrent(files=None)
+        result = _torrent_to_model(fake)
+        assert result.file_count == 0
+
+    def test_handles_empty_files(self):
+        fake = make_fake_torrent(files=[])
+        result = _torrent_to_model(fake)
+        assert result.file_count == 0
+
+    def test_handles_multiple_files(self):
+        files = [
+            FakeFile(name="video.mkv", size=1000, completed=1000, priority=1),
+            FakeFile(name="subs.srt", size=100, completed=50, priority=0),
+        ]
+        fake = make_fake_torrent(files=files)
+        result = _torrent_to_model(fake)
+        assert result.file_count == 2

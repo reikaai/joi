@@ -3,7 +3,6 @@ from transmission_rpc.error import TransmissionError
 
 import joi_mcp.transmission as tm
 from joi_mcp.transmission import (
-    get_torrent,
     list_torrents,
     search_torrents,
 )
@@ -37,7 +36,6 @@ class TestTransmissionContract:
         assert isinstance(result.torrents, list)
 
     def test_search_torrents(self):
-        # Search for something - may or may not have matches
         result = search_torrents("test")
         assert hasattr(result, "torrents")
         assert isinstance(result.torrents, list)
@@ -46,12 +44,27 @@ class TestTransmissionContract:
         result = search_torrents("xyznonexistent123456789")
         assert result.torrents == []
 
-    def test_get_torrent_from_list(self):
+    def test_list_torrents_with_filter(self):
+        result = list_torrents(filter_expr="progress >= `0`")
+        assert hasattr(result, "torrents")
+        assert isinstance(result.torrents, list)
+
+    def test_list_torrents_with_sort(self):
+        result = list_torrents(sort_by="-progress")
+        assert hasattr(result, "torrents")
+        if len(result.torrents) > 1:
+            assert result.torrents[0].progress >= result.torrents[1].progress
+
+    def test_list_torrents_with_limit(self):
+        result = list_torrents(limit=1)
+        assert len(result.torrents) <= 1
+
+    def test_list_torrents_filter_by_id(self):
         all_torrents = list_torrents()
         if not all_torrents.torrents:
             pytest.skip("No torrents available for testing")
 
         torrent_id = all_torrents.torrents[0].id
-        result = get_torrent(torrent_id)
-        assert result.id == torrent_id
-        assert result.name is not None
+        result = list_torrents(filter_expr=f"id==`{torrent_id}`")
+        assert len(result.torrents) == 1
+        assert result.torrents[0].id == torrent_id
