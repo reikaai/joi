@@ -27,7 +27,7 @@ services:
     image: ghcr.io/reikaai/joi:latest
     command: uv run python -m joi_mcp.server
     ports:
-      - "8000:8000"
+      - "127.0.0.1:8000:8000"
     env_file: .env
     restart: unless-stopped
     deploy:
@@ -44,7 +44,7 @@ services:
     image: ghcr.io/reikaai/joi:latest
     command: uv run python -m joi_agent.server
     ports:
-      - "7777:8000"
+      - "127.0.0.1:7777:8000"
     env_file: .env
     environment:
       MCP_URL: http://mcp:8000

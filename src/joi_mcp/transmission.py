@@ -35,6 +35,9 @@ class Torrent(BaseModel):
     download_speed: int
     upload_speed: int
     eta: int | None
+    total_size: int
+    comment: str
+    error_string: str
 
 
 class TorrentList(BaseModel):
@@ -50,6 +53,9 @@ def _torrent_to_model(t) -> Torrent:
         download_speed=t.rate_download,
         upload_speed=t.rate_upload,
         eta=t.eta if t.eta and t.eta >= 0 else None,
+        total_size=t.total_size,
+        comment=t.comment or "",
+        error_string=t.error_string or "",
     )
 
 
