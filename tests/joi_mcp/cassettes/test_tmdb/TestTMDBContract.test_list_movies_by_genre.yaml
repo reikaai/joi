@@ -1,0 +1,161 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - close
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.32.5
+    method: GET
+    uri: https://api.themoviedb.org/3/discover/movie?page=1&with_genres=28
+  response:
+    body:
+      string: "{\"page\":1,\"results\":[{\"adult\":false,\"backdrop_path\":\"/e4OnHU8HNAhdS6C4Ypk6NA26kPQ.jpg\",\"genre_ids\":[28,35,80],\"id\":1168190,\"original_language\":\"en\",\"original_title\":\"The
+        Wrecking Crew\",\"overview\":\"Estranged half-brothers Jonny and James reunite
+        after their father's mysterious death. As they search for the truth, buried
+        secrets reveal a conspiracy threatening to tear their family apart.\",\"popularity\":820.4968,\"poster_path\":\"/gbVwHl4YPSq6BcC92TQpe7qUTh6.jpg\",\"release_date\":\"2026-01-28\",\"title\":\"The
+        Wrecking Crew\",\"video\":false,\"vote_average\":6.5,\"vote_count\":244},{\"adult\":false,\"backdrop_path\":\"/4BtL2vvEufDXDP4u6xQjjQ1Y2aT.jpg\",\"genre_ids\":[28,80,18,53],\"id\":1419406,\"original_language\":\"zh\",\"original_title\":\"\u6355\u98CE\u8FFD\u5F71\",\"overview\":\"Macau
+        Police brings the tracking expert police officer out of retirement to help
+        catch a dangerous group of professional thieves.\",\"popularity\":405.1294,\"poster_path\":\"/e0RU6KpdnrqFxDKlI3NOqN8nHL6.jpg\",\"release_date\":\"2025-08-16\",\"title\":\"The
+        Shadow's Edge\",\"video\":false,\"vote_average\":7.192,\"vote_count\":382},{\"adult\":false,\"backdrop_path\":\"/lAtuFCx6cYkNBmTMSNnLE0qlCLx.jpg\",\"genre_ids\":[28,80,10749],\"id\":1271895,\"original_language\":\"zh\",\"original_title\":\"96\u5206\u9418\",\"overview\":\"Former
+        bomb disposal expert, Song Kang-Ren, and his fianc\xE9e, Huang Xin, board
+        a high-speed train that contains a bomb. At the same time, Liu Kai, a well-known
+        physics teacher who was involved in an affair scandal, also boards this same
+        train in order to win back his wife, Ting Juan, who took the prior high-speed
+        rail to return home in frustration\u2026  After all, can the bomb be successfully
+        defused this time? and resolve the crisis?\",\"popularity\":241.8764,\"poster_path\":\"/gWKZ1iLhukvLoh8XY2N4tMvRQ2M.jpg\",\"release_date\":\"2025-09-05\",\"title\":\"96
+        Minutes\",\"video\":false,\"vote_average\":6.4,\"vote_count\":19},{\"adult\":false,\"backdrop_path\":\"/eUERZRVjCTNdgnESlQxyaOJ2d4K.jpg\",\"genre_ids\":[28],\"id\":1584215,\"original_language\":\"en\",\"original_title\":\"The
+        Internship\",\"overview\":\"A CIA-trained assassin recruits other graduates
+        from her secret childhood program, The Internship, to violently destroy the
+        organization. The CIA fights back with deadly force.\",\"popularity\":235.8614,\"poster_path\":\"/fYqSOkix4rbDiZW0ACNnvZCpT6X.jpg\",\"release_date\":\"2026-01-13\",\"title\":\"The
+        Internship\",\"video\":false,\"vote_average\":6.1,\"vote_count\":35},{\"adult\":false,\"backdrop_path\":\"/6D6M5z4reppUxo2cnBEKI02Csp1.jpg\",\"genre_ids\":[28,80,53],\"id\":1601243,\"original_language\":\"en\",\"original_title\":\"Oscar
+        Shaw\",\"overview\":\"After retiring from the police force, a relentless detective
+        haunted by the tragic loss of his closest friend sets out on a perilous quest
+        for vengeance, seeking redemption and fighting to restore justice to the streets
+        he once swore to protect.\",\"popularity\":228.086,\"poster_path\":\"/tsE3nySukwrfUjouz8vzvKTcXNC.jpg\",\"release_date\":\"2026-01-09\",\"title\":\"Oscar
+        Shaw\",\"video\":false,\"vote_average\":6.182,\"vote_count\":11},{\"adult\":false,\"backdrop_path\":\"/3F2EXWF1thX0BdrVaKvnm6mAhqh.jpg\",\"genre_ids\":[28,53,80],\"id\":1306368,\"original_language\":\"en\",\"original_title\":\"The
+        Rip\",\"overview\":\"Trust frays when a team of Miami cops discovers millions
+        in cash inside a run-down stash house, calling everyone \u2014 and everything
+        \u2014 into question.\",\"popularity\":168.6813,\"poster_path\":\"/eZo31Dhl5BQ6GfbMNf3oU0tUvPZ.jpg\",\"release_date\":\"2026-01-13\",\"title\":\"The
+        Rip\",\"video\":false,\"vote_average\":7.023,\"vote_count\":1007},{\"adult\":false,\"backdrop_path\":\"/ebyxeBh56QNXxSJgTnmz7fXAlwk.jpg\",\"genre_ids\":[28,878,12],\"id\":1242898,\"original_language\":\"en\",\"original_title\":\"Predator:
+        Badlands\",\"overview\":\"Cast out from his clan, a young Predator finds an
+        unlikely ally in a damaged android and embarks on a treacherous journey in
+        search of the ultimate adversary.\",\"popularity\":181.4584,\"poster_path\":\"/pHpq9yNUIo6aDoCXEBzjSolywgz.jpg\",\"release_date\":\"2025-11-05\",\"title\":\"Predator:
+        Badlands\",\"video\":false,\"vote_average\":7.759,\"vote_count\":1771},{\"adult\":false,\"backdrop_path\":\"/gLXibzLQ4qegvjdqDC0f8yTij2P.jpg\",\"genre_ids\":[9648,53,28],\"id\":1310568,\"original_language\":\"en\",\"original_title\":\"Murder
+        at the Embassy\",\"overview\":\"1934. Private detective Miranda Green investigates
+        a murder perpetrated in the British Embassy in Cairo, where a top secret document
+        was stolen, risking to jeopardize both Buckingham Palace and the peace of
+        the world. All those present in this closed place are suspected: the American
+        photographer, the English student, the American actress, the Egyptian security
+        guard, the ambassador interpreter, the Egyptian gardener and - why not? \u2014
+        the Ambassador himself. But who would have expected that a small group of
+        Nazis would be behind a plot, risking to jeopardize both Buckingham Palace
+        and the peace of the world?\",\"popularity\":226.4926,\"poster_path\":\"/3DBmBItPdy0A2ol59jgHhS54Lua.jpg\",\"release_date\":\"2025-11-14\",\"title\":\"Murder
+        at the Embassy\",\"video\":false,\"vote_average\":5.5,\"vote_count\":30},{\"adult\":false,\"backdrop_path\":\"/AecGG1XVCmkk7fT10ko3FC0dLIP.jpg\",\"genre_ids\":[28,14,53],\"id\":1043197,\"original_language\":\"en\",\"original_title\":\"Dust
+        Bunny\",\"overview\":\"Ten-year-old Aurora asks her hitman neighbor to kill
+        the monster under her bed that she claims ate her family. To protect her,
+        he must battle an onslaught of assassins while accepting that some monsters
+        are real.\",\"popularity\":124.9517,\"poster_path\":\"/vobigFZFvbYPf6ElYJu07P9rH8C.jpg\",\"release_date\":\"2025-12-11\",\"title\":\"Dust
+        Bunny\",\"video\":false,\"vote_average\":6.6,\"vote_count\":141},{\"adult\":false,\"backdrop_path\":\"/xGbNoh7aWmU81oYuxJoFI07Rz5I.jpg\",\"genre_ids\":[28,53,80],\"id\":1326878,\"original_language\":\"en\",\"original_title\":\"Strangers\",\"overview\":\"Seeking
+        revenge on her abusive husband, a woman's life takes a dark turn when she
+        meets a mysterious hitman. Drawn into a whirlwind romance, she spirals into
+        a dangerous vigilante spree. As the body count rises, she begins to unravel
+        the true nature of her partner and the secrets they both conceal.\",\"popularity\":106.6163,\"poster_path\":\"/v6hYeC1asK2ZRU7Ygukn4tV1zlS.jpg\",\"release_date\":\"2024-08-16\",\"title\":\"Strangers\",\"video\":false,\"vote_average\":5.845,\"vote_count\":29},{\"adult\":false,\"backdrop_path\":\"/gQimJqYMKCkwHIo8wwYKhmnCfBr.jpg\",\"genre_ids\":[28,80,53],\"id\":1242501,\"original_language\":\"en\",\"original_title\":\"Icefall\",\"overview\":\"A
+        young Indigenous game warden arrests an infamous poacher only to discover
+        that the poacher knows the location of a plane carrying millions of dollars
+        that has crashed in a frozen lake. When a group of criminals and dirty cops
+        are alerted to the poacher\u2019s whereabouts, the warden and the poacher
+        team up to fight back and escape across the treacherous lake before the ice
+        melts.\",\"popularity\":95.8766,\"poster_path\":\"/5Byv6nznAb2Izd0gHpODOXnuSbo.jpg\",\"release_date\":\"2025-10-16\",\"title\":\"Icefall\",\"video\":false,\"vote_average\":6.446,\"vote_count\":111},{\"adult\":false,\"backdrop_path\":\"/1RgPyOhN4DRs225BGTlHJqCudII.jpg\",\"genre_ids\":[16,28,14],\"id\":1311031,\"original_language\":\"ja\",\"original_title\":\"\u5287\u5834\u7248\u300C\u9B3C\u6EC5\u306E\u5203\u300D\u7121\u9650\u57CE\u7DE8
+        \u7B2C\u4E00\u7AE0 \u7317\u7AA9\u5EA7\u518D\u6765\",\"overview\":\"The Demon
+        Slayer Corps are drawn into the Infinity Castle, where Tanjiro, Nezuko, and
+        the Hashira face terrifying Upper Rank demons in a desperate fight as the
+        final battle against Muzan Kibutsuji begins.\",\"popularity\":94.7702,\"poster_path\":\"/fWVSwgjpT2D78VUh6X8UBd2rorW.jpg\",\"release_date\":\"2025-07-18\",\"title\":\"Demon
+        Slayer: Kimetsu no Yaiba Infinity Castle\",\"video\":false,\"vote_average\":7.681,\"vote_count\":693},{\"adult\":false,\"backdrop_path\":\"/ykigHs1OIyqqV04zfFqIlSHp546.jpg\",\"genre_ids\":[53,27,28,9648,878],\"id\":1412598,\"original_language\":\"en\",\"original_title\":\"Killer
+        Whale\",\"overview\":\"Follows best friends Maddie and Trish as they find
+        themselves trapped in a remote lagoon with the dangerous killer whale named
+        Ceto.\",\"popularity\":79.5121,\"poster_path\":\"/cqbXxAw9sUr4tJ5ffEwtnz6IL9o.jpg\",\"release_date\":\"2026-01-16\",\"title\":\"Killer
+        Whale\",\"video\":false,\"vote_average\":5.908,\"vote_count\":49},{\"adult\":false,\"backdrop_path\":\"/YCunHbbBUBKx6daM9XZAXkOH8k.jpg\",\"genre_ids\":[28,53,18],\"id\":1291608,\"original_language\":\"hi\",\"original_title\":\"\u0927\u0941\u0930\u0902\u0927\u0930\",\"overview\":\"In
+        the early 2000s , Jaskirat Singh , an Indian undercover operative infiltrates
+        Karachi's underworld, breaking into its inner circle to dismantle a violent
+        nexus from within.\",\"popularity\":83.9773,\"poster_path\":\"/8FHOtUpNIk5ZPEay2N2EY5lrxkv.jpg\",\"release_date\":\"2025-12-05\",\"title\":\"Dhurandhar\",\"video\":false,\"vote_average\":6.9,\"vote_count\":177},{\"adult\":false,\"backdrop_path\":\"/vMxOmgmBGegjVObjlb8ugsjGgkD.jpg\",\"genre_ids\":[10752,28,18],\"id\":1252037,\"original_language\":\"de\",\"original_title\":\"Der
+        Tiger\",\"overview\":\"A German Tiger tank crew is sent on a dangerous mission
+        to rescue the missing officer Paul von Hardenburg from a top-secret bunker
+        behind enemy lines. As they make their way through the lethal no-man's land,
+        they must confront not only the enemy, but also their own fears and inner
+        demons. Fueled by the Wehrmacht's methamphetamine, their mission increasingly
+        becomes a journey into the heart of darkness.\",\"popularity\":75.0087,\"poster_path\":\"/65Jr1JAgWlu9em8zHhAfrNJJQBt.jpg\",\"release_date\":\"2025-09-18\",\"title\":\"The
+        Tank\",\"video\":false,\"vote_average\":7.027,\"vote_count\":300},{\"adult\":false,\"backdrop_path\":\"/uCGzI1EtQWXG5yRPB5PSyOdFNcC.jpg\",\"genre_ids\":[28,80,53],\"id\":1290821,\"original_language\":\"en\",\"original_title\":\"Shelter\",\"overview\":\"A
+        man living in self-imposed exile on a remote island rescues a young girl from
+        a violent storm, setting off a chain of events that forces him out of seclusion
+        to protect her from enemies tied to his past.\",\"popularity\":88.6678,\"poster_path\":\"/klvZs66SG19qmacdwxSRkdFQhQS.jpg\",\"release_date\":\"2026-01-28\",\"title\":\"Shelter\",\"video\":false,\"vote_average\":7.692,\"vote_count\":13},{\"adult\":false,\"backdrop_path\":\"/2OHa6ukEq3Hce7Pc2kvu8wkmMFY.jpg\",\"genre_ids\":[28,12,53,80,18],\"id\":7451,\"original_language\":\"en\",\"original_title\":\"xXx\",\"overview\":\"Xander
+        Cage is your standard adrenaline junkie with no fear and a lousy attitude.
+        When the US Government \\\"recruits\\\" him to go on a mission, he's not exactly
+        thrilled. His mission: to gather information on an organization that may just
+        be planning the destruction of the world, led by the nihilistic Yorgi.\",\"popularity\":73.2913,\"poster_path\":\"/xeEw3eLeSFmJgXZzmF2Efww0q3s.jpg\",\"release_date\":\"2002-08-09\",\"title\":\"xXx\",\"video\":false,\"vote_average\":5.981,\"vote_count\":4767},{\"adult\":false,\"backdrop_path\":\"/nAxGnGHOsfzufThz20zgmRwKur3.jpg\",\"genre_ids\":[27,28,53],\"id\":1233413,\"original_language\":\"en\",\"original_title\":\"Sinners\",\"overview\":\"Trying
+        to leave their troubled lives behind, twin brothers return to their hometown
+        to start again, only to discover that an even greater evil is waiting to welcome
+        them back.\",\"popularity\":59.9904,\"poster_path\":\"/qTvFWCGeGXgBRaINLY1zqgTPSpn.jpg\",\"release_date\":\"2025-04-16\",\"title\":\"Sinners\",\"video\":false,\"vote_average\":7.488,\"vote_count\":3542},{\"adult\":false,\"backdrop_path\":\"/9BBTo63ANSmhC4e6r62OJFuK2GL.jpg\",\"genre_ids\":[878,28,12],\"id\":24428,\"original_language\":\"en\",\"original_title\":\"The
+        Avengers\",\"overview\":\"When an unexpected enemy emerges and threatens global
+        safety and security, Nick Fury, director of the international peacekeeping
+        agency known as S.H.I.E.L.D., finds himself in need of a team to pull the
+        world back from the brink of disaster. Spanning the globe, a daring recruitment
+        effort begins!\",\"popularity\":58.9549,\"poster_path\":\"/RYMX2wcKCBAr24UyPD7xwmjaTn.jpg\",\"release_date\":\"2012-04-25\",\"title\":\"The
+        Avengers\",\"video\":false,\"vote_average\":7.929,\"vote_count\":35609},{\"adult\":false,\"backdrop_path\":\"/oIJjO1CvEdTMFNkWfHaV0RB584G.jpg\",\"genre_ids\":[28,80,53],\"id\":628847,\"original_language\":\"en\",\"original_title\":\"Trap
+        House\",\"overview\":\"An undercover DEA agent and his partner embark on a
+        game of cat and mouse with an audacious, and surprising group of thieves -
+        their own rebellious teenagers, who have begun robbing from a dangerous cartel,
+        using their parents' tactics and top-secret intel to do it.\",\"popularity\":62.1299,\"poster_path\":\"/6tpAPeuuqbVnYWWPoOLEDLSBU7a.jpg\",\"release_date\":\"2025-11-14\",\"title\":\"Trap
+        House\",\"video\":false,\"vote_average\":6.658,\"vote_count\":202}],\"total_pages\":2362,\"total_results\":47237}"
+    headers:
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      Cache-Control:
+      - public, max-age=13213
+      Connection:
+      - close
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json;charset=utf-8
+      Date:
+      - Tue, 03 Feb 2026 08:08:28 GMT
+      ETag:
+      - W/"4fdb8c0e415682ad42e20e7d3ceecd77"
+      Server:
+      - openresty
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - accept-encoding
+      - Origin
+      Via:
+      - 1.1 e88560622a029ed700e23054a38daaa4.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - YxsU9Bufc4dONwiKWiUbwvUOC8KTJMBL2yr9IICoMTL5aHVFpFuYFw==
+      X-Amz-Cf-Pop:
+      - FRA56-P13
+      X-Cache:
+      - Miss from cloudfront
+      x-az:
+      - us-east-1a
+      x-memc:
+      - HIT
+      x-memc-age:
+      - '10746'
+      x-memc-expires:
+      - '13213'
+      x-memc-key:
+      - 53c612df0c16a43d7e41650c3a1d9cbba04de8e728b0a88f7c3cc9665fe6a07c
+      x-task-id:
+      - 5454ed0aae82487dbcf82d30fda3fb15
+    status:
+      code: 200
+      message: OK
+version: 1

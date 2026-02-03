@@ -1,20 +1,20 @@
 import pytest
 
 from joi_mcp.tmdb import (
-    find_by_name,
     get_recommendations,
     get_similar,
-    list_by_genre,
     list_genres,
+    list_movies_by_genre,
     lookup_by_imdb,
+    search_movies,
 )
 
 
 @pytest.mark.contract
 @pytest.mark.vcr
 class TestTMDBContract:
-    def test_find_by_name(self):
-        result = find_by_name("The Matrix", year=1999)
+    def test_search_movies(self):
+        result = search_movies("The Matrix", year=1999)
         assert len(result.movies) > 0
         assert "Matrix" in result.movies[0].title
 
@@ -36,8 +36,8 @@ class TestTMDBContract:
         result = get_similar(603)
         assert len(result.movies) > 0
 
-    def test_list_by_genre(self):
-        result = list_by_genre(28)  # Action
+    def test_list_movies_by_genre(self):
+        result = list_movies_by_genre(28)  # Action
         assert len(result.movies) > 0
 
     def test_list_genres(self):
