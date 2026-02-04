@@ -37,7 +37,7 @@ def _make_id(guid: str) -> str:
 
 
 class TorrentSummary(BaseModel):
-    id: str = Field(description="Internal reference ID. Call get_torrent(id) to get magneturl for download.")
+    id: str = Field(description="Internal reference ID")
     title: str
     size: int = Field(description="Size in bytes")
     seeders: int = 0
@@ -52,7 +52,7 @@ class TorrentDetail(BaseModel):
     seeders: int = 0
     leechers: int = 0
     indexer: str = ""
-    link: str = Field(description="Download URL - use with transmission add_torrent")
+    link: str = Field(description="Download URL")
     magneturl: str | None = Field(default=None, description="Magnet link if available from indexer")
     infohash: str | None = None
     page_url: str = Field(default="", description="Torrent page URL")
@@ -188,15 +188,10 @@ def search_torrents(
     limit: int = DEFAULT_LIMIT,
     offset: int = 0,
 ) -> SearchResults:
-    """Search torrent indexers. Returns summaries with IDs only - NO magnet links.
-
-    WORKFLOW: To download a torrent:
-    1. search_torrents → get IDs
-    2. get_torrent(id) → get magneturl
-    3. transmission_add_torrent(magneturl)
+    """Search torrent indexers for content.
 
     Args:
-        query: Search query string (primary search method)
+        query: Search query string
         search_type: Type of search - "search" (general), "movie", or "tvsearch"
         year: Release year for movie/tvsearch
         season: Season number for tvsearch
@@ -226,7 +221,7 @@ def search_torrents(
 
 @mcp.tool
 def get_torrent(id: str) -> TorrentDetail:
-    """Get full torrent details by ID. Use link with transmission add_torrent."""
+    """Get full torrent details including download link by ID."""
     if not id.startswith(ID_PREFIX):
         raise ValueError(f"Invalid torrent ID format: {id}. Expected jkt_xxxxxxxx from search results.")
     if id not in _cache:
