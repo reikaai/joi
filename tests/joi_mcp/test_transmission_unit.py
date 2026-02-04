@@ -1,9 +1,19 @@
+from datetime import timedelta
 from enum import Enum
 from unittest.mock import MagicMock
 
 import pytest
 
-from joi_mcp.transmission import Torrent, TorrentFile, TorrentFileList, TorrentList, _torrent_to_model
+from joi_mcp.transmission import (
+    FolderEntry,
+    Torrent,
+    TorrentFile,
+    TorrentFileList,
+    TorrentList,
+    _aggregate_by_depth,
+    _resolve_url,
+    _torrent_to_model,
+)
 
 
 class FakeStatus(Enum):
@@ -27,7 +37,7 @@ def make_fake_torrent(
     progress=50.0,
     rate_download=1024,
     rate_upload=512,
-    eta=3600,
+    eta=timedelta(seconds=3600),
     total_size=1073741824,
     comment="",
     error_string="",
@@ -45,9 +55,9 @@ def make_fake_torrent(
     t.comment = comment
     t.error_string = error_string
     if files is not None:
-        t.files = MagicMock(return_value=files)
+        t.get_files = MagicMock(return_value=files)
     else:
-        t.files = None
+        t.get_files = None
     return t
 
 
@@ -61,6 +71,15 @@ class TestModels:
         assert f.size == 1073741824
         assert f.completed == 536870912
         assert f.priority == 1
+
+    def test_folder_entry_model(self):
+        data = {"name": "Season 1", "file_count": 10, "total_size": 10737418240, "completed_size": 5368709120}
+        f = FolderEntry.model_validate(data)
+        assert f.name == "Season 1"
+        assert f.file_count == 10
+        assert f.total_size == 10737418240
+        assert f.completed_size == 5368709120
+        assert f.is_folder is True
 
     def test_torrent_parses_full_response(self):
         data = {
@@ -106,7 +125,7 @@ class TestModels:
         torrent = Torrent.model_validate(data)
         assert torrent.eta is None
 
-    def test_torrent_list_model(self):
+    def test_torrent_list_model_with_pagination(self):
         data = {
             "torrents": [
                 {
@@ -122,40 +141,137 @@ class TestModels:
                     "error_string": "",
                     "file_count": 0,
                 },
-                {
-                    "id": 2,
-                    "name": "Torrent 2",
-                    "status": "seeding",
-                    "progress": 100.0,
-                    "download_speed": 0,
-                    "upload_speed": 2048,
-                    "eta": None,
-                    "total_size": 2147483648,
-                    "comment": "tracker.example.com",
-                    "error_string": "",
-                    "file_count": 1,
-                },
-            ]
+            ],
+            "total": 10,
+            "offset": 0,
+            "has_more": True,
         }
         tlist = TorrentList.model_validate(data)
-        assert len(tlist.torrents) == 2
-        assert tlist.torrents[0].name == "Torrent 1"
-        assert tlist.torrents[1].progress == 100.0
-        assert tlist.torrents[1].file_count == 1
+        assert len(tlist.torrents) == 1
+        assert tlist.total == 10
+        assert tlist.offset == 0
+        assert tlist.has_more is True
 
-    def test_torrent_file_list_model(self):
+    def test_torrent_file_list_model_with_pagination(self):
         data = {
             "torrent_id": 42,
             "files": [
                 {"index": 0, "name": "video.mkv", "size": 1000, "completed": 1000, "priority": 1},
-                {"index": 1, "name": "subs.srt", "size": 100, "completed": 50, "priority": 0},
             ],
+            "total": 50,
+            "offset": 0,
+            "has_more": True,
         }
         flist = TorrentFileList.model_validate(data)
         assert flist.torrent_id == 42
+        assert len(flist.files) == 1
+        assert flist.total == 50
+        assert flist.offset == 0
+        assert flist.has_more is True
+
+    def test_torrent_file_list_with_folder_entries(self):
+        data = {
+            "torrent_id": 42,
+            "files": [
+                {"name": "Season 1", "file_count": 10, "total_size": 1000, "completed_size": 500, "is_folder": True},
+                {"index": 0, "name": "readme.txt", "size": 100, "completed": 100, "priority": 1},
+            ],
+            "total": 2,
+            "offset": 0,
+            "has_more": False,
+        }
+        flist = TorrentFileList.model_validate(data)
         assert len(flist.files) == 2
-        assert flist.files[0].index == 0
-        assert flist.files[1].name == "subs.srt"
+        assert isinstance(flist.files[0], FolderEntry)
+        assert isinstance(flist.files[1], TorrentFile)
+
+    def test_torrent_file_list_with_depth_and_hint(self):
+        data = {
+            "torrent_id": 42,
+            "files": [
+                {"name": "Show", "file_count": 20, "total_size": 5000, "completed_size": 2500, "is_folder": True},
+            ],
+            "total": 1,
+            "offset": 0,
+            "has_more": False,
+            "current_depth": 1,
+            "hint": "Folders found. To see their contents, increase depth (e.g., depth=2) or use depth=None for all files.",
+        }
+        flist = TorrentFileList.model_validate(data)
+        assert flist.current_depth == 1
+        assert flist.hint is not None
+        assert "depth=2" in flist.hint
+
+    def test_torrent_file_list_defaults_for_new_fields(self):
+        data = {
+            "torrent_id": 42,
+            "files": [],
+            "total": 0,
+            "offset": 0,
+            "has_more": False,
+        }
+        flist = TorrentFileList.model_validate(data)
+        assert flist.current_depth is None
+        assert flist.hint is None
+
+
+@pytest.mark.unit
+class TestAggregateByDepth:
+    def test_depth_zero_returns_all_files(self):
+        files = [
+            TorrentFile(index=0, name="Show/S01/E01.mkv", size=100, completed=100, priority=1),
+            TorrentFile(index=1, name="Show/S01/E02.mkv", size=100, completed=50, priority=1),
+        ]
+        result = _aggregate_by_depth(files, 0)
+        assert len(result) == 2
+        assert all(isinstance(f, TorrentFile) for f in result)
+
+    def test_depth_one_aggregates_top_level(self):
+        files = [
+            TorrentFile(index=0, name="Show/S01/E01.mkv", size=100, completed=100, priority=1),
+            TorrentFile(index=1, name="Show/S01/E02.mkv", size=200, completed=50, priority=1),
+            TorrentFile(index=2, name="readme.txt", size=10, completed=10, priority=1),
+        ]
+        result = _aggregate_by_depth(files, 1)
+        # readme.txt at depth 1 stays as file, Show folder gets aggregated
+        assert len(result) == 2
+        files_only = [f for f in result if isinstance(f, TorrentFile)]
+        folders = [f for f in result if isinstance(f, FolderEntry)]
+        assert len(files_only) == 1
+        assert files_only[0].name == "readme.txt"
+        assert len(folders) == 1
+        assert folders[0].name == "Show"
+        assert folders[0].file_count == 2
+        assert folders[0].total_size == 300
+        assert folders[0].completed_size == 150
+
+    def test_depth_two_aggregates_two_levels(self):
+        files = [
+            TorrentFile(index=0, name="Show/S01/E01.mkv", size=100, completed=100, priority=1),
+            TorrentFile(index=1, name="Show/S01/E02.mkv", size=200, completed=50, priority=1),
+            TorrentFile(index=2, name="Show/S02/E01.mkv", size=150, completed=75, priority=1),
+        ]
+        result = _aggregate_by_depth(files, 2)
+        # All files have 3 parts, so all get aggregated at depth 2
+        folders = [f for f in result if isinstance(f, FolderEntry)]
+        assert len(folders) == 2
+        folder_names = {f.name for f in folders}
+        assert folder_names == {"Show/S01", "Show/S02"}
+
+    def test_mixed_depths(self):
+        files = [
+            TorrentFile(index=0, name="movie.mkv", size=1000, completed=1000, priority=1),
+            TorrentFile(index=1, name="Extras/making.mkv", size=500, completed=500, priority=1),
+            TorrentFile(index=2, name="Extras/deleted.mkv", size=300, completed=150, priority=1),
+        ]
+        result = _aggregate_by_depth(files, 1)
+        files_only = [f for f in result if isinstance(f, TorrentFile)]
+        folders = [f for f in result if isinstance(f, FolderEntry)]
+        assert len(files_only) == 1
+        assert files_only[0].name == "movie.mkv"
+        assert len(folders) == 1
+        assert folders[0].name == "Extras"
+        assert folders[0].file_count == 2
 
 
 @pytest.mark.unit
@@ -172,14 +288,14 @@ class TestTorrentToModel:
         assert result.status == "some_string_status"
 
     def test_handles_negative_eta(self):
-        fake = make_fake_torrent(eta=-1)
+        fake = make_fake_torrent(eta=timedelta(seconds=-1))
         result = _torrent_to_model(fake)
         assert result.eta is None
 
     def test_handles_zero_eta(self):
-        fake = make_fake_torrent(eta=0)
+        fake = make_fake_torrent(eta=timedelta(seconds=0))
         result = _torrent_to_model(fake)
-        assert result.eta is None
+        assert result.eta == 0
 
     def test_handles_none_eta(self):
         fake = make_fake_torrent(eta=None)
@@ -187,7 +303,7 @@ class TestTorrentToModel:
         assert result.eta is None
 
     def test_handles_positive_eta(self):
-        fake = make_fake_torrent(eta=3600)
+        fake = make_fake_torrent(eta=timedelta(seconds=3600))
         result = _torrent_to_model(fake)
         assert result.eta == 3600
 
@@ -205,7 +321,7 @@ class TestTorrentToModel:
             progress=100.0,
             rate_download=0,
             rate_upload=1024,
-            eta=-1,
+            eta=timedelta(seconds=-1),
             total_size=5368709120,
             comment="https://example.com",
             error_string="Tracker error",
@@ -248,3 +364,52 @@ class TestTorrentToModel:
         fake = make_fake_torrent(files=files)
         result = _torrent_to_model(fake)
         assert result.file_count == 2
+
+
+@pytest.mark.unit
+class TestResolveUrl:
+    def test_returns_magnet_unchanged(self):
+        magnet = "magnet:?xt=urn:btih:abc123"
+        assert _resolve_url(magnet) == magnet
+
+    def test_follows_302_redirect_to_magnet(self, mocker):
+        mock_resp = MagicMock()
+        mock_resp.status_code = 302
+        mock_resp.headers = {"location": "magnet:?xt=urn:btih:xyz789"}
+        mocker.patch("httpx.head", return_value=mock_resp)
+
+        result = _resolve_url("http://jackett/dl/123")
+        assert result == "magnet:?xt=urn:btih:xyz789"
+
+    def test_follows_301_redirect_to_magnet(self, mocker):
+        mock_resp = MagicMock()
+        mock_resp.status_code = 301
+        mock_resp.headers = {"location": "magnet:?xt=urn:btih:abc"}
+        mocker.patch("httpx.head", return_value=mock_resp)
+
+        result = _resolve_url("http://jackett/dl/456")
+        assert result == "magnet:?xt=urn:btih:abc"
+
+    def test_returns_original_if_redirect_not_magnet(self, mocker):
+        mock_resp = MagicMock()
+        mock_resp.status_code = 302
+        mock_resp.headers = {"location": "http://example.com/file.torrent"}
+        mocker.patch("httpx.head", return_value=mock_resp)
+
+        result = _resolve_url("http://jackett/dl/789")
+        assert result == "http://jackett/dl/789"
+
+    def test_returns_original_if_200_ok(self, mocker):
+        mock_resp = MagicMock()
+        mock_resp.status_code = 200
+        mock_resp.headers = {}
+        mocker.patch("httpx.head", return_value=mock_resp)
+
+        result = _resolve_url("http://jackett/dl/torrent.torrent")
+        assert result == "http://jackett/dl/torrent.torrent"
+
+    def test_returns_original_on_exception(self, mocker):
+        mocker.patch("httpx.head", side_effect=Exception("Network error"))
+
+        result = _resolve_url("http://jackett/dl/fail")
+        assert result == "http://jackett/dl/fail"

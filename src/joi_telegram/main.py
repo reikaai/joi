@@ -6,7 +6,7 @@ from pathlib import Path
 
 import telegramify_markdown
 from agno.client import AgentOSClient
-from agno.run.agent import IntermediateRunContentEvent, RunContentEvent
+from agno.run.agent import IntermediateRunContentEvent, RunContentEvent, ToolCallCompletedEvent
 from aiogram import Bot, Dispatcher, Router
 from aiogram.enums import ChatAction, ParseMode
 from aiogram.filters import CommandStart
@@ -86,16 +86,22 @@ async def run_agent(content: str, user_id: str, chat_id: int, message: Message) 
 
     typing_task = asyncio.create_task(keep_typing())
 
+    tools_used: list[str] = []
+
     async def send_response(response: AgentResponse) -> None:
         if not response.content:
             return
         keyboard = build_actions_keyboard(response.suggested_actions) if response.suggested_actions else None
-        converted = telegramify_markdown.markdownify(response.content)
+        display_content = response.content
+        if tools_used:
+            tools_str = ", ".join(tools_used)
+            display_content = f"{response.content}\n\n---\nused: {tools_str}"
+        converted = telegramify_markdown.markdownify(display_content)
         try:
             await message.answer(converted, parse_mode=ParseMode.MARKDOWN_V2, reply_markup=keyboard)
         except Exception as e:
-            logger.error(f"Telegram send failed: {e}\nOriginal: {response.content!r}\nConverted: {converted!r}")
-            await message.answer(response.content, reply_markup=keyboard)
+            logger.error(f"Telegram send failed: {e}\nOriginal: {display_content!r}\nConverted: {converted!r}")
+            await message.answer(display_content, reply_markup=keyboard)
 
     try:
         stream = client.run_agent_stream(
@@ -115,6 +121,8 @@ async def run_agent(content: str, user_id: str, chat_id: int, message: Message) 
                     logger.info(f"RunContentEvent #{event_count}, content_type={type(c).__name__}")
                     response = AgentResponse.model_validate_json(c) if isinstance(c, str) else AgentResponse.model_validate(c)
                     await send_response(response)
+                case ToolCallCompletedEvent(tool=t) if t and t.tool_name:
+                    tools_used.append(t.tool_name)
                 case IntermediateRunContentEvent():
                     pass  # Skip partial content
                 case _:

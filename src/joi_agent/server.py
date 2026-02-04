@@ -6,6 +6,7 @@ from agno.models.openrouter import OpenRouter
 from agno.os import AgentOS
 from agno.session import SessionSummaryManager
 from agno.tools.mcp import MCPTools
+from agno.tools.python import PythonTools
 from dotenv import load_dotenv
 from loguru import logger
 from pydantic import BaseModel, Field
@@ -22,10 +23,12 @@ DATA_DIR.mkdir(exist_ok=True)
 DATABASE_URL = os.getenv("DATABASE_URL")
 if DATABASE_URL:
     from agno.db.postgres import PostgresDb
+
     db = PostgresDb(db_url=DATABASE_URL)
     logger.info("Using PostgreSQL database")
 else:
     from agno.db.sqlite import SqliteDb
+
     db = SqliteDb(db_file=str(DATA_DIR / "joi.db"))
     logger.info("Using SQLite database")
 
@@ -33,6 +36,7 @@ PERSONA_PATH = Path(__file__).parent / "persona.md"
 MCP_BASE_URL = os.getenv("MCP_URL", "http://127.0.0.1:8000")
 MCP_TMDB_URL = f"{MCP_BASE_URL}/tmdb"
 MCP_TRANSMISSION_URL = f"{MCP_BASE_URL}/transmission"
+MCP_JACKETT_URL = f"{MCP_BASE_URL}/jackett"
 
 SUMMARY_PROMPT = """Summarize this conversation between user and Joi (AI assistant).
 
@@ -66,20 +70,21 @@ summary_manager = SessionSummaryManager(
 class AgentResponse(BaseModel):
     content: str = Field(description="The response text to show the user")
     suggested_actions: list[str] = Field(
-        description="Exactly 3 ultra-brief dialog options (1-3 words). Mix responses and questions. Casual, lowercase.",
-        min_length=3,
-        max_length=3,
+        default_factory=list,
+        description="Ultra-brief dialog options (1-3 words). Mix responses and questions. Casual, lowercase.",
     )
 
 
 tmdb_tools = MCPTools(url=MCP_TMDB_URL, transport="streamable-http", tool_name_prefix="tmdb")
 transmission_tools = MCPTools(url=MCP_TRANSMISSION_URL, transport="streamable-http", tool_name_prefix="transmission")
+jackett_tools = MCPTools(url=MCP_JACKETT_URL, transport="streamable-http", tool_name_prefix="jackett")
+python_tools = PythonTools(base_dir=DATA_DIR / "sandbox")
 
 joi = Agent(
     id="joi",
     name="Joi",
     model=OpenRouter(id=os.getenv("LLM_MODEL", "openai/gpt-4o-mini")),
-    tools=[tmdb_tools, transmission_tools],
+    tools=[tmdb_tools, transmission_tools, jackett_tools, python_tools],
     instructions=PERSONA_PATH.read_text(),
     markdown=True,
     output_schema=AgentResponse,
@@ -90,7 +95,7 @@ joi = Agent(
     enable_session_summaries=True,
     add_session_summary_to_context=True,  # Inject summary into context
     add_history_to_context=True,
-    num_history_runs=5,  # TODO: tune later
+    num_history_runs=2,  # Agno docs recommend 2 with session summaries
     max_tool_calls_from_history=2,  # Limit tool result bloat in context
     read_chat_history=True,  # Agent can query full history via get_chat_history()
     add_datetime_to_context=True,
@@ -102,6 +107,7 @@ agent_os = AgentOS(
     name="Joi OS",
     description="Joi AI assistant",
     agents=[joi],
+    db=db,
     tracing=True,
 )
 
