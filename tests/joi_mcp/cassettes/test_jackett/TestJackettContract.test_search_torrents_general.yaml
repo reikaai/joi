@@ -1,0 +1,903 @@
+interactions:
+- request:
+    body: ''
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Host:
+      - jackett.shen.iorlas.net
+      User-Agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://jackett.shen.iorlas.net/api/v2.0/indexers/all/results/torznab/api?apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&q=ubuntu&t=search
+  response:
+    body:
+      string: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rss version=\"2.0\" xmlns:atom=\"http://www.w3.org/2005/Atom\"
+        xmlns:torznab=\"http://torznab.com/schemas/2015/feed\">\n  <channel>\n    <atom:link
+        href=\"https://jackett.shen.iorlas.net/\" rel=\"self\" type=\"application/rss+xml\"
+        />\n    <title>AggregateSearch</title>\n    <description>This feed includes
+        all configured trackers</description>\n    <link>http://127.0.0.1/</link>\n
+        \   <language>en-US</language>\n    <category>search</category>\n    <item>\n
+        \     <title>[\u0421\u043F\u0435\u0446\u0438\u0430\u043B\u0438\u0441\u0442,
+        \u0412\u044F\u0447\u0435\u0441\u043B\u0430\u0432 \u041B\u043E\u0445\u0442\u0443\u0440\u043E\u0432]
+        Linux. \u0423\u0440\u043E\u0432\u0435\u043D\u044C 1. \u041E\u0441\u043D\u043E\u0432\u044B
+        \u0430\u0434\u043C\u0438\u043D\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044F
+        \u0441\u0438\u0441\u0442\u0435\u043C Debian, Ubuntu, CentOS [2018, RUS]</title>\n
+        \     <guid>https://rutracker.org/forum/viewtopic.php?t=6711456</guid>\n      <jackettindexer
+        id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6711456</comments>\n
+        \     <pubDate>Wed, 25 Jun 2025 17:48:35 +0000</pubDate>\n      <size>4293688576</size>\n
+        \     <grabs>834</grabs>\n      <description>Uploader: \n\t\t\tLearnJavaScript
+        Beggom\n\t\t&lt;br&gt;[\u0421\u043F\u0435\u0446\u0438\u0430\u043B\u0438\u0441\u0442,
+        \u0412\u044F\u0447\u0435\u0441\u043B\u0430\u0432 \u041B\u043E\u0445\u0442\u0443\u0440\u043E\u0432]
+        Linux. \u0423\u0440\u043E\u0432\u0435\u043D\u044C 1. \u041E\u0441\u043D\u043E\u0432\u044B
+        \u0430\u0434\u043C\u0438\u043D\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044F
+        \u0441\u0438\u0441\u0442\u0435\u043C Debian, Ubuntu, CentOS [2018, RUS]</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYZ3Bvbm1VeVVOWGN6TGFONGg4QjlZenhBMElnZU15bUg1clNrNjhUUGNvYk96d21xWUVyMk5LUFktdmg1ZTdxNWp0R21oc2lZTk5MV0dEWlFLT2RfTjhzYVhIZ0x3NHI4RVE2U0ZNVnpKVHNMRWdqMl9IN295MTlqandQZDdJOE9YVm1SUTNXTHNNajhKX1d0b1FqajdNTC1TdzBnZlVuY0VFazFKZnBEZVd3&amp;file=%5B%D0%A1%D0%BF%D0%B5%D1%86%D0%B8%D0%B0%D0%BB%D0%B8%D1%81%D1%82%2C+%D0%92%D1%8F%D1%87%D0%B5%D1%81%D0%BB%D0%B0%D0%B2+%D0%9B%D0%BE%D1%85%D1%82%D1%83%D1%80%D0%BE%D0%B2%5D+Linux.+%D0%A3%D1%80%D0%BE%D0%B2%D0%B5%D0%BD%D1%8C+1.+%D0%9E%D1%81%D0%BD%D0%BE%D0%B2%D1%8B+%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F+%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC+Debian%2C+Ubuntu%2C+CentOS+%5B2018%2C+RUS%5D</link>\n
+        \     <category>7040</category>\n      <category>101991</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYZ3Bvbm1VeVVOWGN6TGFONGg4QjlZenhBMElnZU15bUg1clNrNjhUUGNvYk96d21xWUVyMk5LUFktdmg1ZTdxNWp0R21oc2lZTk5MV0dEWlFLT2RfTjhzYVhIZ0x3NHI4RVE2U0ZNVnpKVHNMRWdqMl9IN295MTlqandQZDdJOE9YVm1SUTNXTHNNajhKX1d0b1FqajdNTC1TdzBnZlVuY0VFazFKZnBEZVd3&amp;file=%5B%D0%A1%D0%BF%D0%B5%D1%86%D0%B8%D0%B0%D0%BB%D0%B8%D1%81%D1%82%2C+%D0%92%D1%8F%D1%87%D0%B5%D1%81%D0%BB%D0%B0%D0%B2+%D0%9B%D0%BE%D1%85%D1%82%D1%83%D1%80%D0%BE%D0%B2%5D+Linux.+%D0%A3%D1%80%D0%BE%D0%B2%D0%B5%D0%BD%D1%8C+1.+%D0%9E%D1%81%D0%BD%D0%BE%D0%B2%D1%8B+%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F+%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC+Debian%2C+Ubuntu%2C+CentOS+%5B2018%2C+RUS%5D\"
+        length=\"4293688576\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"7040\" />\n      <torznab:attr name=\"category\"
+        value=\"101991\" />\n      <torznab:attr name=\"seeders\" value=\"18\" />\n
+        \     <torznab:attr name=\"peers\" value=\"18\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu EducationPack 22.04 (\u043C\u0430\u0439 2024)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6532614</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6532614</comments>\n
+        \     <pubDate>Sun, 26 May 2024 08:02:06 +0000</pubDate>\n      <size>12896743424</size>\n
+        \     <grabs>380</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu EducationPack 22.04 (\u043C\u0430\u0439 2024)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXNW93Q1NYOVVZQlYyNGpnZW9PVWFJdU1EaVdxQzV5WjNxN2RkVVJ3WVJTa0xmWFY3eEdacXhIYmlFby1qRXRhWHFDTzdob2g1S25YMFdWMVNtQnN6MmRkR0FNT0FFUmFnTXdXVVBVcVBLTnp4SXd6ZllpT0ZQeVRqNlZaay1YV3k0eGkyS2ZqVjhTekRBek9UR194SE51cDd1TVlhci0zM0NjMkc5aDE1MFpB&amp;file=%5Bamd64%5D+Ubuntu+EducationPack+22.04+(%D0%BC%D0%B0%D0%B9+2024)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXNW93Q1NYOVVZQlYyNGpnZW9PVWFJdU1EaVdxQzV5WjNxN2RkVVJ3WVJTa0xmWFY3eEdacXhIYmlFby1qRXRhWHFDTzdob2g1S25YMFdWMVNtQnN6MmRkR0FNT0FFUmFnTXdXVVBVcVBLTnp4SXd6ZllpT0ZQeVRqNlZaay1YV3k0eGkyS2ZqVjhTekRBek9UR194SE51cDd1TVlhci0zM0NjMkc5aDE1MFpB&amp;file=%5Bamd64%5D+Ubuntu+EducationPack+22.04+(%D0%BC%D0%B0%D0%B9+2024)\"
+        length=\"12896743424\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"5\" />\n
+        \     <torznab:attr name=\"peers\" value=\"6\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu*Pack 24.04 KDE / Kubuntu (\u0438\u044E\u043B\u044C 2025)</title>\n
+        \     <guid>https://rutracker.org/forum/viewtopic.php?t=6555885</guid>\n      <jackettindexer
+        id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6555885</comments>\n
+        \     <pubDate>Sat, 16 Aug 2025 10:49:39 +0000</pubDate>\n      <size>4573857792</size>\n
+        \     <grabs>373</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu*Pack 24.04 KDE / Kubuntu (\u0438\u044E\u043B\u044C 2025)</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXS2tYZDJNVnFnNWJTbmhlbVZfLUh0SHpDV0xBWERMX016Qm1xa05hcHBPMHZrc1g2U20zT2NJRFdnNUNMUWVsZ0g4RjFSUjI1aWtpSUNKMHBVb1VHVlpVWGJoa0tZUVdrbTMzRDEtR3o0aG8tUHYtXzZJakpqVlRoSVNheFMzUk5mVm9KOEtGOWxNMGhGVGlmcXVTTlp6RF9OeXIxZlRpdU81ci04LUhXVEF3&amp;file=%5Bamd64%5D+Ubuntu*Pack+24.04+KDE+%2F+Kubuntu+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXS2tYZDJNVnFnNWJTbmhlbVZfLUh0SHpDV0xBWERMX016Qm1xa05hcHBPMHZrc1g2U20zT2NJRFdnNUNMUWVsZ0g4RjFSUjI1aWtpSUNKMHBVb1VHVlpVWGJoa0tZUVdrbTMzRDEtR3o0aG8tUHYtXzZJakpqVlRoSVNheFMzUk5mVm9KOEtGOWxNMGhGVGlmcXVTTlp6RF9OeXIxZlRpdU81ci04LUhXVEF3&amp;file=%5Bamd64%5D+Ubuntu*Pack+24.04+KDE+%2F+Kubuntu+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)\"
+        length=\"4573857792\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"14\" />\n
+        \     <torznab:attr name=\"peers\" value=\"15\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu*Pack 22.04 Unity (\u0441\u0435\u043D\u0442\u044F\u0431\u0440\u044C
+        2024)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6350891</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6350891</comments>\n
+        \     <pubDate>Sun, 15 Sep 2024 19:34:48 +0000</pubDate>\n      <size>4177600512</size>\n
+        \     <grabs>1325</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu*Pack 22.04 Unity (\u0441\u0435\u043D\u0442\u044F\u0431\u0440\u044C
+        2024)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVRjdaWm1sV3NEdHRRS1MxVXNKWDM0b2NNcVpjelh2NTBHNWtBcl8ybldRSjNwQ1A2NTBmOUNyV1A0eXBndzFRLUhwb3dnbnlKNU9VcVl1LVZNWFpaNXY4OEIxSXMzaEVlR3BFNVkzQURabmdWOTk2aTZFdzFPV2h6Y3RvTVdxQUlpcXI1YWdqUWFFZDVRanNzZ1o0U0RNVDgxSWlMUXNHY1BYOWtMYUdmbjNR&amp;file=%5Bamd64%5D+Ubuntu*Pack+22.04+Unity+(%D1%81%D0%B5%D0%BD%D1%82%D1%8F%D0%B1%D1%80%D1%8C+2024)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVRjdaWm1sV3NEdHRRS1MxVXNKWDM0b2NNcVpjelh2NTBHNWtBcl8ybldRSjNwQ1A2NTBmOUNyV1A0eXBndzFRLUhwb3dnbnlKNU9VcVl1LVZNWFpaNXY4OEIxSXMzaEVlR3BFNVkzQURabmdWOTk2aTZFdzFPV2h6Y3RvTVdxQUlpcXI1YWdqUWFFZDVRanNzZ1o0U0RNVDgxSWlMUXNHY1BYOWtMYUdmbjNR&amp;file=%5Bamd64%5D+Ubuntu*Pack+22.04+Unity+(%D1%81%D0%B5%D0%BD%D1%82%D1%8F%D0%B1%D1%80%D1%8C+2024)\"
+        length=\"4177600512\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"15\" />\n
+        \     <torznab:attr name=\"peers\" value=\"15\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu ServerPack 24.04 (\u0430\u0432\u0433\u0443\u0441\u0442 2025)</title>\n
+        \     <guid>https://rutracker.org/forum/viewtopic.php?t=6571000</guid>\n      <jackettindexer
+        id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6571000</comments>\n
+        \     <pubDate>Mon, 25 Aug 2025 09:34:14 +0000</pubDate>\n      <size>4415342592</size>\n
+        \     <grabs>511</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu ServerPack 24.04 (\u0430\u0432\u0433\u0443\u0441\u0442 2025)</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXNFpldHpaNk0wWTBQSVZRZl8tRUcwNTF5dGpnY09NT3puS0k0Y2Y1VXBET0Zha3V4a25xZzZTQVJGTXBWTjhPUmxYWGp5TkFHb0lNejJyTXhsNFBHY2lobk13Ry11d1dSYkRDNkNzeE5wQVdOUGpJbUlmWDdkZlJMQ2dybVN0X0tLZzluWkFYcmttdHlDM2psUlhncnFPWTZpSE9uYzdhYkhBWlUxOFhGSkp3&amp;file=%5Bamd64%5D+Ubuntu+ServerPack+24.04+(%D0%B0%D0%B2%D0%B3%D1%83%D1%81%D1%82+2025)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXNFpldHpaNk0wWTBQSVZRZl8tRUcwNTF5dGpnY09NT3puS0k0Y2Y1VXBET0Zha3V4a25xZzZTQVJGTXBWTjhPUmxYWGp5TkFHb0lNejJyTXhsNFBHY2lobk13Ry11d1dSYkRDNkNzeE5wQVdOUGpJbUlmWDdkZlJMQ2dybVN0X0tLZzluWkFYcmttdHlDM2psUlhncnFPWTZpSE9uYzdhYkhBWlUxOFhGSkp3&amp;file=%5Bamd64%5D+Ubuntu+ServerPack+24.04+(%D0%B0%D0%B2%D0%B3%D1%83%D1%81%D1%82+2025)\"
+        length=\"4415342592\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"12\" />\n
+        \     <torznab:attr name=\"peers\" value=\"12\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu*Pack 24.04 Xfce / Xubuntu (\u0438\u044E\u043B\u044C 2025)</title>\n
+        \     <guid>https://rutracker.org/forum/viewtopic.php?t=6555895</guid>\n      <jackettindexer
+        id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6555895</comments>\n
+        \     <pubDate>Sat, 16 Aug 2025 11:03:19 +0000</pubDate>\n      <size>4256911360</size>\n
+        \     <grabs>575</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu*Pack 24.04 Xfce / Xubuntu (\u0438\u044E\u043B\u044C 2025)</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXeXVwLW1RSXB2S2pUQjBhWGotTm1VYU5IeVg4ZTlVSnRQXzVsN29nMm5FZ21seVgzZXdadkFFT25qWE1DSlpPRExOeDExazljYlhVUmJmazBZaXRaSGh3T0xVbWdYTWpGQ0JvNU9SdktlZU5tWUZuR25Nb3ExMm1jQzZic1J2dFJaeG5yMk1zcm9Nc3U5anVfelhBTVdwclpYeWtPdVpfSDhCQ0RqR2trVXJR&amp;file=%5Bamd64%5D+Ubuntu*Pack+24.04+Xfce+%2F+Xubuntu+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXeXVwLW1RSXB2S2pUQjBhWGotTm1VYU5IeVg4ZTlVSnRQXzVsN29nMm5FZ21seVgzZXdadkFFT25qWE1DSlpPRExOeDExazljYlhVUmJmazBZaXRaSGh3T0xVbWdYTWpGQ0JvNU9SdktlZU5tWUZuR25Nb3ExMm1jQzZic1J2dFJaeG5yMk1zcm9Nc3U5anVfelhBTVdwclpYeWtPdVpfSDhCQ0RqR2trVXJR&amp;file=%5Bamd64%5D+Ubuntu*Pack+24.04+Xfce+%2F+Xubuntu+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)\"
+        length=\"4256911360\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"12\" />\n
+        \     <torznab:attr name=\"peers\" value=\"13\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu Game*Pack 24.04 [\u0441\u0435\u043D\u0442\u044F\u0431\u0440\u044C]
+        (2025) PC</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6742847</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6742847</comments>\n
+        \     <pubDate>Thu, 11 Sep 2025 08:04:11 +0000</pubDate>\n      <size>4567465984</size>\n
+        \     <grabs>843</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu Game*Pack 24.04 [\u0441\u0435\u043D\u0442\u044F\u0431\u0440\u044C]
+        (2025) PC</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYc2hCazJFR1Brd1gtSFdIRERVcEpPa2dEck5xTFFsMDM2Tzc0TXBrN3U3YWZDVmkyREk4cm1OVzNJeWRfMDlld3RVdWFnaW9zNjUyTy1QQkF0eUhpQ1hfSkpsVnBhVExteFNsM3c3WEdLM0pmRFluSlhFODFBek9NVHdweVd5eHpaT3pLbWxjX2FJWDljZF9IQmhUNWtiLUxxbGsyTHBMajQyYjByLVd4TENn&amp;file=%5Bamd64%5D+Ubuntu+Game*Pack+24.04+%5B%D1%81%D0%B5%D0%BD%D1%82%D1%8F%D0%B1%D1%80%D1%8C%5D+(2025)+PC</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYc2hCazJFR1Brd1gtSFdIRERVcEpPa2dEck5xTFFsMDM2Tzc0TXBrN3U3YWZDVmkyREk4cm1OVzNJeWRfMDlld3RVdWFnaW9zNjUyTy1QQkF0eUhpQ1hfSkpsVnBhVExteFNsM3c3WEdLM0pmRFluSlhFODFBek9NVHdweVd5eHpaT3pLbWxjX2FJWDljZF9IQmhUNWtiLUxxbGsyTHBMajQyYjByLVd4TENn&amp;file=%5Bamd64%5D+Ubuntu+Game*Pack+24.04+%5B%D1%81%D0%B5%D0%BD%D1%82%D1%8F%D0%B1%D1%80%D1%8C%5D+(2025)+PC\"
+        length=\"4567465984\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"11\" />\n
+        \     <torznab:attr name=\"peers\" value=\"11\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu KDE Plasma 22.04.4 by spb user [\u0410\u0432\u0442\u043E\u0440\u0441\u043A\u0430\u044F
+        \u0440\u0430\u0437\u0434\u0430\u0447\u0430]</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6564498</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6564498</comments>\n
+        \     <pubDate>Tue, 20 Aug 2024 13:16:15 +0000</pubDate>\n      <size>5840916480</size>\n
+        \     <grabs>455</grabs>\n      <description>Uploader: \n\t\t\tspb_user\n\t\t&lt;br&gt;[amd64]
+        Ubuntu KDE Plasma 22.04.4 by spb user [\u0410\u0432\u0442\u043E\u0440\u0441\u043A\u0430\u044F
+        \u0440\u0430\u0437\u0434\u0430\u0447\u0430]</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXRnRCejlTeEthX0JDMVp3STE5a0RQam9hWFdieEJ6cU5qV1ExbGlQSk5qQVNwM1lTdi04a3RidGYwRjZGZlluUUNlTmFyOVdrR3Y3RF9jTDg1WC1oVGVudXZaU0RlazVFdmQwaElLczYyVEwzTTc3NWJwY0ZmdW5GMHJuV0JTQmY5WkhyV25oQS14bkE4UFFtY0pyNEN6UXdTbDdtYmxfQS1xcEpfT1dHMkR3&amp;file=%5Bamd64%5D+Ubuntu+KDE+Plasma+22.04.4+by+spb+user+%5B%D0%90%D0%B2%D1%82%D0%BE%D1%80%D1%81%D0%BA%D0%B0%D1%8F+%D1%80%D0%B0%D0%B7%D0%B4%D0%B0%D1%87%D0%B0%5D</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXRnRCejlTeEthX0JDMVp3STE5a0RQam9hWFdieEJ6cU5qV1ExbGlQSk5qQVNwM1lTdi04a3RidGYwRjZGZlluUUNlTmFyOVdrR3Y3RF9jTDg1WC1oVGVudXZaU0RlazVFdmQwaElLczYyVEwzTTc3NWJwY0ZmdW5GMHJuV0JTQmY5WkhyV25oQS14bkE4UFFtY0pyNEN6UXdTbDdtYmxfQS1xcEpfT1dHMkR3&amp;file=%5Bamd64%5D+Ubuntu+KDE+Plasma+22.04.4+by+spb+user+%5B%D0%90%D0%B2%D1%82%D0%BE%D1%80%D1%81%D0%BA%D0%B0%D1%8F+%D1%80%D0%B0%D0%B7%D0%B4%D0%B0%D1%87%D0%B0%5D\"
+        length=\"5840916480\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"8\" />\n
+        \     <torznab:attr name=\"peers\" value=\"8\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu EducationPack 20.04 (\u043C\u0430\u0439 2024)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6527083</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6527083</comments>\n
+        \     <pubDate>Mon, 13 May 2024 04:56:05 +0000</pubDate>\n      <size>11629756416</size>\n
+        \     <grabs>187</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu EducationPack 20.04 (\u043C\u0430\u0439 2024)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVWHhXZk55T2RoamRiblh1RzhRQy1qdTNvcGoyWUQ1OW5nYmFyTWdLVHZHalBlOVB4clVtNHJWd2NYSUtFcVRuZHNLMzJZeWVBX2NuSU9xeWRaTWVmNVFDVXliN0JKNFRTMmlIaktPQXUwR2dVSUhVTWVKc1NzcnRmRHNDbFJuN19RUHNXdHZxY0VNUVdmMTQwQXlnajdkLW1GdmNvTENWZHBGQTAxZUdWYlRB&amp;file=%5Bamd64%5D+Ubuntu+EducationPack+20.04+(%D0%BC%D0%B0%D0%B9+2024)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVWHhXZk55T2RoamRiblh1RzhRQy1qdTNvcGoyWUQ1OW5nYmFyTWdLVHZHalBlOVB4clVtNHJWd2NYSUtFcVRuZHNLMzJZeWVBX2NuSU9xeWRaTWVmNVFDVXliN0JKNFRTMmlIaktPQXUwR2dVSUhVTWVKc1NzcnRmRHNDbFJuN19RUHNXdHZxY0VNUVdmMTQwQXlnajdkLW1GdmNvTENWZHBGQTAxZUdWYlRB&amp;file=%5Bamd64%5D+Ubuntu+EducationPack+20.04+(%D0%BC%D0%B0%D0%B9+2024)\"
+        length=\"11629756416\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"4\" />\n
+        \     <torznab:attr name=\"peers\" value=\"4\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu EducationPack 18.04 [\u0430\u043F\u0440\u0435\u043B\u044C] (2024)</title>\n
+        \     <guid>https://rutracker.org/forum/viewtopic.php?t=6517116</guid>\n      <jackettindexer
+        id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6517116</comments>\n
+        \     <pubDate>Sun, 21 Apr 2024 10:36:18 +0000</pubDate>\n      <size>10260316160</size>\n
+        \     <grabs>152</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu EducationPack 18.04 [\u0430\u043F\u0440\u0435\u043B\u044C] (2024)</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYekViVmJSU3FHT2piMW5zSkRXRTUxOWZOeWpDWHljVjBnRUVfbDNVOXlXaS0xSnE3SGFZTmZsdmM1NHpNQms1S2stNkdSWWl6TDFDTnVtaU5kTGo5bzBtVU9Da1I3bFdsblcxRjlOTDJ4N0dKNmEtZDBNT0dneHdMVFhpTHU1anZrTkJJMFpXaUhUYjF5MFBwT2N6WXByRk4zYnJSdHhSakpDZ3ZnNWNfS0NR&amp;file=%5Bamd64%5D+Ubuntu+EducationPack+18.04+%5B%D0%B0%D0%BF%D1%80%D0%B5%D0%BB%D1%8C%5D+(2024)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYekViVmJSU3FHT2piMW5zSkRXRTUxOWZOeWpDWHljVjBnRUVfbDNVOXlXaS0xSnE3SGFZTmZsdmM1NHpNQms1S2stNkdSWWl6TDFDTnVtaU5kTGo5bzBtVU9Da1I3bFdsblcxRjlOTDJ4N0dKNmEtZDBNT0dneHdMVFhpTHU1anZrTkJJMFpXaUhUYjF5MFBwT2N6WXByRk4zYnJSdHhSakpDZ3ZnNWNfS0NR&amp;file=%5Bamd64%5D+Ubuntu+EducationPack+18.04+%5B%D0%B0%D0%BF%D1%80%D0%B5%D0%BB%D1%8C%5D+(2024)\"
+        length=\"10260316160\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"4\" />\n
+        \     <torznab:attr name=\"peers\" value=\"4\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[x86,
+        amd64] VM Ubuntu 22 + MS SQL Server 2022 [OVA-Template] (VirtualBox)</title>\n
+        \     <guid>https://rutracker.org/forum/viewtopic.php?t=6419613</guid>\n      <jackettindexer
+        id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6419613</comments>\n
+        \     <pubDate>Sat, 07 Sep 2024 18:10:20 +0000</pubDate>\n      <size>2013592448</size>\n
+        \     <grabs>636</grabs>\n      <description>Uploader: \n\t\t\tAminuxer\n\t\t&lt;br&gt;[x86,
+        amd64] VM Ubuntu 22 + MS SQL Server 2022 [OVA-Template] (VirtualBox)</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXZnV2TFU2YW16ZWEwZlhFVGZHMC1tTlBYMVlFa09Ed1hZMnZmekE3TkVLRzJmWUZPR0pLWU9mQjBvdVU3bWhKMzJmeHQxNmxuVlkwQjZEZUswdEVITHhJT0VRYkwtVUNxSVRtMDMzRGdETnF6ZndUVXBNN3V3b2x1ZjQ4V3A4blhZWmdfQ00zMDdsZjY5ZE1oMDBhY1ZkRjlydThFYUJyY0hta1VTRTZQcURB&amp;file=%5Bx86%2C+amd64%5D+VM+Ubuntu+22+%2B+MS+SQL+Server+2022+%5BOVA-Template%5D+(VirtualBox)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXZnV2TFU2YW16ZWEwZlhFVGZHMC1tTlBYMVlFa09Ed1hZMnZmekE3TkVLRzJmWUZPR0pLWU9mQjBvdVU3bWhKMzJmeHQxNmxuVlkwQjZEZUswdEVITHhJT0VRYkwtVUNxSVRtMDMzRGdETnF6ZndUVXBNN3V3b2x1ZjQ4V3A4blhZWmdfQ00zMDdsZjY5ZE1oMDBhY1ZkRjlydThFYUJyY0hta1VTRTZQcURB&amp;file=%5Bx86%2C+amd64%5D+VM+Ubuntu+22+%2B+MS+SQL+Server+2022+%5BOVA-Template%5D+(VirtualBox)\"
+        length=\"2013592448\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"20\" />\n
+        \     <torznab:attr name=\"peers\" value=\"20\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu*Pack 22.04 (\u0438\u044E\u043B\u044C 2025)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6350453</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6350453</comments>\n
+        \     <pubDate>Thu, 31 Jul 2025 11:15:39 +0000</pubDate>\n      <size>3954776064</size>\n
+        \     <grabs>135</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu*Pack 22.04 (\u0438\u044E\u043B\u044C 2025)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWdjNTZnNxaWdmSXlqZGt5REl4N3NyaTdCa2pmMHpuY1FMMUpqdUd6TFlSWmlXUklVTC0tei1fSllNdjFBWlltalhBM2VDMThXUXFtWFV0NTRubHlBSjJyYlJmWEZtWUJ1TEFiYVFkSXFoR0xITkZSeW5zM3VPSnprRlFHRzJjSEx4Vi1FV09oZmwzdlZiamtOY0F1aEZxdUNOa1pJQWswWXJmUTFiOUF3UEdn&amp;file=%5Bamd64%5D+Ubuntu*Pack+22.04+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWdjNTZnNxaWdmSXlqZGt5REl4N3NyaTdCa2pmMHpuY1FMMUpqdUd6TFlSWmlXUklVTC0tei1fSllNdjFBWlltalhBM2VDMThXUXFtWFV0NTRubHlBSjJyYlJmWEZtWUJ1TEFiYVFkSXFoR0xITkZSeW5zM3VPSnprRlFHRzJjSEx4Vi1FV09oZmwzdlZiamtOY0F1aEZxdUNOa1pJQWswWXJmUTFiOUF3UEdn&amp;file=%5Bamd64%5D+Ubuntu*Pack+22.04+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)\"
+        length=\"3954776064\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"9\" />\n
+        \     <torznab:attr name=\"peers\" value=\"9\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu*Pack 24.04 LikeWin (\u0438\u044E\u043B\u044C 2025)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6555887</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6555887</comments>\n
+        \     <pubDate>Sat, 16 Aug 2025 10:53:28 +0000</pubDate>\n      <size>4389683200</size>\n
+        \     <grabs>186</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu*Pack 24.04 LikeWin (\u0438\u044E\u043B\u044C 2025)</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYZ3ZDOUE2bU5USTM1NXFfNV83THJINHh1aWJxcXNjRWdzTE1oSmo3a0l4Ul9oeFRRTS1mOEhOeG4ycFJKZzExSDQ1T1ptQmZMUmY3Q0hqQm1Dd3NXWkVELTBKLWpESHJNTEN5Vk5BRnZyRGEtejNZNjdPRmJBbkd6VFY4UHRGcVlxS3FQUEZ6V0U0Z1lTY2tmLURqTWtKN0ljRG1jRFAxaTVHeWU0Z2lYV0F3&amp;file=%5Bamd64%5D+Ubuntu*Pack+24.04+LikeWin+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYZ3ZDOUE2bU5USTM1NXFfNV83THJINHh1aWJxcXNjRWdzTE1oSmo3a0l4Ul9oeFRRTS1mOEhOeG4ycFJKZzExSDQ1T1ptQmZMUmY3Q0hqQm1Dd3NXWkVELTBKLWpESHJNTEN5Vk5BRnZyRGEtejNZNjdPRmJBbkd6VFY4UHRGcVlxS3FQUEZ6V0U0Z1lTY2tmLURqTWtKN0ljRG1jRFAxaTVHeWU0Z2lYV0F3&amp;file=%5Bamd64%5D+Ubuntu*Pack+24.04+LikeWin+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)\"
+        length=\"4389683200\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"6\" />\n
+        \     <torznab:attr name=\"peers\" value=\"6\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu*Pack 24.04 GNOME (\u0438\u044E\u043B\u044C 2025)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6555884</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6555884</comments>\n
+        \     <pubDate>Sat, 16 Aug 2025 10:43:48 +0000</pubDate>\n      <size>4389683200</size>\n
+        \     <grabs>389</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu*Pack 24.04 GNOME (\u0438\u044E\u043B\u044C 2025)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVMnVtQUlNZkxVR0FUdjhYUlE4b2hkdXF0WVhuelN2bk1lZ0JxeW1JdG5JcjZVVDcxcjJCci1EUFN5aklDUkNEaElyRnViZXN2akZ6N3I4aU9yaFFQUEw5ZnJqV2FWSnBzVnB3RGxXRW1vQlBwUFZGLXFHQUhJdldRSS1RZGljalppYm4xcVJoUk5yQ0VybTFnODBLNmRYbklOYTh4SjNacEFRTW11dEpiTFNn&amp;file=%5Bamd64%5D+Ubuntu*Pack+24.04+GNOME+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVMnVtQUlNZkxVR0FUdjhYUlE4b2hkdXF0WVhuelN2bk1lZ0JxeW1JdG5JcjZVVDcxcjJCci1EUFN5aklDUkNEaElyRnViZXN2akZ6N3I4aU9yaFFQUEw5ZnJqV2FWSnBzVnB3RGxXRW1vQlBwUFZGLXFHQUhJdldRSS1RZGljalppYm4xcVJoUk5yQ0VybTFnODBLNmRYbklOYTh4SjNacEFRTW11dEpiTFNn&amp;file=%5Bamd64%5D+Ubuntu*Pack+24.04+GNOME+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)\"
+        length=\"4389683200\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"6\" />\n
+        \     <torznab:attr name=\"peers\" value=\"7\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu*Pack 24.04 (\u0438\u044E\u043B\u044C 2025)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6555870</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6555870</comments>\n
+        \     <pubDate>Sat, 16 Aug 2025 10:31:42 +0000</pubDate>\n      <size>4389683200</size>\n
+        \     <grabs>235</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu*Pack 24.04 (\u0438\u044E\u043B\u044C 2025)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYN2JfbmpTN1VQYlZqWV9LQmdOY0NkN0RqOHdLLU9maGk5OVVBU3NIQmczUVFHY3ppbzZaTXFkbWc3SGl3UTF3Wi1fT0tzNHZJMUJodzB0V2RoRzJIczVpb3NURi1ZNnRpbEU4NlpyS184UDVTNjhzc0lBN2hab1lTZHROa1VjNVZVS3ZXazE4ZDI4WUpyN3dlRkdxMDdZSFQ5S09rMklZZERXT3FCa1B5ZmlR&amp;file=%5Bamd64%5D+Ubuntu*Pack+24.04+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYN2JfbmpTN1VQYlZqWV9LQmdOY0NkN0RqOHdLLU9maGk5OVVBU3NIQmczUVFHY3ppbzZaTXFkbWc3SGl3UTF3Wi1fT0tzNHZJMUJodzB0V2RoRzJIczVpb3NURi1ZNnRpbEU4NlpyS184UDVTNjhzc0lBN2hab1lTZHROa1VjNVZVS3ZXazE4ZDI4WUpyN3dlRkdxMDdZSFQ5S09rMklZZERXT3FCa1B5ZmlR&amp;file=%5Bamd64%5D+Ubuntu*Pack+24.04+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)\"
+        length=\"4389683200\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"6\" />\n
+        \     <torznab:attr name=\"peers\" value=\"6\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu*Pack 24.04 LXqt / Lubuntu (\u0438\u044E\u043B\u044C 2025)</title>\n
+        \     <guid>https://rutracker.org/forum/viewtopic.php?t=6555888</guid>\n      <jackettindexer
+        id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6555888</comments>\n
+        \     <pubDate>Sat, 16 Aug 2025 10:56:16 +0000</pubDate>\n      <size>4224020480</size>\n
+        \     <grabs>330</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu*Pack 24.04 LXqt / Lubuntu (\u0438\u044E\u043B\u044C 2025)</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWaVNQcHkzemJNTmtoczBrUHg1TlZ6ZDdLZTNvYVdHRW9JNlJtUFZxQUtBMXlQaWxQYkZGVlFNSkpwaXlwbW1VYjBCbUZGVG1vNDJYOUc5X3M0SlJoRGVqTk5zUU55V08xaFlWSDBMNDRSNWJ0a3hiUUpDTVE3V0JXbUwzNlZ5czd0ZHZUaElfS01XM3lzQkxCNXByNUJ3TGlNazJMQ1VjYzBUSzNqT2lmV0t3&amp;file=%5Bamd64%5D+Ubuntu*Pack+24.04+LXqt+%2F+Lubuntu+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWaVNQcHkzemJNTmtoczBrUHg1TlZ6ZDdLZTNvYVdHRW9JNlJtUFZxQUtBMXlQaWxQYkZGVlFNSkpwaXlwbW1VYjBCbUZGVG1vNDJYOUc5X3M0SlJoRGVqTk5zUU55V08xaFlWSDBMNDRSNWJ0a3hiUUpDTVE3V0JXbUwzNlZ5czd0ZHZUaElfS01XM3lzQkxCNXByNUJ3TGlNazJMQ1VjYzBUSzNqT2lmV0t3&amp;file=%5Bamd64%5D+Ubuntu*Pack+24.04+LXqt+%2F+Lubuntu+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)\"
+        length=\"4224020480\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"6\" />\n
+        \     <torznab:attr name=\"peers\" value=\"6\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu ServerPack 22.04 (\u0438\u044E\u043B\u044C 2025)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6555977</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6555977</comments>\n
+        \     <pubDate>Thu, 31 Jul 2025 10:48:50 +0000</pubDate>\n      <size>4494934016</size>\n
+        \     <grabs>80</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu ServerPack 22.04 (\u0438\u044E\u043B\u044C 2025)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVZ3B1R3hndVM1NXh0LTdITVVNblJoZG1jaWltTzJqUllUd2hEbkVpRlUwNXpic3QtMGkzOUtLQlNuVWRIbWhnTWlPRUNVWEJtbm5nMmNnTXhCLWF3QXUyZzBrRDlTWFEyU1M5RnFkRlQ4MTF5eE5FWlhLR0pnTnhKWWpBR3FJcTUyWnpXSDZmdXZBRE91enhQWl9reHVkUnB2b3NtdVFYTk00OWlIN0UtTTBR&amp;file=%5Bamd64%5D+Ubuntu+ServerPack+22.04+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVZ3B1R3hndVM1NXh0LTdITVVNblJoZG1jaWltTzJqUllUd2hEbkVpRlUwNXpic3QtMGkzOUtLQlNuVWRIbWhnTWlPRUNVWEJtbm5nMmNnTXhCLWF3QXUyZzBrRDlTWFEyU1M5RnFkRlQ4MTF5eE5FWlhLR0pnTnhKWWpBR3FJcTUyWnpXSDZmdXZBRE91enhQWl9reHVkUnB2b3NtdVFYTk00OWlIN0UtTTBR&amp;file=%5Bamd64%5D+Ubuntu+ServerPack+22.04+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)\"
+        length=\"4494934016\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"5\" />\n
+        \     <torznab:attr name=\"peers\" value=\"5\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu*Pack 20.04 Xfce / Xubuntu (\u043C\u0430\u0440\u0442 2024)</title>\n
+        \     <guid>https://rutracker.org/forum/viewtopic.php?t=5956094</guid>\n      <jackettindexer
+        id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=5956094</comments>\n
+        \     <pubDate>Thu, 14 Mar 2024 17:48:42 +0000</pubDate>\n      <size>3687841792</size>\n
+        \     <grabs>354</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu*Pack 20.04 Xfce / Xubuntu (\u043C\u0430\u0440\u0442 2024)</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWOThyeGhha29oOGZ0T2FPcUZNUlhBT3Q3TXMwN1NSMHZ5U250ZVNHRjBKaWE5WU96RWYxd0VVZzhHT2p5Zm9jM0Ffb3oxS0sycUZtajVsWEh2ZWxHR2tMbTdySzBka3J4YXUxVHRjVzRiVUU5TV9uWnhJVG9IWjFBdFdCVXVDWmdpQjMxeThqa1VOYTJxNXhmazlsN0ozaU5sZm1JVkViZkUtN01maVM4Ukd3&amp;file=%5Bamd64%5D+Ubuntu*Pack+20.04+Xfce+%2F+Xubuntu+(%D0%BC%D0%B0%D1%80%D1%82+2024)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWOThyeGhha29oOGZ0T2FPcUZNUlhBT3Q3TXMwN1NSMHZ5U250ZVNHRjBKaWE5WU96RWYxd0VVZzhHT2p5Zm9jM0Ffb3oxS0sycUZtajVsWEh2ZWxHR2tMbTdySzBka3J4YXUxVHRjVzRiVUU5TV9uWnhJVG9IWjFBdFdCVXVDWmdpQjMxeThqa1VOYTJxNXhmazlsN0ozaU5sZm1JVkViZkUtN01maVM4Ukd3&amp;file=%5Bamd64%5D+Ubuntu*Pack+20.04+Xfce+%2F+Xubuntu+(%D0%BC%D0%B0%D1%80%D1%82+2024)\"
+        length=\"3687841792\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"6\" />\n
+        \     <torznab:attr name=\"peers\" value=\"6\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu*Pack 24.04 MATE (\u0438\u044E\u043B\u044C 2025)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6555892</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6555892</comments>\n
+        \     <pubDate>Sat, 16 Aug 2025 10:59:48 +0000</pubDate>\n      <size>4217387008</size>\n
+        \     <grabs>215</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu*Pack 24.04 MATE (\u0438\u044E\u043B\u044C 2025)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVRWVDZUdYbDNycHlqRGVZNktCZ1JsVTYtbkhXWW04ZzV0UWZzd1VzSlViZlBXeHp3X05TejlVQ1J0TTA1Ti1BOG5MTEdINkxZS1Y5SXViVFBIZjdoM1NSRDZ5N1FieG1hblV3UF9tSTVVT3ZFaUxSQ3FNY3lpMFBZWlBrQnBWT296SmphdlduOGJQdWx5QXoyUzlVS3Y2X2RvVk51VWEyOEYwRDcwd1ZCd2ZB&amp;file=%5Bamd64%5D+Ubuntu*Pack+24.04+MATE+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVRWVDZUdYbDNycHlqRGVZNktCZ1JsVTYtbkhXWW04ZzV0UWZzd1VzSlViZlBXeHp3X05TejlVQ1J0TTA1Ti1BOG5MTEdINkxZS1Y5SXViVFBIZjdoM1NSRDZ5N1FieG1hblV3UF9tSTVVT3ZFaUxSQ3FNY3lpMFBZWlBrQnBWT296SmphdlduOGJQdWx5QXoyUzlVS3Y2X2RvVk51VWEyOEYwRDcwd1ZCd2ZB&amp;file=%5Bamd64%5D+Ubuntu*Pack+24.04+MATE+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)\"
+        length=\"4217387008\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"5\" />\n
+        \     <torznab:attr name=\"peers\" value=\"5\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu*Pack 22.04 LXqt / Lubuntu (\u0438\u044E\u043B\u044C 2025)</title>\n
+        \     <guid>https://rutracker.org/forum/viewtopic.php?t=6350759</guid>\n      <jackettindexer
+        id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6350759</comments>\n
+        \     <pubDate>Thu, 31 Jul 2025 11:23:53 +0000</pubDate>\n      <size>4036335616</size>\n
+        \     <grabs>95</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu*Pack 22.04 LXqt / Lubuntu (\u0438\u044E\u043B\u044C 2025)</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVUk5SSTM5b2lyeHVWR2c5TnI3Z1RJQWJKWUpKZUkyRXRvSVZPWTBTV2d0UzFqMUp4YU1laTVyNHFaRUNrenRhLWlUSnB5N2VfMW5kSmRUYkV5Tjh1cWFYMklkVzgtTVcwUTlGYVlxQ1FWX2lZYi1rUGFLdXA2UzFPd0F0U3ZZMWlfZmFoM1FTdWtuZkFHQUVrZ1NpYlRjVUNGbHBmRmRxanpwRm1NTFBjdjFn&amp;file=%5Bamd64%5D+Ubuntu*Pack+22.04+LXqt+%2F+Lubuntu+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVUk5SSTM5b2lyeHVWR2c5TnI3Z1RJQWJKWUpKZUkyRXRvSVZPWTBTV2d0UzFqMUp4YU1laTVyNHFaRUNrenRhLWlUSnB5N2VfMW5kSmRUYkV5Tjh1cWFYMklkVzgtTVcwUTlGYVlxQ1FWX2lZYi1rUGFLdXA2UzFPd0F0U3ZZMWlfZmFoM1FTdWtuZkFHQUVrZ1NpYlRjVUNGbHBmRmRxanpwRm1NTFBjdjFn&amp;file=%5Bamd64%5D+Ubuntu*Pack+22.04+LXqt+%2F+Lubuntu+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)\"
+        length=\"4036335616\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"5\" />\n
+        \     <torznab:attr name=\"peers\" value=\"5\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu*Pack 20.04 KDE / Kubuntu (\u043C\u0430\u0440\u0442 2024)</title>\n
+        \     <guid>https://rutracker.org/forum/viewtopic.php?t=5956114</guid>\n      <jackettindexer
+        id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=5956114</comments>\n
+        \     <pubDate>Thu, 14 Mar 2024 17:46:39 +0000</pubDate>\n      <size>3964665856</size>\n
+        \     <grabs>130</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu*Pack 20.04 KDE / Kubuntu (\u043C\u0430\u0440\u0442 2024)</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXOTFWOEw2M0g3UE5jeGVKdC1PNW5USklEWFFWZ3BueUM5VXd0dkkzUUpCTDdyOGZ2RWRMdElBR1c0Z3dybGxWQnNfeVdqb2ZnWkxzcm9VNG5qUEw2ZHpvQTVhbU1HdnNZeVlYT0Q5ekZBMVRtbC04V010YlRIUEJJNkNWTGZCY3AyUzVCLWlPZkxxLTZ1WmtXVEY2Vm9SX3dKcFM0dl9qMVdkdnAtaTJJOW9B&amp;file=%5Bamd64%5D+Ubuntu*Pack+20.04+KDE+%2F+Kubuntu+(%D0%BC%D0%B0%D1%80%D1%82+2024)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXOTFWOEw2M0g3UE5jeGVKdC1PNW5USklEWFFWZ3BueUM5VXd0dkkzUUpCTDdyOGZ2RWRMdElBR1c0Z3dybGxWQnNfeVdqb2ZnWkxzcm9VNG5qUEw2ZHpvQTVhbU1HdnNZeVlYT0Q5ekZBMVRtbC04V010YlRIUEJJNkNWTGZCY3AyUzVCLWlPZkxxLTZ1WmtXVEY2Vm9SX3dKcFM0dl9qMVdkdnAtaTJJOW9B&amp;file=%5Bamd64%5D+Ubuntu*Pack+20.04+KDE+%2F+Kubuntu+(%D0%BC%D0%B0%D1%80%D1%82+2024)\"
+        length=\"3964665856\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"5\" />\n
+        \     <torznab:attr name=\"peers\" value=\"5\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu*Pack 22.04 KDE / Kubuntu (\u0438\u044E\u043B\u044C 2025)</title>\n
+        \     <guid>https://rutracker.org/forum/viewtopic.php?t=6350711</guid>\n      <jackettindexer
+        id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6350711</comments>\n
+        \     <pubDate>Thu, 31 Jul 2025 11:21:48 +0000</pubDate>\n      <size>4265646080</size>\n
+        \     <grabs>64</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu*Pack 22.04 KDE / Kubuntu (\u0438\u044E\u043B\u044C 2025)</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWblduYnZ4SkJRV2tMX3pTeUxQTHlKS1JvRlpjUV9Uby1LM0RoNFozaEVibVhtZmRJT2pfZ1F3Y1hFTnVKc2g0Vmtjd0g1NUY5VHh0V1BxQUNNV2ExM0sxaVpCVzhGNm5RdDYzREJaVHJybzBsWWZkbV9ucndnQ1kzbWhLdVdNemlfUTlpM19ZbjQwOTNnLWpaZ1RjaUhzSGZoTlFJY3A3czBhU1BFb0hlRFVB&amp;file=%5Bamd64%5D+Ubuntu*Pack+22.04+KDE+%2F+Kubuntu+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWblduYnZ4SkJRV2tMX3pTeUxQTHlKS1JvRlpjUV9Uby1LM0RoNFozaEVibVhtZmRJT2pfZ1F3Y1hFTnVKc2g0Vmtjd0g1NUY5VHh0V1BxQUNNV2ExM0sxaVpCVzhGNm5RdDYzREJaVHJybzBsWWZkbV9ucndnQ1kzbWhLdVdNemlfUTlpM19ZbjQwOTNnLWpaZ1RjaUhzSGZoTlFJY3A3czBhU1BFb0hlRFVB&amp;file=%5Bamd64%5D+Ubuntu*Pack+22.04+KDE+%2F+Kubuntu+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)\"
+        length=\"4265646080\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"4\" />\n
+        \     <torznab:attr name=\"peers\" value=\"4\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu*Pack 22.04 Cinnamon (\u0438\u044E\u043B\u044C 2025)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6350602</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6350602</comments>\n
+        \     <pubDate>Thu, 31 Jul 2025 11:17:23 +0000</pubDate>\n      <size>4245673984</size>\n
+        \     <grabs>59</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu*Pack 22.04 Cinnamon (\u0438\u044E\u043B\u044C 2025)</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYSXgxNDExeHNDb3VDZUJhQ2x1VWZueFNNRWpFSHlrLXNSa1kwMVJzT01Sc0thOElpUzdFWllraUdlZTJUemZaazhsZy0yQVlmLVQwRXNjWkVxVmZwSVZPQjJSQ1JTQkFEY0FvTUlEWkt6eUlNR0k0TnZDNjQ1MGtabU9GNkNYal9fV3R3R0Jja1YxTDhqa1RpUm91YldiSzNEdWRNbFppbEVNWmw3WWphX25n&amp;file=%5Bamd64%5D+Ubuntu*Pack+22.04+Cinnamon+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYSXgxNDExeHNDb3VDZUJhQ2x1VWZueFNNRWpFSHlrLXNSa1kwMVJzT01Sc0thOElpUzdFWllraUdlZTJUemZaazhsZy0yQVlmLVQwRXNjWkVxVmZwSVZPQjJSQ1JTQkFEY0FvTUlEWkt6eUlNR0k0TnZDNjQ1MGtabU9GNkNYal9fV3R3R0Jja1YxTDhqa1RpUm91YldiSzNEdWRNbFppbEVNWmw3WWphX25n&amp;file=%5Bamd64%5D+Ubuntu*Pack+22.04+Cinnamon+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)\"
+        length=\"4245673984\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"4\" />\n
+        \     <torznab:attr name=\"peers\" value=\"4\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu*Pack 24.04 Budgie (\u0438\u044E\u043B\u044C 2024)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6555880</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6555880</comments>\n
+        \     <pubDate>Sun, 28 Jul 2024 08:26:51 +0000</pubDate>\n      <size>4229128192</size>\n
+        \     <grabs>82</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu*Pack 24.04 Budgie (\u0438\u044E\u043B\u044C 2024)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYclhQU1hNang4OVRFQ3dXYTBLTHpLblZhM25rWXNsZlNxcWlTejBsZ2NFRnQydUc3UjQ0Smw0X2RFMTdyMm9mLVFIRlpKRkRjM3A2cFVIelJzcWtHVEtLMWxKYlVKN1l6X2dYT2ZaNjhUX2lJMXc2bUhHSWk1cl91bWp4cVlrcnZOM3MzS1RRdm4xR19TU3VRRlM5enNYSGNnVGhsbEV0NzEyVnFhMGp4R3hn&amp;file=%5Bamd64%5D+Ubuntu*Pack+24.04+Budgie+(%D0%B8%D1%8E%D0%BB%D1%8C+2024)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYclhQU1hNang4OVRFQ3dXYTBLTHpLblZhM25rWXNsZlNxcWlTejBsZ2NFRnQydUc3UjQ0Smw0X2RFMTdyMm9mLVFIRlpKRkRjM3A2cFVIelJzcWtHVEtLMWxKYlVKN1l6X2dYT2ZaNjhUX2lJMXc2bUhHSWk1cl91bWp4cVlrcnZOM3MzS1RRdm4xR19TU3VRRlM5enNYSGNnVGhsbEV0NzEyVnFhMGp4R3hn&amp;file=%5Bamd64%5D+Ubuntu*Pack+24.04+Budgie+(%D0%B8%D1%8E%D0%BB%D1%8C+2024)\"
+        length=\"4229128192\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"4\" />\n
+        \     <torznab:attr name=\"peers\" value=\"4\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu*Pack 24.04 Unity (\u0438\u044E\u043B\u044C 2024)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6555894</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6555894</comments>\n
+        \     <pubDate>Sun, 28 Jul 2024 08:46:20 +0000</pubDate>\n      <size>4150855680</size>\n
+        \     <grabs>323</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu*Pack 24.04 Unity (\u0438\u044E\u043B\u044C 2024)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWNFdOX3luNmJIaE01b0Y3Y2swSUYzQXNxNmdBaHNEWlNGd0EwTGJCYWZpMGhnZzBrbHFyWTBLd1VpRHBUdjR6Z05iemxOSUd0eE5HUksxMVFMb3JzenFYY1cwRkRHejJ2RlE3RF9NRGtBYU91WG52MDc5NkJyWk1QS1VpMllhLWlNQk10RzYxeHZpVFNxUnp5cDgyWC1tR1RVNm5uNlBlM1RNODZvTUtERWF3&amp;file=%5Bamd64%5D+Ubuntu*Pack+24.04+Unity+(%D0%B8%D1%8E%D0%BB%D1%8C+2024)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWNFdOX3luNmJIaE01b0Y3Y2swSUYzQXNxNmdBaHNEWlNGd0EwTGJCYWZpMGhnZzBrbHFyWTBLd1VpRHBUdjR6Z05iemxOSUd0eE5HUksxMVFMb3JzenFYY1cwRkRHejJ2RlE3RF9NRGtBYU91WG52MDc5NkJyWk1QS1VpMllhLWlNQk10RzYxeHZpVFNxUnp5cDgyWC1tR1RVNm5uNlBlM1RNODZvTUtERWF3&amp;file=%5Bamd64%5D+Ubuntu*Pack+24.04+Unity+(%D0%B8%D1%8E%D0%BB%D1%8C+2024)\"
+        length=\"4150855680\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"4\" />\n
+        \     <torznab:attr name=\"peers\" value=\"4\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu*Pack 22.04 MATE (\u0438\u044E\u043B\u044C 2025)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6350858</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6350858</comments>\n
+        \     <pubDate>Thu, 31 Jul 2025 11:25:01 +0000</pubDate>\n      <size>4137115648</size>\n
+        \     <grabs>82</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu*Pack 22.04 MATE (\u0438\u044E\u043B\u044C 2025)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVWDRrRWNwdndDZUlCenM1WTdoaVpGUUh3ODlJc2N3cVQ5U0dlcVc1elIwU2pVeDNTUkthdXBIRHVkNS1pZXhoc1F3djB4NXctXzBpS1o1TVpOcDZQNkt2TlAwT2huNzV0MHVYMkpXMlBIclBoUnEzWHVPQmFmT2I3TjJpM2JObkh2Z3AtSTRRWnYwQkpqeVFiV2w5NV9hWVBmUnd4QW9mcHpId1ZTbDVxNzB3&amp;file=%5Bamd64%5D+Ubuntu*Pack+22.04+MATE+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVWDRrRWNwdndDZUlCenM1WTdoaVpGUUh3ODlJc2N3cVQ5U0dlcVc1elIwU2pVeDNTUkthdXBIRHVkNS1pZXhoc1F3djB4NXctXzBpS1o1TVpOcDZQNkt2TlAwT2huNzV0MHVYMkpXMlBIclBoUnEzWHVPQmFmT2I3TjJpM2JObkh2Z3AtSTRRWnYwQkpqeVFiV2w5NV9hWVBmUnd4QW9mcHpId1ZTbDVxNzB3&amp;file=%5Bamd64%5D+Ubuntu*Pack+22.04+MATE+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)\"
+        length=\"4137115648\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"4\" />\n
+        \     <torznab:attr name=\"peers\" value=\"4\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu*Pack 22.04 LikeWin (\u0438\u044E\u043B\u044C 2025)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6350746</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6350746</comments>\n
+        \     <pubDate>Thu, 31 Jul 2025 11:22:49 +0000</pubDate>\n      <size>4069341184</size>\n
+        \     <grabs>62</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu*Pack 22.04 LikeWin (\u0438\u044E\u043B\u044C 2025)</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXQTVZTlZoSF9tUlVJSDJjQUttWDVSTGNQR0Jmc3NKQUg1Yl9ZSHFCb2k1QVVkWTR3bzFDUWgzRDM0R2hSQlJzbU5xZmtUSlE5dllvZEdCT2JWc050MlJNcWtqVGVjU2c4UFdRM3NXY3RERHhXMzVIdElCblRBOUpFamJSZ3o4bks3RjRJaGV1cV9pd3J4ZVMxekRhT2NXeEZTZDFON2JKUC12QUgxaW1UblVn&amp;file=%5Bamd64%5D+Ubuntu*Pack+22.04+LikeWin+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXQTVZTlZoSF9tUlVJSDJjQUttWDVSTGNQR0Jmc3NKQUg1Yl9ZSHFCb2k1QVVkWTR3bzFDUWgzRDM0R2hSQlJzbU5xZmtUSlE5dllvZEdCT2JWc050MlJNcWtqVGVjU2c4UFdRM3NXY3RERHhXMzVIdElCblRBOUpFamJSZ3o4bks3RjRJaGV1cV9pd3J4ZVMxekRhT2NXeEZTZDFON2JKUC12QUgxaW1UblVn&amp;file=%5Bamd64%5D+Ubuntu*Pack+22.04+LikeWin+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)\"
+        length=\"4069341184\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"4\" />\n
+        \     <torznab:attr name=\"peers\" value=\"4\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu*Pack 22.04 Budgie (\u0441\u0435\u043D\u0442\u044F\u0431\u0440\u044C
+        2024)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6350601</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6350601</comments>\n
+        \     <pubDate>Sun, 15 Sep 2024 19:29:21 +0000</pubDate>\n      <size>4006316032</size>\n
+        \     <grabs>97</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu*Pack 22.04 Budgie (\u0441\u0435\u043D\u0442\u044F\u0431\u0440\u044C
+        2024)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWdHZ1OU1DNk9tUW5NT29uam1Nb2dVM3VRXzdkMXNkV2hucFpCRk0xX1BXdEpWZDlPRk8zU29YU0c2ZTFOM25sS3VMdlZWVzVBc2lMem9Ha2N6OW9jMWFQcG5hNjFsZWMyVXBrTXFGNDd3c3lERFVQRlo5NHA1QnhJVVRtZ1U4U0RqSHpfbnVPRTNUUFdpeWdJbE44N0JBOXc4WXY4Sm5MZFptQ2hMelQyc2hn&amp;file=%5Bamd64%5D+Ubuntu*Pack+22.04+Budgie+(%D1%81%D0%B5%D0%BD%D1%82%D1%8F%D0%B1%D1%80%D1%8C+2024)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWdHZ1OU1DNk9tUW5NT29uam1Nb2dVM3VRXzdkMXNkV2hucFpCRk0xX1BXdEpWZDlPRk8zU29YU0c2ZTFOM25sS3VMdlZWVzVBc2lMem9Ha2N6OW9jMWFQcG5hNjFsZWMyVXBrTXFGNDd3c3lERFVQRlo5NHA1QnhJVVRtZ1U4U0RqSHpfbnVPRTNUUFdpeWdJbE44N0JBOXc4WXY4Sm5MZFptQ2hMelQyc2hn&amp;file=%5Bamd64%5D+Ubuntu*Pack+22.04+Budgie+(%D1%81%D0%B5%D0%BD%D1%82%D1%8F%D0%B1%D1%80%D1%8C+2024)\"
+        length=\"4006316032\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"4\" />\n
+        \     <torznab:attr name=\"peers\" value=\"4\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu GamePack 20.04 [\u043C\u0430\u0440\u0442] (2024) PC</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=5956190</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=5956190</comments>\n
+        \     <pubDate>Sat, 16 Mar 2024 14:52:38 +0000</pubDate>\n      <size>3990880256</size>\n
+        \     <grabs>140</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu GamePack 20.04 [\u043C\u0430\u0440\u0442] (2024) PC</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVVGE0UzBWUzd6T3g2UHJhMElyUFFkZ096NFhrOXpkbjNhNU13WENEWG9uVkFsdEZCVENDVkw0bzBxMVNlSVhUR2swS19iaUM1akpzRFlaWGJpdUFUTncxOHhobmZTUGtnSzdaZUdmWnJRUGNvWkZfQ0tTYWxYWFlHeWFraVRraVFGd2NnendsUFJHNXdOTFdyTnpzQi1fd1pndXY3NExxV3JJMmxsNjQ1bEx3&amp;file=%5Bamd64%5D+Ubuntu+GamePack+20.04+%5B%D0%BC%D0%B0%D1%80%D1%82%5D+(2024)+PC</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVVGE0UzBWUzd6T3g2UHJhMElyUFFkZ096NFhrOXpkbjNhNU13WENEWG9uVkFsdEZCVENDVkw0bzBxMVNlSVhUR2swS19iaUM1akpzRFlaWGJpdUFUTncxOHhobmZTUGtnSzdaZUdmWnJRUGNvWkZfQ0tTYWxYWFlHeWFraVRraVFGd2NnendsUFJHNXdOTFdyTnpzQi1fd1pndXY3NExxV3JJMmxsNjQ1bEx3&amp;file=%5Bamd64%5D+Ubuntu+GamePack+20.04+%5B%D0%BC%D0%B0%D1%80%D1%82%5D+(2024)+PC\"
+        length=\"3990880256\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"4\" />\n
+        \     <torznab:attr name=\"peers\" value=\"4\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu*Pack 20.04 MATE (\u043C\u0430\u0440\u0442 2024)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=5956108</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=5956108</comments>\n
+        \     <pubDate>Thu, 14 Mar 2024 17:47:45 +0000</pubDate>\n      <size>3864002560</size>\n
+        \     <grabs>112</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu*Pack 20.04 MATE (\u043C\u0430\u0440\u0442 2024)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWbVJ0VzNmR2tpaUVFdDNGQXlydkVZRFBLc21kdldNS1l5aWlCZHduS3JRV3U1dmRqSUlpcjBLcnhfYnZrWWMyd2ozd2dKZWw3MVMzOXNFUElRRWVQeXFUMWVCcTRUZENkSVBIdnlJRENQTXR0Y1hDMm9CdEJOZFIwcnk1UE9uS2wxSnp6al8ydmRUbkFrQlk0YXJEaHc0d1M5Q3lLTXoxOS1iZGMwbkVMX2FB&amp;file=%5Bamd64%5D+Ubuntu*Pack+20.04+MATE+(%D0%BC%D0%B0%D1%80%D1%82+2024)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWbVJ0VzNmR2tpaUVFdDNGQXlydkVZRFBLc21kdldNS1l5aWlCZHduS3JRV3U1dmRqSUlpcjBLcnhfYnZrWWMyd2ozd2dKZWw3MVMzOXNFUElRRWVQeXFUMWVCcTRUZENkSVBIdnlJRENQTXR0Y1hDMm9CdEJOZFIwcnk1UE9uS2wxSnp6al8ydmRUbkFrQlk0YXJEaHc0d1M5Q3lLTXoxOS1iZGMwbkVMX2FB&amp;file=%5Bamd64%5D+Ubuntu*Pack+20.04+MATE+(%D0%BC%D0%B0%D1%80%D1%82+2024)\"
+        length=\"3864002560\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"4\" />\n
+        \     <torznab:attr name=\"peers\" value=\"4\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu*Pack 20.04 Unity (\u043C\u0430\u0440\u0442 2024)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=5956103</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=5956103</comments>\n
+        \     <pubDate>Thu, 14 Mar 2024 17:48:15 +0000</pubDate>\n      <size>3836739584</size>\n
+        \     <grabs>115</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu*Pack 20.04 Unity (\u043C\u0430\u0440\u0442 2024)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWbnI0VE5KUUhwbi0wOGdLcE5BcUJMUm5BRVVEb19uUUV2SVVIS1dNOUk5VE81Z3NjOENySDVxU2FzTUY5Y1hoZXFCSGlWZWRuU1haTEZvRnRNLW1IeU00RTB6OGNwb29IOU1XWUlmX2t2RDhxMS16MFZXa3c4b0NnVUxRNjBxOHpjOEIyaDI3cGZvb1NXaV9jSURWUjFwekdFbnMwNEVTZTE3N2J1cXdtQVFR&amp;file=%5Bamd64%5D+Ubuntu*Pack+20.04+Unity+(%D0%BC%D0%B0%D1%80%D1%82+2024)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWbnI0VE5KUUhwbi0wOGdLcE5BcUJMUm5BRVVEb19uUUV2SVVIS1dNOUk5VE81Z3NjOENySDVxU2FzTUY5Y1hoZXFCSGlWZWRuU1haTEZvRnRNLW1IeU00RTB6OGNwb29IOU1XWUlmX2t2RDhxMS16MFZXa3c4b0NnVUxRNjBxOHpjOEIyaDI3cGZvb1NXaV9jSURWUjFwekdFbnMwNEVTZTE3N2J1cXdtQVFR&amp;file=%5Bamd64%5D+Ubuntu*Pack+20.04+Unity+(%D0%BC%D0%B0%D1%80%D1%82+2024)\"
+        length=\"3836739584\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"4\" />\n
+        \     <torznab:attr name=\"peers\" value=\"4\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu*Pack 20.04 LXqt / Lubuntu (\u043C\u0430\u0440\u0442 2024)</title>\n
+        \     <guid>https://rutracker.org/forum/viewtopic.php?t=5956109</guid>\n      <jackettindexer
+        id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=5956109</comments>\n
+        \     <pubDate>Thu, 14 Mar 2024 17:47:13 +0000</pubDate>\n      <size>3796893696</size>\n
+        \     <grabs>134</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu*Pack 20.04 LXqt / Lubuntu (\u043C\u0430\u0440\u0442 2024)</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVLVJTek9qb3pYRFdhQUY2WVQ0bGZ0dnMwOW1PTHFaQnk3My1EZl9TcEl2bXZCU0NRS3cxX25tdXRoWWJraEVHRUdWSEUtTm9JQ2E0cDNJeWZjOHZNdk1KWk5Wd3l5SDZNdkJjY3FJZHpmbElpYkJmQmpaTXVTVmNOYjNQclhZci1QdUlsMnlubzBUa2NQUVRIT3dBX28yNDRRcHR1Y09aM0Foa1ZVMVNvVUNn&amp;file=%5Bamd64%5D+Ubuntu*Pack+20.04+LXqt+%2F+Lubuntu+(%D0%BC%D0%B0%D1%80%D1%82+2024)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVLVJTek9qb3pYRFdhQUY2WVQ0bGZ0dnMwOW1PTHFaQnk3My1EZl9TcEl2bXZCU0NRS3cxX25tdXRoWWJraEVHRUdWSEUtTm9JQ2E0cDNJeWZjOHZNdk1KWk5Wd3l5SDZNdkJjY3FJZHpmbElpYkJmQmpaTXVTVmNOYjNQclhZci1QdUlsMnlubzBUa2NQUVRIT3dBX28yNDRRcHR1Y09aM0Foa1ZVMVNvVUNn&amp;file=%5Bamd64%5D+Ubuntu*Pack+20.04+LXqt+%2F+Lubuntu+(%D0%BC%D0%B0%D1%80%D1%82+2024)\"
+        length=\"3796893696\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"4\" />\n
+        \     <torznab:attr name=\"peers\" value=\"4\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu*Pack 20.04 LikeWin (\u043C\u0430\u0440\u0442 2024)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=5956119</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=5956119</comments>\n
+        \     <pubDate>Thu, 14 Mar 2024 17:46:09 +0000</pubDate>\n      <size>3722444800</size>\n
+        \     <grabs>97</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu*Pack 20.04 LikeWin (\u043C\u0430\u0440\u0442 2024)</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVYy14LVJiRWRrdDE3eS01UlRsMDRSMDFJeVJmQ1Z1V2E3MUwtYV95Z1hQRy1xajNrbmtuM2twWmYxaFN3WDVnQzV6enlZYU9XQlJMU3ZwdkRmSmRpWHdhdWNSeGN2MHMzNXFZa0FCUi0xVlVhQXlNNEpFZXh0YzZETldpYmdJSWFOQ2R4YUozbDJYQUxGcUhmNkh3aXJZVmhsOGpYcDBsbEhZN1owV1Z6eEhR&amp;file=%5Bamd64%5D+Ubuntu*Pack+20.04+LikeWin+(%D0%BC%D0%B0%D1%80%D1%82+2024)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVYy14LVJiRWRrdDE3eS01UlRsMDRSMDFJeVJmQ1Z1V2E3MUwtYV95Z1hQRy1xajNrbmtuM2twWmYxaFN3WDVnQzV6enlZYU9XQlJMU3ZwdkRmSmRpWHdhdWNSeGN2MHMzNXFZa0FCUi0xVlVhQXlNNEpFZXh0YzZETldpYmdJSWFOQ2R4YUozbDJYQUxGcUhmNkh3aXJZVmhsOGpYcDBsbEhZN1owV1Z6eEhR&amp;file=%5Bamd64%5D+Ubuntu*Pack+20.04+LikeWin+(%D0%BC%D0%B0%D1%80%D1%82+2024)\"
+        length=\"3722444800\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"4\" />\n
+        \     <torznab:attr name=\"peers\" value=\"4\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu*Pack 22.04 DDE (\u0438\u044E\u043B\u044C 2025)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6350654</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6350654</comments>\n
+        \     <pubDate>Sat, 09 Aug 2025 06:43:30 +0000</pubDate>\n      <size>4521459712</size>\n
+        \     <grabs>164</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu*Pack 22.04 DDE (\u0438\u044E\u043B\u044C 2025)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYVVRSODNIbWFpVEFuSzJnSWFYMnJnTHBNZzY5U1Z2UkZ4OTNmTlFVU0lmaE1qSFFLQnIxWDM4YjRHN1phZUZuUXpXOFBxYXgwaXNPSjQ5NkE1X3dVX2JQcUhibkNEandlQXMtQUhlRU9ja3ZwN3RJeHFLX1VIZ1FJUGVpd2lrYXlPbENmQjhLV2o3NGM1N1Q3MVNJUGZGeTVUQlcyNGN4M21iS3pQeW9TeXZ3&amp;file=%5Bamd64%5D+Ubuntu*Pack+22.04+DDE+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYVVRSODNIbWFpVEFuSzJnSWFYMnJnTHBNZzY5U1Z2UkZ4OTNmTlFVU0lmaE1qSFFLQnIxWDM4YjRHN1phZUZuUXpXOFBxYXgwaXNPSjQ5NkE1X3dVX2JQcUhibkNEandlQXMtQUhlRU9ja3ZwN3RJeHFLX1VIZ1FJUGVpd2lrYXlPbENmQjhLV2o3NGM1N1Q3MVNJUGZGeTVUQlcyNGN4M21iS3pQeW9TeXZ3&amp;file=%5Bamd64%5D+Ubuntu*Pack+22.04+DDE+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)\"
+        length=\"4521459712\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"3\" />\n
+        \     <torznab:attr name=\"peers\" value=\"3\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu*Pack 24.04 Cinnamon (\u0438\u044E\u043B\u044C 2025)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6555882</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6555882</comments>\n
+        \     <pubDate>Sat, 16 Aug 2025 10:40:34 +0000</pubDate>\n      <size>4401063936</size>\n
+        \     <grabs>158</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu*Pack 24.04 Cinnamon (\u0438\u044E\u043B\u044C 2025)</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVaGtKeHlkX2NvdnN5al9zaDl5UTlQOUVUbHltbUtSMEJ3dnU1RWUyRWdBY3R3R19ySklha1Q4X2lDTDJETjhQVC1Xc0pXWjk5SGdRTVBXQ3lTRUtoSVo0Y1lsbGZYTjFReW9wTFlmNHdybHJaSU5xX3hiQTJKYmVHWTBuZTlnelJ6N3BGRUNacGpwbFJlaDJTSXdhUV94X1Qzdm0tbkRGekcxN25Ybk0weU53&amp;file=%5Bamd64%5D+Ubuntu*Pack+24.04+Cinnamon+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVaGtKeHlkX2NvdnN5al9zaDl5UTlQOUVUbHltbUtSMEJ3dnU1RWUyRWdBY3R3R19ySklha1Q4X2lDTDJETjhQVC1Xc0pXWjk5SGdRTVBXQ3lTRUtoSVo0Y1lsbGZYTjFReW9wTFlmNHdybHJaSU5xX3hiQTJKYmVHWTBuZTlnelJ6N3BGRUNacGpwbFJlaDJTSXdhUV94X1Qzdm0tbkRGekcxN25Ybk0weU53&amp;file=%5Bamd64%5D+Ubuntu*Pack+24.04+Cinnamon+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)\"
+        length=\"4401063936\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"3\" />\n
+        \     <torznab:attr name=\"peers\" value=\"3\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu GamePack 22.04 [\u0438\u044E\u043B\u044C] (2025) PC</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6503567</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6503567</comments>\n
+        \     <pubDate>Thu, 31 Jul 2025 12:29:48 +0000</pubDate>\n      <size>4180408320</size>\n
+        \     <grabs>96</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu GamePack 22.04 [\u0438\u044E\u043B\u044C] (2025) PC</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYS3pmSDBCVmE2WmVPVnJZOGxwOVd0aGVNQWFfQUpnZ0puakhYVy11aFk4Vjg3eDBPeHFHaEFPd0k2U0JtRDg1WlRYcDBXdWE5aDN1UklYN2ROVlVBVjdBWHNEMDVrZXp0QURBaDNVczhzU2pDcFhYQ3pCSm8tV0lCZEtpYUdxMHZnY2dnOVgyNjFGVkxSSmNyWlJCbU1iOGs1dTI2Ml9PMnFQTW5xLXN1OU9n&amp;file=%5Bamd64%5D+Ubuntu+GamePack+22.04+%5B%D0%B8%D1%8E%D0%BB%D1%8C%5D+(2025)+PC</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYS3pmSDBCVmE2WmVPVnJZOGxwOVd0aGVNQWFfQUpnZ0puakhYVy11aFk4Vjg3eDBPeHFHaEFPd0k2U0JtRDg1WlRYcDBXdWE5aDN1UklYN2ROVlVBVjdBWHNEMDVrZXp0QURBaDNVczhzU2pDcFhYQ3pCSm8tV0lCZEtpYUdxMHZnY2dnOVgyNjFGVkxSSmNyWlJCbU1iOGs1dTI2Ml9PMnFQTW5xLXN1OU9n&amp;file=%5Bamd64%5D+Ubuntu+GamePack+22.04+%5B%D0%B8%D1%8E%D0%BB%D1%8C%5D+(2025)+PC\"
+        length=\"4180408320\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"3\" />\n
+        \     <torznab:attr name=\"peers\" value=\"3\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu*Pack 22.04 Xfce / Xubuntu (\u0438\u044E\u043B\u044C 2025)</title>\n
+        \     <guid>https://rutracker.org/forum/viewtopic.php?t=6350902</guid>\n      <jackettindexer
+        id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6350902</comments>\n
+        \     <pubDate>Thu, 31 Jul 2025 11:26:02 +0000</pubDate>\n      <size>4166793216</size>\n
+        \     <grabs>96</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu*Pack 22.04 Xfce / Xubuntu (\u0438\u044E\u043B\u044C 2025)</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVa1ozS3A4MTNQRlU3OTNtWjhkRXBrajNRXzk1SzlpZVFfTFdlcWh5OFh3NTFkX0xOX3oxY1ZXMWxEemowLVpBZzFrbG9XWlV6NVZiRVRjeGFJS1pvODdmeFg2LTJKZzdram5QdWV2OFJ3VjBHQVRiQmFZQ3ZRR2xlcExjR2U2YTBDREZ6YlQ5Z0U0X090UDlwMVdWT2U4WFp6YVhZM1ZCVlBCQTk3cjBQNDBB&amp;file=%5Bamd64%5D+Ubuntu*Pack+22.04+Xfce+%2F+Xubuntu+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVa1ozS3A4MTNQRlU3OTNtWjhkRXBrajNRXzk1SzlpZVFfTFdlcWh5OFh3NTFkX0xOX3oxY1ZXMWxEemowLVpBZzFrbG9XWlV6NVZiRVRjeGFJS1pvODdmeFg2LTJKZzdram5QdWV2OFJ3VjBHQVRiQmFZQ3ZRR2xlcExjR2U2YTBDREZ6YlQ5Z0U0X090UDlwMVdWT2U4WFp6YVhZM1ZCVlBCQTk3cjBQNDBB&amp;file=%5Bamd64%5D+Ubuntu*Pack+22.04+Xfce+%2F+Xubuntu+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)\"
+        length=\"4166793216\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"3\" />\n
+        \     <torznab:attr name=\"peers\" value=\"3\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[amd64]
+        Ubuntu*Pack 22.04 GNOME (\u0438\u044E\u043B\u044C 2025)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6350697</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6350697</comments>\n
+        \     <pubDate>Thu, 31 Jul 2025 11:20:31 +0000</pubDate>\n      <size>4069332992</size>\n
+        \     <grabs>95</grabs>\n      <description>Uploader: \n\t\t\tzluka-ua\n\t\t&lt;br&gt;[amd64]
+        Ubuntu*Pack 22.04 GNOME (\u0438\u044E\u043B\u044C 2025)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYSjV5elVUbFFMOWhNYWRsQlN3NlBhMWVsUUhaajgxTDJWSkxVVDNIVlFaUGgzWXhxT2MxbUlmZ0hoZEZnUWFrVEEyMjRBRFB6N3QxSWw1UGpWQVdVVGQ3Z3FjNF9YNzRxUDcyVXF2WmJwUXlFSlFPaThoR3hRRXJlZHdmUnFEWmJlNWZCTEhkWmpPc3dRTmxwdXloRnh1R0tsVGZZZko2YnJ2eDB2dWtwVm93&amp;file=%5Bamd64%5D+Ubuntu*Pack+22.04+GNOME+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)</link>\n
+        \     <category>4000</category>\n      <category>101379</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYSjV5elVUbFFMOWhNYWRsQlN3NlBhMWVsUUhaajgxTDJWSkxVVDNIVlFaUGgzWXhxT2MxbUlmZ0hoZEZnUWFrVEEyMjRBRFB6N3QxSWw1UGpWQVdVVGQ3Z3FjNF9YNzRxUDcyVXF2WmJwUXlFSlFPaThoR3hRRXJlZHdmUnFEWmJlNWZCTEhkWmpPc3dRTmxwdXloRnh1R0tsVGZZZko2YnJ2eDB2dWtwVm93&amp;file=%5Bamd64%5D+Ubuntu*Pack+22.04+GNOME+(%D0%B8%D1%8E%D0%BB%D1%8C+2025)\"
+        length=\"4069332992\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101379\" />\n      <torznab:attr name=\"seeders\" value=\"3\" />\n
+        \     <torznab:attr name=\"peers\" value=\"3\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>Ubuntu
+        16.04 Dell Recovery 16.04 x64 [2018, Multi + RUS]</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6782121</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6782121</comments>\n
+        \     <pubDate>Wed, 03 Dec 2025 17:52:47 +0000</pubDate>\n      <size>2377711616</size>\n
+        \     <grabs>51</grabs>\n      <description>Uploader: \n\t\t\tMaysonT\n\t\t&lt;br&gt;Ubuntu
+        16.04 Dell Recovery 16.04 x64 [2018, Multi + RUS]</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYUV82VzRmVW1wNHRISF9mSXZPeEQ3WU1fMnNidlJ5bGFBM0ZadVRqVndxd3h5VDFKeUpVUWFSWFRJNktRTGxwczhsSFh2dzVXUE8zM05zV3NaeWtQWVNua3djVkM0OFNDSnpLYUNCeTg2blh0SWhSYVBreGxDVWg0Mk95b056MmFDWm96ZVhFN0d1T2pQVUdoQmw2QmJZNUR1LUZNLUgtOFhNdm1nNmhoQmVB&amp;file=Ubuntu+16.04+Dell+Recovery+16.04+x64+%5B2018%2C+Multi+%2B+RUS%5D</link>\n
+        \     <category>4000</category>\n      <category>101051</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYUV82VzRmVW1wNHRISF9mSXZPeEQ3WU1fMnNidlJ5bGFBM0ZadVRqVndxd3h5VDFKeUpVUWFSWFRJNktRTGxwczhsSFh2dzVXUE8zM05zV3NaeWtQWVNua3djVkM0OFNDSnpLYUNCeTg2blh0SWhSYVBreGxDVWg0Mk95b056MmFDWm96ZVhFN0d1T2pQVUdoQmw2QmJZNUR1LUZNLUgtOFhNdm1nNmhoQmVB&amp;file=Ubuntu+16.04+Dell+Recovery+16.04+x64+%5B2018%2C+Multi+%2B+RUS%5D\"
+        length=\"2377711616\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"4000\" />\n      <torznab:attr name=\"category\"
+        value=\"101051\" />\n      <torznab:attr name=\"seeders\" value=\"3\" />\n
+        \     <torznab:attr name=\"peers\" value=\"3\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>(Psy-Trance)
+        [WEB] VA - Ubuntu (PsynOpticz &amp; Samaa) - 2024, FLAC (tracks), lossless</title>\n
+        \     <guid>https://rutracker.org/forum/viewtopic.php?t=6567699</guid>\n      <jackettindexer
+        id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6567699</comments>\n
+        \     <pubDate>Thu, 29 Aug 2024 17:49:54 +0000</pubDate>\n      <size>657318144</size>\n
+        \     <grabs>182</grabs>\n      <description>Uploader: \n\t\t\tE.M.T.\n\t\t&lt;br&gt;(Psy-Trance)
+        [WEB] VA - Ubuntu (PsynOpticz &amp; Samaa) - 2024, FLAC (tracks), lossless</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVamZqeWZjOGRtbGdlOGlIV3RqTDlIZ0ZsTktTOE9DRTd3bGhmWnRhRm1ybnRrQlVtSjhLenhXREJuX3lCT3NEM1dTMkJwMWN6UUlOT1BqRkI1ek9YSHN1Tl8wZTBFRDkxN0NmZzdEZ0dJeExBU3cyR3lzUWVHSWIwYW8zc1VMTFJ5WXN4cEQtMDR0OG5XcGJZMEZFRmtzR1A5VHF6M3F4TFJnaFRFU01aa1J3&amp;file=(Psy-Trance)+%5BWEB%5D+VA+-+Ubuntu+(PsynOpticz+%26+Samaa)+-+2024%2C+FLAC+(tracks)%2C+lossless</link>\n
+        \     <category>3040</category>\n      <category>101844</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVamZqeWZjOGRtbGdlOGlIV3RqTDlIZ0ZsTktTOE9DRTd3bGhmWnRhRm1ybnRrQlVtSjhLenhXREJuX3lCT3NEM1dTMkJwMWN6UUlOT1BqRkI1ek9YSHN1Tl8wZTBFRDkxN0NmZzdEZ0dJeExBU3cyR3lzUWVHSWIwYW8zc1VMTFJ5WXN4cEQtMDR0OG5XcGJZMEZFRmtzR1A5VHF6M3F4TFJnaFRFU01aa1J3&amp;file=(Psy-Trance)+%5BWEB%5D+VA+-+Ubuntu+(PsynOpticz+%26+Samaa)+-+2024%2C+FLAC+(tracks)%2C+lossless\"
+        length=\"657318144\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"3040\" />\n      <torznab:attr name=\"category\"
+        value=\"101844\" />\n      <torznab:attr name=\"seeders\" value=\"5\" />\n
+        \     <torznab:attr name=\"peers\" value=\"6\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>[TR24][OF]
+        Fields of N\xE6cluda (Fields of Naecluda) - Ubuntu - 2024 (Progressive Rock,
+        Heavy Prog)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6591423</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6591423</comments>\n
+        \     <pubDate>Mon, 28 Oct 2024 08:55:19 +0000</pubDate>\n      <size>723020672</size>\n
+        \     <grabs>238</grabs>\n      <description>Uploader: \n\t\t\tSerghant Pepper\n\t\t&lt;br&gt;[TR24][OF]
+        Fields of N\xE6cluda (Fields of Naecluda) - Ubuntu - 2024 (Progressive Rock,
+        Heavy Prog)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYdzZwZDJvajdSWU1NeXFqSEd4Y0dZRDhHalRscjRmVzVwTjJJbkVHbWlVMFdkSTByRGVuMWloeTY2TTNMcElHelRJZHZJZWRFMWw2dklUQ0p3bmtvVnQ3Vl8ybGE5NDB4ZEpLdWdpTmR1RHllTVVOaFZ0QlYwNk5RSXdlaUVLWjVic2lIRllTcXVlWnFiY2VXMjZJYTlBeTBQaUd5WUtMNEx0THZ0OU1NSmpR&amp;file=%5BTR24%5D%5BOF%5D+Fields+of+N%C3%A6cluda+(Fields+of+Naecluda)+-+Ubuntu+-+2024+(Progressive+Rock%2C+Heavy+Prog)</link>\n
+        \     <category>3000</category>\n      <category>101755</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYdzZwZDJvajdSWU1NeXFqSEd4Y0dZRDhHalRscjRmVzVwTjJJbkVHbWlVMFdkSTByRGVuMWloeTY2TTNMcElHelRJZHZJZWRFMWw2dklUQ0p3bmtvVnQ3Vl8ybGE5NDB4ZEpLdWdpTmR1RHllTVVOaFZ0QlYwNk5RSXdlaUVLWjVic2lIRllTcXVlWnFiY2VXMjZJYTlBeTBQaUd5WUtMNEx0THZ0OU1NSmpR&amp;file=%5BTR24%5D%5BOF%5D+Fields+of+N%C3%A6cluda+(Fields+of+Naecluda)+-+Ubuntu+-+2024+(Progressive+Rock%2C+Heavy+Prog)\"
+        length=\"723020672\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"3000\" />\n      <torznab:attr name=\"category\"
+        value=\"101755\" />\n      <torznab:attr name=\"seeders\" value=\"3\" />\n
+        \     <torznab:attr name=\"peers\" value=\"3\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>(Psy-Trance)
+        [WEB] Pandora - Portal (Ubuntu Psy Records [UBNTSPECIAL]) - 2025, FLAC (tracks),
+        lossless</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6722228</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6722228</comments>\n
+        \     <pubDate>Mon, 21 Jul 2025 12:49:00 +0000</pubDate>\n      <size>388158144</size>\n
+        \     <grabs>138</grabs>\n      <description>Uploader: \n\t\t\tmt-tee\n\t\t&lt;br&gt;(Psy-Trance)
+        [WEB] Pandora - Portal (Ubuntu Psy Records [UBNTSPECIAL]) - 2025, FLAC (tracks),
+        lossless</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWaldITXVXQll6RGozVWJoVG9VeFVOQzhpdGtJaVY1cjd6MTNacVVaQVB1bkdjQng3Sl9ZTjRsMkhpaGwyRnFaTGM2NHZaWHpBUWZUUHFSYjZQUEU3cjZGaUg1WGFiaTBCUUpzcHAxTjY3LUF1dnM3cUszLTJyZUo0YkI1Z1pwYjN3azJYYlc3MURqbm1oZFRwbEJ6N0ZQX1p0Z0gyQVZGSDh0V1E4aU51Zlh3&amp;file=(Psy-Trance)+%5BWEB%5D+Pandora+-+Portal+(Ubuntu+Psy+Records+%5BUBNTSPECIAL%5D)+-+2025%2C+FLAC+(tracks)%2C+lossless</link>\n
+        \     <category>3040</category>\n      <category>101844</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWaldITXVXQll6RGozVWJoVG9VeFVOQzhpdGtJaVY1cjd6MTNacVVaQVB1bkdjQng3Sl9ZTjRsMkhpaGwyRnFaTGM2NHZaWHpBUWZUUHFSYjZQUEU3cjZGaUg1WGFiaTBCUUpzcHAxTjY3LUF1dnM3cUszLTJyZUo0YkI1Z1pwYjN3azJYYlc3MURqbm1oZFRwbEJ6N0ZQX1p0Z0gyQVZGSDh0V1E4aU51Zlh3&amp;file=(Psy-Trance)+%5BWEB%5D+Pandora+-+Portal+(Ubuntu+Psy+Records+%5BUBNTSPECIAL%5D)+-+2025%2C+FLAC+(tracks)%2C+lossless\"
+        length=\"388158144\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"3040\" />\n      <torznab:attr name=\"category\"
+        value=\"101844\" />\n      <torznab:attr name=\"seeders\" value=\"4\" />\n
+        \     <torznab:attr name=\"peers\" value=\"4\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>(Psy-Trance)
+        [WEB] Subtonic - Back To The Past (Ubuntu Psy Records [UBNT0046]) - 2024,
+        FLAC (tracks), lossless</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6614744</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6614744</comments>\n
+        \     <pubDate>Mon, 16 Dec 2024 12:52:26 +0000</pubDate>\n      <size>439934912</size>\n
+        \     <grabs>119</grabs>\n      <description>Uploader: \n\t\t\tmt-tee\n\t\t&lt;br&gt;(Psy-Trance)
+        [WEB] Subtonic - Back To The Past (Ubuntu Psy Records [UBNT0046]) - 2024,
+        FLAC (tracks), lossless</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVdGk3d1Z6Yml0dkVrR1o4VUxQNllrQXcwZnV0djAtRktjbnN0amtUSVNNWVY5cVlDdm9LaTBlSjlWdDFWQ25jenF6WWxuSGR6X0o1dlRXdWhlT01UcnMwQThBTWNldmREREJnOGNWS0dycnJVc1lRZW9fN1l3WG9ValJ4UnFvVkQtLWlEUjNpZVQ2aEF5bzkwY2R1eHJHcEo3VkNXdzlHMjJndzVNYXpkSGZ3&amp;file=(Psy-Trance)+%5BWEB%5D+Subtonic+-+Back+To+The+Past+(Ubuntu+Psy+Records+%5BUBNT0046%5D)+-+2024%2C+FLAC+(tracks)%2C+lossless</link>\n
+        \     <category>3040</category>\n      <category>101844</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVdGk3d1Z6Yml0dkVrR1o4VUxQNllrQXcwZnV0djAtRktjbnN0amtUSVNNWVY5cVlDdm9LaTBlSjlWdDFWQ25jenF6WWxuSGR6X0o1dlRXdWhlT01UcnMwQThBTWNldmREREJnOGNWS0dycnJVc1lRZW9fN1l3WG9ValJ4UnFvVkQtLWlEUjNpZVQ2aEF5bzkwY2R1eHJHcEo3VkNXdzlHMjJndzVNYXpkSGZ3&amp;file=(Psy-Trance)+%5BWEB%5D+Subtonic+-+Back+To+The+Past+(Ubuntu+Psy+Records+%5BUBNT0046%5D)+-+2024%2C+FLAC+(tracks)%2C+lossless\"
+        length=\"439934912\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"3040\" />\n      <torznab:attr name=\"category\"
+        value=\"101844\" />\n      <torznab:attr name=\"seeders\" value=\"3\" />\n
+        \     <torznab:attr name=\"peers\" value=\"4\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>(Psy-Trance)
+        [WEB] Red Pulse - We'll Be Free (Ubuntu Psy Records [UBNT0018]) - 2024, FLAC
+        (tracks), lossless</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6603185</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6603185</comments>\n
+        \     <pubDate>Fri, 22 Nov 2024 12:27:41 +0000</pubDate>\n      <size>346958848</size>\n
+        \     <grabs>108</grabs>\n      <description>Uploader: \n\t\t\tmt-tee\n\t\t&lt;br&gt;(Psy-Trance)
+        [WEB] Red Pulse - We'll Be Free (Ubuntu Psy Records [UBNT0018]) - 2024, FLAC
+        (tracks), lossless</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVdFFqWXI4NFFKeVNuX2YxWGRTUG5uOEJTOWN6UndzcmcyUE9zOU1MdkdjYVB0ZWFNUENiNkF4cjJ2RWJiaWxub00zd1lLeXZxQmVkSnN0RHpJNUczTW1VeHJObE9qR0E0NnNuU2dKUjFVTXZmVXpVVlJfS3NmTFZhWkJlTTlIS3JPRk1jR0wwbk9aRnN4NGZGR0ZDRDdtUWxaMW9GNG9kc1Q4cUVPSXFFV05n&amp;file=(Psy-Trance)+%5BWEB%5D+Red+Pulse+-+We%27ll+Be+Free+(Ubuntu+Psy+Records+%5BUBNT0018%5D)+-+2024%2C+FLAC+(tracks)%2C+lossless</link>\n
+        \     <category>3040</category>\n      <category>101844</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVdFFqWXI4NFFKeVNuX2YxWGRTUG5uOEJTOWN6UndzcmcyUE9zOU1MdkdjYVB0ZWFNUENiNkF4cjJ2RWJiaWxub00zd1lLeXZxQmVkSnN0RHpJNUczTW1VeHJObE9qR0E0NnNuU2dKUjFVTXZmVXpVVlJfS3NmTFZhWkJlTTlIS3JPRk1jR0wwbk9aRnN4NGZGR0ZDRDdtUWxaMW9GNG9kc1Q4cUVPSXFFV05n&amp;file=(Psy-Trance)+%5BWEB%5D+Red+Pulse+-+We%27ll+Be+Free+(Ubuntu+Psy+Records+%5BUBNT0018%5D)+-+2024%2C+FLAC+(tracks)%2C+lossless\"
+        length=\"346958848\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"3040\" />\n      <torznab:attr name=\"category\"
+        value=\"101844\" />\n      <torznab:attr name=\"seeders\" value=\"3\" />\n
+        \     <torznab:attr name=\"peers\" value=\"3\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>LaCroix
+        Jay / \u041B\u0430\u043A\u0440\u0443\u0430 \u0414\u0436\u0435\u0439 - Mastering
+        Ubuntu Server, 4th Edition / \u041E\u0441\u0432\u0430\u0438\u0432\u0430\u0435\u043C
+        Ubuntu Server, 4-\u0435 \u0438\u0437\u0434\u0430\u043D\u0438\u0435 (Expert
+        Insight) [2022, PDF/EPUB/MOBI, ENG]</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6701401</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6701401</comments>\n
+        \     <pubDate>Mon, 02 Jun 2025 06:55:27 +0000</pubDate>\n      <size>66516696</size>\n
+        \     <grabs>495</grabs>\n      <description>Uploader: \n\t\t\ttsurijin\n\t\t&lt;br&gt;LaCroix
+        Jay / \u041B\u0430\u043A\u0440\u0443\u0430 \u0414\u0436\u0435\u0439 - Mastering
+        Ubuntu Server, 4th Edition / \u041E\u0441\u0432\u0430\u0438\u0432\u0430\u0435\u043C
+        Ubuntu Server, 4-\u0435 \u0438\u0437\u0434\u0430\u043D\u0438\u0435 (Expert
+        Insight) [2022, PDF/EPUB/MOBI, ENG]</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVUnBLREJ2Z1hYeVVqVGJYMXV1ODI0aGtNN1NKN1VCQWdVMW1zd0x3Sk9KeWF1TDEtb2JhR2dSMi1kOWdoejhlN05SazgzLTN2SHpZVzd1UFFrai0wemtJbTFpSGtzRjBEOFZfa0tvWVpqTHY5cmV3OHdUMnJzVm9KTUh2T3FvVEl3NHFxSzN2OGxSWE02XzFzQ3FQaHpXNkZFRUprTVhrME5vdkRRcmhyMWlB&amp;file=LaCroix+Jay+%2F+%D0%9B%D0%B0%D0%BA%D1%80%D1%83%D0%B0+%D0%94%D0%B6%D0%B5%D0%B9+-+Mastering+Ubuntu+Server%2C+4th+Edition+%2F+%D0%9E%D1%81%D0%B2%D0%B0%D0%B8%D0%B2%D0%B0%D0%B5%D0%BC+Ubuntu+Server%2C+4-%D0%B5+%D0%B8%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5+(Expert+Insight)+%5B2022%2C+PDF%2FEPUB%2FMOBI%2C+ENG%5D</link>\n
+        \     <category>7040</category>\n      <category>101424</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVUnBLREJ2Z1hYeVVqVGJYMXV1ODI0aGtNN1NKN1VCQWdVMW1zd0x3Sk9KeWF1TDEtb2JhR2dSMi1kOWdoejhlN05SazgzLTN2SHpZVzd1UFFrai0wemtJbTFpSGtzRjBEOFZfa0tvWVpqTHY5cmV3OHdUMnJzVm9KTUh2T3FvVEl3NHFxSzN2OGxSWE02XzFzQ3FQaHpXNkZFRUprTVhrME5vdkRRcmhyMWlB&amp;file=LaCroix+Jay+%2F+%D0%9B%D0%B0%D0%BA%D1%80%D1%83%D0%B0+%D0%94%D0%B6%D0%B5%D0%B9+-+Mastering+Ubuntu+Server%2C+4th+Edition+%2F+%D0%9E%D1%81%D0%B2%D0%B0%D0%B8%D0%B2%D0%B0%D0%B5%D0%BC+Ubuntu+Server%2C+4-%D0%B5+%D0%B8%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5+(Expert+Insight)+%5B2022%2C+PDF%2FEPUB%2FMOBI%2C+ENG%5D\"
+        length=\"66516696\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"7040\" />\n      <torznab:attr name=\"category\"
+        value=\"101424\" />\n      <torznab:attr name=\"seeders\" value=\"11\" />\n
+        \     <torznab:attr name=\"peers\" value=\"13\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>VanDine
+        Ken / \u0412\u0430\u043D\u0414\u0430\u0439\u043D \u041A\u0435\u043D - The
+        Ultimate Ubuntu Handbook / \u041F\u043E\u043B\u043D\u043E\u0435 \u0440\u0443\u043A\u043E\u0432\u043E\u0434\u0441\u0442\u0432\u043E
+        \u043F\u043E Ubuntu [2025, PDF/EPUB, ENG]</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6728193</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6728193</comments>\n
+        \     <pubDate>Tue, 05 Aug 2025 03:55:12 +0000</pubDate>\n      <size>27939340</size>\n
+        \     <grabs>750</grabs>\n      <description>Uploader: \n\t\t\ttsurijin\n\t\t&lt;br&gt;VanDine
+        Ken / \u0412\u0430\u043D\u0414\u0430\u0439\u043D \u041A\u0435\u043D - The
+        Ultimate Ubuntu Handbook / \u041F\u043E\u043B\u043D\u043E\u0435 \u0440\u0443\u043A\u043E\u0432\u043E\u0434\u0441\u0442\u0432\u043E
+        \u043F\u043E Ubuntu [2025, PDF/EPUB, ENG]</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYRU5tdTJpMHdWaXhLY2RwaUFwbDRWblZURFVydVZFTE1paFBYY0RDZkQzRXlMLXlBcDJhVll0R2xuakZxdlRQLTR2eFU1Mkw0OU9LVC16ZTJfa3Z2Y0cxY1hnUG9aS2pvWlJFN2pUeW5XbjhZSlFFS0IzckNuUFE1eExiRndqMUFrWnZmVFZKcGM0X2MtVjF0aUxBdEh5X01iMElzRUJDc1NNTFZ1WXhIa3Zn&amp;file=VanDine+Ken+%2F+%D0%92%D0%B0%D0%BD%D0%94%D0%B0%D0%B9%D0%BD+%D0%9A%D0%B5%D0%BD+-+The+Ultimate+Ubuntu+Handbook+%2F+%D0%9F%D0%BE%D0%BB%D0%BD%D0%BE%D0%B5+%D1%80%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE+%D0%BF%D0%BE+Ubuntu+%5B2025%2C+PDF%2FEPUB%2C+ENG%5D</link>\n
+        \     <category>7040</category>\n      <category>101424</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYRU5tdTJpMHdWaXhLY2RwaUFwbDRWblZURFVydVZFTE1paFBYY0RDZkQzRXlMLXlBcDJhVll0R2xuakZxdlRQLTR2eFU1Mkw0OU9LVC16ZTJfa3Z2Y0cxY1hnUG9aS2pvWlJFN2pUeW5XbjhZSlFFS0IzckNuUFE1eExiRndqMUFrWnZmVFZKcGM0X2MtVjF0aUxBdEh5X01iMElzRUJDc1NNTFZ1WXhIa3Zn&amp;file=VanDine+Ken+%2F+%D0%92%D0%B0%D0%BD%D0%94%D0%B0%D0%B9%D0%BD+%D0%9A%D0%B5%D0%BD+-+The+Ultimate+Ubuntu+Handbook+%2F+%D0%9F%D0%BE%D0%BB%D0%BD%D0%BE%D0%B5+%D1%80%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE+%D0%BF%D0%BE+Ubuntu+%5B2025%2C+PDF%2FEPUB%2C+ENG%5D\"
+        length=\"27939340\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"7040\" />\n      <torznab:attr name=\"category\"
+        value=\"101424\" />\n      <torznab:attr name=\"seeders\" value=\"16\" />\n
+        \     <torznab:attr name=\"peers\" value=\"17\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>(Progressive
+        Rock / Crossover Prog / Heavy Prog) Fields Of N\xE6cluda (Fields Of Naecluda)
+        - Ubuntu - 2024, MP3, 320 kbps</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6589863</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6589863</comments>\n
+        \     <pubDate>Fri, 25 Oct 2024 06:42:06 +0000</pubDate>\n      <size>145180128</size>\n
+        \     <grabs>267</grabs>\n      <description>Uploader: \n\t\t\tdnoz\n\t\t&lt;br&gt;(Progressive
+        Rock / Crossover Prog / Heavy Prog) Fields Of N\xE6cluda (Fields Of Naecluda)
+        - Ubuntu - 2024, MP3, 320 kbps</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYWTkzQU14M256VUpfREg4ejdESkFNcXZZM3Ywdnk4dllKR1E4ZFU1d1NLZktMb1g2QU1ZZzNwVkZRNVM5X2tIel9QOFFHX2M2dVQ3S185aWJjYi14LVZLNTJxOEJ1OWFLaTJFZGtsRUlkUmt6TWZ2Y3k4VV91NU9xS0VaQWpiVEUxVng2emRrRy1IdjhrYmE1Rmw4eU9qVTlGT3UwUjlZcmZNREZQMlR0cXh3&amp;file=(Progressive+Rock+%2F+Crossover+Prog+%2F+Heavy+Prog)+Fields+Of+N%C3%A6cluda+(Fields+Of+Naecluda)+-+Ubuntu+-+2024%2C+MP3%2C+320+kbps</link>\n
+        \     <category>3010</category>\n      <category>101705</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYWTkzQU14M256VUpfREg4ejdESkFNcXZZM3Ywdnk4dllKR1E4ZFU1d1NLZktMb1g2QU1ZZzNwVkZRNVM5X2tIel9QOFFHX2M2dVQ3S185aWJjYi14LVZLNTJxOEJ1OWFLaTJFZGtsRUlkUmt6TWZ2Y3k4VV91NU9xS0VaQWpiVEUxVng2emRrRy1IdjhrYmE1Rmw4eU9qVTlGT3UwUjlZcmZNREZQMlR0cXh3&amp;file=(Progressive+Rock+%2F+Crossover+Prog+%2F+Heavy+Prog)+Fields+Of+N%C3%A6cluda+(Fields+Of+Naecluda)+-+Ubuntu+-+2024%2C+MP3%2C+320+kbps\"
+        length=\"145180128\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"3010\" />\n      <torznab:attr name=\"category\"
+        value=\"101705\" />\n      <torznab:attr name=\"seeders\" value=\"3\" />\n
+        \     <torznab:attr name=\"peers\" value=\"3\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>(Psytrance)
+        VA - Ubuntu (Psynopticz &amp; Samaa) - 2024, MP3, 320 kbps</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6549980</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6549980</comments>\n
+        \     <pubDate>Wed, 10 Jul 2024 19:22:48 +0000</pubDate>\n      <size>209520384</size>\n
+        \     <grabs>88</grabs>\n      <description>Uploader: \n\t\t\tJeff475\n\t\t&lt;br&gt;(Psytrance)
+        VA - Ubuntu (Psynopticz &amp; Samaa) - 2024, MP3, 320 kbps</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXQmwyVDZPc2pCVTFTbVFaY2tuTkVkZnRXTmd1OU1vQjVwRVotajJxcnpCSEFqdGdNYUp4TDJNc0hUWGNab2hVQ3ZraFZnamYwYmxKVExyYjNzSFAwd2pJblpiUTMxWVlrR3VVQmdraVdqcE1nVWxfNloyblpXeC1VWW5uWVNYM0pWQVJCS3JDQmc3LVZWaVJTVk9VUk1hTzdiTEJKaU15S3lrcWR4bUtmVWVB&amp;file=(Psytrance)+VA+-+Ubuntu+(Psynopticz+%26+Samaa)+-+2024%2C+MP3%2C+320+kbps</link>\n
+        \     <category>3010</category>\n      <category>101822</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXQmwyVDZPc2pCVTFTbVFaY2tuTkVkZnRXTmd1OU1vQjVwRVotajJxcnpCSEFqdGdNYUp4TDJNc0hUWGNab2hVQ3ZraFZnamYwYmxKVExyYjNzSFAwd2pJblpiUTMxWVlrR3VVQmdraVdqcE1nVWxfNloyblpXeC1VWW5uWVNYM0pWQVJCS3JDQmc3LVZWaVJTVk9VUk1hTzdiTEJKaU15S3lrcWR4bUtmVWVB&amp;file=(Psytrance)+VA+-+Ubuntu+(Psynopticz+%26+Samaa)+-+2024%2C+MP3%2C+320+kbps\"
+        length=\"209520384\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"3010\" />\n      <torznab:attr name=\"category\"
+        value=\"101822\" />\n      <torznab:attr name=\"seeders\" value=\"2\" />\n
+        \     <torznab:attr name=\"peers\" value=\"2\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>Hemmingsson
+        Mattias / \u0425\u0435\u043C\u043C\u0438\u043D\u0433\u0441\u0441\u043E\u043D
+        \u041C\u0430\u0442\u0442\u0438\u0430\u0441 - Ubuntu System Administration
+        Guide / \u0420\u0443\u043A\u043E\u0432\u043E\u0434\u0441\u0442\u0432\u043E
+        \u043F\u043E \u0430\u0434\u043C\u0438\u043D\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044E
+        \u0441\u0438\u0441\u0442\u0435\u043C\u044B Ubuntu [2025, PDF/EPUB, ENG]</title>\n
+        \     <guid>https://rutracker.org/forum/viewtopic.php?t=6714748</guid>\n      <jackettindexer
+        id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6714748</comments>\n
+        \     <pubDate>Thu, 03 Jul 2025 12:31:37 +0000</pubDate>\n      <size>28159292</size>\n
+        \     <grabs>584</grabs>\n      <description>Uploader: \n\t\t\ttsurijin\n\t\t&lt;br&gt;Hemmingsson
+        Mattias / \u0425\u0435\u043C\u043C\u0438\u043D\u0433\u0441\u0441\u043E\u043D
+        \u041C\u0430\u0442\u0442\u0438\u0430\u0441 - Ubuntu System Administration
+        Guide / \u0420\u0443\u043A\u043E\u0432\u043E\u0434\u0441\u0442\u0432\u043E
+        \u043F\u043E \u0430\u0434\u043C\u0438\u043D\u0438\u0441\u0442\u0440\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044E
+        \u0441\u0438\u0441\u0442\u0435\u043C\u044B Ubuntu [2025, PDF/EPUB, ENG]</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWMkxKWXRJRlB5RDBxUi1JTkhIZWxSQk1IX0o3blF4cWNiX1RKakk1TU9DdXRIdkVDWGVYdDBkYkxSMndoaFRONnlVZGN6RlFmMWhjTHZNVXZBc0Z4V0kwX3ViZ1FpYmNDZi1nejFtb25JTGJNOF9lMWdGS2VpTkhNWkRDa0RkbFRiTnZxZm1QUk9TbnU4WmtmMjZmUGxqVlgyalVTSktYd08wYWttTlJsdFlR&amp;file=Hemmingsson+Mattias+%2F+%D0%A5%D0%B5%D0%BC%D0%BC%D0%B8%D0%BD%D0%B3%D1%81%D1%81%D0%BE%D0%BD+%D0%9C%D0%B0%D1%82%D1%82%D0%B8%D0%B0%D1%81+-+Ubuntu+System+Administration+Guide+%2F+%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE+%D0%BF%D0%BE+%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8E+%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D1%8B+Ubuntu+%5B2025%2C+PDF%2FEPUB%2C+ENG%5D</link>\n
+        \     <category>7040</category>\n      <category>101424</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWMkxKWXRJRlB5RDBxUi1JTkhIZWxSQk1IX0o3blF4cWNiX1RKakk1TU9DdXRIdkVDWGVYdDBkYkxSMndoaFRONnlVZGN6RlFmMWhjTHZNVXZBc0Z4V0kwX3ViZ1FpYmNDZi1nejFtb25JTGJNOF9lMWdGS2VpTkhNWkRDa0RkbFRiTnZxZm1QUk9TbnU4WmtmMjZmUGxqVlgyalVTSktYd08wYWttTlJsdFlR&amp;file=Hemmingsson+Mattias+%2F+%D0%A5%D0%B5%D0%BC%D0%BC%D0%B8%D0%BD%D0%B3%D1%81%D1%81%D0%BE%D0%BD+%D0%9C%D0%B0%D1%82%D1%82%D0%B8%D0%B0%D1%81+-+Ubuntu+System+Administration+Guide+%2F+%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE+%D0%BF%D0%BE+%D0%B0%D0%B4%D0%BC%D0%B8%D0%BD%D0%B8%D1%81%D1%82%D1%80%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8E+%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D1%8B+Ubuntu+%5B2025%2C+PDF%2FEPUB%2C+ENG%5D\"
+        length=\"28159292\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"7040\" />\n      <torznab:attr name=\"category\"
+        value=\"101424\" />\n      <torznab:attr name=\"seeders\" value=\"11\" />\n
+        \     <torznab:attr name=\"peers\" value=\"18\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041A\u043E\u043C\u044F\u0433\u0438\u043D
+        \u0412.\u0411., \u0420\u0435\u0437\u043D\u0438\u043A\u043E\u0432 \u0424.\u0410.
+        - \u0423\u0441\u0442\u0430\u043D\u0430\u0432\u043B\u0438\u0432\u0430\u0435\u043C
+        \u0438 \u043D\u0430\u0441\u0442\u0440\u0430\u0438\u0432\u0430\u0435\u043C
+        Ubuntu Server 2012-2015 \u0438 \u043E\u0444\u0438\u0441\u043D\u044B\u0435
+        \u041F\u041A \u0441 Ubuntu [2015, PDF, RUS]</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6585105</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6585105</comments>\n
+        \     <pubDate>Sun, 13 Oct 2024 19:38:47 +0000</pubDate>\n      <size>11930549</size>\n
+        \     <grabs>785</grabs>\n      <description>Uploader: \n\t\t\t\u043F\u0430\u043F\u0430\u0412\u043B\u0430\u0434\n\t\t&lt;br&gt;\u041A\u043E\u043C\u044F\u0433\u0438\u043D
+        \u0412.\u0411., \u0420\u0435\u0437\u043D\u0438\u043A\u043E\u0432 \u0424.\u0410.
+        - \u0423\u0441\u0442\u0430\u043D\u0430\u0432\u043B\u0438\u0432\u0430\u0435\u043C
+        \u0438 \u043D\u0430\u0441\u0442\u0440\u0430\u0438\u0432\u0430\u0435\u043C
+        Ubuntu Server 2012-2015 \u0438 \u043E\u0444\u0438\u0441\u043D\u044B\u0435
+        \u041F\u041A \u0441 Ubuntu [2015, PDF, RUS]</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVM2xPWW1XUUpfcTAxVUdSaFBLX01FZ0IwZnJfWGZJa240LU1Pd2tySEJkdzF4ME1Ra1V2NGhXNGFfSUtLaGM2UHZpNzF4NEVJaWxDWmxtU1MzOERSZVpDRDI3NG83WVhtd2ZSZXNvSWlSb095Vm1HMDlyb2JPNXluU09tUlROcWFoRnQyYlVkcl81Mmg4SUZWWDNMSGFieXBuajBqOFpXaVNRUUZEOXJ1M3Nn&amp;file=%D0%9A%D0%BE%D0%BC%D1%8F%D0%B3%D0%B8%D0%BD+%D0%92.%D0%91.%2C+%D0%A0%D0%B5%D0%B7%D0%BD%D0%B8%D0%BA%D0%BE%D0%B2+%D0%A4.%D0%90.+-+%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%B0%D0%B2%D0%BB%D0%B8%D0%B2%D0%B0%D0%B5%D0%BC+%D0%B8+%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%B0%D0%B8%D0%B2%D0%B0%D0%B5%D0%BC+Ubuntu+Server+2012-2015+%D0%B8+%D0%BE%D1%84%D0%B8%D1%81%D0%BD%D1%8B%D0%B5+%D0%9F%D0%9A+%D1%81+Ubuntu+%5B2015%2C+PDF%2C+RUS%5D</link>\n
+        \     <category>7040</category>\n      <category>101424</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVM2xPWW1XUUpfcTAxVUdSaFBLX01FZ0IwZnJfWGZJa240LU1Pd2tySEJkdzF4ME1Ra1V2NGhXNGFfSUtLaGM2UHZpNzF4NEVJaWxDWmxtU1MzOERSZVpDRDI3NG83WVhtd2ZSZXNvSWlSb095Vm1HMDlyb2JPNXluU09tUlROcWFoRnQyYlVkcl81Mmg4SUZWWDNMSGFieXBuajBqOFpXaVNRUUZEOXJ1M3Nn&amp;file=%D0%9A%D0%BE%D0%BC%D1%8F%D0%B3%D0%B8%D0%BD+%D0%92.%D0%91.%2C+%D0%A0%D0%B5%D0%B7%D0%BD%D0%B8%D0%BA%D0%BE%D0%B2+%D0%A4.%D0%90.+-+%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%B0%D0%B2%D0%BB%D0%B8%D0%B2%D0%B0%D0%B5%D0%BC+%D0%B8+%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%B0%D0%B8%D0%B2%D0%B0%D0%B5%D0%BC+Ubuntu+Server+2012-2015+%D0%B8+%D0%BE%D1%84%D0%B8%D1%81%D0%BD%D1%8B%D0%B5+%D0%9F%D0%9A+%D1%81+Ubuntu+%5B2015%2C+PDF%2C+RUS%5D\"
+        length=\"11930549\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"7040\" />\n      <torznab:attr name=\"category\"
+        value=\"101424\" />\n      <torznab:attr name=\"seeders\" value=\"22\" />\n
+        \     <torznab:attr name=\"peers\" value=\"22\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n  </channel>\n</rss>"
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - jackett.shen.iorlas.net
+      Cache-Control:
+      - no-store,no-cache
+      Content-Length:
+      - '109739'
+      Content-Security-Policy:
+      - frame-ancestors 'self'
+      Content-Type:
+      - application/rss+xml; charset=utf-8
+      Date:
+      - Wed, 04 Feb 2026 05:15:54 GMT
+      Pragma:
+      - no-cache
+      Server:
+      - Kestrel
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      X-Content-Type-Options:
+      - nosniff
+      X-Ratelimit-Limit:
+      - '12000'
+      X-Ratelimit-Remaining:
+      - '99'
+      X-Ratelimit-Reset:
+      - '1770183353'
+      X-Served-By-Cosmos:
+      - '1'
+      X-Timeout-Duration:
+      - 4h0m0s
+      X-Xss-Protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+version: 1

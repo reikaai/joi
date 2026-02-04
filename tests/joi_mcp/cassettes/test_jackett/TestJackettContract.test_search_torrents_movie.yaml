@@ -1,0 +1,1215 @@
+interactions:
+- request:
+    body: ''
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Host:
+      - jackett.shen.iorlas.net
+      User-Agent:
+      - python-httpx/0.28.1
+    method: GET
+    uri: https://jackett.shen.iorlas.net/api/v2.0/indexers/all/results/torznab/api?apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&cat=2000&q=matrix&t=movie&year=1999
+  response:
+    body:
+      string: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rss version=\"2.0\" xmlns:atom=\"http://www.w3.org/2005/Atom\"
+        xmlns:torznab=\"http://torznab.com/schemas/2015/feed\">\n  <channel>\n    <atom:link
+        href=\"https://jackett.shen.iorlas.net/\" rel=\"self\" type=\"application/rss+xml\"
+        />\n    <title>AggregateSearch</title>\n    <description>This feed includes
+        all configured trackers</description>\n    <link>http://127.0.0.1/</link>\n
+        \   <language>en-US</language>\n    <category>search</category>\n    <item>\n
+        \     <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430 / The Matrix [1999,
+        \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, UHD BR-DISK 2160p] [EUR] Dub + Sub Rus,
+        Eng + Original Eng</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=5565703</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=5565703</comments>\n
+        \     <pubDate>Wed, 23 May 2018 21:00:34 +0000</pubDate>\n      <size>69376589824</size>\n
+        \     <grabs>45214</grabs>\n      <description>Uploader: \n\t\t\tArchy_\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430
+        / The Matrix (\u042D\u043D\u0434\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438,
+        \u041B\u0430\u0440\u0440\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Andy Wachowski, Larry Wachowski) [1999, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, UHD Blu-ray disc 2160p] [EUR] Dub +
+        Sub Rus, Eng + Original Eng</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYZy1ZZHBKNmtycGJpRjBVOVRXZGtEdVRvRTB5VXpNOGxBTlJnUExMc2JfRlBhcTF6ZXZ0N1NUM0lFRXFPRUNyUXlLazNwYjZyRkw2eU5kLTN0NzZlR0w0NUdjbnJzUjJrZEtLN0hGZnpYdExTem9tRjFQbXlZTVl0TzNYUVgzdkRhc0FwRlpFVVdBMkFrMGU1a1owNFMyZnJ4TDQwTHhxM0dGMTV6d251MnBn&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0+%2F+The+Matrix+%5B1999%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+UHD+BR-DISK+2160p%5D+%5BEUR%5D+Dub+%2B+Sub+Rus%2C+Eng+%2B+Original+Eng</link>\n
+        \     <category>2045</category>\n      <category>101457</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYZy1ZZHBKNmtycGJpRjBVOVRXZGtEdVRvRTB5VXpNOGxBTlJnUExMc2JfRlBhcTF6ZXZ0N1NUM0lFRXFPRUNyUXlLazNwYjZyRkw2eU5kLTN0NzZlR0w0NUdjbnJzUjJrZEtLN0hGZnpYdExTem9tRjFQbXlZTVl0TzNYUVgzdkRhc0FwRlpFVVdBMkFrMGU1a1owNFMyZnJ4TDQwTHhxM0dGMTV6d251MnBn&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0+%2F+The+Matrix+%5B1999%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+UHD+BR-DISK+2160p%5D+%5BEUR%5D+Dub+%2B+Sub+Rus%2C+Eng+%2B+Original+Eng\"
+        length=\"69376589824\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2045\" />\n      <torznab:attr name=\"category\"
+        value=\"101457\" />\n      <torznab:attr name=\"seeders\" value=\"92\" />\n
+        \     <torznab:attr name=\"peers\" value=\"99\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430
+        / The Matrix [1999, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DL 2160p, HDR10, Dolby Vision] [Hybrid]
+        Dub + Original (Eng) + Sub (Rus, Eng)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6306464</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6306464</comments>\n
+        \     <pubDate>Sat, 07 Jan 2023 15:52:30 +0000</pubDate>\n      <size>19808065536</size>\n
+        \     <grabs>42062</grabs>\n      <description>Uploader: \n\t\t\tarxivariys\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430
+        / The Matrix (\u042D\u043D\u0434\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Andy Wachowski, \u041B\u0430\u0440\u0440\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Larry Wachowski) [1999, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DL 2160p, HDR10, Dolby Vision] [Hybrid]
+        Dub + Original (Eng) + Sub (Rus, Eng)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXNDZkc0xCS09GY0h1SlZGeWQ5MWgzLTBYZHdzLUpZUHRiYVlPeTR4Wk9RN2Q4WElGZDhwQWR1R1NhTlVZZUdKUDlubnNYVnlVY3NjNnFScVVieTgzYlRTSXlhWW04V1loMzFxcjQ0S1FhZktxUDB1enM2U2lETHFKQURVUS1oeW05eWRGTlY3TC11N1d4aERKT2paT1ZBbnViVWNyRUk4UUN1X3pCOTRkU0JB&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0+%2F+The+Matrix+%5B1999%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL+2160p%2C+HDR10%2C+Dolby+Vision%5D+%5BHybrid%5D+Dub+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng)</link>\n
+        \     <category>2045</category>\n      <category>101457</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXNDZkc0xCS09GY0h1SlZGeWQ5MWgzLTBYZHdzLUpZUHRiYVlPeTR4Wk9RN2Q4WElGZDhwQWR1R1NhTlVZZUdKUDlubnNYVnlVY3NjNnFScVVieTgzYlRTSXlhWW04V1loMzFxcjQ0S1FhZktxUDB1enM2U2lETHFKQURVUS1oeW05eWRGTlY3TC11N1d4aERKT2paT1ZBbnViVWNyRUk4UUN1X3pCOTRkU0JB&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0+%2F+The+Matrix+%5B1999%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL+2160p%2C+HDR10%2C+Dolby+Vision%5D+%5BHybrid%5D+Dub+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng)\"
+        length=\"19808065536\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2045\" />\n      <torznab:attr name=\"category\"
+        value=\"101457\" />\n      <torznab:attr name=\"seeders\" value=\"307\" />\n
+        \     <torznab:attr name=\"peers\" value=\"318\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections [2021, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, UHD BDRemux 2160p, HDR10, Dolby Vision]
+        Dub + 2x MVO + AVO + Original (Eng) + Sub (Rus, Eng)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6187434</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6187434</comments>\n
+        \     <pubDate>Sun, 06 Mar 2022 15:05:03 +0000</pubDate>\n      <size>73606176768</size>\n
+        \     <grabs>11056</grabs>\n      <description>Uploader: \n\t\t\tarxivariys\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections (\u041B\u0430\u043D\u0430 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Lana Wachowski) [2021, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, UHD BDRemux 2160p, HDR10, Dolby Vision]
+        Dub + 2x MVO + AVO + Original (Eng) + Sub (Rus, Eng)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYSUFORk8wVFpITzBwX2l1NzBaZ2ZFekNYaWE1MWtTcmNScGlQNDMtdER0MU9MZUY1WDYzUXk4U19sR1A4WGJMZDNMRkpiV3M5Q190aWhtbWV3cGtwSmNhTzdOWWJHYjRzTnoxemJsV1lZaVR0djBqMGs1QWZiT3laUDNVWDd2U0pfZVBVcFg2Nmtxdm83b2d0NklfXzQxMDJ2c2tvVmgxUG5CQW1zcGVVQXdn&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+UHD+BDRemux+2160p%2C+HDR10%2C+Dolby+Vision%5D+Dub+%2B+2x+MVO+%2B+AVO+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng)</link>\n
+        \     <category>2045</category>\n      <category>101457</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYSUFORk8wVFpITzBwX2l1NzBaZ2ZFekNYaWE1MWtTcmNScGlQNDMtdER0MU9MZUY1WDYzUXk4U19sR1A4WGJMZDNMRkpiV3M5Q190aWhtbWV3cGtwSmNhTzdOWWJHYjRzTnoxemJsV1lZaVR0djBqMGs1QWZiT3laUDNVWDd2U0pfZVBVcFg2Nmtxdm83b2d0NklfXzQxMDJ2c2tvVmgxUG5CQW1zcGVVQXdn&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+UHD+BDRemux+2160p%2C+HDR10%2C+Dolby+Vision%5D+Dub+%2B+2x+MVO+%2B+AVO+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng)\"
+        length=\"73606176768\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2045\" />\n      <torznab:attr name=\"category\"
+        value=\"101457\" />\n      <torznab:attr name=\"seeders\" value=\"73\" />\n
+        \     <torznab:attr name=\"peers\" value=\"77\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u041F\u0435\u0440\u0435\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430 /
+        The Matrix Reloaded [2003, \u0421\u0428\u0410, \u0410\u0432\u0441\u0442\u0440\u0430\u043B\u0438\u044F,
+        \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430, \u0431\u043E\u0435\u0432\u0438\u043A,
+        UHD BR-DISK 2160p] [EUR] Dub + Sub Rus, Eng + Original Eng</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=5635101</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=5635101</comments>\n
+        \     <pubDate>Sat, 27 Oct 2018 07:30:00 +0000</pubDate>\n      <size>90781220864</size>\n
+        \     <grabs>22826</grabs>\n      <description>Uploader: \n\t\t\tpirs18\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u041F\u0435\u0440\u0435\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430 /
+        The Matrix Reloaded (\u041B\u0430\u0440\u0440\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Larry Wachowski, \u042D\u043D\u0434\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Andy Wachowski) [2003, \u0421\u0428\u0410, \u0410\u0432\u0441\u0442\u0440\u0430\u043B\u0438\u044F,
+        \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430, \u0431\u043E\u0435\u0432\u0438\u043A,
+        UHD Blu-ray disc 2160p] [EUR] Dub + Sub Rus, Eng + Original Eng</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWTDdIVkRhMzlHY29xNGc5TV9RVktsLURuZUpGSTYwVThHaEdFRERmdXJaWk1PdWdPcS1QVEU5ckpNR2RKNlFPMnFYUUdWUm5IeHdPMnRvaFZVZFItaHh3N3dMdWRXeGt5YkxRVU80bXV6YUl0YVJGQkJST1hvQ3lPb3UzMFpvbDQzS0F3ZGotRnBHbXFlOUpGaDJibG02T2JSTFBGT3V1Mm83ZWVCbEFSR253&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%9F%D0%B5%D1%80%D0%B5%D0%B7%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B0+%2F+The+Matrix+Reloaded+%5B2003%2C+%D0%A1%D0%A8%D0%90%2C+%D0%90%D0%B2%D1%81%D1%82%D1%80%D0%B0%D0%BB%D0%B8%D1%8F%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+UHD+BR-DISK+2160p%5D+%5BEUR%5D+Dub+%2B+Sub+Rus%2C+Eng+%2B+Original+Eng</link>\n
+        \     <category>2045</category>\n      <category>101457</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWTDdIVkRhMzlHY29xNGc5TV9RVktsLURuZUpGSTYwVThHaEdFRERmdXJaWk1PdWdPcS1QVEU5ckpNR2RKNlFPMnFYUUdWUm5IeHdPMnRvaFZVZFItaHh3N3dMdWRXeGt5YkxRVU80bXV6YUl0YVJGQkJST1hvQ3lPb3UzMFpvbDQzS0F3ZGotRnBHbXFlOUpGaDJibG02T2JSTFBGT3V1Mm83ZWVCbEFSR253&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%9F%D0%B5%D1%80%D0%B5%D0%B7%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B0+%2F+The+Matrix+Reloaded+%5B2003%2C+%D0%A1%D0%A8%D0%90%2C+%D0%90%D0%B2%D1%81%D1%82%D1%80%D0%B0%D0%BB%D0%B8%D1%8F%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+UHD+BR-DISK+2160p%5D+%5BEUR%5D+Dub+%2B+Sub+Rus%2C+Eng+%2B+Original+Eng\"
+        length=\"90781220864\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2045\" />\n      <torznab:attr name=\"category\"
+        value=\"101457\" />\n      <torznab:attr name=\"seeders\" value=\"53\" />\n
+        \     <torznab:attr name=\"peers\" value=\"54\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430
+        / The Matrix [1999, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        BDRemux 1080p] [Remastered] Dub + 3\u0445 MVO + 3\u0445 DVO + 8\u0445 AVO
+        + VO + Original (Eng) + Sub (Rus, Eng, Multi)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6709035</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6709035</comments>\n
+        \     <pubDate>Fri, 20 Jun 2025 10:11:18 +0000</pubDate>\n      <size>49242431488</size>\n
+        \     <grabs>3571</grabs>\n      <description>Uploader: \n\t\t\tAORE\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430
+        / The Matrix (\u042D\u043D\u0434\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438,
+        \u041B\u0430\u0440\u0440\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Andy Wachowski, Larry Wachowski) [1999, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        BDRemux 1080p] [Remastered] Dub + 3\u0445 MVO + 3\u0445 DVO + 8\u0445 AVO
+        + VO + Original (Eng) + Sub (Rus, Eng, Multi)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVbHJFbDFiUThUU0tUSjhJU2dzeXpsVFRRZFY2NzZFeG5adDhseFZMcDZiSTNRYnJQUHlTSVdWQXNHeGhra1MycnU4QVoxNzloa2RSQ0RqbHRiSDlUSk9RbzVzTTg3YndFQWdVZFhURDZFdENESEthSXlvUDRqVTVqYkE1WG5RR3lKcGVtOEExUWVGV1o0MXQxWk0xNUdrMzZXWWY2NFozZHY0SjRNRFY4QWF3&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0+%2F+The+Matrix+%5B1999%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+BDRemux+1080p%5D+%5BRemastered%5D+Dub+%2B+3%D1%85+MVO+%2B+3%D1%85+DVO+%2B+8%D1%85+AVO+%2B+VO+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng%2C+Multi)</link>\n
+        \     <category>2040</category>\n      <category>100313</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVbHJFbDFiUThUU0tUSjhJU2dzeXpsVFRRZFY2NzZFeG5adDhseFZMcDZiSTNRYnJQUHlTSVdWQXNHeGhra1MycnU4QVoxNzloa2RSQ0RqbHRiSDlUSk9RbzVzTTg3YndFQWdVZFhURDZFdENESEthSXlvUDRqVTVqYkE1WG5RR3lKcGVtOEExUWVGV1o0MXQxWk0xNUdrMzZXWWY2NFozZHY0SjRNRFY4QWF3&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0+%2F+The+Matrix+%5B1999%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+BDRemux+1080p%5D+%5BRemastered%5D+Dub+%2B+3%D1%85+MVO+%2B+3%D1%85+DVO+%2B+8%D1%85+AVO+%2B+VO+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng%2C+Multi)\"
+        length=\"49242431488\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2040\" />\n      <torznab:attr name=\"category\"
+        value=\"100313\" />\n      <torznab:attr name=\"seeders\" value=\"81\" />\n
+        \     <torznab:attr name=\"peers\" value=\"90\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0420\u0435\u0432\u043E\u043B\u044E\u0446\u0438\u044F / The Matrix: Revolutions
+        [2003, \u0410\u0432\u0441\u0442\u0440\u0430\u043B\u0438\u044F, \u0421\u0428\u0410,
+        \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430, \u0431\u043E\u0435\u0432\u0438\u043A,
+        UHD BR-DISK 2160p] [EUR] Dub + Sub Rus, Eng + Original Eng</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=5635607</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=5635607</comments>\n
+        \     <pubDate>Sat, 27 Oct 2018 20:12:21 +0000</pubDate>\n      <size>67362209792</size>\n
+        \     <grabs>20684</grabs>\n      <description>Uploader: \n\t\t\tpirs18\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0420\u0435\u0432\u043E\u043B\u044E\u0446\u0438\u044F / The Matrix: Revolutions
+        (\u042D\u043D\u0434\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438,
+        \u041B\u0430\u0440\u0440\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Andy Wachowski, Larry Wachowski) [2003, \u0410\u0432\u0441\u0442\u0440\u0430\u043B\u0438\u044F,
+        \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, UHD Blu-ray disc 2160p] [EUR] Dub +
+        Sub Rus, Eng + Original Eng</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYYmIxbEtORXBhNnhVSHNQcmEzVk92aGxRR1EtUTRfVUVPTlVLcnVmdWVKVS15V0poLTExMU1hdmRBQ25QNmI4d3JwZmpjaS1lZGRickQ5S1ozTVdPVnJ3dHdGQUg4bkVHTUVaWUNZd3RfbWFHSHI5UXJMVG85eENkMnRheEc0bGo2aGdpdnBiWlJZNTRTV1dPRHAwMHRDVHl1cmdhcjAtczJwU0tYVFVCUlJB&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%A0%D0%B5%D0%B2%D0%BE%D0%BB%D1%8E%D1%86%D0%B8%D1%8F+%2F+The+Matrix%3A+Revolutions+%5B2003%2C+%D0%90%D0%B2%D1%81%D1%82%D1%80%D0%B0%D0%BB%D0%B8%D1%8F%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+UHD+BR-DISK+2160p%5D+%5BEUR%5D+Dub+%2B+Sub+Rus%2C+Eng+%2B+Original+Eng</link>\n
+        \     <category>2045</category>\n      <category>101457</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYYmIxbEtORXBhNnhVSHNQcmEzVk92aGxRR1EtUTRfVUVPTlVLcnVmdWVKVS15V0poLTExMU1hdmRBQ25QNmI4d3JwZmpjaS1lZGRickQ5S1ozTVdPVnJ3dHdGQUg4bkVHTUVaWUNZd3RfbWFHSHI5UXJMVG85eENkMnRheEc0bGo2aGdpdnBiWlJZNTRTV1dPRHAwMHRDVHl1cmdhcjAtczJwU0tYVFVCUlJB&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%A0%D0%B5%D0%B2%D0%BE%D0%BB%D1%8E%D1%86%D0%B8%D1%8F+%2F+The+Matrix%3A+Revolutions+%5B2003%2C+%D0%90%D0%B2%D1%81%D1%82%D1%80%D0%B0%D0%BB%D0%B8%D1%8F%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+UHD+BR-DISK+2160p%5D+%5BEUR%5D+Dub+%2B+Sub+Rus%2C+Eng+%2B+Original+Eng\"
+        length=\"67362209792\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2045\" />\n      <torznab:attr name=\"category\"
+        value=\"101457\" />\n      <torznab:attr name=\"seeders\" value=\"58\" />\n
+        \     <torznab:attr name=\"peers\" value=\"64\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430
+        2: \u041F\u0435\u0440\u0435\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430
+        / The Matrix Reloaded [2003, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DL 2160p, HDR10, Dolby Vision] [Hybrid]
+        Dub + Original (Eng) + Sub (Rus, Eng)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6306536</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6306536</comments>\n
+        \     <pubDate>Sat, 07 Jan 2023 17:07:44 +0000</pubDate>\n      <size>20061296640</size>\n
+        \     <grabs>21758</grabs>\n      <description>Uploader: \n\t\t\tarxivariys\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430
+        2: \u041F\u0435\u0440\u0435\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430
+        / The Matrix Reloaded (\u042D\u043D\u0434\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Andy Wachowski, \u041B\u0430\u0440\u0440\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Larry Wachowski) [2003, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DL 2160p, HDR10, Dolby Vision] [Hybrid]
+        Dub + Original (Eng) + Sub (Rus, Eng)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVWU83VkFPX2NQLWJjS3pxbTd3VHlmMFMtWW9fYnpmX0VrTUYzeEtlTFBYdXR4b2dhSDhjQ19icl9aOTQ0R1doUkdiUEhrR0tmdHo4RHRsLWduQ2JFLTBQb3Z3NkZmMHFBdFZRby11MFhqZTV6RTJyYzhSRFVtZDQxMlBfNDlNVWJCMGJQMU9VVktBZ2poN1ZvNHZOc0xydDc0bmE3UjU3elFOMzRXRFhValBB&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0+2%3A+%D0%9F%D0%B5%D1%80%D0%B5%D0%B7%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B0+%2F+The+Matrix+Reloaded+%5B2003%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL+2160p%2C+HDR10%2C+Dolby+Vision%5D+%5BHybrid%5D+Dub+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng)</link>\n
+        \     <category>2045</category>\n      <category>101457</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVWU83VkFPX2NQLWJjS3pxbTd3VHlmMFMtWW9fYnpmX0VrTUYzeEtlTFBYdXR4b2dhSDhjQ19icl9aOTQ0R1doUkdiUEhrR0tmdHo4RHRsLWduQ2JFLTBQb3Z3NkZmMHFBdFZRby11MFhqZTV6RTJyYzhSRFVtZDQxMlBfNDlNVWJCMGJQMU9VVktBZ2poN1ZvNHZOc0xydDc0bmE3UjU3elFOMzRXRFhValBB&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0+2%3A+%D0%9F%D0%B5%D1%80%D0%B5%D0%B7%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B0+%2F+The+Matrix+Reloaded+%5B2003%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL+2160p%2C+HDR10%2C+Dolby+Vision%5D+%5BHybrid%5D+Dub+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng)\"
+        length=\"20061296640\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2045\" />\n      <torznab:attr name=\"category\"
+        value=\"101457\" />\n      <torznab:attr name=\"seeders\" value=\"173\" />\n
+        \     <torznab:attr name=\"peers\" value=\"180\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0420\u0435\u0432\u043E\u043B\u044E\u0446\u0438\u044F / The Matrix: Revolutions
+        [2003, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DL 2160p, HDR10, Dolby Vision] [Hybrid]
+        Dub + Original (Eng) + Sub (Rus, Eng)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6306804</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6306804</comments>\n
+        \     <pubDate>Sun, 08 Jan 2023 09:25:31 +0000</pubDate>\n      <size>18760865792</size>\n
+        \     <grabs>16832</grabs>\n      <description>Uploader: \n\t\t\tarxivariys\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0420\u0435\u0432\u043E\u043B\u044E\u0446\u0438\u044F / The Matrix: Revolutions
+        (\u042D\u043D\u0434\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Andy Wachowski, \u041B\u0430\u0440\u0440\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Larry Wachowski) [2003, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DL 2160p, HDR10, Dolby Vision] [Hybrid]
+        Dub + Original (Eng) + Sub (Rus, Eng)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXalpVZGhVMkw1TWV6OC04MWJTeGxZZThiRURuU1V6a0NNRGk4UDRSbllUODhPYlVDUVRKM2pRMEJkV2d1THI0dXhsZk5RVnY2ZU9jeG5SNHR0NkplYUlXYjllYnA4SHJaNlVudW9kdDVIMUZ5YWlrcTZHejBhdldEN2Z5U05GeWtjUzdCVThYY0d1RHlBX2xvbWJaZWRhN1dCUUlKZTVJTFN4OFJzemxUVlBn&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%A0%D0%B5%D0%B2%D0%BE%D0%BB%D1%8E%D1%86%D0%B8%D1%8F+%2F+The+Matrix%3A+Revolutions+%5B2003%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL+2160p%2C+HDR10%2C+Dolby+Vision%5D+%5BHybrid%5D+Dub+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng)</link>\n
+        \     <category>2045</category>\n      <category>101457</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXalpVZGhVMkw1TWV6OC04MWJTeGxZZThiRURuU1V6a0NNRGk4UDRSbllUODhPYlVDUVRKM2pRMEJkV2d1THI0dXhsZk5RVnY2ZU9jeG5SNHR0NkplYUlXYjllYnA4SHJaNlVudW9kdDVIMUZ5YWlrcTZHejBhdldEN2Z5U05GeWtjUzdCVThYY0d1RHlBX2xvbWJaZWRhN1dCUUlKZTVJTFN4OFJzemxUVlBn&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%A0%D0%B5%D0%B2%D0%BE%D0%BB%D1%8E%D1%86%D0%B8%D1%8F+%2F+The+Matrix%3A+Revolutions+%5B2003%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL+2160p%2C+HDR10%2C+Dolby+Vision%5D+%5BHybrid%5D+Dub+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng)\"
+        length=\"18760865792\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2045\" />\n      <torznab:attr name=\"category\"
+        value=\"101457\" />\n      <torznab:attr name=\"seeders\" value=\"146\" />\n
+        \     <torznab:attr name=\"peers\" value=\"150\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u041F\u0435\u0440\u0435\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430 /
+        The Matrix Reloaded [2003, \u0421\u0428\u0410, \u0410\u0432\u0441\u0442\u0440\u0430\u043B\u0438\u044F,
+        \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430, \u0431\u043E\u0435\u0432\u0438\u043A,
+        BDRemux 1080p] [Remastered] Dub + 2x MVO + 4x DVO + 5x AVO + Original (Eng)
+        + Sub (Rus, Eng, Multi)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6704282</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6704282</comments>\n
+        \     <pubDate>Tue, 10 Jun 2025 18:30:23 +0000</pubDate>\n      <size>42356047872</size>\n
+        \     <grabs>1607</grabs>\n      <description>Uploader: \n\t\t\tAORE\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u041F\u0435\u0440\u0435\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430 /
+        The Matrix Reloaded (\u042D\u043D\u0434\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Andy Wachowski, \u041B\u0430\u0440\u0440\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Larry Wachowski) [2003, \u0421\u0428\u0410, \u0410\u0432\u0441\u0442\u0440\u0430\u043B\u0438\u044F,
+        \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430, \u0431\u043E\u0435\u0432\u0438\u043A,
+        BDRemux 1080p] [Remastered] Dub + 2x MVO + 4x DVO + 5x AVO + Original (Eng)
+        + Sub (Rus, Eng, Multi)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWTElJSWtuS0QwVkt6QWRMMmNXUG9yOXFxVHJ0andTZzRuR3Npc29KdVZzcnZYcm1IZjFkRTliLXkydUlERXpBR0JvSy1hSWdHem1QN05IMHBOaE5BbUJRRGp0OXlEN3Z6R0c4dTdCWnZ3VkMxeXctaUdMT25nMDdRMUF0VmN3WTlqaTlJTUplaUY1UmlWM3pqNUE1VFdpLWY1QUpQREQzRU5HbUJtYm5nQmxB&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%9F%D0%B5%D1%80%D0%B5%D0%B7%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B0+%2F+The+Matrix+Reloaded+%5B2003%2C+%D0%A1%D0%A8%D0%90%2C+%D0%90%D0%B2%D1%81%D1%82%D1%80%D0%B0%D0%BB%D0%B8%D1%8F%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+BDRemux+1080p%5D+%5BRemastered%5D+Dub+%2B+2x+MVO+%2B+4x+DVO+%2B+5x+AVO+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng%2C+Multi)</link>\n
+        \     <category>2040</category>\n      <category>100313</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWTElJSWtuS0QwVkt6QWRMMmNXUG9yOXFxVHJ0andTZzRuR3Npc29KdVZzcnZYcm1IZjFkRTliLXkydUlERXpBR0JvSy1hSWdHem1QN05IMHBOaE5BbUJRRGp0OXlEN3Z6R0c4dTdCWnZ3VkMxeXctaUdMT25nMDdRMUF0VmN3WTlqaTlJTUplaUY1UmlWM3pqNUE1VFdpLWY1QUpQREQzRU5HbUJtYm5nQmxB&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%9F%D0%B5%D1%80%D0%B5%D0%B7%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B0+%2F+The+Matrix+Reloaded+%5B2003%2C+%D0%A1%D0%A8%D0%90%2C+%D0%90%D0%B2%D1%81%D1%82%D1%80%D0%B0%D0%BB%D0%B8%D1%8F%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+BDRemux+1080p%5D+%5BRemastered%5D+Dub+%2B+2x+MVO+%2B+4x+DVO+%2B+5x+AVO+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng%2C+Multi)\"
+        length=\"42356047872\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2040\" />\n      <torznab:attr name=\"category\"
+        value=\"100313\" />\n      <torznab:attr name=\"seeders\" value=\"43\" />\n
+        \     <torznab:attr name=\"peers\" value=\"45\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections [2021, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, UHD BDRip 2160p, HDR10, Dolby Vision]
+        Dub + 2x MVO + AVO + Original (Eng) + Sub (Rus, Eng)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6187482</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6187482</comments>\n
+        \     <pubDate>Sun, 06 Mar 2022 16:46:55 +0000</pubDate>\n      <size>31369680896</size>\n
+        \     <grabs>11476</grabs>\n      <description>Uploader: \n\t\t\tarxivariys\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections (\u041B\u0430\u043D\u0430 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Lana Wachowski) [2021, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, UHD BDRip 2160p, HDR10, Dolby Vision]
+        Dub + 2x MVO + AVO + Original (Eng) + Sub (Rus, Eng)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYYUhrVVI3anlWQ2FrbW8xVVU3MTVlWEZ4YlJMb1FmY3hweVB4QVpJX09pZmdYbHA3Q0NwUUtmYUFBTi1raFBaYWJzS2JSRHdIN2hqU0lpTzZsVGxLdUJkLW9CYXVScGM1S2s1QUk5TGs3Njc5RW5NYXB3RGxJWE90djZ1QXY2WDNPSjhaNjJqTzBsQXVna1RfMm5mRFZFV2ZjTWQ0dlY4WkpZdE9GUzNRSnd3&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+UHD+BDRip+2160p%2C+HDR10%2C+Dolby+Vision%5D+Dub+%2B+2x+MVO+%2B+AVO+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng)</link>\n
+        \     <category>2045</category>\n      <category>101457</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYYUhrVVI3anlWQ2FrbW8xVVU3MTVlWEZ4YlJMb1FmY3hweVB4QVpJX09pZmdYbHA3Q0NwUUtmYUFBTi1raFBaYWJzS2JSRHdIN2hqU0lpTzZsVGxLdUJkLW9CYXVScGM1S2s1QUk5TGs3Njc5RW5NYXB3RGxJWE90djZ1QXY2WDNPSjhaNjJqTzBsQXVna1RfMm5mRFZFV2ZjTWQ0dlY4WkpZdE9GUzNRSnd3&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+UHD+BDRip+2160p%2C+HDR10%2C+Dolby+Vision%5D+Dub+%2B+2x+MVO+%2B+AVO+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng)\"
+        length=\"31369680896\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2045\" />\n      <torznab:attr name=\"category\"
+        value=\"101457\" />\n      <torznab:attr name=\"seeders\" value=\"54\" />\n
+        \     <torznab:attr name=\"peers\" value=\"54\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections [2021, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, BDRemux 1080p] Dub + 2x MVO + AVO +
+        VO + MVO (UKR) + Sub (Rus, Ukr, Eng) + Original Eng</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6183362</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6183362</comments>\n
+        \     <pubDate>Tue, 30 May 2023 16:10:57 +0000</pubDate>\n      <size>30291812352</size>\n
+        \     <grabs>5133</grabs>\n      <description>Uploader: \n\t\t\tmerkury1\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections (\u041B\u0430\u043D\u0430 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Lana Wachowski) [2021, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, BDRemux 1080p] Dub + 2x MVO + AVO +
+        VO + MVO (UKR) + Sub (Rus, Ukr, Eng) + Original Eng</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWazlTZTVwdWNxaV9vLU9MWmk1V2VaY0JVZnZudXJlNmQ2TERzM2RoRHRQbE44YUNQNnNGSDAyVzBDQ0VIN1lERVV5dXQ4LXYtaEYwbHAyS0owd29jU2VUbU4yUGh1YWV2X2tBX3k0c1lyZWk3ZUd6bXlzeEpvMDc0eUZMQktzUUdzZDFFUEhBT3Y0TWlKNnJ2YmdYLXQ2bTFpM080ckE5aHhrR0NqZ3dYWWN3&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+BDRemux+1080p%5D+Dub+%2B+2x+MVO+%2B+AVO+%2B+VO+%2B+MVO+(UKR)+%2B+Sub+(Rus%2C+Ukr%2C+Eng)+%2B+Original+Eng</link>\n
+        \     <category>2040</category>\n      <category>100313</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWazlTZTVwdWNxaV9vLU9MWmk1V2VaY0JVZnZudXJlNmQ2TERzM2RoRHRQbE44YUNQNnNGSDAyVzBDQ0VIN1lERVV5dXQ4LXYtaEYwbHAyS0owd29jU2VUbU4yUGh1YWV2X2tBX3k0c1lyZWk3ZUd6bXlzeEpvMDc0eUZMQktzUUdzZDFFUEhBT3Y0TWlKNnJ2YmdYLXQ2bTFpM080ckE5aHhrR0NqZ3dYWWN3&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+BDRemux+1080p%5D+Dub+%2B+2x+MVO+%2B+AVO+%2B+VO+%2B+MVO+(UKR)+%2B+Sub+(Rus%2C+Ukr%2C+Eng)+%2B+Original+Eng\"
+        length=\"30291812352\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2040\" />\n      <torznab:attr name=\"category\"
+        value=\"100313\" />\n      <torznab:attr name=\"seeders\" value=\"43\" />\n
+        \     <torznab:attr name=\"peers\" value=\"50\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0420\u0435\u0432\u043E\u043B\u044E\u0446\u0438\u044F / The Matrix Revolutions
+        [2003, \u0421\u0428\u0410, \u0410\u0432\u0441\u0442\u0440\u0430\u043B\u0438\u044F,
+        \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430, \u0431\u043E\u0435\u0432\u0438\u043A,
+        BDRemux 1080p] [Remastered] Dub + 2x MVO + DVO + 2x AVO + Original (Eng) +
+        Sub (Rus, Eng, Multi)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6702063</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6702063</comments>\n
+        \     <pubDate>Sat, 14 Jun 2025 12:37:38 +0000</pubDate>\n      <size>37324087296</size>\n
+        \     <grabs>1141</grabs>\n      <description>Uploader: \n\t\t\tAORE\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0420\u0435\u0432\u043E\u043B\u044E\u0446\u0438\u044F / The Matrix Revolutions
+        (\u042D\u043D\u0434\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Andy Wachowski, \u041B\u0430\u0440\u0440\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Larry Wachowski) [2003, \u0421\u0428\u0410, \u0410\u0432\u0441\u0442\u0440\u0430\u043B\u0438\u044F,
+        \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430, \u0431\u043E\u0435\u0432\u0438\u043A,
+        BDRemux 1080p] [Remastered] Dub + 2x MVO + DVO + 2x AVO + Original (Eng) +
+        Sub (Rus, Eng, Multi)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWWE50REtNUVRUWU1QWXFSSkpMWHB3WHRkRVczbXpUYjVWS0VzbGI4VERIMkZNWWJZRXdoeW1JWnZCX1dzOENHTG1nRTlLMzhMblJRTTItNmZ1MmdrMEJfbk96RktUTEdha0lPak1iUXVzNG9aOWloQzExVEJpLS1xekl6OFRIcXNkUG95RWJIbWpVZmU2THNzaTZuN3Raa3FSc003XzB3NlZnM0ZtRUZVUDdn&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%A0%D0%B5%D0%B2%D0%BE%D0%BB%D1%8E%D1%86%D0%B8%D1%8F+%2F+The+Matrix+Revolutions+%5B2003%2C+%D0%A1%D0%A8%D0%90%2C+%D0%90%D0%B2%D1%81%D1%82%D1%80%D0%B0%D0%BB%D0%B8%D1%8F%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+BDRemux+1080p%5D+%5BRemastered%5D+Dub+%2B+2x+MVO+%2B+DVO+%2B+2x+AVO+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng%2C+Multi)</link>\n
+        \     <category>2040</category>\n      <category>102198</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWWE50REtNUVRUWU1QWXFSSkpMWHB3WHRkRVczbXpUYjVWS0VzbGI4VERIMkZNWWJZRXdoeW1JWnZCX1dzOENHTG1nRTlLMzhMblJRTTItNmZ1MmdrMEJfbk96RktUTEdha0lPak1iUXVzNG9aOWloQzExVEJpLS1xekl6OFRIcXNkUG95RWJIbWpVZmU2THNzaTZuN3Raa3FSc003XzB3NlZnM0ZtRUZVUDdn&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%A0%D0%B5%D0%B2%D0%BE%D0%BB%D1%8E%D1%86%D0%B8%D1%8F+%2F+The+Matrix+Revolutions+%5B2003%2C+%D0%A1%D0%A8%D0%90%2C+%D0%90%D0%B2%D1%81%D1%82%D1%80%D0%B0%D0%BB%D0%B8%D1%8F%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+BDRemux+1080p%5D+%5BRemastered%5D+Dub+%2B+2x+MVO+%2B+DVO+%2B+2x+AVO+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng%2C+Multi)\"
+        length=\"37324087296\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2040\" />\n      <torznab:attr name=\"category\"
+        value=\"102198\" />\n      <torznab:attr name=\"seeders\" value=\"33\" />\n
+        \     <torznab:attr name=\"peers\" value=\"36\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0420\u0435\u0432\u043E\u043B\u044E\u0446\u0438\u044F / The Matrix Revolutions
+        [2003, \u0421\u0428\u0410, \u0410\u0432\u0441\u0442\u0440\u0430\u043B\u0438\u044F,
+        \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430, \u0431\u043E\u0435\u0432\u0438\u043A,
+        BDRip 1080p] Dub + MVO + DVO + 2x AVO + Sub Rus,Eng + Original Eng</title>\n
+        \     <guid>https://rutracker.org/forum/viewtopic.php?t=6422985</guid>\n      <jackettindexer
+        id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6422985</comments>\n
+        \     <pubDate>Tue, 17 Oct 2023 05:22:19 +0000</pubDate>\n      <size>18546399232</size>\n
+        \     <grabs>5283</grabs>\n      <description>Uploader: \n\t\t\tHunterB02\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0420\u0435\u0432\u043E\u043B\u044E\u0446\u0438\u044F / The Matrix Revolutions
+        (\u042D\u043D\u0434\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Andy Wachowski, \u041B\u0430\u0440\u0440\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Larry Wachowski) [2003, \u0421\u0428\u0410, \u0410\u0432\u0441\u0442\u0440\u0430\u043B\u0438\u044F,
+        \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430, \u0431\u043E\u0435\u0432\u0438\u043A,
+        BDRip 1080p] Dub + MVO + DVO + 2x AVO + Sub Rus,Eng + Original Eng</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYcERrVHpUM3hpYTZVOThfS3BqODUxZ2NLOEVnV19vWDN3S0Y0bDVWRE1jNWJtbHgtdVRNNkhCLWlMV2JnNThhOHhhY0NQRnRKMUpTV2JpVWJnT2dHVGt2QjRoM1B1bVBBTDVNUGlDT0FxRFVIZkpvYTFXYWFNbVUyM0wzVFhtbFF1bnNhOUVZR1dfOTVNT2hsbWpXUTEyZjhMcEJpcVhGazhyMU9URWtHMmV3&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%A0%D0%B5%D0%B2%D0%BE%D0%BB%D1%8E%D1%86%D0%B8%D1%8F+%2F+The+Matrix+Revolutions+%5B2003%2C+%D0%A1%D0%A8%D0%90%2C+%D0%90%D0%B2%D1%81%D1%82%D1%80%D0%B0%D0%BB%D0%B8%D1%8F%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+BDRip+1080p%5D+Dub+%2B+MVO+%2B+DVO+%2B+2x+AVO+%2B+Sub+Rus%2CEng+%2B+Original+Eng</link>\n
+        \     <category>2040</category>\n      <category>100313</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYcERrVHpUM3hpYTZVOThfS3BqODUxZ2NLOEVnV19vWDN3S0Y0bDVWRE1jNWJtbHgtdVRNNkhCLWlMV2JnNThhOHhhY0NQRnRKMUpTV2JpVWJnT2dHVGt2QjRoM1B1bVBBTDVNUGlDT0FxRFVIZkpvYTFXYWFNbVUyM0wzVFhtbFF1bnNhOUVZR1dfOTVNT2hsbWpXUTEyZjhMcEJpcVhGazhyMU9URWtHMmV3&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%A0%D0%B5%D0%B2%D0%BE%D0%BB%D1%8E%D1%86%D0%B8%D1%8F+%2F+The+Matrix+Revolutions+%5B2003%2C+%D0%A1%D0%A8%D0%90%2C+%D0%90%D0%B2%D1%81%D1%82%D1%80%D0%B0%D0%BB%D0%B8%D1%8F%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+BDRip+1080p%5D+Dub+%2B+MVO+%2B+DVO+%2B+2x+AVO+%2B+Sub+Rus%2CEng+%2B+Original+Eng\"
+        length=\"18546399232\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2040\" />\n      <torznab:attr name=\"category\"
+        value=\"100313\" />\n      <torznab:attr name=\"seeders\" value=\"56\" />\n
+        \     <torznab:attr name=\"peers\" value=\"57\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections [2021, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DL 1080p, HDR10, Dolby Vision] [Hybrid]
+        Dub + 2x MVO + AVO + Original (Eng) + Sub (Rus, Eng)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6167285</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6167285</comments>\n
+        \     <pubDate>Thu, 20 Jan 2022 16:10:16 +0000</pubDate>\n      <size>10054926336</size>\n
+        \     <grabs>36749</grabs>\n      <description>Uploader: \n\t\t\tarxivariys\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections (\u041B\u0430\u043D\u0430 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Lana Wachowski) [2021, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DL 1080p, HDR10, Dolby Vision] [Hybrid]
+        Dub + 2x MVO + AVO + Original (Eng) + Sub (Rus, Eng)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWS3JIOWFuTVJGZFc0anJXa1NfWnczZjlpSHRxVFc2S3JGYUF5N0w4UFY0STVfaHB4aFVpTGxsQVFIcHRoQ3huMkFtNEhuQzJ5Vnl3NUVLalI3WW9TeG5scVFXdlQ5YW4wSlFrdmx5MF81OGJvaXRLazRhOGJwS1pqVnlJaW9ZYTlaWktCUjVpdDBYOFNSYTNxbmR3RTh6VDNJbW10TlAzbnJGWkN6a1NvcGpB&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL+1080p%2C+HDR10%2C+Dolby+Vision%5D+%5BHybrid%5D+Dub+%2B+2x+MVO+%2B+AVO+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng)</link>\n
+        \     <category>2040</category>\n      <category>100313</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWS3JIOWFuTVJGZFc0anJXa1NfWnczZjlpSHRxVFc2S3JGYUF5N0w4UFY0STVfaHB4aFVpTGxsQVFIcHRoQ3huMkFtNEhuQzJ5Vnl3NUVLalI3WW9TeG5scVFXdlQ5YW4wSlFrdmx5MF81OGJvaXRLazRhOGJwS1pqVnlJaW9ZYTlaWktCUjVpdDBYOFNSYTNxbmR3RTh6VDNJbW10TlAzbnJGWkN6a1NvcGpB&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL+1080p%2C+HDR10%2C+Dolby+Vision%5D+%5BHybrid%5D+Dub+%2B+2x+MVO+%2B+AVO+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng)\"
+        length=\"10054926336\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2040\" />\n      <torznab:attr name=\"category\"
+        value=\"100313\" />\n      <torznab:attr name=\"seeders\" value=\"69\" />\n
+        \     <torznab:attr name=\"peers\" value=\"72\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections [2021, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DL 2160p, HDR10] [\u041B\u043E\u043A\u0430\u043B\u0438\u0437\u043E\u0432\u0430\u043D\u043D\u044B\u0439
+        \u0432\u0438\u0434\u0435\u043E\u0440\u044F\u0434] Dub + Original (Eng) + Sub
+        (Rus, Eng, Heb, Est, Lat, Lit, Rom, Ukr)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6192723</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6192723</comments>\n
+        \     <pubDate>Sun, 20 Mar 2022 15:17:48 +0000</pubDate>\n      <size>17108511744</size>\n
+        \     <grabs>8275</grabs>\n      <description>Uploader: \n\t\t\tWilmots\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections (\u041B\u0430\u043D\u0430 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Lana Wachowski) [2021, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DL 2160p, HDR10] [\u041B\u043E\u043A\u0430\u043B\u0438\u0437\u043E\u0432\u0430\u043D\u043D\u044B\u0439
+        \u0432\u0438\u0434\u0435\u043E\u0440\u044F\u0434] Dub (\u041F\u0438\u0444\u0430\u0433\u043E\u0440)
+        + Original (Eng) + Sub (Rus, Eng, Heb, Est, Lat, Lit, Rom, Ukr)</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWOEM1MlA5M0VPdmR4c0ExcDUxTlJma3RhZjBSMHh3Nm5QN05Cb0hrYnJWOUhmTjJfSWhDR3FLODJ3MVlEaHlNdU00dzA0LWVReXBGWmw2cy1tNUNLdUNFOVQwOUlRQXBFeDhsdTRndHVSMlRiS0M1Q0RlZjY3anItbk1DeVdHeGhheWttc0lYTy1pMUUzYXQ1azRwTUZCZS1fQ3BNUWcxYnZ4bUJYeGtuSFNR&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL+2160p%2C+HDR10%5D+%5B%D0%9B%D0%BE%D0%BA%D0%B0%D0%BB%D0%B8%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D1%8B%D0%B9+%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE%D1%80%D1%8F%D0%B4%5D+Dub+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng%2C+Heb%2C+Est%2C+Lat%2C+Lit%2C+Rom%2C+Ukr)</link>\n
+        \     <category>2045</category>\n      <category>101457</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWOEM1MlA5M0VPdmR4c0ExcDUxTlJma3RhZjBSMHh3Nm5QN05Cb0hrYnJWOUhmTjJfSWhDR3FLODJ3MVlEaHlNdU00dzA0LWVReXBGWmw2cy1tNUNLdUNFOVQwOUlRQXBFeDhsdTRndHVSMlRiS0M1Q0RlZjY3anItbk1DeVdHeGhheWttc0lYTy1pMUUzYXQ1azRwTUZCZS1fQ3BNUWcxYnZ4bUJYeGtuSFNR&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL+2160p%2C+HDR10%5D+%5B%D0%9B%D0%BE%D0%BA%D0%B0%D0%BB%D0%B8%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D1%8B%D0%B9+%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE%D1%80%D1%8F%D0%B4%5D+Dub+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng%2C+Heb%2C+Est%2C+Lat%2C+Lit%2C+Rom%2C+Ukr)\"
+        length=\"17108511744\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2045\" />\n      <torznab:attr name=\"category\"
+        value=\"101457\" />\n      <torznab:attr name=\"seeders\" value=\"36\" />\n
+        \     <torznab:attr name=\"peers\" value=\"36\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430
+        / The Matrix [1999, \u0421\u0428\u0410, \u0424\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, \u043F\u0440\u0438\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u044F,
+        HDTV-AVC] [Open Matte] Dub + AVO + Sub Eng Rus + Original Eng</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=5552336</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=5552336</comments>\n
+        \     <pubDate>Wed, 02 May 2018 13:11:01 +0000</pubDate>\n      <size>3151528192</size>\n
+        \     <grabs>96347</grabs>\n      <description>Uploader: \n\t\t\t\u041C\u0435\u0440\u0430\u043D\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430
+        / The Matrix (\u042D\u043D\u0434\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438,
+        \u041B\u0430\u0440\u0440\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Andy Wachowski, Larry Wachowski) [1999, \u0421\u0428\u0410, \u0424\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, \u043F\u0440\u0438\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u044F,
+        HDTVRip-AVC] [Open Matte] Dub + AVO (\u0412\u0438\u0437\u0433\u0443\u043D\u043E\u0432)
+        + Sub Eng Rus + Original Eng</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXNk0zTWN3NWczWGhKaWt5d25Nb3NEWW9yNFhpclhQRHR5bFU1VTRwUnBfTHhKVk1JMnRqa2dwODV1TFJiajZYbEZ1QmVOVGlHZDR2OEtla1Ywd0VzamVkdm9fclcwRHFwNWk0d2F3OW1MNkdvTVA4eHh0cW9YSGJxbE01UjRoaks5N1RQU3lQMnAyM2xwcHZtT2dMRmc2SW83UTJzMUtxeXZpaDN2cXFJWlVR&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0+%2F+The+Matrix+%5B1999%2C+%D0%A1%D0%A8%D0%90%2C+%D0%A4%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+%D0%BF%D1%80%D0%B8%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D1%8F%2C+HDTV-AVC%5D+%5BOpen+Matte%5D+Dub+%2B+AVO+%2B+Sub+Eng+Rus+%2B+Original+Eng</link>\n
+        \     <category>2010</category>\n      <category>102221</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXNk0zTWN3NWczWGhKaWt5d25Nb3NEWW9yNFhpclhQRHR5bFU1VTRwUnBfTHhKVk1JMnRqa2dwODV1TFJiajZYbEZ1QmVOVGlHZDR2OEtla1Ywd0VzamVkdm9fclcwRHFwNWk0d2F3OW1MNkdvTVA4eHh0cW9YSGJxbE01UjRoaks5N1RQU3lQMnAyM2xwcHZtT2dMRmc2SW83UTJzMUtxeXZpaDN2cXFJWlVR&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0+%2F+The+Matrix+%5B1999%2C+%D0%A1%D0%A8%D0%90%2C+%D0%A4%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+%D0%BF%D1%80%D0%B8%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D1%8F%2C+HDTV-AVC%5D+%5BOpen+Matte%5D+Dub+%2B+AVO+%2B+Sub+Eng+Rus+%2B+Original+Eng\"
+        length=\"3151528192\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2010\" />\n      <torznab:attr name=\"category\"
+        value=\"102221\" />\n      <torznab:attr name=\"seeders\" value=\"172\" />\n
+        \     <torznab:attr name=\"peers\" value=\"179\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430
+        / The Matrix [1999, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        35mm Film Scan 1080p] Dub + 2\u0445 MVO + 3\u0445 DVO + 8\u0445 AVO + VO +
+        Original (Eng) + Sub (Rus, Eng)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6701476</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6701476</comments>\n
+        \     <pubDate>Mon, 02 Jun 2025 12:45:10 +0000</pubDate>\n      <size>44350877696</size>\n
+        \     <grabs>886</grabs>\n      <description>Uploader: \n\t\t\tAORE\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430
+        / The Matrix (\u042D\u043D\u0434\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438,
+        \u041B\u0430\u0440\u0440\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Andy Wachowski, Larry Wachowski) [1999, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        35mm Film Scan 1080p] Dub + 2\u0445 MVO + 3\u0445 DVO + 8\u0445 AVO + VO +
+        Original (Eng) + Sub (Rus, Eng)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYajRSb1hhd0M4NGZBeEJkdVpZRlRlM2o1dDg3RnhBcmYzYVoyTm1acTVnNGF4SFpRREZVWEVrb05uZXVYZXUtODh3NzRjVWJpend3WXJNd2haWnB1MWJEYzZmaFlwY0tzUWZjdFctWHJoTG1VSjNoUFcxQTJOY0NKTE80OUZyQWstdnd0cmhPdjRucVNvODVlOVlVQlJ3V2dPS01PdEYxcG1fWHVVMGJQRWtR&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0+%2F+The+Matrix+%5B1999%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+35mm+Film+Scan+1080p%5D+Dub+%2B+2%D1%85+MVO+%2B+3%D1%85+DVO+%2B+8%D1%85+AVO+%2B+VO+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng)</link>\n
+        \     <category>2040</category>\n      <category>100313</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYajRSb1hhd0M4NGZBeEJkdVpZRlRlM2o1dDg3RnhBcmYzYVoyTm1acTVnNGF4SFpRREZVWEVrb05uZXVYZXUtODh3NzRjVWJpend3WXJNd2haWnB1MWJEYzZmaFlwY0tzUWZjdFctWHJoTG1VSjNoUFcxQTJOY0NKTE80OUZyQWstdnd0cmhPdjRucVNvODVlOVlVQlJ3V2dPS01PdEYxcG1fWHVVMGJQRWtR&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0+%2F+The+Matrix+%5B1999%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+35mm+Film+Scan+1080p%5D+Dub+%2B+2%D1%85+MVO+%2B+3%D1%85+DVO+%2B+8%D1%85+AVO+%2B+VO+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng)\"
+        length=\"44350877696\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2040\" />\n      <torznab:attr name=\"category\"
+        value=\"100313\" />\n      <torznab:attr name=\"seeders\" value=\"10\" />\n
+        \     <torznab:attr name=\"peers\" value=\"10\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections [2021, \u0421\u0428\u0410, \u0424\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DL 1080p] Dub + 2\u0445 MVO (Jaskier,
+        HDRezka Studio) + 4\u0445 VO (\u0412\u0438\u0437\u0433\u0443\u043D\u043E\u0432,
+        \u0415\u0441\u0430\u0440\u0435\u0432, \u041D\u0430\u0437\u0430\u0440\u043E\u0432,
+        feofanio) + Sub Rus (FOCS, kornickolay, feofanio, HDRezka Studio(forced))
+        + Original Eng</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6154721</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6154721</comments>\n
+        \     <pubDate>Thu, 20 Jan 2022 14:10:11 +0000</pubDate>\n      <size>13655780352</size>\n
+        \     <grabs>10871</grabs>\n      <description>Uploader: \n\t\t\tkornickolay\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections (\u041B\u0430\u043D\u0430 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Lana Wachowski) [2021, \u0421\u0428\u0410, \u0424\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DL 1080p] Dub (\u041F\u0438\u0444\u0430\u0433\u043E\u0440)
+        + 2\u0445 MVO (Jaskier, HDRezka Studio) + 4\u0445 VO (\u0412\u0438\u0437\u0433\u0443\u043D\u043E\u0432,
+        \u0415\u0441\u0430\u0440\u0435\u0432, \u041D\u0430\u0437\u0430\u0440\u043E\u0432,
+        feofanio) + Sub Rus (FOCS, kornickolay, feofanio, HDRezka Studio(forced))
+        + Original Eng</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXbjZ1MEdvUWRwLWxaQUtQMFQ2eEtWbk1SaEVlSzB0VVN4el9KVVEzWW9wV0drcWluelBGWS04aHZSeTJ3dmlqSFZYaEdLMktzeVFmblpNaE5QREJUT2hkeGNLMlAwaEZBaUtENC1RdktuSDdIRWNKSERrUnBIM0IwT0tRTnV5amRJUHpRTVZOUzdQNXlwMFZWLV9ucWRJaFlNa2FiSXVQMmFIaFpVYXYxSHF3&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D0%A4%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL+1080p%5D+Dub+%2B+2%D1%85+MVO+(Jaskier%2C+HDRezka+Studio)+%2B+4%D1%85+VO+(%D0%92%D0%B8%D0%B7%D0%B3%D1%83%D0%BD%D0%BE%D0%B2%2C+%D0%95%D1%81%D0%B0%D1%80%D0%B5%D0%B2%2C+%D0%9D%D0%B0%D0%B7%D0%B0%D1%80%D0%BE%D0%B2%2C+feofanio)+%2B+Sub+Rus+(FOCS%2C+kornickolay%2C+feofanio%2C+HDRezka+Studio(forced))+%2B+Original+Eng</link>\n
+        \     <category>2040</category>\n      <category>100313</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXbjZ1MEdvUWRwLWxaQUtQMFQ2eEtWbk1SaEVlSzB0VVN4el9KVVEzWW9wV0drcWluelBGWS04aHZSeTJ3dmlqSFZYaEdLMktzeVFmblpNaE5QREJUT2hkeGNLMlAwaEZBaUtENC1RdktuSDdIRWNKSERrUnBIM0IwT0tRTnV5amRJUHpRTVZOUzdQNXlwMFZWLV9ucWRJaFlNa2FiSXVQMmFIaFpVYXYxSHF3&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D0%A4%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL+1080p%5D+Dub+%2B+2%D1%85+MVO+(Jaskier%2C+HDRezka+Studio)+%2B+4%D1%85+VO+(%D0%92%D0%B8%D0%B7%D0%B3%D1%83%D0%BD%D0%BE%D0%B2%2C+%D0%95%D1%81%D0%B0%D1%80%D0%B5%D0%B2%2C+%D0%9D%D0%B0%D0%B7%D0%B0%D1%80%D0%BE%D0%B2%2C+feofanio)+%2B+Sub+Rus+(FOCS%2C+kornickolay%2C+feofanio%2C+HDRezka+Studio(forced))+%2B+Original+Eng\"
+        length=\"13655780352\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2040\" />\n      <torznab:attr name=\"category\"
+        value=\"100313\" />\n      <torznab:attr name=\"seeders\" value=\"27\" />\n
+        \     <torznab:attr name=\"peers\" value=\"27\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0422\u0440\u0438\u043B\u043E\u0433\u0438\u044F / The Matrix: Trilogy [1999-2003,
+        \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, \u043F\u0440\u0438\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u044F,
+        WEBRip] [Open Matte] Dub</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=5745156</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=5745156</comments>\n
+        \     <pubDate>Sun, 16 Jun 2019 04:41:40 +0000</pubDate>\n      <size>7023335424</size>\n
+        \     <grabs>37680</grabs>\n      <description>Uploader: \n\t\t\tt\u0435ko\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0422\u0440\u0438\u043B\u043E\u0433\u0438\u044F / The Matrix: Trilogy (\u042D\u043D\u0434\u0438
+        \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438 / Andy Wachowski, \u041B\u0430\u0440\u0440\u0438
+        \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438 / Larry Wachowski) [1999-2003,
+        \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, \u043F\u0440\u0438\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u044F,
+        WEBRip] [Open Matte] Dub</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVb3U2cTFRUjRBLTNuaTBuRVdOak03SVB6OFF4bUV3MU9TcHdnQjZXTlFoLUx6UXVVZGVKNW5vVm50Wk43REM0VU1kTGptMHlfaGlGMjQtYWxSaDJmM0dGa2tYbGI4YUV2cDg1TW1vNkE1M1VhZk5lRmFuTFhMVDNFQzZ6cHpwaFhUcXp0cU8zdDdtbGMtQldqcWhPOTUybjhqUEoxX2ZNNkMyZ0dlWUlFMEdB&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%A2%D1%80%D0%B8%D0%BB%D0%BE%D0%B3%D0%B8%D1%8F+%2F+The+Matrix%3A+Trilogy+%5B1999-2003%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+%D0%BF%D1%80%D0%B8%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D1%8F%2C+WEBRip%5D+%5BOpen+Matte%5D+Dub</link>\n
+        \     <category>2010</category>\n      <category>100212</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVb3U2cTFRUjRBLTNuaTBuRVdOak03SVB6OFF4bUV3MU9TcHdnQjZXTlFoLUx6UXVVZGVKNW5vVm50Wk43REM0VU1kTGptMHlfaGlGMjQtYWxSaDJmM0dGa2tYbGI4YUV2cDg1TW1vNkE1M1VhZk5lRmFuTFhMVDNFQzZ6cHpwaFhUcXp0cU8zdDdtbGMtQldqcWhPOTUybjhqUEoxX2ZNNkMyZ0dlWUlFMEdB&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%A2%D1%80%D0%B8%D0%BB%D0%BE%D0%B3%D0%B8%D1%8F+%2F+The+Matrix%3A+Trilogy+%5B1999-2003%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+%D0%BF%D1%80%D0%B8%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D1%8F%2C+WEBRip%5D+%5BOpen+Matte%5D+Dub\"
+        length=\"7023335424\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2010\" />\n      <torznab:attr name=\"category\"
+        value=\"100212\" />\n      <torznab:attr name=\"seeders\" value=\"41\" />\n
+        \     <torznab:attr name=\"peers\" value=\"45\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0422\u0440\u0438\u043B\u043E\u0433\u0438\u044F / The Matrix: Trilogy [1999-2003,
+        \u0421\u0428\u0410, \u0424\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, \u043F\u0440\u0438\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u044F,
+        WEBRip-AVC] [Open Matte] Dub + MVO + 2x DVO + 2x AVO + Sub Eng Rus + Original
+        Eng</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=5047841</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=5047841</comments>\n
+        \     <pubDate>Mon, 23 Apr 2018 00:25:02 +0000</pubDate>\n      <size>13535107072</size>\n
+        \     <grabs>27747</grabs>\n      <description>Uploader: \n\t\t\t\u041C\u0435\u0440\u0430\u043D\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0422\u0440\u0438\u043B\u043E\u0433\u0438\u044F / The Matrix: Trilogy (\u042D\u043D\u0434\u0438
+        \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438, \u041B\u0430\u0440\u0440\u0438
+        \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438 / Andy Wachowski, Larry Wachowski)
+        [1999-2003, \u0421\u0428\u0410, \u0424\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, \u043F\u0440\u0438\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u044F,
+        WEBRip-AVC] [Open Matte] Dub + MVO + 2x DVO + 2x AVO + Sub Eng Rus + Original
+        Eng</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVbFNPdXBfSlFxQm1meUE0WWxLUE5xSjNlSVJpMTlDTFF0T2laZzdiMFgwYmUxUmVkYVdTOHFWZ3ZfUEYweUNIbXVzM2RzdTJITjJ2UVJXWkRMTEFsRFFSOUpGUkZzQlpxZzJQWnhIM3ZMY1dzVjQycC1OR3E3SmZfVklCcEdMUVREWmxEdFBmVF9xV1FLTjFJb0xaemZMVTVGeUFJbUdZd0RiQU40dGlYdV9R&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%A2%D1%80%D0%B8%D0%BB%D0%BE%D0%B3%D0%B8%D1%8F+%2F+The+Matrix%3A+Trilogy+%5B1999-2003%2C+%D0%A1%D0%A8%D0%90%2C+%D0%A4%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+%D0%BF%D1%80%D0%B8%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D1%8F%2C+WEBRip-AVC%5D+%5BOpen+Matte%5D+Dub+%2B+MVO+%2B+2x+DVO+%2B+2x+AVO+%2B+Sub+Eng+Rus+%2B+Original+Eng</link>\n
+        \     <category>2010</category>\n      <category>100212</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVbFNPdXBfSlFxQm1meUE0WWxLUE5xSjNlSVJpMTlDTFF0T2laZzdiMFgwYmUxUmVkYVdTOHFWZ3ZfUEYweUNIbXVzM2RzdTJITjJ2UVJXWkRMTEFsRFFSOUpGUkZzQlpxZzJQWnhIM3ZMY1dzVjQycC1OR3E3SmZfVklCcEdMUVREWmxEdFBmVF9xV1FLTjFJb0xaemZMVTVGeUFJbUdZd0RiQU40dGlYdV9R&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%A2%D1%80%D0%B8%D0%BB%D0%BE%D0%B3%D0%B8%D1%8F+%2F+The+Matrix%3A+Trilogy+%5B1999-2003%2C+%D0%A1%D0%A8%D0%90%2C+%D0%A4%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+%D0%BF%D1%80%D0%B8%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D1%8F%2C+WEBRip-AVC%5D+%5BOpen+Matte%5D+Dub+%2B+MVO+%2B+2x+DVO+%2B+2x+AVO+%2B+Sub+Eng+Rus+%2B+Original+Eng\"
+        length=\"13535107072\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2010\" />\n      <torznab:attr name=\"category\"
+        value=\"100212\" />\n      <torznab:attr name=\"seeders\" value=\"20\" />\n
+        \     <torznab:attr name=\"peers\" value=\"31\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections [2021, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DL 1080p] [\u041B\u043E\u043A\u0430\u043B\u0438\u0437\u043E\u0432\u0430\u043D\u043D\u044B\u0439
+        \u0432\u0438\u0434\u0435\u043E\u0440\u044F\u0434] Dub + Original (Eng) + Sub
+        (Rus, Eng, Heb, Est, Lat, Lit, Rom, Ukr)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6192634</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6192634</comments>\n
+        \     <pubDate>Sun, 20 Mar 2022 12:41:26 +0000</pubDate>\n      <size>8606375936</size>\n
+        \     <grabs>13201</grabs>\n      <description>Uploader: \n\t\t\tWilmots\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections (\u041B\u0430\u043D\u0430 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Lana Wachowski) [2021, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DL 1080p] [\u041B\u043E\u043A\u0430\u043B\u0438\u0437\u043E\u0432\u0430\u043D\u043D\u044B\u0439
+        \u0432\u0438\u0434\u0435\u043E\u0440\u044F\u0434] Dub (\u041F\u0438\u0444\u0430\u0433\u043E\u0440)
+        + Original (Eng) + Sub (Rus, Eng, Heb, Est, Lat, Lit, Rom, Ukr)</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVaDhSLWFOU2I2T3hWRVVHVWtzeEloNHgwNk1MWUJ1bEJRRFNqdndkX2hPcnpRMHhQOVN4Q3BXQW9HM3p0Q0VHeVFaLUp0OE5jQkUyWVh5eG1TN2IyQ3dta0FiRFliOXRQMlIwcnJadVRYaHpyOUNDV3Y5X3huVDFVb2VYc0hsSWI0ay1pNGlvSWw3WVl1QWthOHRVbnpFUGxvbkpPVUZ4cFZEMTdodFBCd3dR&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL+1080p%5D+%5B%D0%9B%D0%BE%D0%BA%D0%B0%D0%BB%D0%B8%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D1%8B%D0%B9+%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE%D1%80%D1%8F%D0%B4%5D+Dub+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng%2C+Heb%2C+Est%2C+Lat%2C+Lit%2C+Rom%2C+Ukr)</link>\n
+        \     <category>2040</category>\n      <category>100313</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVaDhSLWFOU2I2T3hWRVVHVWtzeEloNHgwNk1MWUJ1bEJRRFNqdndkX2hPcnpRMHhQOVN4Q3BXQW9HM3p0Q0VHeVFaLUp0OE5jQkUyWVh5eG1TN2IyQ3dta0FiRFliOXRQMlIwcnJadVRYaHpyOUNDV3Y5X3huVDFVb2VYc0hsSWI0ay1pNGlvSWw3WVl1QWthOHRVbnpFUGxvbkpPVUZ4cFZEMTdodFBCd3dR&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL+1080p%5D+%5B%D0%9B%D0%BE%D0%BA%D0%B0%D0%BB%D0%B8%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D1%8B%D0%B9+%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE%D1%80%D1%8F%D0%B4%5D+Dub+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng%2C+Heb%2C+Est%2C+Lat%2C+Lit%2C+Rom%2C+Ukr)\"
+        length=\"8606375936\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2040\" />\n      <torznab:attr name=\"category\"
+        value=\"100313\" />\n      <torznab:attr name=\"seeders\" value=\"29\" />\n
+        \     <torznab:attr name=\"peers\" value=\"29\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections [2021, \u0421\u0428\u0410, \u0424\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DL] MVO (Jaskier) + Sub Rus, Eng
+        + Original Eng</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6155244</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6155244</comments>\n
+        \     <pubDate>Fri, 24 Dec 2021 21:19:05 +0000</pubDate>\n      <size>2768813568</size>\n
+        \     <grabs>118189</grabs>\n      <description>Uploader: \n\t\t\tvitolinform\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections (\u041B\u0430\u043D\u0430 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Lana Wachowski) [2021, \u0421\u0428\u0410, \u0424\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DLRip] MVO (Jaskier) + Sub Rus,
+        Eng + Original Eng</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWWTlieFZTQnZUOE00U0hTclJRZU5KallucnJwQ21HQm11Y3BjYTFsYVNGU1JDZ3ZFd1RNZ2lsX0NoZzNxVm8yZmJTWFBBTkZmcDVyMlE1bEZYMHdLNkxjRVU4dzJ1V1haSzBSS2ltdlVua2Z0akVXQUNPOGJIRXFQVmgydUxCWmkxQzJJSTFtQ0tHTkcyUmNBR0hDeVJQcjh5clJZbHpRMmxOYlkwNmplVV9R&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D0%A4%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL%5D+MVO+(Jaskier)+%2B+Sub+Rus%2C+Eng+%2B+Original+Eng</link>\n
+        \     <category>2010</category>\n      <category>101950</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWWTlieFZTQnZUOE00U0hTclJRZU5KallucnJwQ21HQm11Y3BjYTFsYVNGU1JDZ3ZFd1RNZ2lsX0NoZzNxVm8yZmJTWFBBTkZmcDVyMlE1bEZYMHdLNkxjRVU4dzJ1V1haSzBSS2ltdlVua2Z0akVXQUNPOGJIRXFQVmgydUxCWmkxQzJJSTFtQ0tHTkcyUmNBR0hDeVJQcjh5clJZbHpRMmxOYlkwNmplVV9R&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D0%A4%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL%5D+MVO+(Jaskier)+%2B+Sub+Rus%2C+Eng+%2B+Original+Eng\"
+        length=\"2768813568\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2010\" />\n      <torznab:attr name=\"category\"
+        value=\"101950\" />\n      <torznab:attr name=\"seeders\" value=\"89\" />\n
+        \     <torznab:attr name=\"peers\" value=\"91\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0420\u0435\u0432\u043E\u043B\u044E\u0446\u0438\u044F / The Matrix Revolutions
+        [2003, \u0421\u0428\u0410, \u0410\u0432\u0441\u0442\u0440\u0430\u043B\u0438\u044F,
+        \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430, \u0431\u043E\u0435\u0432\u0438\u043A,
+        BDRemux 1080p] Dub + 2x MVO + DVO + 2x AVO + Original (Eng) + Sub (Rus, Eng,
+        Multi)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6706757</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6706757</comments>\n
+        \     <pubDate>Sat, 14 Jun 2025 14:57:56 +0000</pubDate>\n      <size>29306134528</size>\n
+        \     <grabs>501</grabs>\n      <description>Uploader: \n\t\t\tAORE\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0420\u0435\u0432\u043E\u043B\u044E\u0446\u0438\u044F / The Matrix Revolutions
+        (\u042D\u043D\u0434\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Andy Wachowski, \u041B\u0430\u0440\u0440\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Larry Wachowski) [2003, \u0421\u0428\u0410, \u0410\u0432\u0441\u0442\u0440\u0430\u043B\u0438\u044F,
+        \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430, \u0431\u043E\u0435\u0432\u0438\u043A,
+        BDRemux 1080p] Dub + 2x MVO + DVO + 2x AVO + Original (Eng) + Sub (Rus, Eng,
+        Multi)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVMndsbk51OGo5VF9weG16QXNhWDZWcmJZckc0YUt0bGJXcFE2VWQwcXZjNmpwOGx5QzhFajhRVkpudm9rVC1IMHpjeFFSTWprN2JGcm9wRDN6ZXE0ZmdsQ210dzRnb0VGbVlOb0xwZmx2VVd2TFBTNDAtVGc0LUFWTnhlVXVvaDFnWjhVc2hpQnZyLXhqRGhrVmVjbFpWWVNIdXZuN05hUWJqektOUGJMNXR3&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%A0%D0%B5%D0%B2%D0%BE%D0%BB%D1%8E%D1%86%D0%B8%D1%8F+%2F+The+Matrix+Revolutions+%5B2003%2C+%D0%A1%D0%A8%D0%90%2C+%D0%90%D0%B2%D1%81%D1%82%D1%80%D0%B0%D0%BB%D0%B8%D1%8F%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+BDRemux+1080p%5D+Dub+%2B+2x+MVO+%2B+DVO+%2B+2x+AVO+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng%2C+Multi)</link>\n
+        \     <category>2040</category>\n      <category>102198</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVMndsbk51OGo5VF9weG16QXNhWDZWcmJZckc0YUt0bGJXcFE2VWQwcXZjNmpwOGx5QzhFajhRVkpudm9rVC1IMHpjeFFSTWprN2JGcm9wRDN6ZXE0ZmdsQ210dzRnb0VGbVlOb0xwZmx2VVd2TFBTNDAtVGc0LUFWTnhlVXVvaDFnWjhVc2hpQnZyLXhqRGhrVmVjbFpWWVNIdXZuN05hUWJqektOUGJMNXR3&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%A0%D0%B5%D0%B2%D0%BE%D0%BB%D1%8E%D1%86%D0%B8%D1%8F+%2F+The+Matrix+Revolutions+%5B2003%2C+%D0%A1%D0%A8%D0%90%2C+%D0%90%D0%B2%D1%81%D1%82%D1%80%D0%B0%D0%BB%D0%B8%D1%8F%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+BDRemux+1080p%5D+Dub+%2B+2x+MVO+%2B+DVO+%2B+2x+AVO+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng%2C+Multi)\"
+        length=\"29306134528\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2040\" />\n      <torznab:attr name=\"category\"
+        value=\"102198\" />\n      <torznab:attr name=\"seeders\" value=\"7\" />\n
+        \     <torznab:attr name=\"peers\" value=\"7\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections [2021, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DL-AVC] Dub + MVO (Jaskier) + MVO
+        (HDRezka Studio) + AVO + Original (Eng) + Sub (Rus, Eng)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6167554</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6167554</comments>\n
+        \     <pubDate>Fri, 21 Jan 2022 07:24:10 +0000</pubDate>\n      <size>4676948480</size>\n
+        \     <grabs>34866</grabs>\n      <description>Uploader: \n\t\t\tdalemake\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections (\u041B\u0430\u043D\u0430 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Lana Wachowski) [2021, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DLRip-AVC] Dub (\u041F\u0438\u0444\u0430\u0433\u043E\u0440)
+        + MVO (Jaskier) + MVO (HDRezka Studio) + AVO (\u0412\u0438\u0437\u0433\u0443\u043D\u043E\u0432)
+        + Original (Eng) + Sub (Rus, Eng)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVQ2xhaUhWcEdNZkM3TWx3MVJRMDBLZVhZNnJrdElGOFpBQVV1N0hVYkFwN1FSbElRVVEzR1B1SWlXUGc3TC1HMUM1ZWVNeHZpemxIZ3FTakhJUm5pV21sTkNlYWJCWWNzQ3F3dDk0WTZMVHBXTFJCS2M5Y0JBWXZfYl9KM25JT1J0N0RmcUM3WkJrMEx5UGN0RzhNNjhlMXZoMGVva25VNjhhZ1IxdWtSZWJ3&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL-AVC%5D+Dub+%2B+MVO+(Jaskier)+%2B+MVO+(HDRezka+Studio)+%2B+AVO+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng)</link>\n
+        \     <category>2010</category>\n      <category>101950</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVQ2xhaUhWcEdNZkM3TWx3MVJRMDBLZVhZNnJrdElGOFpBQVV1N0hVYkFwN1FSbElRVVEzR1B1SWlXUGc3TC1HMUM1ZWVNeHZpemxIZ3FTakhJUm5pV21sTkNlYWJCWWNzQ3F3dDk0WTZMVHBXTFJCS2M5Y0JBWXZfYl9KM25JT1J0N0RmcUM3WkJrMEx5UGN0RzhNNjhlMXZoMGVva25VNjhhZ1IxdWtSZWJ3&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL-AVC%5D+Dub+%2B+MVO+(Jaskier)+%2B+MVO+(HDRezka+Studio)+%2B+AVO+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng)\"
+        length=\"4676948480\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2010\" />\n      <torznab:attr name=\"category\"
+        value=\"101950\" />\n      <torznab:attr name=\"seeders\" value=\"39\" />\n
+        \     <torznab:attr name=\"peers\" value=\"43\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections [2021, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DL 2160p, Dolby Vision TV] MVO +
+        Original (Eng) + Sub (Rus, Eng)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6155361</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6155361</comments>\n
+        \     <pubDate>Sat, 25 Dec 2021 08:51:06 +0000</pubDate>\n      <size>21104361472</size>\n
+        \     <grabs>11316</grabs>\n      <description>Uploader: \n\t\t\t\u0422\u044B\u043A\u0432\u044B\u0447\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections (\u041B\u0430\u043D\u0430 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Lana Wachowski) [2021, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DL 2160p, Dolby Vision TV] MVO +
+        Original (Eng) + Sub (Rus, Eng)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVVm5fZ1I0NjI4RE5NUG5uMUUzdlhRd0w4QTdIM3ptd3NyUllMbmpPT1BTVHZaWlFQMkRJREVpdDN4eTJkM0U3emphdXNGc2JTZFBrdFpVemJOeEEtN0wtQkpJb3NaYXh6ZVluYmN2Y25Bekh5aTVBZzNxejNRaVlyamthSjBGYjFiQjNmUU1lN1BfTC1ZWXo4anBSdHF1WUZueU0tTWhLUHBUX3BmMG94bzZn&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL+2160p%2C+Dolby+Vision+TV%5D+MVO+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng)</link>\n
+        \     <category>2045</category>\n      <category>101457</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVVm5fZ1I0NjI4RE5NUG5uMUUzdlhRd0w4QTdIM3ptd3NyUllMbmpPT1BTVHZaWlFQMkRJREVpdDN4eTJkM0U3emphdXNGc2JTZFBrdFpVemJOeEEtN0wtQkpJb3NaYXh6ZVluYmN2Y25Bekh5aTVBZzNxejNRaVlyamthSjBGYjFiQjNmUU1lN1BfTC1ZWXo4anBSdHF1WUZueU0tTWhLUHBUX3BmMG94bzZn&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL+2160p%2C+Dolby+Vision+TV%5D+MVO+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng)\"
+        length=\"21104361472\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2045\" />\n      <torznab:attr name=\"category\"
+        value=\"101457\" />\n      <torznab:attr name=\"seeders\" value=\"8\" />\n
+        \     <torznab:attr name=\"peers\" value=\"10\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430
+        / The Matrix [1999, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DL-AVC] [Open Matte] MVO (Jaskier)</title>\n
+        \     <guid>https://rutracker.org/forum/viewtopic.php?t=6753831</guid>\n      <jackettindexer
+        id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6753831</comments>\n
+        \     <pubDate>Sun, 05 Oct 2025 18:54:55 +0000</pubDate>\n      <size>2371938816</size>\n
+        \     <grabs>3069</grabs>\n      <description>Uploader: \n\t\t\tdune5\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430
+        / The Matrix (\u042D\u043D\u0434\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438,
+        \u041B\u0430\u0440\u0440\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Andy Wachowski, Larry Wachowski) [1999, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DLRip-AVC] [Open Matte] MVO (Jaskier)</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWeFRwdi12N0RPMmtkNGVoMUZrXzlReTdhMVBKem9mX19LQzJvX0Q1YUw1dVFzRE1TWDRHSWZLWVlMNkt5ZzV6LXVkVmIyU180TkhtYTNBc2VxR1VNSGpjYVVWakJoaUNhLXNsX05ZNC1fNlZYLWljZ0JYbnN2NS1vYTllekJtSXVnczBQSzR3MVFtUzlTSG4xenExRTFfeEJaVUZ3OTIyX1BxRXpEOTdRcGNn&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0+%2F+The+Matrix+%5B1999%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL-AVC%5D+%5BOpen+Matte%5D+MVO+(Jaskier)</link>\n
+        \     <category>2010</category>\n      <category>102221</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWeFRwdi12N0RPMmtkNGVoMUZrXzlReTdhMVBKem9mX19LQzJvX0Q1YUw1dVFzRE1TWDRHSWZLWVlMNkt5ZzV6LXVkVmIyU180TkhtYTNBc2VxR1VNSGpjYVVWakJoaUNhLXNsX05ZNC1fNlZYLWljZ0JYbnN2NS1vYTllekJtSXVnczBQSzR3MVFtUzlTSG4xenExRTFfeEJaVUZ3OTIyX1BxRXpEOTdRcGNn&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0+%2F+The+Matrix+%5B1999%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL-AVC%5D+%5BOpen+Matte%5D+MVO+(Jaskier)\"
+        length=\"2371938816\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2010\" />\n      <torznab:attr name=\"category\"
+        value=\"102221\" />\n      <torznab:attr name=\"seeders\" value=\"64\" />\n
+        \     <torznab:attr name=\"peers\" value=\"66\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections [2021, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DL 2160p, SDR] [\u041B\u043E\u043A\u0430\u043B\u0438\u0437\u043E\u0432\u0430\u043D\u043D\u044B\u0439
+        \u0432\u0438\u0434\u0435\u043E\u0440\u044F\u0434] Dub + Original (Eng) + Sub
+        (Rus, Eng, Heb, Est, Lat, Lit, Rom, Ukr)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6192664</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6192664</comments>\n
+        \     <pubDate>Sun, 20 Mar 2022 13:28:54 +0000</pubDate>\n      <size>14512863232</size>\n
+        \     <grabs>2803</grabs>\n      <description>Uploader: \n\t\t\tWilmots\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections (\u041B\u0430\u043D\u0430 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Lana Wachowski) [2021, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DL 2160p, SDR] [\u041B\u043E\u043A\u0430\u043B\u0438\u0437\u043E\u0432\u0430\u043D\u043D\u044B\u0439
+        \u0432\u0438\u0434\u0435\u043E\u0440\u044F\u0434] Dub (\u041F\u0438\u0444\u0430\u0433\u043E\u0440)
+        + Original (Eng) + Sub (Rus, Eng, Heb, Est, Lat, Lit, Rom, Ukr)</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXdXB1b1ZHSnY4Rl9KdEdvZ0VBQnF4QllWdFRSSlhBRzNKWkNmRFRZREQ2TXBYX3FEWE9RMDV5RXhvRTVuVDd5N2Q1d3A5U19jelR4UjZhY0g1T1RCMkhTcWdDQ19KZi0xRGlsTmp3STM4U0QxWm0yeC1oa2lXRHR5N01Ec0FsQjBRSWdNRTR0bjlESjlTeEFPQ2hfaXBSckhRM25QWkVMNlJ4ZlZrdW1aVVB3&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL+2160p%2C+SDR%5D+%5B%D0%9B%D0%BE%D0%BA%D0%B0%D0%BB%D0%B8%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D1%8B%D0%B9+%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE%D1%80%D1%8F%D0%B4%5D+Dub+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng%2C+Heb%2C+Est%2C+Lat%2C+Lit%2C+Rom%2C+Ukr)</link>\n
+        \     <category>2045</category>\n      <category>101457</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXdXB1b1ZHSnY4Rl9KdEdvZ0VBQnF4QllWdFRSSlhBRzNKWkNmRFRZREQ2TXBYX3FEWE9RMDV5RXhvRTVuVDd5N2Q1d3A5U19jelR4UjZhY0g1T1RCMkhTcWdDQ19KZi0xRGlsTmp3STM4U0QxWm0yeC1oa2lXRHR5N01Ec0FsQjBRSWdNRTR0bjlESjlTeEFPQ2hfaXBSckhRM25QWkVMNlJ4ZlZrdW1aVVB3&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL+2160p%2C+SDR%5D+%5B%D0%9B%D0%BE%D0%BA%D0%B0%D0%BB%D0%B8%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D1%8B%D0%B9+%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE%D1%80%D1%8F%D0%B4%5D+Dub+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng%2C+Heb%2C+Est%2C+Lat%2C+Lit%2C+Rom%2C+Ukr)\"
+        length=\"14512863232\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2045\" />\n      <torznab:attr name=\"category\"
+        value=\"101457\" />\n      <torznab:attr name=\"seeders\" value=\"9\" />\n
+        \     <torznab:attr name=\"peers\" value=\"10\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u041F\u0435\u0440\u0435\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430 /
+        The Matrix: Reloaded [2003, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, DVDRip-AVC] [Fullscreen] Dub + DVO (SDI
+        Media) + Sub (Rus, Eng) + Original Eng</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6339491</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6339491</comments>\n
+        \     <pubDate>Mon, 20 Mar 2023 18:10:03 +0000</pubDate>\n      <size>3044439040</size>\n
+        \     <grabs>7620</grabs>\n      <description>Uploader: \n\t\t\tsany643\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u041F\u0435\u0440\u0435\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430 /
+        The Matrix: Reloaded (\u042D\u043D\u0434\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Andy Wachowski, \u041B\u0430\u0440\u0440\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Larry Wachowski) [2003, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, DVDRip-AVC] [Fullscreen] Dub + DVO (SDI
+        Media) + Sub (Rus, Eng) + Original Eng</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWNUxpWXJUMjA4TnpyX2xuZEd1QjBjS1lmRF9IQ2JBMEZfekZfeUo0N2VGdk9xN1l0d1liVFBfZ3ZSSFloTXQ0blVNMzhEV1dWb0RGNWN2b0lvZ2RmRThjR2RwREZsR0tXaXpSTkx6MnBEX2p3d3RtdmZ3WXRvWVp3cGlydEtkWDY5SThGaWdhWWxDd1NBSUpieHVNbzVkWS1KX29YS2VJUTlFUEQtM2IzWmJR&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%9F%D0%B5%D1%80%D0%B5%D0%B7%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B0+%2F+The+Matrix%3A+Reloaded+%5B2003%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+DVDRip-AVC%5D+%5BFullscreen%5D+Dub+%2B+DVO+(SDI+Media)+%2B+Sub+(Rus%2C+Eng)+%2B+Original+Eng</link>\n
+        \     <category>2010</category>\n      <category>102091</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWNUxpWXJUMjA4TnpyX2xuZEd1QjBjS1lmRF9IQ2JBMEZfekZfeUo0N2VGdk9xN1l0d1liVFBfZ3ZSSFloTXQ0blVNMzhEV1dWb0RGNWN2b0lvZ2RmRThjR2RwREZsR0tXaXpSTkx6MnBEX2p3d3RtdmZ3WXRvWVp3cGlydEtkWDY5SThGaWdhWWxDd1NBSUpieHVNbzVkWS1KX29YS2VJUTlFUEQtM2IzWmJR&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%9F%D0%B5%D1%80%D0%B5%D0%B7%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B0+%2F+The+Matrix%3A+Reloaded+%5B2003%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+DVDRip-AVC%5D+%5BFullscreen%5D+Dub+%2B+DVO+(SDI+Media)+%2B+Sub+(Rus%2C+Eng)+%2B+Original+Eng\"
+        length=\"3044439040\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2010\" />\n      <torznab:attr name=\"category\"
+        value=\"102091\" />\n      <torznab:attr name=\"seeders\" value=\"42\" />\n
+        \     <torznab:attr name=\"peers\" value=\"42\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430
+        / The Matrix [1999, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, Blu-Ray &gt; DVD5 (Custom)] Dub + Original
+        Eng + rus, eng Sub</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6012959</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6012959</comments>\n
+        \     <pubDate>Wed, 17 Feb 2021 22:09:17 +0000</pubDate>\n      <size>4691441664</size>\n
+        \     <grabs>22785</grabs>\n      <description>Uploader: \n\t\t\tBobropandavar\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430
+        / The Matrix (\u042D\u043D\u0434\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Andy Wachowski, \u041B\u0430\u0440\u0440\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Larry Wachowski) [1999, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, Blu-Ray &gt; DVD5 (Custom)] Dub + Original
+        Eng + rus, eng Sub</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWc1VqNmEtelRzbHktbjJvbDRzR3c4THRPM1dwNkZSYnNHV1FPNUF5N3R2aXpvd0FSU0RETXZINnJaUzhMeEJQU3AxYTVCcXlwMWJuMGljOGxxV3VSZDFKR1k0aks5UjJoQlo2Tm5zc3AyMHRRVHpyTzVXZzdPNFk0Q0FNZVd1azMtbTFqY0EwNjMtMzNCcHVSdk5zZ1phdVVvcFZSTHBvUktUVzhndVhqNkl3&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0+%2F+The+Matrix+%5B1999%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+Blu-Ray+%3E+DVD5+(Custom)%5D+Dub+%2B+Original+Eng+%2B+rus%2C+eng+Sub</link>\n
+        \     <category>2070</category>\n      <category>100101</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWc1VqNmEtelRzbHktbjJvbDRzR3c4THRPM1dwNkZSYnNHV1FPNUF5N3R2aXpvd0FSU0RETXZINnJaUzhMeEJQU3AxYTVCcXlwMWJuMGljOGxxV3VSZDFKR1k0aks5UjJoQlo2Tm5zc3AyMHRRVHpyTzVXZzdPNFk0Q0FNZVd1azMtbTFqY0EwNjMtMzNCcHVSdk5zZ1phdVVvcFZSTHBvUktUVzhndVhqNkl3&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0+%2F+The+Matrix+%5B1999%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+Blu-Ray+%3E+DVD5+(Custom)%5D+Dub+%2B+Original+Eng+%2B+rus%2C+eng+Sub\"
+        length=\"4691441664\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2070\" />\n      <torznab:attr name=\"category\"
+        value=\"100101\" />\n      <torznab:attr name=\"seeders\" value=\"20\" />\n
+        \     <torznab:attr name=\"peers\" value=\"21\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0420\u0435\u0432\u043E\u043B\u044E\u0446\u0438\u044F / The Matrix: Revolutions
+        [2003, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DL-AVC] [Open Matte] MVO (Jaskier)
+        + DVO (DDV)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6754397</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6754397</comments>\n
+        \     <pubDate>Tue, 07 Oct 2025 06:44:41 +0000</pubDate>\n      <size>3086464000</size>\n
+        \     <grabs>1147</grabs>\n      <description>Uploader: \n\t\t\tdune5\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0420\u0435\u0432\u043E\u043B\u044E\u0446\u0438\u044F / The Matrix: Revolutions
+        (\u042D\u043D\u0434\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438,
+        \u041B\u0430\u0440\u0440\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Andy Wachowski, Larry Wachowski) [2003, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DLRip-AVC] [Open Matte] MVO (Jaskier)
+        + DVO (DDV)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVQVNpTEVlcHU1S1V3d3dGOXljdC1kYkFNTEZ1Z2Y5T1BjMnAyLVcxNEQ4MUhJUGR2a1I5RmR0MG5oZFZRRUg5Vnc3NXJmNDdYX2NzTnNJNkFUNlRtMk1ZakpGMzVWbTIzYUIxQ2lFOFJubkU4SFhxelN0cFNrUl9wQ3ZEQlNFZjJqS0xFUEtjTW84V25XeTJUemdNMXFsNmxFckwwOHlwRlc2c1F4WE01OUt3&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%A0%D0%B5%D0%B2%D0%BE%D0%BB%D1%8E%D1%86%D0%B8%D1%8F+%2F+The+Matrix%3A+Revolutions+%5B2003%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL-AVC%5D+%5BOpen+Matte%5D+MVO+(Jaskier)+%2B+DVO+(DDV)</link>\n
+        \     <category>2010</category>\n      <category>102091</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVQVNpTEVlcHU1S1V3d3dGOXljdC1kYkFNTEZ1Z2Y5T1BjMnAyLVcxNEQ4MUhJUGR2a1I5RmR0MG5oZFZRRUg5Vnc3NXJmNDdYX2NzTnNJNkFUNlRtMk1ZakpGMzVWbTIzYUIxQ2lFOFJubkU4SFhxelN0cFNrUl9wQ3ZEQlNFZjJqS0xFUEtjTW84V25XeTJUemdNMXFsNmxFckwwOHlwRlc2c1F4WE01OUt3&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%A0%D0%B5%D0%B2%D0%BE%D0%BB%D1%8E%D1%86%D0%B8%D1%8F+%2F+The+Matrix%3A+Revolutions+%5B2003%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL-AVC%5D+%5BOpen+Matte%5D+MVO+(Jaskier)+%2B+DVO+(DDV)\"
+        length=\"3086464000\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2010\" />\n      <torznab:attr name=\"category\"
+        value=\"102091\" />\n      <torznab:attr name=\"seeders\" value=\"26\" />\n
+        \     <torznab:attr name=\"peers\" value=\"28\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u0410\u0440\u043C\u0438\u0442\u0430\u0436
+        III: \u041F\u043E\u043B\u0438\u043C\u0430\u0442\u0440\u0438\u0446\u0430 /
+        Armitage III: Poly-Matrix [1996, \u042F\u043F\u043E\u043D\u0438\u044F, \u0421\u0428\u0410,
+        \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430, \u0442\u0440\u0438\u043B\u043B\u0435\u0440,
+        \u0431\u043E\u0435\u0432\u0438\u043A, \u043A\u0438\u0431\u0435\u0440\u043F\u0430\u043D\u043A,
+        DVDRemux] Dub + AVO + VO + Original (Eng) + Sub (Rus, Eng)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6322537</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6322537</comments>\n
+        \     <pubDate>Sun, 04 Jun 2023 10:57:41 +0000</pubDate>\n      <size>5682488832</size>\n
+        \     <grabs>1076</grabs>\n      <description>Uploader: \n\t\t\tALEKS KV\n\t\t&lt;br&gt;\u0410\u0440\u043C\u0438\u0442\u0430\u0436
+        III: \u041F\u043E\u043B\u0438\u043C\u0430\u0442\u0440\u0438\u0446\u0430 /
+        Armitage III: Poly-Matrix (\u0422\u0430\u043A\u0443\u044F \u0421\u0430\u0442\u043E
+        / Takuya Sato) [1996, \u042F\u043F\u043E\u043D\u0438\u044F, \u0421\u0428\u0410,
+        \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430, \u0442\u0440\u0438\u043B\u043B\u0435\u0440,
+        \u0431\u043E\u0435\u0432\u0438\u043A, \u043A\u0438\u0431\u0435\u0440\u043F\u0430\u043D\u043A,
+        DVDRemux] Dub (\u041F\u0435\u0440\u0432\u044B\u0439 \u041A\u0430\u043D\u0430\u043B)
+        + AVO (\u0410\u043D\u0434\u0440\u0435\u0439 \u0414\u043E\u043B\u044C\u0441\u043A\u0438\u0439)
+        + VO (\u0415\u0432\u0433\u0435\u043D\u0438\u044F \u041B\u0443\u0440\u044C\u0435)
+        + Original (Eng) + Sub (Rus, Eng)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXcWIwaXlxODVrczVQNUZobU82NjRRSjI5RnFYSG1TLXRIMHlxTWp6WW9zS2l3VjJjZERiVlBtWG5palhsR0pLSmRnRHNMcFpyUnRNeWY5Z2hnMVkxeXNtUzNfNzNtMlZEdlUwRjBRTFdSTFFYSGIxRXNMQTBBenRKTEw3OGFKRUZKYVlnVWE5c01sZEpCdzVfWmtCcG92NlZyUmNJWDlDbnZfRFVQVXBUYnpn&amp;file=%D0%90%D1%80%D0%BC%D0%B8%D1%82%D0%B0%D0%B6+III%3A+%D0%9F%D0%BE%D0%BB%D0%B8%D0%BC%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0+%2F+Armitage+III%3A+Poly-Matrix+%5B1996%2C+%D0%AF%D0%BF%D0%BE%D0%BD%D0%B8%D1%8F%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D1%82%D1%80%D0%B8%D0%BB%D0%BB%D0%B5%D1%80%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+%D0%BA%D0%B8%D0%B1%D0%B5%D1%80%D0%BF%D0%B0%D0%BD%D0%BA%2C+DVDRemux%5D+Dub+%2B+AVO+%2B+VO+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng)</link>\n
+        \     <category>2010</category>\n      <category>100209</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXcWIwaXlxODVrczVQNUZobU82NjRRSjI5RnFYSG1TLXRIMHlxTWp6WW9zS2l3VjJjZERiVlBtWG5palhsR0pLSmRnRHNMcFpyUnRNeWY5Z2hnMVkxeXNtUzNfNzNtMlZEdlUwRjBRTFdSTFFYSGIxRXNMQTBBenRKTEw3OGFKRUZKYVlnVWE5c01sZEpCdzVfWmtCcG92NlZyUmNJWDlDbnZfRFVQVXBUYnpn&amp;file=%D0%90%D1%80%D0%BC%D0%B8%D1%82%D0%B0%D0%B6+III%3A+%D0%9F%D0%BE%D0%BB%D0%B8%D0%BC%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0+%2F+Armitage+III%3A+Poly-Matrix+%5B1996%2C+%D0%AF%D0%BF%D0%BE%D0%BD%D0%B8%D1%8F%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D1%82%D1%80%D0%B8%D0%BB%D0%BB%D0%B5%D1%80%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+%D0%BA%D0%B8%D0%B1%D0%B5%D1%80%D0%BF%D0%B0%D0%BD%D0%BA%2C+DVDRemux%5D+Dub+%2B+AVO+%2B+VO+%2B+Original+(Eng)+%2B+Sub+(Rus%2C+Eng)\"
+        length=\"5682488832\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2010\" />\n      <torznab:attr name=\"category\"
+        value=\"100209\" />\n      <torznab:attr name=\"seeders\" value=\"12\" />\n
+        \     <torznab:attr name=\"peers\" value=\"13\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u041F\u0435\u0440\u0435\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430 /
+        The Matrix: Reloaded [2003, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DL-AVC] [Open Matte] MVO (Jaskier)</title>\n
+        \     <guid>https://rutracker.org/forum/viewtopic.php?t=6753975</guid>\n      <jackettindexer
+        id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6753975</comments>\n
+        \     <pubDate>Mon, 06 Oct 2025 07:35:31 +0000</pubDate>\n      <size>2368769792</size>\n
+        \     <grabs>1082</grabs>\n      <description>Uploader: \n\t\t\tdune5\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u041F\u0435\u0440\u0435\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430 /
+        The Matrix: Reloaded (\u042D\u043D\u0434\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438,
+        \u041B\u0430\u0440\u0440\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Andy Wachowski, Larry Wachowski) [2003, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DLRip-AVC] [Open Matte] MVO (Jaskier)</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVTHlRbzZ1Wl9QWHFFN0IxWG83bWM4ZFptbVNwZ3VaX0U3QVNjWkstY2NsNlV4OVRNN0FwNHRydG5jeXRPWHRBWlpnUGxjeFRzRVNXcXN0d3ZXbGo0YUxTYnktSFotUm5RVFRBYk1lblZFcEx0eFBldVJkNEc0bGZjemhkMmdqN2RHTU5LbmJHMGNaX2JtX3BvYmxMbHdwTnVxdnJxWkREZjB2SnA0Y2R5OVZ3&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%9F%D0%B5%D1%80%D0%B5%D0%B7%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B0+%2F+The+Matrix%3A+Reloaded+%5B2003%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL-AVC%5D+%5BOpen+Matte%5D+MVO+(Jaskier)</link>\n
+        \     <category>2010</category>\n      <category>102091</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVTHlRbzZ1Wl9QWHFFN0IxWG83bWM4ZFptbVNwZ3VaX0U3QVNjWkstY2NsNlV4OVRNN0FwNHRydG5jeXRPWHRBWlpnUGxjeFRzRVNXcXN0d3ZXbGo0YUxTYnktSFotUm5RVFRBYk1lblZFcEx0eFBldVJkNEc0bGZjemhkMmdqN2RHTU5LbmJHMGNaX2JtX3BvYmxMbHdwTnVxdnJxWkREZjB2SnA0Y2R5OVZ3&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%9F%D0%B5%D1%80%D0%B5%D0%B7%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B0+%2F+The+Matrix%3A+Reloaded+%5B2003%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL-AVC%5D+%5BOpen+Matte%5D+MVO+(Jaskier)\"
+        length=\"2368769792\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2010\" />\n      <torznab:attr name=\"category\"
+        value=\"102091\" />\n      <torznab:attr name=\"seeders\" value=\"27\" />\n
+        \     <torznab:attr name=\"peers\" value=\"27\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u0410\u0440\u043C\u0438\u0442\u0430\u0436:
+        \u0414\u0432\u043E\u0439\u043D\u0430\u044F \u043C\u0430\u0442\u0440\u0438\u0446\u0430
+        / Armitage: Dual Matrix / Armitage III [2002, \u042F\u043F\u043E\u043D\u0438\u044F,
+        \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430, \u0442\u0440\u0438\u043B\u043B\u0435\u0440,
+        \u0431\u043E\u0435\u0432\u0438\u043A, \u043A\u0438\u0431\u0435\u0440\u043F\u0430\u043D\u043A,
+        DVDRemux] Dub + MVO (MC Entertainment) + VO + Dub (Eng) + Original Jpn + Sub
+        (Rus, Eng)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6322634</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6322634</comments>\n
+        \     <pubDate>Tue, 14 Feb 2023 17:23:21 +0000</pubDate>\n      <size>6012307456</size>\n
+        \     <grabs>1188</grabs>\n      <description>Uploader: \n\t\t\tALEKS KV\n\t\t&lt;br&gt;\u0410\u0440\u043C\u0438\u0442\u0430\u0436:
+        \u0414\u0432\u043E\u0439\u043D\u0430\u044F \u043C\u0430\u0442\u0440\u0438\u0446\u0430
+        / Armitage: Dual Matrix / Armitage III (\u0410\u043A\u0438\u044F\u043C\u0430
+        \u041A\u0430\u0446\u0443\u0445\u0438\u0442\u043E / Akiyama Katsuhito) [2002,
+        \u042F\u043F\u043E\u043D\u0438\u044F, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0442\u0440\u0438\u043B\u043B\u0435\u0440, \u0431\u043E\u0435\u0432\u0438\u043A,
+        \u043A\u0438\u0431\u0435\u0440\u043F\u0430\u043D\u043A, DVDRemux] Dub (\u041F\u0435\u0440\u0432\u044B\u0439
+        \u041A\u0430\u043D\u0430\u043B) + MVO (MC Entertainment) + VO (\u0410\u043B\u0435\u043A\u0441\u0435\u0439
+        \u0422\u0438\u043C\u043E\u0444\u0435\u0435\u0432) + Dub (Eng) + Original Jpn
+        + Sub (Rus, Eng)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVMW5ncFhXZUZkVmFvSDM1X3VteXhxZUUzcVZJX182N1J5UFJ3NjRjZmxTNlluc05nQjIxUVNZTDBjTHc0bmFaTGFRMHhtNWRVLWJtS3lvMEdOaUxtTjV5THYzZ2Z3MFN6RjUydzJ3MGc2eUJ5TjdVT2ZDODZ1Qmp2RFYteG5ra1lqbUtkTmhJUGt5RVVNc0lzSk9EbDZDNFR5bElSdWtJZEVFdU1hb2d0V2t3&amp;file=%D0%90%D1%80%D0%BC%D0%B8%D1%82%D0%B0%D0%B6%3A+%D0%94%D0%B2%D0%BE%D0%B9%D0%BD%D0%B0%D1%8F+%D0%BC%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0+%2F+Armitage%3A+Dual+Matrix+%2F+Armitage+III+%5B2002%2C+%D0%AF%D0%BF%D0%BE%D0%BD%D0%B8%D1%8F%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D1%82%D1%80%D0%B8%D0%BB%D0%BB%D0%B5%D1%80%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+%D0%BA%D0%B8%D0%B1%D0%B5%D1%80%D0%BF%D0%B0%D0%BD%D0%BA%2C+DVDRemux%5D+Dub+%2B+MVO+(MC+Entertainment)+%2B+VO+%2B+Dub+(Eng)+%2B+Original+Jpn+%2B+Sub+(Rus%2C+Eng)</link>\n
+        \     <category>2010</category>\n      <category>100209</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVMW5ncFhXZUZkVmFvSDM1X3VteXhxZUUzcVZJX182N1J5UFJ3NjRjZmxTNlluc05nQjIxUVNZTDBjTHc0bmFaTGFRMHhtNWRVLWJtS3lvMEdOaUxtTjV5THYzZ2Z3MFN6RjUydzJ3MGc2eUJ5TjdVT2ZDODZ1Qmp2RFYteG5ra1lqbUtkTmhJUGt5RVVNc0lzSk9EbDZDNFR5bElSdWtJZEVFdU1hb2d0V2t3&amp;file=%D0%90%D1%80%D0%BC%D0%B8%D1%82%D0%B0%D0%B6%3A+%D0%94%D0%B2%D0%BE%D0%B9%D0%BD%D0%B0%D1%8F+%D0%BC%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0+%2F+Armitage%3A+Dual+Matrix+%2F+Armitage+III+%5B2002%2C+%D0%AF%D0%BF%D0%BE%D0%BD%D0%B8%D1%8F%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D1%82%D1%80%D0%B8%D0%BB%D0%BB%D0%B5%D1%80%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+%D0%BA%D0%B8%D0%B1%D0%B5%D1%80%D0%BF%D0%B0%D0%BD%D0%BA%2C+DVDRemux%5D+Dub+%2B+MVO+(MC+Entertainment)+%2B+VO+%2B+Dub+(Eng)+%2B+Original+Jpn+%2B+Sub+(Rus%2C+Eng)\"
+        length=\"6012307456\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2010\" />\n      <torznab:attr name=\"category\"
+        value=\"100209\" />\n      <torznab:attr name=\"seeders\" value=\"10\" />\n
+        \     <torznab:attr name=\"peers\" value=\"11\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430
+        / The Matrix ) [1999, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, VHSRip -&gt; DVD] [Fullscreen] Dub</title>\n
+        \     <guid>https://rutracker.org/forum/viewtopic.php?t=6011397</guid>\n      <jackettindexer
+        id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6011397</comments>\n
+        \     <pubDate>Sun, 14 Feb 2021 17:25:26 +0000</pubDate>\n      <size>4555890688</size>\n
+        \     <grabs>10880</grabs>\n      <description>Uploader: \n\t\t\tHel_ka67\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430
+        / The Matrix (\u0411\u0440\u0430\u0442\u044C\u044F \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        (\u042D\u043D\u0434\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438,
+        \u041B\u0430\u0440\u0440\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438)
+        / The Wachowski Brothers (Andy Wachowski, Larry Wachowski)) [1999, \u0421\u0428\u0410,
+        \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430, \u0431\u043E\u0435\u0432\u0438\u043A,
+        VHSRip -&gt; DVD] [Fullscreen] Dub (\u041C\u043E\u0441\u0444\u0438\u043B\u044C\u043C
+        \u043F\u043E \u0437\u0430\u043A\u0430\u0437\u0443 \u041A\u0430\u0440\u043E
+        \u041F\u0440\u0435\u043C\u044C\u0435\u0440)</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVal9uTzN5aEkxeU5heUhFZldGaWMxYm9JYlVVUFdfS2c0OWJ4amNSVEdDdkxaRkwwb1o4RjRycmZHSHEycUtIWnotQkZ2amRSc3FITWIyQTllMjg0UUtsanVDYjB2Y1NtdUVEMk05QmJRckJobk5faTNpeEptSlJYNnZaeUFqYnMxUk42cGxzcnp3ZXp5bEdpcURiRjhZM29ETG5Wd3NJZjBYQVZiVVZkeFR3&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0+%2F+The+Matrix+)+%5B1999%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+VHSRip+-%3E+DVD%5D+%5BFullscreen%5D+Dub</link>\n
+        \     <category>2010</category>\n      <category>102221</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVal9uTzN5aEkxeU5heUhFZldGaWMxYm9JYlVVUFdfS2c0OWJ4amNSVEdDdkxaRkwwb1o4RjRycmZHSHEycUtIWnotQkZ2amRSc3FITWIyQTllMjg0UUtsanVDYjB2Y1NtdUVEMk05QmJRckJobk5faTNpeEptSlJYNnZaeUFqYnMxUk42cGxzcnp3ZXp5bEdpcURiRjhZM29ETG5Wd3NJZjBYQVZiVVZkeFR3&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0+%2F+The+Matrix+)+%5B1999%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+VHSRip+-%3E+DVD%5D+%5BFullscreen%5D+Dub\"
+        length=\"4555890688\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2010\" />\n      <torznab:attr name=\"category\"
+        value=\"102221\" />\n      <torznab:attr name=\"seeders\" value=\"13\" />\n
+        \     <torznab:attr name=\"peers\" value=\"13\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u041F\u0435\u0440\u0435\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430 /
+        The Matrix: Reloaded [2003, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, Blu-Ray &gt; DVD5 (Custom)] Dub + Original
+        Eng + rus, eng Sub</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6012968</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6012968</comments>\n
+        \     <pubDate>Thu, 18 Feb 2021 13:34:14 +0000</pubDate>\n      <size>4693188608</size>\n
+        \     <grabs>12648</grabs>\n      <description>Uploader: \n\t\t\tBobropandavar\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u041F\u0435\u0440\u0435\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430 /
+        The Matrix: Reloaded (\u042D\u043D\u0434\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Andy Wachowski, \u041B\u0430\u0440\u0440\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Larry Wachowski) [2003, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, Blu-Ray &gt; DVD5 (Custom)] Dub + Original
+        Eng + rus, eng Sub</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYRm81WlI3TDR3b2FhV0ZJN2ZZWHNWVkN6U1gwaDdQT20zN0FETGlDOTdSc3FvVklKMjh6TGE0UDdNSWpFci12YWRUR3VMT3REX2Y2V1ltZDR6eHlaUVpwR3k4ZWJqUVNUeGZxU3U4TU1wU0tLR3JYT2tXUXFLaF9qek15QndySVBmNThEVDBOMkdIaHprdmJKNkRLY2NPOGFsaUtndC1HYVlMM3I1Nk13Z1Zn&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%9F%D0%B5%D1%80%D0%B5%D0%B7%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B0+%2F+The+Matrix%3A+Reloaded+%5B2003%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+Blu-Ray+%3E+DVD5+(Custom)%5D+Dub+%2B+Original+Eng+%2B+rus%2C+eng+Sub</link>\n
+        \     <category>2070</category>\n      <category>100101</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYRm81WlI3TDR3b2FhV0ZJN2ZZWHNWVkN6U1gwaDdQT20zN0FETGlDOTdSc3FvVklKMjh6TGE0UDdNSWpFci12YWRUR3VMT3REX2Y2V1ltZDR6eHlaUVpwR3k4ZWJqUVNUeGZxU3U4TU1wU0tLR3JYT2tXUXFLaF9qek15QndySVBmNThEVDBOMkdIaHprdmJKNkRLY2NPOGFsaUtndC1HYVlMM3I1Nk13Z1Zn&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%9F%D0%B5%D1%80%D0%B5%D0%B7%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B0+%2F+The+Matrix%3A+Reloaded+%5B2003%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+Blu-Ray+%3E+DVD5+(Custom)%5D+Dub+%2B+Original+Eng+%2B+rus%2C+eng+Sub\"
+        length=\"4693188608\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2070\" />\n      <torznab:attr name=\"category\"
+        value=\"100101\" />\n      <torznab:attr name=\"seeders\" value=\"12\" />\n
+        \     <torznab:attr name=\"peers\" value=\"13\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections [2021, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DL] Dub (\u041A\u0438\u043D\u043E\u041F\u043E\u0438\u0441\u043A
+        HD) + Sub (Rus, Eng) + Original Eng</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6166969</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6166969</comments>\n
+        \     <pubDate>Thu, 20 Jan 2022 02:58:24 +0000</pubDate>\n      <size>2341076480</size>\n
+        \     <grabs>19083</grabs>\n      <description>Uploader: \n\t\t\t\u043F\u043E\u0440\u043E\u0448\u043A\u043E\u0432\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections (\u041B\u0430\u043D\u0430 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Lana Wachowski) [2021, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DLRip] Dub (\u041A\u0438\u043D\u043E\u041F\u043E\u0438\u0441\u043A
+        HD) + Sub (Rus, Eng) + Original Eng</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVeGR0OUxpUDF6UFpNU2ltYW1zeTRURkhSMFVaNHZ6cFotb3pGN2FrYVpnWGdvcUxkRzFqTC1TZlRRbkVwR09CcGN5dkQ0Q0VubXduZllRekRJMW9ndjNSNGlfRTZLa0NKYzEySURTU2Exakh5VFpzZXVaSnhDeFBNTzRYMWJBc0dPUE5XdnZXeFN6enBGTlpZOWxvUjdCQ0x2Q21uNzJ3bzlfNVJqV3E0SU53&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL%5D+Dub+(%D0%9A%D0%B8%D0%BD%D0%BE%D0%9F%D0%BE%D0%B8%D1%81%D0%BA+HD)+%2B+Sub+(Rus%2C+Eng)+%2B+Original+Eng</link>\n
+        \     <category>2010</category>\n      <category>101950</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVeGR0OUxpUDF6UFpNU2ltYW1zeTRURkhSMFVaNHZ6cFotb3pGN2FrYVpnWGdvcUxkRzFqTC1TZlRRbkVwR09CcGN5dkQ0Q0VubXduZllRekRJMW9ndjNSNGlfRTZLa0NKYzEySURTU2Exakh5VFpzZXVaSnhDeFBNTzRYMWJBc0dPUE5XdnZXeFN6enBGTlpZOWxvUjdCQ0x2Q21uNzJ3bzlfNVJqV3E0SU53&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL%5D+Dub+(%D0%9A%D0%B8%D0%BD%D0%BE%D0%9F%D0%BE%D0%B8%D1%81%D0%BA+HD)+%2B+Sub+(Rus%2C+Eng)+%2B+Original+Eng\"
+        length=\"2341076480\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2010\" />\n      <torznab:attr name=\"category\"
+        value=\"101950\" />\n      <torznab:attr name=\"seeders\" value=\"22\" />\n
+        \     <torznab:attr name=\"peers\" value=\"23\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430
+        / The Matrix [1999, \u0421\u0428\u0410, \u0424\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, BDRip] AVO (Goblin) + Original Eng +
+        Sub Rus, Eng</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=5881555</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=5881555</comments>\n
+        \     <pubDate>Thu, 16 Apr 2020 03:36:14 +0000</pubDate>\n      <size>2798952448</size>\n
+        \     <grabs>16584</grabs>\n      <description>Uploader: \n\t\t\tHRIME\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430
+        / The Matrix (\u042D\u043D\u0434\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Andy Wachowski, \u041B\u0430\u0440\u0440\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Larry Wachowski) [1999, \u0421\u0428\u0410, \u0424\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, BDRip] AVO (Goblin) + Original Eng +
+        Sub Rus, Eng</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVeENTZlZHdE42WHk2azkweEVOVVdCWEtHM1p5b3c5d2dIeDlYZEN5SmNtS1ZyVHY3bzB1a3dlM2x6ZTk3TjJwR2tPU1JSc3dRM29sOEVzcHlzMlc1dWROWW0zYWhDVW0yc0pYaTlSMlBXb283NUF5UEJzei1RNGNUWlJWM0trZ09RMk9fY1dFd1VTLW9iTUE2enVZZmEtRk84WW1zcnZYNEJqcjJpZURPblh3&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0+%2F+The+Matrix+%5B1999%2C+%D0%A1%D0%A8%D0%90%2C+%D0%A4%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+BDRip%5D+AVO+(Goblin)+%2B+Original+Eng+%2B+Sub+Rus%2C+Eng</link>\n
+        \     <category>2010</category>\n      <category>102221</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVeENTZlZHdE42WHk2azkweEVOVVdCWEtHM1p5b3c5d2dIeDlYZEN5SmNtS1ZyVHY3bzB1a3dlM2x6ZTk3TjJwR2tPU1JSc3dRM29sOEVzcHlzMlc1dWROWW0zYWhDVW0yc0pYaTlSMlBXb283NUF5UEJzei1RNGNUWlJWM0trZ09RMk9fY1dFd1VTLW9iTUE2enVZZmEtRk84WW1zcnZYNEJqcjJpZURPblh3&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0+%2F+The+Matrix+%5B1999%2C+%D0%A1%D0%A8%D0%90%2C+%D0%A4%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+BDRip%5D+AVO+(Goblin)+%2B+Original+Eng+%2B+Sub+Rus%2C+Eng\"
+        length=\"2798952448\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2010\" />\n      <torznab:attr name=\"category\"
+        value=\"102221\" />\n      <torznab:attr name=\"seeders\" value=\"17\" />\n
+        \     <torznab:attr name=\"peers\" value=\"19\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0420\u0435\u0432\u043E\u043B\u044E\u0446\u0438\u044F / The Matrix: Revolutions
+        [2003, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, Blu-Ray &gt; DVD5 (Custom)] Dub + Original
+        Eng + rus, eng Sub</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6012969</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6012969</comments>\n
+        \     <pubDate>Thu, 18 Feb 2021 13:55:43 +0000</pubDate>\n      <size>4693331968</size>\n
+        \     <grabs>11179</grabs>\n      <description>Uploader: \n\t\t\tBobropandavar\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0420\u0435\u0432\u043E\u043B\u044E\u0446\u0438\u044F / The Matrix: Revolutions
+        (\u042D\u043D\u0434\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Andy Wachowski, \u041B\u0430\u0440\u0440\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Larry Wachowski) [2003, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, Blu-Ray &gt; DVD5 (Custom)] Dub + Original
+        Eng + rus, eng Sub</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWZFAwYTJZdnVMbFNEbmE4ajktbzlIdXhXdExXOVlzRnFwX2lmX2FTdWRCWjM1Z08wdElFdnBDeVcwSHV0b1lNdXhJOHdXeDFnLWhxd3p2bV9PQjdXZzZNTjRPaHo0Z1VoNDgwVEFWUlNoY0dVVzNUcEVnWTF5eVJYWmYxeVlKSHhST1VXaXNqa0I2akRSOXc4Wjl2ZzIwelFCQWtlSW9adURfN3l6cGFKaS1n&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%A0%D0%B5%D0%B2%D0%BE%D0%BB%D1%8E%D1%86%D0%B8%D1%8F+%2F+The+Matrix%3A+Revolutions+%5B2003%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+Blu-Ray+%3E+DVD5+(Custom)%5D+Dub+%2B+Original+Eng+%2B+rus%2C+eng+Sub</link>\n
+        \     <category>2070</category>\n      <category>100101</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWZFAwYTJZdnVMbFNEbmE4ajktbzlIdXhXdExXOVlzRnFwX2lmX2FTdWRCWjM1Z08wdElFdnBDeVcwSHV0b1lNdXhJOHdXeDFnLWhxd3p2bV9PQjdXZzZNTjRPaHo0Z1VoNDgwVEFWUlNoY0dVVzNUcEVnWTF5eVJYWmYxeVlKSHhST1VXaXNqa0I2akRSOXc4Wjl2ZzIwelFCQWtlSW9adURfN3l6cGFKaS1n&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%A0%D0%B5%D0%B2%D0%BE%D0%BB%D1%8E%D1%86%D0%B8%D1%8F+%2F+The+Matrix%3A+Revolutions+%5B2003%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+Blu-Ray+%3E+DVD5+(Custom)%5D+Dub+%2B+Original+Eng+%2B+rus%2C+eng+Sub\"
+        length=\"4693331968\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2070\" />\n      <torznab:attr name=\"category\"
+        value=\"100101\" />\n      <torznab:attr name=\"seeders\" value=\"10\" />\n
+        \     <torznab:attr name=\"peers\" value=\"11\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections [2021, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, DVD9 (Custom) R2] Dub + 2 MVO (Jaskier,
+        HDRezka Studio) + AVO + Original Eng + rus, eng Sub</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6202794</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6202794</comments>\n
+        \     <pubDate>Wed, 13 Jul 2022 20:25:44 +0000</pubDate>\n      <size>7747835904</size>\n
+        \     <grabs>3331</grabs>\n      <description>Uploader: \n\t\t\tBobropandavar\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections (\u041B\u0430\u043D\u0430 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Lana Wachowski) [2021, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, DVD9 (Custom) R2] Dub (\u041F\u0438\u0444\u0430\u0433\u043E\u0440)
+        + 2 MVO (Jaskier, HDRezka Studio) + AVO (\u0421. \u0412\u0438\u0437\u0433\u0443\u043D\u043E\u0432)
+        + Original Eng + rus, eng Sub</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWdmtrLWFlZFBMaVEzLU42eEpaYjdIMEtiME5FRXZ5ODBxd0lBY2tiUmxpdlZHTm84YXhUMzBLUGg1bFhQUnhKdURuUE1IZ2hCcmlvVVVaVTJJUzNzUzNVRXpNU0gyamhaRWFsVjV6MUpDVTdvblZhdU03b3JRMVJQaFA0Q3hreVIxTEdma2RyU1dybkI0dnNiT1ItOHk2NDN3OEYxZTVBeTcyXzc5SVdicHB3&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+DVD9+(Custom)+R2%5D+Dub+%2B+2+MVO+(Jaskier%2C+HDRezka+Studio)+%2B+AVO+%2B+Original+Eng+%2B+rus%2C+eng+Sub</link>\n
+        \     <category>2070</category>\n      <category>100101</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWdmtrLWFlZFBMaVEzLU42eEpaYjdIMEtiME5FRXZ5ODBxd0lBY2tiUmxpdlZHTm84YXhUMzBLUGg1bFhQUnhKdURuUE1IZ2hCcmlvVVVaVTJJUzNzUzNVRXpNU0gyamhaRWFsVjV6MUpDVTdvblZhdU03b3JRMVJQaFA0Q3hreVIxTEdma2RyU1dybkI0dnNiT1ItOHk2NDN3OEYxZTVBeTcyXzc5SVdicHB3&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+DVD9+(Custom)+R2%5D+Dub+%2B+2+MVO+(Jaskier%2C+HDRezka+Studio)+%2B+AVO+%2B+Original+Eng+%2B+rus%2C+eng+Sub\"
+        length=\"7747835904\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2070\" />\n      <torznab:attr name=\"category\"
+        value=\"100101\" />\n      <torznab:attr name=\"seeders\" value=\"5\" />\n
+        \     <torznab:attr name=\"peers\" value=\"5\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections [2021, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DL] Dub</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6167712</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6167712</comments>\n
+        \     <pubDate>Fri, 21 Jan 2022 11:56:49 +0000</pubDate>\n      <size>1576696192</size>\n
+        \     <grabs>23110</grabs>\n      <description>Uploader: \n\t\t\tdalemake\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections (\u041B\u0430\u043D\u0430 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Lana Wachowski) [2021, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DLRip] Dub (\u041F\u0438\u0444\u0430\u0433\u043E\u0440)</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWd0JWbU9rRGQydm91NzFaNE5yT3F4MlZrSUpPU3Z3cldBSWZIWFhMMkx2S18xMjh0c0h2SER2cFJnaFJIYTZXR0xXbVFxX2ZqVUQtaDJ6MC1JN0x1Z2luLUNZbFNNTEpzV1NySlVNWmp1Um02YktZVXRUcGtfamEwRTE2TDZpYnowOTAzU1ZucERVTUl3NFpmYld0c1NOd3hPWnNYN0NOLTI1S1pFMXB6bl93&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL%5D+Dub</link>\n
+        \     <category>2010</category>\n      <category>101950</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWd0JWbU9rRGQydm91NzFaNE5yT3F4MlZrSUpPU3Z3cldBSWZIWFhMMkx2S18xMjh0c0h2SER2cFJnaFJIYTZXR0xXbVFxX2ZqVUQtaDJ6MC1JN0x1Z2luLUNZbFNNTEpzV1NySlVNWmp1Um02YktZVXRUcGtfamEwRTE2TDZpYnowOTAzU1ZucERVTUl3NFpmYld0c1NOd3hPWnNYN0NOLTI1S1pFMXB6bl93&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL%5D+Dub\"
+        length=\"1576696192\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2010\" />\n      <torznab:attr name=\"category\"
+        value=\"101950\" />\n      <torznab:attr name=\"seeders\" value=\"24\" />\n
+        \     <torznab:attr name=\"peers\" value=\"28\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430
+        / The Matrix [1999, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, \u043F\u0440\u0438\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u044F,
+        WEBRip] [Open Matte] AVO (\u0410\u043D\u0434\u0440\u0435\u0439 \u0414\u043E\u043B\u044C\u0441\u043A\u0438\u0439
+        \u0440\u0430\u043D\u043D\u0438\u0439 \u21162) + Original Eng</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=5967835</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=5967835</comments>\n
+        \     <pubDate>Wed, 11 Nov 2020 21:47:36 +0000</pubDate>\n      <size>2349807616</size>\n
+        \     <grabs>9634</grabs>\n      <description>Uploader: \n\t\t\tRL392\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430
+        / The Matrix (\u042D\u043D\u0434\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Andy Wachowski, \u041B\u0430\u0440\u0440\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Larry Wachowski) [1999, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, \u043F\u0440\u0438\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u044F,
+        WEBRip] [Open Matte] AVO (\u0410\u043D\u0434\u0440\u0435\u0439 \u0414\u043E\u043B\u044C\u0441\u043A\u0438\u0439
+        \u0440\u0430\u043D\u043D\u0438\u0439 \u21162) + Original Eng</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVUHo1OW0zMHFCakVwWTVSYUJ3ZXpySzAwNXlqRXEwTVZ0SjMxaE1lUEdwSjlxR2VmR0Y1cFljelk5NWltUkdSQ0FLQnhybFh4ZGhrSTFiZWxMUHhtR0VuRXJ3RXRMNnJXMXZLeENYVU1xc2N6QWZaNWxGelRkQkdJVnNtX3hpODFLdjV4SVl3M3UyODV5blgyRzVRNDRxa2dabHRYYWRmcTRmQU4zOF9MM0Vn&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0+%2F+The+Matrix+%5B1999%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+%D0%BF%D1%80%D0%B8%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D1%8F%2C+WEBRip%5D+%5BOpen+Matte%5D+AVO+(%D0%90%D0%BD%D0%B4%D1%80%D0%B5%D0%B9+%D0%94%D0%BE%D0%BB%D1%8C%D1%81%D0%BA%D0%B8%D0%B9+%D1%80%D0%B0%D0%BD%D0%BD%D0%B8%D0%B9+%E2%84%962)+%2B+Original+Eng</link>\n
+        \     <category>2010</category>\n      <category>102221</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVUHo1OW0zMHFCakVwWTVSYUJ3ZXpySzAwNXlqRXEwTVZ0SjMxaE1lUEdwSjlxR2VmR0Y1cFljelk5NWltUkdSQ0FLQnhybFh4ZGhrSTFiZWxMUHhtR0VuRXJ3RXRMNnJXMXZLeENYVU1xc2N6QWZaNWxGelRkQkdJVnNtX3hpODFLdjV4SVl3M3UyODV5blgyRzVRNDRxa2dabHRYYWRmcTRmQU4zOF9MM0Vn&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0+%2F+The+Matrix+%5B1999%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+%D0%BF%D1%80%D0%B8%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D1%8F%2C+WEBRip%5D+%5BOpen+Matte%5D+AVO+(%D0%90%D0%BD%D0%B4%D1%80%D0%B5%D0%B9+%D0%94%D0%BE%D0%BB%D1%8C%D1%81%D0%BA%D0%B8%D0%B9+%D1%80%D0%B0%D0%BD%D0%BD%D0%B8%D0%B9+%E2%84%962)+%2B+Original+Eng\"
+        length=\"2349807616\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2010\" />\n      <torznab:attr name=\"category\"
+        value=\"102221\" />\n      <torznab:attr name=\"seeders\" value=\"16\" />\n
+        \     <torznab:attr name=\"peers\" value=\"16\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections [2021, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DL] MVO (Jaskier)</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6155277</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6155277</comments>\n
+        \     <pubDate>Sat, 25 Dec 2021 02:06:01 +0000</pubDate>\n      <size>1566236672</size>\n
+        \     <grabs>26458</grabs>\n      <description>Uploader: \n\t\t\t\u043F\u043E\u0440\u043E\u0448\u043A\u043E\u0432\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections (\u041B\u0430\u043D\u0430 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Lana Wachowski) [2021, \u0421\u0428\u0410, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DLRip] MVO (Jaskier)</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWNDVsX2djeF9fY2Z3MlRZVy1vZzY2Vy1RbEU1Q0JVakhYSEhSX2FpYWtFQ3lzX3VRd2tVTGt6aGdUdlhMYk1uSWJVOXVMNU85X1pWSUp5WlZhSElfa0lQWHNTblhobmlMc04yU3lkYURYOEVlWExFc0puUjhqWDBpekFPN0tYZVpyQ3cwVUM2RzhxbWltb0trWERIVGpoMWhhZUNVWUlhOGZSclJGMkZ6WjZB&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL%5D+MVO+(Jaskier)</link>\n
+        \     <category>2010</category>\n      <category>101950</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWNDVsX2djeF9fY2Z3MlRZVy1vZzY2Vy1RbEU1Q0JVakhYSEhSX2FpYWtFQ3lzX3VRd2tVTGt6aGdUdlhMYk1uSWJVOXVMNU85X1pWSUp5WlZhSElfa0lQWHNTblhobmlMc04yU3lkYURYOEVlWExFc0puUjhqWDBpekFPN0tYZVpyQ3cwVUM2RzhxbWltb0trWERIVGpoMWhhZUNVWUlhOGZSclJGMkZ6WjZB&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL%5D+MVO+(Jaskier)\"
+        length=\"1566236672\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2010\" />\n      <torznab:attr name=\"category\"
+        value=\"101950\" />\n      <torznab:attr name=\"seeders\" value=\"20\" />\n
+        \     <torznab:attr name=\"peers\" value=\"20\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections [2021, \u0421\u0428\u0410, \u0431\u043E\u0435\u0432\u0438\u043A,
+        \u0442\u0440\u0438\u043B\u043B\u0435\u0440, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        WEB-DL] AVO</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6225272</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6225272</comments>\n
+        \     <pubDate>Mon, 13 Jun 2022 15:21:51 +0000</pubDate>\n      <size>2331111424</size>\n
+        \     <grabs>6223</grabs>\n      <description>Uploader: \n\t\t\tLeonard Lew\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections (\u041B\u0430\u043D\u0430 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Lana Wachowski) [2021, \u0421\u0428\u0410, \u0431\u043E\u0435\u0432\u0438\u043A,
+        \u0442\u0440\u0438\u043B\u043B\u0435\u0440, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        WEB-DLRip] AVO (\u0421\u0435\u0440\u0433\u0435\u0439 \u0412\u0438\u0437\u0433\u0443\u043D\u043E\u0432)</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXQTNGM1p0YmpwNGo0dWhQQ285cDRrRi1yWEk0dVpDSnVxOVQ2S3dUN2pickZRcF9ScVRvMGlhZ09sTVdJWjQ3cVZMNDdlRVlVUy1UcnREMUh5Mm1Ya2N1WjRibGdtUERBY3BZZlhGejkxLXJrN1NlNE95alFiS05WVFUzSzVHRXRvY09ueTBjanZTSk5aYUw5c1BGVXlZYzA1RDA0ZVh3aUNSUnZGaGttR293&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+%D1%82%D1%80%D0%B8%D0%BB%D0%BB%D0%B5%D1%80%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+WEB-DL%5D+AVO</link>\n
+        \     <category>2010</category>\n      <category>101950</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXQTNGM1p0YmpwNGo0dWhQQ285cDRrRi1yWEk0dVpDSnVxOVQ2S3dUN2pickZRcF9ScVRvMGlhZ09sTVdJWjQ3cVZMNDdlRVlVUy1UcnREMUh5Mm1Ya2N1WjRibGdtUERBY3BZZlhGejkxLXJrN1NlNE95alFiS05WVFUzSzVHRXRvY09ueTBjanZTSk5aYUw5c1BGVXlZYzA1RDA0ZVh3aUNSUnZGaGttR293&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+%D1%82%D1%80%D0%B8%D0%BB%D0%BB%D0%B5%D1%80%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+WEB-DL%5D+AVO\"
+        length=\"2331111424\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2010\" />\n      <torznab:attr name=\"category\"
+        value=\"101950\" />\n      <torznab:attr name=\"seeders\" value=\"12\" />\n
+        \     <torznab:attr name=\"peers\" value=\"12\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections [2021, \u0421\u0428\u0410, \u0424\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DL] Original (Eng) + Sub (Rus(feofanio),Eng)</title>\n
+        \     <guid>https://rutracker.org/forum/viewtopic.php?t=6154419</guid>\n      <jackettindexer
+        id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6154419</comments>\n
+        \     <pubDate>Wed, 22 Dec 2021 20:50:13 +0000</pubDate>\n      <size>2312694784</size>\n
+        \     <grabs>33088</grabs>\n      <description>Uploader: \n\t\t\tbeasted\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections (\u041B\u0430\u043D\u0430 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Lana Wachowski) [2021, \u0421\u0428\u0410, \u0424\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEB-DLRip] Original (Eng) + Sub (Rus(feofanio),Eng)</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXQTd2a2J3NVdXaVpELU1MTG1keEZJYV9GaVcxWXZqMWE5eUJPcEh1UzNxVW5OMTF6MHpqaVB6c3lfeEViZk95dVJZRm5SWlRXRlZCWGZjZ0xwYzMxNl9NcnJFaHRDZmtreTlfd1U4V01RejJTakNiX2Y4cmZMUF9yZmNDTlctMEZlTnR5TW9mVzBXSGtiY0RLelZfOWxIaEdEaFdXbllBUVF6azhzMzRJOHV3&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D0%A4%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL%5D+Original+(Eng)+%2B+Sub+(Rus(feofanio)%2CEng)</link>\n
+        \     <category>2010</category>\n      <category>101950</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXQTd2a2J3NVdXaVpELU1MTG1keEZJYV9GaVcxWXZqMWE5eUJPcEh1UzNxVW5OMTF6MHpqaVB6c3lfeEViZk95dVJZRm5SWlRXRlZCWGZjZ0xwYzMxNl9NcnJFaHRDZmtreTlfd1U4V01RejJTakNiX2Y4cmZMUF9yZmNDTlctMEZlTnR5TW9mVzBXSGtiY0RLelZfOWxIaEdEaFdXbllBUVF6azhzMzRJOHV3&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D0%A1%D0%A8%D0%90%2C+%D0%A4%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEB-DL%5D+Original+(Eng)+%2B+Sub+(Rus(feofanio)%2CEng)\"
+        length=\"2312694784\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2010\" />\n      <torznab:attr name=\"category\"
+        value=\"101950\" />\n      <torznab:attr name=\"seeders\" value=\"11\" />\n
+        \     <torznab:attr name=\"peers\" value=\"12\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430
+        \u041F\u0435\u0440\u0435\u043A\u0430\u043B\u0438\u0431\u0440\u043E\u0432\u043A\u0430
+        / The Matrix Recalibrated (Josh Oreck) [2004, \u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0430\u043B\u044C\u043D\u044B\u0439,
+        DVD5]</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=952469</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=952469</comments>\n
+        \     <pubDate>Mon, 26 Jul 2021 20:30:14 +0000</pubDate>\n      <size>3506042880</size>\n
+        \     <grabs>310</grabs>\n      <description>Uploader: \n\t\t\tgal_ws\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430
+        \u041F\u0435\u0440\u0435\u043A\u0430\u043B\u0438\u0431\u0440\u043E\u0432\u043A\u0430
+        / The Matrix Recalibrated (Josh Oreck) [2004, \u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0430\u043B\u044C\u043D\u044B\u0439,
+        DVD5]</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWWlJYcFR3NC1RRi01UDVJV0Rud2Q5RkFpaXRSalJCekI0NFNxcWZjVWFpT0lnaEhpdnE0c09ueTYzZHlnZkNUREpHcGxUOFJvNF9CaVBhUmlZa1RzR1Z3QkRCc0VWdFNuNlhUenYxWFFCeEM5SVY3OHk0Vm5QRXladXJMel9ZcUVmRHJ1WTVyS19kZGZjOWZrdE96SHFUYzVOb2RsX3Uwb3NWYlNDRjN5Y2Vn&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0+%D0%9F%D0%B5%D1%80%D0%B5%D0%BA%D0%B0%D0%BB%D0%B8%D0%B1%D1%80%D0%BE%D0%B2%D0%BA%D0%B0+%2F+The+Matrix+Recalibrated+(Josh+Oreck)+%5B2004%2C+%D0%94%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%2C+DVD5%5D</link>\n
+        \     <category>2020</category>\n      <category>100847</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWWlJYcFR3NC1RRi01UDVJV0Rud2Q5RkFpaXRSalJCekI0NFNxcWZjVWFpT0lnaEhpdnE0c09ueTYzZHlnZkNUREpHcGxUOFJvNF9CaVBhUmlZa1RzR1Z3QkRCc0VWdFNuNlhUenYxWFFCeEM5SVY3OHk0Vm5QRXladXJMel9ZcUVmRHJ1WTVyS19kZGZjOWZrdE96SHFUYzVOb2RsX3Uwb3NWYlNDRjN5Y2Vn&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0+%D0%9F%D0%B5%D1%80%D0%B5%D0%BA%D0%B0%D0%BB%D0%B8%D0%B1%D1%80%D0%BE%D0%B2%D0%BA%D0%B0+%2F+The+Matrix+Recalibrated+(Josh+Oreck)+%5B2004%2C+%D0%94%D0%BE%D0%BA%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9%2C+DVD5%5D\"
+        length=\"3506042880\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2020\" />\n      <torznab:attr name=\"category\"
+        value=\"100847\" />\n      <torznab:attr name=\"seeders\" value=\"5\" />\n
+        \     <torznab:attr name=\"peers\" value=\"5\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u041F\u0435\u0440\u0435\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430 /
+        The Matrix Reloaded [2003, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        DVD5] \u0434\u043E\u043F\u043E\u043B\u043D\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0435
+        \u043C\u0430\u0442\u0435\u0440\u0438\u0430\u043B\u044B</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=5674711</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=5674711</comments>\n
+        \     <pubDate>Tue, 15 Jan 2019 08:36:31 +0000</pubDate>\n      <size>3750645760</size>\n
+        \     <grabs>1079</grabs>\n      <description>Uploader: \n\t\t\tHel_ka67\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u041F\u0435\u0440\u0435\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430 /
+        The Matrix Reloaded (\u041B\u0430\u0440\u0440\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438,
+        \u042D\u043D\u0434\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Larry Wachowski, Andy Wachowski) [2003, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        DVD5] \u0434\u043E\u043F\u043E\u043B\u043D\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0435
+        \u043C\u0430\u0442\u0435\u0440\u0438\u0430\u043B\u044B</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYb1FLVXQ5WlR1bWFiTVJXeG1LYnhLX0lCMkFPeXlnZW43c1JseWJwN2hqcGo4VDgyRE0wSGlQWVFnaWJrbVM0aHBDWGt1b01TNWI5MjhIdFE1azBDWVZlZEx2ejFFbkNHdlJDbWVHazQ4THlsenlkUkpaaEp6ZFNqUHZYUlFFQTN6U3AtR0dtb1B5UEhmUVdzRmh4bUFlZzQ3TW1QcFF0ai11VlZaM1pBMl9n&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%9F%D0%B5%D1%80%D0%B5%D0%B7%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B0+%2F+The+Matrix+Reloaded+%5B2003%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+DVD5%5D+%D0%B4%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5+%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D1%8B</link>\n
+        \     <category>2020</category>\n      <category>100847</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVYb1FLVXQ5WlR1bWFiTVJXeG1LYnhLX0lCMkFPeXlnZW43c1JseWJwN2hqcGo4VDgyRE0wSGlQWVFnaWJrbVM0aHBDWGt1b01TNWI5MjhIdFE1azBDWVZlZEx2ejFFbkNHdlJDbWVHazQ4THlsenlkUkpaaEp6ZFNqUHZYUlFFQTN6U3AtR0dtb1B5UEhmUVdzRmh4bUFlZzQ3TW1QcFF0ai11VlZaM1pBMl9n&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%9F%D0%B5%D1%80%D0%B5%D0%B7%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B0+%2F+The+Matrix+Reloaded+%5B2003%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+DVD5%5D+%D0%B4%D0%BE%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5+%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%B0%D0%BB%D1%8B\"
+        length=\"3750645760\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2020\" />\n      <torznab:attr name=\"category\"
+        value=\"100847\" />\n      <torznab:attr name=\"seeders\" value=\"3\" />\n
+        \     <torznab:attr name=\"peers\" value=\"3\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u041F\u0435\u0440\u0435\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430 /
+        The Matrix Reloaded [2003, \u0421\u0428\u0410, \u0410\u0432\u0441\u0442\u0440\u0430\u043B\u0438\u044F,
+        \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430, \u0431\u043E\u0435\u0432\u0438\u043A,
+        HDRip] AVO</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=5959784</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=5959784</comments>\n
+        \     <pubDate>Sun, 25 Oct 2020 09:34:02 +0000</pubDate>\n      <size>1562470400</size>\n
+        \     <grabs>3277</grabs>\n      <description>Uploader: \n\t\t\tRL392\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u041F\u0435\u0440\u0435\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430 /
+        The Matrix Reloaded (\u042D\u043D\u0434\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Andy Wachowski, \u041B\u0430\u0440\u0440\u0438 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438
+        / Larry Wachowski) [2003, \u0421\u0428\u0410, \u0410\u0432\u0441\u0442\u0440\u0430\u043B\u0438\u044F,
+        \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430, \u0431\u043E\u0435\u0432\u0438\u043A,
+        HDRip] AVO (\u0410\u043D\u0434\u0440\u0435\u0439 \u0414\u043E\u043B\u044C\u0441\u043A\u0438\u0439)</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVejhWMnBvN0ptUFMzTmp4YzVGRDZJOVZSMVQzZGZQaFdhV3ktU21XYTZPSEE0ODJiLXRYUERTSVZvX0xhclNDazdxT1YtTHkwNWI0VU5BM1FlWEtZbGpYbVZteVlGRW1zbDdJVFNGZ1NpZEFiU1d6cUM4YV9wYW1wZkRKYXBsVWJzcEN3clFDdmxBVEx5VDQwSldtaEpyV3AxT0lHTHFmWk9nZGJ4dHRVM3pn&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%9F%D0%B5%D1%80%D0%B5%D0%B7%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B0+%2F+The+Matrix+Reloaded+%5B2003%2C+%D0%A1%D0%A8%D0%90%2C+%D0%90%D0%B2%D1%81%D1%82%D1%80%D0%B0%D0%BB%D0%B8%D1%8F%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+HDRip%5D+AVO</link>\n
+        \     <category>2010</category>\n      <category>102091</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVVejhWMnBvN0ptUFMzTmp4YzVGRDZJOVZSMVQzZGZQaFdhV3ktU21XYTZPSEE0ODJiLXRYUERTSVZvX0xhclNDazdxT1YtTHkwNWI0VU5BM1FlWEtZbGpYbVZteVlGRW1zbDdJVFNGZ1NpZEFiU1d6cUM4YV9wYW1wZkRKYXBsVWJzcEN3clFDdmxBVEx5VDQwSldtaEpyV3AxT0lHTHFmWk9nZGJ4dHRVM3pn&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%9F%D0%B5%D1%80%D0%B5%D0%B7%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B0+%2F+The+Matrix+Reloaded+%5B2003%2C+%D0%A1%D0%A8%D0%90%2C+%D0%90%D0%B2%D1%81%D1%82%D1%80%D0%B0%D0%BB%D0%B8%D1%8F%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+HDRip%5D+AVO\"
+        length=\"1562470400\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2010\" />\n      <torznab:attr name=\"category\"
+        value=\"102091\" />\n      <torznab:attr name=\"seeders\" value=\"5\" />\n
+        \     <torznab:attr name=\"peers\" value=\"5\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041A\u0430\u043A
+        \u0441\u043D\u0438\u043C\u0430\u043B\u0438 \u041C\u0430\u0442\u0440\u0438\u0446\u0443
+        / The making of the Matrix [\u0420\u0435\u043F\u043E\u0440\u0442\u0430\u0436
+        \u0441\u043E \u0441\u044A\u0435\u043C\u043E\u0447\u043D\u043E\u0439 \u043F\u043B\u043E\u0449\u0430\u0434\u043A\u0438,
+        \u0424\u0438\u043B\u044C\u043C \u043E \u0444\u0438\u043B\u044C\u043C\u0435,
+        SATRip]</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=366479</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=366479</comments>\n
+        \     <pubDate>Sun, 05 Aug 2018 19:08:43 +0000</pubDate>\n      <size>557608960</size>\n
+        \     <grabs>961</grabs>\n      <description>Uploader: \n\t\t\t-=trancer=-\n\t\t&lt;br&gt;\u041A\u0430\u043A
+        \u0441\u043D\u0438\u043C\u0430\u043B\u0438 \u041C\u0430\u0442\u0440\u0438\u0446\u0443
+        / The making of the Matrix [\u0420\u0435\u043F\u043E\u0440\u0442\u0430\u0436
+        \u0441\u043E \u0441\u044A\u0435\u043C\u043E\u0447\u043D\u043E\u0439 \u043F\u043B\u043E\u0449\u0430\u0434\u043A\u0438,
+        \u0424\u0438\u043B\u044C\u043C \u043E \u0444\u0438\u043B\u044C\u043C\u0435,
+        SATRip]</description>\n      <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXcVdqVTU0R0lSSnc1aTJoZ0ppMlJ6MGxTclFoN2lpRGQxYWQ1ay05SmRzN20wUnk1SG45TmlIZllXdjF5SkZkYTEtS3ZKQ2xmc21jZVR4RE5BVGxuSFRxR3haS0I1YWVCdVUzUzI0LVZrR2laTVRYcGhOUjNrbHJfUndrcG1rZHU5M1pMT2VOT1dLUWtRNWV3TEExNmpra21URmhULUx0WmwwZ1E5czRtakJ3&amp;file=%D0%9A%D0%B0%D0%BA+%D1%81%D0%BD%D0%B8%D0%BC%D0%B0%D0%BB%D0%B8+%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D1%83+%2F+The+making+of+the+Matrix+%5B%D0%A0%D0%B5%D0%BF%D0%BE%D1%80%D1%82%D0%B0%D0%B6+%D1%81%D0%BE+%D1%81%D1%8A%D0%B5%D0%BC%D0%BE%D1%87%D0%BD%D0%BE%D0%B9+%D0%BF%D0%BB%D0%BE%D1%89%D0%B0%D0%B4%D0%BA%D0%B8%2C+%D0%A4%D0%B8%D0%BB%D1%8C%D0%BC+%D0%BE+%D1%84%D0%B8%D0%BB%D1%8C%D0%BC%D0%B5%2C+SATRip%5D</link>\n
+        \     <category>2020</category>\n      <category>100847</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXcVdqVTU0R0lSSnc1aTJoZ0ppMlJ6MGxTclFoN2lpRGQxYWQ1ay05SmRzN20wUnk1SG45TmlIZllXdjF5SkZkYTEtS3ZKQ2xmc21jZVR4RE5BVGxuSFRxR3haS0I1YWVCdVUzUzI0LVZrR2laTVRYcGhOUjNrbHJfUndrcG1rZHU5M1pMT2VOT1dLUWtRNWV3TEExNmpra21URmhULUx0WmwwZ1E5czRtakJ3&amp;file=%D0%9A%D0%B0%D0%BA+%D1%81%D0%BD%D0%B8%D0%BC%D0%B0%D0%BB%D0%B8+%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D1%83+%2F+The+making+of+the+Matrix+%5B%D0%A0%D0%B5%D0%BF%D0%BE%D1%80%D1%82%D0%B0%D0%B6+%D1%81%D0%BE+%D1%81%D1%8A%D0%B5%D0%BC%D0%BE%D1%87%D0%BD%D0%BE%D0%B9+%D0%BF%D0%BB%D0%BE%D1%89%D0%B0%D0%B4%D0%BA%D0%B8%2C+%D0%A4%D0%B8%D0%BB%D1%8C%D0%BC+%D0%BE+%D1%84%D0%B8%D0%BB%D1%8C%D0%BC%D0%B5%2C+SATRip%5D\"
+        length=\"557608960\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2020\" />\n      <torznab:attr name=\"category\"
+        value=\"100847\" />\n      <torznab:attr name=\"seeders\" value=\"5\" />\n
+        \     <torznab:attr name=\"peers\" value=\"6\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections [2021, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, HDRip, DTS-HD/AC-3/MP3 Audio] \u0422\u0440\u0435\u0439\u043B\u0435\u0440
+        #1</title>\n      <guid>https://rutracker.org/forum/viewtopic.php?t=6107667</guid>\n
+        \     <jackettindexer id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6107667</comments>\n
+        \     <pubDate>Fri, 10 Sep 2021 18:32:09 +0000</pubDate>\n      <size>412755904</size>\n
+        \     <grabs>1504</grabs>\n      <description>Uploader: \n\t\t\tdvaux\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430:
+        \u0412\u043E\u0441\u043A\u0440\u0435\u0448\u0435\u043D\u0438\u0435 / The Matrix
+        Resurrections (\u041B\u0430\u043D\u0430 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438)
+        [2021, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430, \u0431\u043E\u0435\u0432\u0438\u043A,
+        HDRip, DTS-HD/AC-3/MP3 Audio] \u0422\u0440\u0435\u0439\u043B\u0435\u0440 #1</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWVWVYMFMtVXJQU21XNnFuMm9yMlBHWEZHWklZT2hhSmFQa2xrZWVLclhQWl9Ya2hmWFdmeVRnY3dxUVJlcEtOb3ZTMXZndzVwRHlDMTZHaFJmTjI3WjJ0SzFud1A2Z1Z4ZW53N3lRNVpUQ1UyOUJILWFaZjBUR1NrbEYwd2dYWThJMVdmSDNjNGZ0Yk9MTmVfaFFoSGFYTmswNEoxS09ROF9qR3kxaUxNVHNB&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+HDRip%2C+DTS-HD%2FAC-3%2FMP3+Audio%5D+%D0%A2%D1%80%D0%B5%D0%B9%D0%BB%D0%B5%D1%80+%231</link>\n
+        \     <category>2020</category>\n      <category>100847</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVWVWVYMFMtVXJQU21XNnFuMm9yMlBHWEZHWklZT2hhSmFQa2xrZWVLclhQWl9Ya2hmWFdmeVRnY3dxUVJlcEtOb3ZTMXZndzVwRHlDMTZHaFJmTjI3WjJ0SzFud1A2Z1Z4ZW53N3lRNVpUQ1UyOUJILWFaZjBUR1NrbEYwd2dYWThJMVdmSDNjNGZ0Yk9MTmVfaFFoSGFYTmswNEoxS09ROF9qR3kxaUxNVHNB&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0%3A+%D0%92%D0%BE%D1%81%D0%BA%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5+%2F+The+Matrix+Resurrections+%5B2021%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+HDRip%2C+DTS-HD%2FAC-3%2FMP3+Audio%5D+%D0%A2%D1%80%D0%B5%D0%B9%D0%BB%D0%B5%D1%80+%231\"
+        length=\"412755904\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2020\" />\n      <torznab:attr name=\"category\"
+        value=\"100847\" />\n      <torznab:attr name=\"seeders\" value=\"2\" />\n
+        \     <torznab:attr name=\"peers\" value=\"2\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n    <item>\n      <title>\u041C\u0430\u0442\u0440\u0438\u0446\u0430
+        4 / The Matrix Resurrections [2021, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430,
+        \u0431\u043E\u0435\u0432\u0438\u043A, WEBRip] \u0442\u0440\u0435\u0439\u043B\u0435\u0440
+        VO [\u041D\u0443\u0440\u043C\u0443\u0445\u0430\u043C\u0435\u0442\u043E\u0432]</title>\n
+        \     <guid>https://rutracker.org/forum/viewtopic.php?t=6107055</guid>\n      <jackettindexer
+        id=\"rutracker\">RuTracker.org</jackettindexer>\n      <type>semi-private</type>\n
+        \     <comments>https://rutracker.org/forum/viewtopic.php?t=6107055</comments>\n
+        \     <pubDate>Thu, 09 Sep 2021 14:37:57 +0000</pubDate>\n      <size>59539192</size>\n
+        \     <grabs>818</grabs>\n      <description>Uploader: \n\t\t\tRL392\n\t\t&lt;br&gt;\u041C\u0430\u0442\u0440\u0438\u0446\u0430
+        4 / The Matrix Resurrections (\u041B\u0430\u043D\u0430 \u0412\u0430\u0447\u043E\u0432\u0441\u043A\u0438)
+        [2021, \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430, \u0431\u043E\u0435\u0432\u0438\u043A,
+        WEBRip] \u0442\u0440\u0435\u0439\u043B\u0435\u0440 VO [\u041D\u0443\u0440\u043C\u0443\u0445\u0430\u043C\u0435\u0442\u043E\u0432]</description>\n
+        \     <link>https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXaVp5d0FQX1hjVEk3a1VsNDVLcUZkMURpY0R2NHpPQVBjV29PZmtIVlVpa2l1S3AwalJUUmJQUElIRTdmakVzUldHQTBuQnloVk5kY0RDbG5jei0wMjdjaGNyZjZIR25xS2QxTndmcnhTeHlPaWZRcU55bHVPdmpUY2NDQm1wa1hFeEkxQ0lMWEFURDhaYlpraEFUREh5ZDlsNGZaVWxXNFhoRzRQNlM2aDFn&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0+4+%2F+The+Matrix+Resurrections+%5B2021%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEBRip%5D+%D1%82%D1%80%D0%B5%D0%B9%D0%BB%D0%B5%D1%80+VO+%5B%D0%9D%D1%83%D1%80%D0%BC%D1%83%D1%85%D0%B0%D0%BC%D0%B5%D1%82%D0%BE%D0%B2%5D</link>\n
+        \     <category>2020</category>\n      <category>100847</category>\n      <enclosure
+        url=\"https://jackett.shen.iorlas.net/dl/rutracker/?jackett_apikey=qhnkxi5sba1anon5smsx5qur88j7hhr1&amp;path=Q2ZESjhDZVRjZzNkVFpoTmxyUDdUTXRPNDVXaVp5d0FQX1hjVEk3a1VsNDVLcUZkMURpY0R2NHpPQVBjV29PZmtIVlVpa2l1S3AwalJUUmJQUElIRTdmakVzUldHQTBuQnloVk5kY0RDbG5jei0wMjdjaGNyZjZIR25xS2QxTndmcnhTeHlPaWZRcU55bHVPdmpUY2NDQm1wa1hFeEkxQ0lMWEFURDhaYlpraEFUREh5ZDlsNGZaVWxXNFhoRzRQNlM2aDFn&amp;file=%D0%9C%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0+4+%2F+The+Matrix+Resurrections+%5B2021%2C+%D1%84%D0%B0%D0%BD%D1%82%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2C+%D0%B1%D0%BE%D0%B5%D0%B2%D0%B8%D0%BA%2C+WEBRip%5D+%D1%82%D1%80%D0%B5%D0%B9%D0%BB%D0%B5%D1%80+VO+%5B%D0%9D%D1%83%D1%80%D0%BC%D1%83%D1%85%D0%B0%D0%BC%D0%B5%D1%82%D0%BE%D0%B2%5D\"
+        length=\"59539192\" type=\"application/x-bittorrent\" />\n      <torznab:attr
+        name=\"category\" value=\"2020\" />\n      <torznab:attr name=\"category\"
+        value=\"100847\" />\n      <torznab:attr name=\"seeders\" value=\"3\" />\n
+        \     <torznab:attr name=\"peers\" value=\"3\" />\n      <torznab:attr name=\"minimumratio\"
+        value=\"1\" />\n      <torznab:attr name=\"minimumseedtime\" value=\"0\" />\n
+        \     <torznab:attr name=\"downloadvolumefactor\" value=\"1\" />\n      <torznab:attr
+        name=\"uploadvolumefactor\" value=\"1\" />\n    </item>\n  </channel>\n</rss>"
+    headers:
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - jackett.shen.iorlas.net
+      Cache-Control:
+      - no-store,no-cache
+      Content-Length:
+      - '151352'
+      Content-Security-Policy:
+      - frame-ancestors 'self'
+      Content-Type:
+      - application/rss+xml; charset=utf-8
+      Date:
+      - Wed, 04 Feb 2026 05:15:55 GMT
+      Pragma:
+      - no-cache
+      Server:
+      - Kestrel
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      X-Content-Type-Options:
+      - nosniff
+      X-Ratelimit-Limit:
+      - '12000'
+      X-Ratelimit-Remaining:
+      - '99'
+      X-Ratelimit-Reset:
+      - '1770183355'
+      X-Served-By-Cosmos:
+      - '1'
+      X-Timeout-Duration:
+      - 4h0m0s
+      X-Xss-Protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
+version: 1

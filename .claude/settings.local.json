@@ -154,7 +154,10 @@
       "Bash(docker compose:*)",
       "Bash(uv lock:*)",
       "Bash(docker build:*)",
-      "Bash(ty check:*)"
+      "Bash(ty check:*)",
+      "WebFetch(domain:docs.microsandbox.dev)",
+      "WebFetch(domain:hub.docker.com)",
+      "WebFetch(domain:torznab.github.io)"
     ],
     "deny": [],
     "ask": []

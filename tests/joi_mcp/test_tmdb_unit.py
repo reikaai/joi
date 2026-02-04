@@ -1,6 +1,6 @@
 import pytest
 
-from joi_mcp.tmdb import Genre, Movie, TvShow
+from joi_mcp.tmdb import FindResult, Genre, GenreList, Movie, MovieList, TvShow
 
 
 @pytest.mark.unit
@@ -58,3 +58,41 @@ class TestModels:
         genre = Genre.model_validate({"id": 28, "name": "Action"})
         assert genre.id == 28
         assert genre.name == "Action"
+
+    def test_movie_list_with_pagination(self):
+        data = {
+            "movies": [{"id": 1, "title": "Test"}],
+            "total": 100,
+            "offset": 0,
+            "has_more": True,
+        }
+        ml = MovieList.model_validate(data)
+        assert len(ml.movies) == 1
+        assert ml.total == 100
+        assert ml.offset == 0
+        assert ml.has_more is True
+
+    def test_genre_list_with_pagination(self):
+        data = {
+            "genres": [{"id": 28, "name": "Action"}],
+            "total": 19,
+            "offset": 0,
+            "has_more": False,
+        }
+        gl = GenreList.model_validate(data)
+        assert len(gl.genres) == 1
+        assert gl.total == 19
+        assert gl.has_more is False
+
+    def test_find_result_with_totals(self):
+        data = {
+            "movie_results": [{"id": 1, "title": "Test Movie"}],
+            "tv_results": [{"id": 2, "name": "Test Show"}],
+            "movie_total": 1,
+            "tv_total": 1,
+        }
+        fr = FindResult.model_validate(data)
+        assert len(fr.movie_results) == 1
+        assert len(fr.tv_results) == 1
+        assert fr.movie_total == 1
+        assert fr.tv_total == 1
