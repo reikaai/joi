@@ -91,7 +91,7 @@ def _resolve_url(url: str) -> str:
     if url.startswith("magnet:"):
         return url
     try:
-        resp = httpx.head(url, follow_redirects=False, timeout=10.0)
+        resp = httpx.get(url, follow_redirects=False, timeout=10.0)
         if resp.status_code in (301, 302, 303, 307, 308):
             location = resp.headers.get("location", "")
             if location.startswith("magnet:"):

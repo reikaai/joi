@@ -1,15 +1,16 @@
 import os
 from pathlib import Path
 
-from agno.agent import Agent
 from agno.models.openrouter import OpenRouter
 from agno.os import AgentOS
 from agno.session import SessionSummaryManager
-from agno.tools.mcp import MCPTools
+from agno.team import Team
 from agno.tools.python import PythonTools
 from dotenv import load_dotenv
 from loguru import logger
 from pydantic import BaseModel, Field
+
+from joi_agent.media_agent import media_agent
 
 load_dotenv()
 
@@ -33,10 +34,6 @@ else:
     logger.info("Using SQLite database")
 
 PERSONA_PATH = Path(__file__).parent / "persona.md"
-MCP_BASE_URL = os.getenv("MCP_URL", "http://127.0.0.1:8000")
-MCP_TMDB_URL = f"{MCP_BASE_URL}/tmdb"
-MCP_TRANSMISSION_URL = f"{MCP_BASE_URL}/transmission"
-MCP_JACKETT_URL = f"{MCP_BASE_URL}/jackett"
 
 SUMMARY_PROMPT = """Summarize this conversation between user and Joi (AI assistant).
 
@@ -75,16 +72,14 @@ class AgentResponse(BaseModel):
     )
 
 
-tmdb_tools = MCPTools(url=MCP_TMDB_URL, transport="streamable-http", tool_name_prefix="tmdb")
-transmission_tools = MCPTools(url=MCP_TRANSMISSION_URL, transport="streamable-http", tool_name_prefix="transmission")
-jackett_tools = MCPTools(url=MCP_JACKETT_URL, transport="streamable-http", tool_name_prefix="jackett")
 python_tools = PythonTools(base_dir=DATA_DIR / "sandbox")
 
-joi = Agent(
+joi = Team(
     id="joi",
     name="Joi",
     model=OpenRouter(id=os.getenv("LLM_MODEL", "openai/gpt-4o-mini")),
-    tools=[tmdb_tools, transmission_tools, jackett_tools, python_tools],
+    members=[media_agent],
+    tools=[python_tools],
     instructions=PERSONA_PATH.read_text(),
     markdown=True,
     output_schema=AgentResponse,
@@ -97,16 +92,16 @@ joi = Agent(
     add_history_to_context=True,
     num_history_runs=2,  # Agno docs recommend 2 with session summaries
     max_tool_calls_from_history=2,  # Limit tool result bloat in context
-    read_chat_history=True,  # Agent can query full history via get_chat_history()
+    read_chat_history=True,  # Team can query full history via get_chat_history()
     add_datetime_to_context=True,
-    learning=False,  # Disabled: agentic_memory handles this, avoids 2 extra API calls/msg
+    show_members_responses=False,  # Don't show MediaAgent responses separately
     debug_mode=os.getenv("AGNO_DEBUG", "").lower() == "true",
 )
 
 agent_os = AgentOS(
     name="Joi OS",
     description="Joi AI assistant",
-    agents=[joi],
+    teams=[joi],
     db=db,
     tracing=True,
 )

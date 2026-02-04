@@ -6,7 +6,16 @@ from pathlib import Path
 
 import telegramify_markdown
 from agno.client import AgentOSClient
-from agno.run.agent import IntermediateRunContentEvent, RunContentEvent, ToolCallCompletedEvent
+from agno.run.agent import RunPausedEvent  # Only exists in agent module
+from agno.run.team import (
+    IntermediateRunContentEvent,
+    RunContentEvent,
+    RunErrorEvent,
+    RunStartedEvent,
+    ToolCallCompletedEvent,
+    ToolCallErrorEvent,
+    ToolCallStartedEvent,
+)
 from aiogram import Bot, Dispatcher, Router
 from aiogram.enums import ChatAction, ParseMode
 from aiogram.filters import CommandStart
@@ -32,7 +41,14 @@ class ActionCallback(CallbackData, prefix="act"):
     action_id: str
 
 
+class ConfirmCallback(CallbackData, prefix="cfm"):
+    msg_id: int
+    approved: bool
+
+
 action_cache: dict[str, str] = {}
+# msg_id -> {"event": asyncio.Event, "approved": bool | None}
+pending_confirms: dict[int, dict] = {}
 
 
 def store_action(text: str) -> str:
@@ -76,8 +92,23 @@ async def on_ask(callback: CallbackQuery) -> None:
         await callback.message.answer("Type your question:")
 
 
+def format_status(tool_states: list[tuple[str, str]]) -> str:
+    """Format tool states into status text."""
+    if not tool_states:
+        return "🔄 Processing..."
+    parts = []
+    for name, status in tool_states:
+        if status == "done":
+            parts.append(f"✅ {name}")
+        elif status == "error":
+            parts.append(f"❌ {name}")
+        else:
+            parts.append(f"🔄 {name}")
+    return " → ".join(parts)
+
+
 async def run_agent(content: str, user_id: str, chat_id: int, message: Message) -> None:
-    """Stream agent responses, sending each to Telegram immediately."""
+    """Stream agent responses with real-time status updates."""
 
     async def keep_typing():
         while True:
@@ -86,26 +117,33 @@ async def run_agent(content: str, user_id: str, chat_id: int, message: Message) 
 
     typing_task = asyncio.create_task(keep_typing())
 
-    tools_used: list[str] = []
+    tool_states: list[tuple[str, str]] = []
+    status_message: Message | None = None
+
+    async def update_status(text: str) -> None:
+        nonlocal status_message
+        try:
+            if status_message:
+                await status_message.edit_text(text)
+            else:
+                status_message = await message.answer(text)
+        except Exception as e:
+            logger.warning(f"Status update failed: {e}")
 
     async def send_response(response: AgentResponse) -> None:
         if not response.content:
             return
         keyboard = build_actions_keyboard(response.suggested_actions) if response.suggested_actions else None
-        display_content = response.content
-        if tools_used:
-            tools_str = ", ".join(tools_used)
-            display_content = f"{response.content}\n\n---\nused: {tools_str}"
-        converted = telegramify_markdown.markdownify(display_content)
+        converted = telegramify_markdown.markdownify(response.content)
         try:
             await message.answer(converted, parse_mode=ParseMode.MARKDOWN_V2, reply_markup=keyboard)
         except Exception as e:
-            logger.error(f"Telegram send failed: {e}\nOriginal: {display_content!r}\nConverted: {converted!r}")
-            await message.answer(display_content, reply_markup=keyboard)
+            logger.error(f"Telegram send failed: {e}\nOriginal: {response.content!r}\nConverted: {converted!r}")
+            await message.answer(response.content, reply_markup=keyboard)
 
     try:
-        stream = client.run_agent_stream(
-            agent_id="joi",
+        stream = client.run_team_stream(
+            team_id="joi",
             message=content,
             user_id=user_id,
             session_id=user_id,
@@ -116,17 +154,80 @@ async def run_agent(content: str, user_id: str, chat_id: int, message: Message) 
         async for event in stream:
             logger.debug(f"Stream event: {type(event).__name__}")
             match event:
+                case RunStartedEvent():
+                    await update_status("🔄 Processing...")
+
+                case ToolCallStartedEvent(tool=t) if t and t.tool_name:
+                    tool_states.append((t.tool_name, "pending"))
+                    await update_status(format_status(tool_states))
+
+                case ToolCallCompletedEvent(tool=t) if t and t.tool_name:
+                    for i, (name, _) in enumerate(tool_states):
+                        if name == t.tool_name and tool_states[i][1] == "pending":
+                            tool_states[i] = (name, "done")
+                            break
+                    await update_status(format_status(tool_states))
+
+                case ToolCallErrorEvent(tool=t) if t and t.tool_name:
+                    for i, (name, _) in enumerate(tool_states):
+                        if name == t.tool_name and tool_states[i][1] == "pending":
+                            tool_states[i] = (name, "error")
+                            break
+                    await update_status(format_status(tool_states))
+
                 case RunContentEvent(content=c) if c:
                     event_count += 1
                     logger.info(f"RunContentEvent #{event_count}, content_type={type(c).__name__}")
                     response = AgentResponse.model_validate_json(c) if isinstance(c, str) else AgentResponse.model_validate(c)
                     await send_response(response)
-                case ToolCallCompletedEvent(tool=t) if t and t.tool_name:
-                    tools_used.append(t.tool_name)
+
+                case RunErrorEvent(content=err):
+                    await update_status(f"❌ Error: {err}")
+
                 case IntermediateRunContentEvent():
-                    pass  # Skip partial content
-                case _:
                     pass
+
+                case RunPausedEvent() if event.is_paused and event.active_requirements:
+                    for req in event.active_requirements:
+                        if not req.tool_execution:
+                            continue
+                        tool = req.tool_execution
+                        text = f"⚠️ Confirm: {tool.tool_name}\n{tool.tool_args}"
+                        kb = InlineKeyboardMarkup(inline_keyboard=[[
+                            InlineKeyboardButton(text="✅ Yes", callback_data=ConfirmCallback(msg_id=0, approved=True).pack()),
+                            InlineKeyboardButton(text="❌ No", callback_data=ConfirmCallback(msg_id=0, approved=False).pack()),
+                        ]])
+                        confirm_msg = await message.answer(text, reply_markup=kb)
+
+                        # Create event to wait for user decision
+                        approval_event = asyncio.Event()
+                        pending_confirms[confirm_msg.message_id] = {
+                            "event": approval_event,
+                            "approved": None,
+                        }
+
+                        if status_message and tool_states:
+                            await update_status(format_status(tool_states) + " ⏸️")
+
+                        # Wait for user to click button (blocks stream, keeps connection)
+                        await approval_event.wait()
+
+                        # Get result and apply
+                        data = pending_confirms.pop(confirm_msg.message_id, {})
+                        if data.get("approved"):
+                            req.confirm()
+                            await confirm_msg.edit_text(f"✅ Approved: {tool.tool_name}")
+                        else:
+                            req.reject()
+                            await confirm_msg.edit_text(f"❌ Rejected: {tool.tool_name}")
+                    # DON'T return - stream continues automatically
+
+                case _:
+                    logger.debug(f"Unhandled event: {type(event).__name__}")
+
+        if status_message and tool_states:
+            await update_status(format_status(tool_states) + " ✓")
+
         logger.info(f"Stream completed with {event_count} RunContentEvent(s)")
     except Exception as e:
         logger.exception(f"Agent stream error: {e}")
@@ -149,6 +250,21 @@ async def on_action(callback: CallbackQuery, callback_data: ActionCallback) -> N
     await callback.answer()
     await callback.message.answer(f"➡️ {action_text}")
     await run_agent(action_text, str(callback.from_user.id), callback.message.chat.id, callback.message)
+
+
+@router.callback_query(ConfirmCallback.filter())
+async def on_confirm(callback: CallbackQuery, callback_data: ConfirmCallback) -> None:
+    if not callback.message or not isinstance(callback.message, Message):
+        return
+    data = pending_confirms.get(callback.message.message_id)
+    if not data:
+        await callback.answer("Expired")
+        return
+
+    # Store decision and signal the waiting stream
+    data["approved"] = callback_data.approved
+    data["event"].set()
+    await callback.answer("✅" if callback_data.approved else "❌")
 
 
 @router.message()
