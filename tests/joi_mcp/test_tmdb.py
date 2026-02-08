@@ -1,10 +1,8 @@
 import pytest
 
 from joi_mcp.tmdb import (
-    get_recommendations,
-    get_similar,
+    discover_movies,
     list_genres,
-    list_movies_by_genre,
     lookup_by_imdb,
     search_movies,
 )
@@ -29,15 +27,15 @@ class TestTMDBContract:
         assert result.tv_results[0].name == "Breaking Bad"
 
     def test_get_recommendations(self):
-        result = get_recommendations(603)  # The Matrix
+        result = discover_movies(source="recommendations", movie_id=603)
         assert len(result.movies) > 0
 
     def test_get_similar(self):
-        result = get_similar(603)
+        result = discover_movies(source="similar", movie_id=603)
         assert len(result.movies) > 0
 
     def test_list_movies_by_genre(self):
-        result = list_movies_by_genre(28)  # Action
+        result = discover_movies(source="genre", genre_id=28)
         assert len(result.movies) > 0
 
     def test_list_genres(self):

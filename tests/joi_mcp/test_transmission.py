@@ -2,10 +2,7 @@ import pytest
 from transmission_rpc.error import TransmissionError
 
 import joi_mcp.transmission as tm
-from joi_mcp.transmission import (
-    list_torrents,
-    search_torrents,
-)
+from joi_mcp.transmission import list_torrents
 
 
 def _check_transmission_available():
@@ -35,13 +32,8 @@ class TestTransmissionContract:
         assert hasattr(result, "torrents")
         assert isinstance(result.torrents, list)
 
-    def test_search_torrents(self):
-        result = search_torrents("test")
-        assert hasattr(result, "torrents")
-        assert isinstance(result.torrents, list)
-
-    def test_search_torrents_no_match(self):
-        result = search_torrents("xyznonexistent123456789")
+    def test_list_torrents_with_search(self):
+        result = list_torrents(filter_expr="search(@, 'xyznonexistent123456789')")
         assert result.torrents == []
 
     def test_list_torrents_with_filter(self):

@@ -1,6 +1,6 @@
 import hashlib
 import os
-from typing import Literal
+from typing import Annotated, Any, Literal
 
 import httpx
 import xmltodict
@@ -9,7 +9,8 @@ from fastmcp import FastMCP
 from pydantic import BaseModel, Field
 
 from joi_mcp.pagination import DEFAULT_LIMIT, paginate
-from joi_mcp.query import apply_query
+from joi_mcp.query import apply_query, project
+from joi_mcp.schema import optimize_tool_schemas
 
 load_dotenv()
 
@@ -65,7 +66,7 @@ TorrentResult = TorrentDetail
 
 
 class SearchResults(BaseModel):
-    results: list[TorrentSummary]
+    results: list[TorrentSummary] | list[dict[str, Any]]
     total: int
     offset: int
     has_more: bool
@@ -177,31 +178,19 @@ def _search(params: dict) -> list[TorrentSummary]:
 
 @mcp.tool
 def search_torrents(
-    query: str,
-    search_type: Literal["search", "movie", "tvsearch"] = "search",
-    year: int | None = None,
-    season: int | None = None,
-    episode: int | None = None,
-    categories: list[int] | None = None,
-    filter_expr: str | None = None,
-    sort_by: str | None = None,
-    limit: int = DEFAULT_LIMIT,
-    offset: int = 0,
+    query: Annotated[str, Field()],
+    search_type: Annotated[Literal["search", "movie", "tvsearch"], Field()] = "search",
+    year: Annotated[int | None, Field(description="Release year for movie/tvsearch")] = None,
+    season: Annotated[int | None, Field(description="Season number for tvsearch")] = None,
+    episode: Annotated[int | None, Field(description="Episode number for tvsearch")] = None,
+    categories: Annotated[list[int] | None, Field(description="Torznab category IDs (2000=Movies, 5000=TV)")] = None,
+    filter_expr: Annotated[str | None, Field(description="JMESPath filter. Examples: seeders > `10`; search(@, 'remux')")] = None,
+    fields: Annotated[list[str] | None, Field(description="Fields subset (id auto-included)")] = None,
+    sort_by: Annotated[str | None, Field(description="Field to sort by, prefix - for desc (e.g. \"-seeders\")")] = None,
+    limit: Annotated[int, Field()] = DEFAULT_LIMIT,
+    offset: Annotated[int, Field()] = 0,
 ) -> SearchResults:
-    """Search torrent indexers for content.
-
-    Args:
-        query: Search query string
-        search_type: Type of search - "search" (general), "movie", or "tvsearch"
-        year: Release year for movie/tvsearch
-        season: Season number for tvsearch
-        episode: Episode number for tvsearch
-        categories: Torznab category IDs (2000=Movies, 5000=TV)
-        filter_expr: JMESPath filter (e.g. "seeders > `10`")
-        sort_by: Field to sort by, prefix - for desc (e.g. "-seeders")
-        limit: Max results (default 50)
-        offset: Starting position (default 0)
-    """
+    """Search torrent indexers. Fields: title, size, seeders, leechers, indexer"""
     params = {"t": search_type, "q": query}
 
     if year:
@@ -216,14 +205,20 @@ def search_torrents(
     results = _search(params)
     filtered = apply_query(results, filter_expr, sort_by, limit=None)
     paginated, total, has_more = paginate(filtered, limit, offset)
-    return SearchResults(results=paginated, total=total, offset=offset, has_more=has_more)
+    projected = project(paginated, fields)
+    return SearchResults(results=projected, total=total, offset=offset, has_more=has_more)
 
 
 @mcp.tool
-def get_torrent(id: str) -> TorrentDetail:
+def get_torrent(
+    id: Annotated[str, Field(description="Torrent ID from search results (jkt_xxxxxxxx)")],
+) -> TorrentDetail:
     """Get full torrent details including download link by ID."""
     if not id.startswith(ID_PREFIX):
         raise ValueError(f"Invalid torrent ID format: {id}. Expected jkt_xxxxxxxx from search results.")
     if id not in _cache:
         raise ValueError(f"Unknown torrent ID: {id}. Search first.")
     return _cache[id]
+
+
+optimize_tool_schemas(mcp)

@@ -51,3 +51,9 @@ Good: "Added Interstellar 2014 1080p (8.2GB, 45 seeds). ETA ~2h."
 Bad: "I will now search for Interstellar and add it to your download queue..."
 
 If already downloading: "Already in queue: Interstellar (65% done, ~40min left)"
+
+## Before Mutations
+
+Always briefly state what you're about to do before calling mutation tools.
+The user sees your text alongside the confirmation prompt.
+Example: "Found Interstellar 2014 1080p BluRay (8.2GB, 45 seeds). Adding to queue."

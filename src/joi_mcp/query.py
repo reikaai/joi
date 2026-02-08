@@ -1,5 +1,17 @@
 import jmespath
+from jmespath import Options, functions
 from pydantic import BaseModel
+
+
+class CustomFunctions(functions.Functions):
+    @functions.signature({"types": ["object"]}, {"types": ["string"]})
+    def _func_search(self, obj, needle):
+        """Case-insensitive search across all string fields."""
+        needle_lower = needle.lower()
+        for v in obj.values():
+            if isinstance(v, str) and needle_lower in v.lower():
+                return True
+        return False
 
 
 def apply_query[T: BaseModel](
@@ -8,18 +20,18 @@ def apply_query[T: BaseModel](
     sort_by: str | None = None,
     limit: int | None = None,
 ) -> list[T]:
-    """Apply JMESPath filter, sort, and limit to a list of Pydantic models."""
-    if not filter_expr and not sort_by and not limit:
+    """Apply JMESPath filter, sorting, and limit. Returns original models."""
+    if not items:
         return items
 
     data = [item.model_dump() for item in items]
-    # Support both 'id' and 'index' as unique keys
     key_field = "index" if data and "index" in data[0] else "id"
     key_to_item = {getattr(item, key_field): item for item in items}
 
     if filter_expr:
         expr = filter_expr if filter_expr.startswith("[") else f"[?{filter_expr}]"
-        data = jmespath.search(expr, data) or []
+        opts = Options(custom_functions=CustomFunctions())
+        data = jmespath.search(expr, data, options=opts) or []
 
     if sort_by:
         desc = sort_by.startswith("-")
@@ -30,3 +42,20 @@ def apply_query[T: BaseModel](
         data = data[:limit]
 
     return [key_to_item[d[key_field]] for d in data]
+
+
+def project[T: BaseModel](
+    items: list[T],
+    fields: list[str] | None = None,
+) -> list[T] | list[dict]:
+    """Project fields from models. Returns models if no fields specified."""
+    if not fields:
+        return items
+
+    if not items:
+        return []
+
+    sample = items[0].model_dump()
+    key_field = "index" if "index" in sample else "id"
+    include = set(fields) | {key_field}
+    return [item.model_dump(include=include) for item in items]

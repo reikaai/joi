@@ -12,7 +12,7 @@ class TestJackettContract:
         if result.results:
             r = result.results[0]
             assert r.title
-            assert len(r.id) == 8  # short hash ID
+            assert r.id.startswith("jkt_")  # prefixed hash ID
 
     def test_search_torrents_movie(self):
         result = search_torrents(

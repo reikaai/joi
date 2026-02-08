@@ -1,14 +1,15 @@
 import os
-from typing import Any
+from typing import Annotated, Any
 
 import httpx
 from dotenv import load_dotenv
 from fastmcp import FastMCP
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from transmission_rpc import Client
 
 from joi_mcp.pagination import DEFAULT_LIMIT, paginate
-from joi_mcp.query import apply_query
+from joi_mcp.query import apply_query, project
+from joi_mcp.schema import optimize_tool_schemas
 
 load_dotenv()
 
@@ -63,7 +64,7 @@ class Torrent(BaseModel):
 
 
 class TorrentList(BaseModel):
-    torrents: list[Torrent]
+    torrents: list[Torrent] | list[dict[str, Any]]
     total: int
     offset: int
     has_more: bool
@@ -71,7 +72,7 @@ class TorrentList(BaseModel):
 
 class TorrentFileList(BaseModel):
     torrent_id: int
-    files: list[TorrentFile | FolderEntry]
+    files: list[TorrentFile | FolderEntry] | list[dict[str, Any]]
     total: int
     offset: int
     has_more: bool
@@ -123,13 +124,13 @@ def _torrent_to_model(t: Any) -> Torrent:
     )
 
 
-def _aggregate_by_depth(files: list[TorrentFile], depth: int) -> list[TorrentFile | FolderEntry]:
+def _aggregate_by_depth(files: list[TorrentFile], depth: int) -> list[BaseModel]:
     """Aggregate files into folders up to given depth."""
     if depth < 1:
         return list(files)
 
     folders: dict[str, FolderEntry] = {}
-    result: list[TorrentFile | FolderEntry] = []
+    result: list[BaseModel] = []
 
     for f in files:
         parts = f.name.split("/")
@@ -153,55 +154,29 @@ def _aggregate_by_depth(files: list[TorrentFile], depth: int) -> list[TorrentFil
 
 @mcp.tool
 def list_torrents(
-    filter_expr: str | None = None,
-    sort_by: str | None = None,
-    limit: int = DEFAULT_LIMIT,
-    offset: int = 0,
+    filter_expr: Annotated[str | None, Field(
+        description="JMESPath filter. Examples: search(@, 'interstellar'); progress >= `100` (downloaded); status=='downloading' (active)"
+    )] = None,
+    fields: Annotated[list[str] | None, Field(description="Fields subset (id auto-included)")] = None,
+    sort_by: Annotated[str | None, Field(description="Field to sort by, prefix - for desc (e.g. \"-progress\")")] = None,
+    limit: Annotated[int, Field()] = DEFAULT_LIMIT,
+    offset: Annotated[int, Field()] = 0,
 ) -> TorrentList:
-    """List torrents with pagination.
-
-    Args:
-        filter_expr: JMESPath filter (e.g. "status=='downloading'", "id==`42`")
-        sort_by: Field to sort by, prefix - for desc (e.g. "-progress")
-        limit: Max results (default 50)
-        offset: Starting position (default 0)
-    """
+    """List torrents in download queue. Fields: name, status, progress, eta, total_size, error_string, download_speed, file_count"""
     torrents = get_client().get_torrents()
     items = [_torrent_to_model(t) for t in torrents]
     filtered = apply_query(items, filter_expr, sort_by, limit=None)
     paginated, total, has_more = paginate(filtered, limit, offset)
-    return TorrentList(torrents=paginated, total=total, offset=offset, has_more=has_more)
+    result = project(paginated, fields)
+    return TorrentList(torrents=result, total=total, offset=offset, has_more=has_more)
 
 
 @mcp.tool
-def search_torrents(
-    query: str,
-    filter_expr: str | None = None,
-    sort_by: str | None = None,
-    limit: int = DEFAULT_LIMIT,
-    offset: int = 0,
-) -> TorrentList:
-    """Search LOCAL download queue by name. Use to find ALREADY ADDED torrents.
-
-    Args:
-        query: Search string for name matching
-        filter_expr: JMESPath filter (e.g. "status=='downloading'", "progress > `50`")
-        sort_by: Field to sort by, prefix - for desc (e.g. "-progress")
-        limit: Max results (default 50)
-        offset: Starting position (default 0)
-    """
-    torrents = get_client().get_torrents()
-    query_lower = query.lower()
-    matched = [t for t in torrents if query_lower in t.name.lower()]
-    items = [_torrent_to_model(t) for t in matched]
-    filtered = apply_query(items, filter_expr, sort_by, limit=None)
-    paginated, total, has_more = paginate(filtered, limit, offset)
-    return TorrentList(torrents=paginated, total=total, offset=offset, has_more=has_more)
-
-
-@mcp.tool
-def add_torrent(url: str, download_dir: str | None = None) -> Torrent:
-    """Add a torrent by URL or magnet link"""
+def add_torrent(
+    url: Annotated[str, Field(description="Torrent URL or magnet link")],
+    download_dir: Annotated[str | None, Field(description="Custom download directory")] = None,
+) -> Torrent:
+    """Add a torrent by URL or magnet link."""
     client = get_client()
     resolved_url = _resolve_url(url)
     t = client.add_torrent(resolved_url, download_dir=download_dir)
@@ -210,55 +185,44 @@ def add_torrent(url: str, download_dir: str | None = None) -> Torrent:
 
 
 @mcp.tool
-def remove_torrent(torrent_id: int, delete_data: bool = False) -> bool:
-    """Remove a torrent, optionally deleting downloaded data"""
+def remove_torrent(
+    torrent_id: Annotated[int, Field()],
+    delete_data: Annotated[bool, Field(description="Also delete downloaded data")] = False,
+) -> bool:
+    """Remove a torrent, optionally deleting downloaded data."""
     get_client().remove_torrent(torrent_id, delete_data=delete_data)
     return True
 
 
 @mcp.tool
-def pause_torrent(torrent_id: int) -> bool:
-    """Pause a torrent"""
+def pause_torrent(
+    torrent_id: Annotated[int, Field()],
+) -> bool:
+    """Pause a torrent."""
     get_client().stop_torrent(torrent_id)
     return True
 
 
 @mcp.tool
-def resume_torrent(torrent_id: int) -> bool:
-    """Resume a paused torrent"""
+def resume_torrent(
+    torrent_id: Annotated[int, Field()],
+) -> bool:
+    """Resume a paused torrent."""
     get_client().start_torrent(torrent_id)
     return True
 
 
 @mcp.tool
 def list_files(
-    torrent_id: int,
-    depth: int | None = 1,
-    filter_expr: str | None = None,
-    sort_by: str | None = None,
-    limit: int = DEFAULT_LIMIT,
-    offset: int = 0,
+    torrent_id: Annotated[int, Field()],
+    depth: Annotated[int | None, Field(description="Folder depth. 1=top folders, 2=subfolders, None=all flat")] = 1,
+    filter_expr: Annotated[str | None, Field(description="JMESPath filter (e.g. \"contains(name, 'S01')\")")] = None,
+    fields: Annotated[list[str] | None, Field(description="Fields subset (index auto-included)")] = None,
+    sort_by: Annotated[str | None, Field(description="Field to sort by, prefix - for desc (e.g. \"-size\")")] = None,
+    limit: Annotated[int, Field()] = DEFAULT_LIMIT,
+    offset: Annotated[int, Field()] = 0,
 ) -> TorrentFileList:
-    """List files/folders in a torrent with hierarchical browsing.
-
-    **Workflow for TV shows/multi-folder torrents:**
-    1. Call with depth=1 (default) → see top-level folders
-    2. Call with depth=2 → see subfolders (e.g., seasons)
-    3. Call with depth=3+ or depth=None → see actual files
-
-    **Example for "Scrubs" with 9 seasons:**
-    - depth=1: Returns [FolderEntry("Scrubs", file_count=182)]
-    - depth=2: Returns [FolderEntry("Scrubs/Season 1"), FolderEntry("Scrubs/Season 2"), ...]
-    - depth=3 or None: Returns actual episode files
-
-    Args:
-        torrent_id: Torrent ID
-        depth: Folder depth. 1=top-level (default), 2=two levels, 3+=deeper, None=all files flat
-        filter_expr: JMESPath filter (e.g. "contains(name, 'S01')")
-        sort_by: Field to sort by (e.g. "-size", "name")
-        limit: Max results per page (default 50)
-        offset: Pagination offset (default 0)
-    """
+    """List files/folders in a torrent. Fields: name, size, completed, priority | file_count, total_size, is_folder"""
     rpc_torrent = get_client().get_torrent(torrent_id)
     files = []
     for i, f in enumerate(rpc_torrent.get_files()):
@@ -268,16 +232,17 @@ def list_files(
     entries = _aggregate_by_depth(files, depth) if depth else files
     filtered = apply_query(entries, filter_expr, sort_by, limit=None)
     paginated, total, has_more = paginate(filtered, limit, offset)
+    result = project(paginated, fields)
 
     hint = None
-    if depth is not None:
+    if depth is not None and not fields:
         has_folders = any(isinstance(e, FolderEntry) for e in paginated)
         if has_folders:
             hint = f"Folders found. To see their contents, increase depth (e.g., depth={depth + 1}) or use depth=None for all files."
 
     return TorrentFileList(
         torrent_id=torrent_id,
-        files=paginated,
+        files=result,
         total=total,
         offset=offset,
         has_more=has_more,
@@ -288,17 +253,11 @@ def list_files(
 
 @mcp.tool
 def set_file_priorities(
-    torrent_id: int,
-    file_indices: list[int],
-    priority: int,
+    torrent_id: Annotated[int, Field()],
+    file_indices: Annotated[list[int], Field(description="File indices (0-based, from list_files)")],
+    priority: Annotated[int, Field(description="0=skip, 1=low, 2=normal, 3=high")],
 ) -> bool:
-    """Set download priority for specific files.
-
-    Args:
-        torrent_id: Torrent ID
-        file_indices: List of file indices (0-based, from list_torrent_files)
-        priority: 0=skip, 1=low, 2=normal, 3=high
-    """
+    """Set download priority for specific files."""
     client = get_client()
     if priority == 0:
         client.change_torrent(torrent_id, files_unwanted=file_indices)
@@ -311,3 +270,6 @@ def set_file_priorities(
         elif priority == 3:
             client.change_torrent(torrent_id, priority_high=file_indices)
     return True
+
+
+optimize_tool_schemas(mcp)

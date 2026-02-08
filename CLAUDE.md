@@ -5,6 +5,7 @@ Don't care about deployment - run it all locally only.
 Use linters available - ruff, ty, all the time. All dependencies add thru `uv add` only.
 Use loguru for all logging (never print). Logs go to logs/ folder.
 Speak short, concise, like an expert to an expert.
+Use agents when possible, we care about tokens and context window.
 
 # Dev Workflow
 MCP server (Terminal 1): `make dev-mcp`
@@ -19,3 +20,6 @@ Run tests: `uv run pytest -v -m contract`
 Refresh cassettes: `uv run pytest -v -m contract --record-mode=all`
 
 Cassettes live in `tests/joi_mcp/cassettes/`.
+
+# MCP Patterns
+See [docs/mcp-patterns.md](docs/mcp-patterns.md) for tool design guidance.

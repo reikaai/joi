@@ -1,0 +1,7 @@
+{
+  "dependencies": ["."],
+  "graphs": {
+    "joi": "./src/joi_agent_langgraph/graph.py:graph"
+  },
+  "env": ".env"
+}
