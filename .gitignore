@@ -101,3 +101,5 @@ mlruns/
 # RAG Chatbot
 chroma_db/
 tickets.jsonl
+.claude/settings.local.json
+.langgraph_api

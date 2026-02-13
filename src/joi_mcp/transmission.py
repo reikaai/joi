@@ -154,15 +154,13 @@ def _aggregate_by_depth(files: list[TorrentFile], depth: int) -> list[BaseModel]
 
 @mcp.tool
 def list_torrents(
-    filter_expr: Annotated[str | None, Field(
-        description="JMESPath filter. Examples: search(@, 'interstellar'); progress >= `100` (downloaded); status=='downloading' (active)"
-    )] = None,
-    fields: Annotated[list[str] | None, Field(description="Fields subset (id auto-included)")] = None,
-    sort_by: Annotated[str | None, Field(description="Field to sort by, prefix - for desc (e.g. \"-progress\")")] = None,
+    filter_expr: Annotated[str | None, Field(description="JMESPath filter; search(@, 'text') for text search")] = None,
+    fields: Annotated[list[str] | None, Field(description="Fields (id auto-incl.)")] = None,
+    sort_by: Annotated[str | None, Field(description="Sort field, - prefix for desc")] = None,
     limit: Annotated[int, Field()] = DEFAULT_LIMIT,
     offset: Annotated[int, Field()] = 0,
 ) -> TorrentList:
-    """List torrents in download queue. Fields: name, status, progress, eta, total_size, error_string, download_speed, file_count"""
+    """List torrents. Fields: name, status, progress, eta, total_size, error_string, download_speed, file_count"""
     torrents = get_client().get_torrents()
     items = [_torrent_to_model(t) for t in torrents]
     filtered = apply_query(items, filter_expr, sort_by, limit=None)
@@ -173,10 +171,10 @@ def list_torrents(
 
 @mcp.tool
 def add_torrent(
-    url: Annotated[str, Field(description="Torrent URL or magnet link")],
-    download_dir: Annotated[str | None, Field(description="Custom download directory")] = None,
+    url: Annotated[str, Field(description="URL or magnet")],
+    download_dir: Annotated[str | None, Field(description="Download directory")] = None,
 ) -> Torrent:
-    """Add a torrent by URL or magnet link."""
+    """Add torrent by URL or magnet."""
     client = get_client()
     resolved_url = _resolve_url(url)
     t = client.add_torrent(resolved_url, download_dir=download_dir)
@@ -187,9 +185,9 @@ def add_torrent(
 @mcp.tool
 def remove_torrent(
     torrent_id: Annotated[int, Field()],
-    delete_data: Annotated[bool, Field(description="Also delete downloaded data")] = False,
+    delete_data: Annotated[bool, Field(description="Delete downloaded data")] = False,
 ) -> bool:
-    """Remove a torrent, optionally deleting downloaded data."""
+    """Remove torrent, optionally delete data."""
     get_client().remove_torrent(torrent_id, delete_data=delete_data)
     return True
 
@@ -198,7 +196,7 @@ def remove_torrent(
 def pause_torrent(
     torrent_id: Annotated[int, Field()],
 ) -> bool:
-    """Pause a torrent."""
+    """Pause torrent."""
     get_client().stop_torrent(torrent_id)
     return True
 
@@ -207,7 +205,7 @@ def pause_torrent(
 def resume_torrent(
     torrent_id: Annotated[int, Field()],
 ) -> bool:
-    """Resume a paused torrent."""
+    """Resume torrent."""
     get_client().start_torrent(torrent_id)
     return True
 
@@ -215,14 +213,14 @@ def resume_torrent(
 @mcp.tool
 def list_files(
     torrent_id: Annotated[int, Field()],
-    depth: Annotated[int | None, Field(description="Folder depth. 1=top folders, 2=subfolders, None=all flat")] = 1,
-    filter_expr: Annotated[str | None, Field(description="JMESPath filter (e.g. \"contains(name, 'S01')\")")] = None,
-    fields: Annotated[list[str] | None, Field(description="Fields subset (index auto-included)")] = None,
-    sort_by: Annotated[str | None, Field(description="Field to sort by, prefix - for desc (e.g. \"-size\")")] = None,
+    depth: Annotated[int | None, Field(description="Depth. 1=top, 2=sub, None=all")] = 1,
+    filter_expr: Annotated[str | None, Field(description="JMESPath filter; search(@, 'text') for text search")] = None,
+    fields: Annotated[list[str] | None, Field(description="Fields (index auto-incl.)")] = None,
+    sort_by: Annotated[str | None, Field(description="Sort field, - prefix for desc")] = None,
     limit: Annotated[int, Field()] = DEFAULT_LIMIT,
     offset: Annotated[int, Field()] = 0,
 ) -> TorrentFileList:
-    """List files/folders in a torrent. Fields: name, size, completed, priority | file_count, total_size, is_folder"""
+    """List torrent files/folders. Fields: name, size, completed, priority | file_count, total_size, is_folder"""
     rpc_torrent = get_client().get_torrent(torrent_id)
     files = []
     for i, f in enumerate(rpc_torrent.get_files()):
@@ -254,10 +252,10 @@ def list_files(
 @mcp.tool
 def set_file_priorities(
     torrent_id: Annotated[int, Field()],
-    file_indices: Annotated[list[int], Field(description="File indices (0-based, from list_files)")],
+    file_indices: Annotated[list[int], Field(description="File indices from list_files")],
     priority: Annotated[int, Field(description="0=skip, 1=low, 2=normal, 3=high")],
 ) -> bool:
-    """Set download priority for specific files."""
+    """Set file download priority."""
     client = get_client()
     if priority == 0:
         client.change_torrent(torrent_id, files_unwanted=file_indices)

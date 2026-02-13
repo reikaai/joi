@@ -1,10 +1,10 @@
 services:
-  mcp:
-    build: .
-    command: uv run python -m joi_mcp.server
-    ports:
-      - "8000:8000"
-    env_file: .env
+  # mcp:
+  #   build: .
+  #   command: uv run python -m joi_mcp.server
+  #   ports:
+  #     - "8000:8000"
+  #   env_file: .env
 
   # agent:
   #   build: .
@@ -91,6 +91,14 @@ services:
   #       condition: service_started
   #   volumes:
   #     - logs:/app/logs
+
+  playwright-mcp:
+    image: mcr.microsoft.com/playwright/mcp:latest
+    init: true
+    entrypoint: ["node", "cli.js", "--headless", "--browser", "chromium", "--no-sandbox", "--port", "8931", "--host", "0.0.0.0", "--allowed-hosts", "*"]
+    ports:
+      - "3100:8931"
+    shm_size: "1g"
 
 volumes:
   data:

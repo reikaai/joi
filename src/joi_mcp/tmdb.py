@@ -79,12 +79,12 @@ class FindResult(BaseModel):
 
 @mcp.tool
 def lookup_by_imdb(
-    imdb_id: Annotated[str, Field(description="IMDB ID (e.g. \"tt0111161\")")],
-    filter_expr: Annotated[str | None, Field(description="JMESPath filter for results")] = None,
-    fields: Annotated[list[str] | None, Field(description="Fields subset (id auto-included)")] = None,
+    imdb_id: Annotated[str, Field(description="IMDB ID (tt0111161)")],
+    filter_expr: Annotated[str | None, Field(description="JMESPath filter; search(@, 'text') for text search")] = None,
+    fields: Annotated[list[str] | None, Field(description="Fields (id auto-incl.)")] = None,
     limit: Annotated[int, Field()] = DEFAULT_LIMIT,
 ) -> FindResult:
-    """Get movie/TV by IMDB ID. Fields: title/name, overview, release_date/first_air_date, popularity, vote_average, genre_ids"""
+    """Lookup by IMDB ID. Fields: title/name, overview, release_date/first_air_date, popularity, vote_average, genre_ids"""
     find = tmdb.Find(imdb_id)
     result = find.info(external_source="imdb_id")
     movies = [Movie.model_validate(m) for m in result.get("movie_results", [])]
@@ -102,14 +102,14 @@ def lookup_by_imdb(
 @mcp.tool
 def search_movies(
     name: Annotated[str, Field()],
-    year: Annotated[int | None, Field(description="Filter by release year")] = None,
-    filter_expr: Annotated[str | None, Field(description="JMESPath filter (e.g. \"vote_average > `7`\")")] = None,
-    fields: Annotated[list[str] | None, Field(description="Fields subset (id auto-included)")] = None,
-    sort_by: Annotated[str | None, Field(description="Field to sort by, prefix - for desc (e.g. \"-popularity\")")] = None,
+    year: Annotated[int | None, Field(description="Release year")] = None,
+    filter_expr: Annotated[str | None, Field(description="JMESPath filter; search(@, 'text') for text search")] = None,
+    fields: Annotated[list[str] | None, Field(description="Fields (id auto-incl.)")] = None,
+    sort_by: Annotated[str | None, Field(description="Sort field, - prefix for desc")] = None,
     limit: Annotated[int, Field()] = DEFAULT_LIMIT,
     offset: Annotated[int, Field()] = 0,
 ) -> MovieList:
-    """Search movies by name. Fields: title, overview, release_date, popularity, vote_average, genre_ids, poster_path"""
+    """Search movies. Fields: title, overview, release_date, popularity, vote_average, genre_ids, poster_path"""
     search = tmdb.Search()
     movies = [Movie.model_validate(m) for m in search.movie(query=name, year=year)["results"]]
     filtered = apply_query(movies, filter_expr, sort_by, limit=None)
@@ -121,18 +121,18 @@ def search_movies(
 @mcp.tool
 def discover_movies(
     source: Annotated[Literal["recommendations", "similar", "genre"], Field(
-        description="Discovery source: recommendations/similar (need movie_id), genre (need genre_id)"
+        description="Source: recommendations/similar (movie_id) or genre (genre_id)"
     )],
-    movie_id: Annotated[int | None, Field(description="TMDB movie ID (for recommendations/similar)")] = None,
-    genre_id: Annotated[int | None, Field(description="TMDB genre ID (for genre source)")] = None,
-    page: Annotated[int, Field(description="TMDB page number (genre only)")] = 1,
-    filter_expr: Annotated[str | None, Field(description="JMESPath filter")] = None,
-    fields: Annotated[list[str] | None, Field(description="Fields subset (id auto-included)")] = None,
-    sort_by: Annotated[str | None, Field(description="Field to sort by, prefix - for desc")] = None,
+    movie_id: Annotated[int | None, Field(description="TMDB movie ID")] = None,
+    genre_id: Annotated[int | None, Field(description="TMDB genre ID")] = None,
+    page: Annotated[int, Field()] = 1,
+    filter_expr: Annotated[str | None, Field(description="JMESPath filter; search(@, 'text') for text search")] = None,
+    fields: Annotated[list[str] | None, Field(description="Fields (id auto-incl.)")] = None,
+    sort_by: Annotated[str | None, Field(description="Sort field, - prefix for desc")] = None,
     limit: Annotated[int, Field()] = DEFAULT_LIMIT,
     offset: Annotated[int, Field()] = 0,
 ) -> MovieList:
-    """Discover movies via recommendations, similarity, or genre. Fields: title, overview, release_date, vote_average, genre_ids"""
+    """Discover movies by recommendations, similarity, or genre. Fields: title, overview, release_date, vote_average, genre_ids"""
     if source in ("recommendations", "similar"):
         if movie_id is None:
             raise ValueError(f"movie_id required for source={source}")
@@ -152,12 +152,12 @@ def discover_movies(
 
 @mcp.tool
 def list_genres(
-    filter_expr: Annotated[str | None, Field(description="JMESPath filter (e.g. \"contains(name, 'Action')\")")] = None,
-    fields: Annotated[list[str] | None, Field(description="Fields subset (id auto-included)")] = None,
-    sort_by: Annotated[str | None, Field(description="Field to sort by, prefix - for desc (e.g. \"name\")")] = None,
+    filter_expr: Annotated[str | None, Field(description="JMESPath filter; search(@, 'text') for text search")] = None,
+    fields: Annotated[list[str] | None, Field(description="Fields (id auto-incl.)")] = None,
+    sort_by: Annotated[str | None, Field(description="Sort field, - prefix for desc")] = None,
     limit: Annotated[int, Field()] = DEFAULT_LIMIT,
 ) -> GenreList:
-    """List all movie genres. Fields: name"""
+    """List movie genres. Fields: name"""
     genres_api = tmdb.Genres()
     genres = [Genre.model_validate(g) for g in genres_api.movie_list()["genres"]]
     filtered = apply_query(genres, filter_expr, sort_by, limit=None)

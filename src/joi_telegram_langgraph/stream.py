@@ -12,6 +12,10 @@ def _is_tool_node(node_name: str) -> bool:
     return node_name.endswith(":tools") or node_name == "tools"
 
 
+def _fmt_tokens(n: int) -> str:
+    return f"{n / 1000:.1f}k" if n >= 1000 else str(n)
+
+
 def format_status(tool_states: list[tuple[str, str]]) -> str:
     if not tool_states:
         return "Processing..."
@@ -51,6 +55,7 @@ async def _handle_stream(
 ) -> None:
     accumulated_text = ""
     current_ai_node = None
+    usage = {"input_tokens": 0, "output_tokens": 0}
 
     async def flush_text():
         nonlocal accumulated_text
@@ -103,6 +108,24 @@ async def _handle_stream(
                     current_ai_node = node
                     accumulated_text = content
 
+                tool_calls = msg.get("tool_calls", [])
+                if tool_calls:
+                    await flush_text()
+                    for tc in tool_calls:
+                        tool_name = tc.get("name", "")
+                        if tool_name and not any(tool_name in name for name, _ in tool_states):
+                            tool_states.append((tool_name, "pending"))
+                    await update_status(format_status(tool_states))
+
+            elif msg_type == "ToolMessageChunk":
+                tool_name = msg.get("name", "")
+                for i, (name, st) in enumerate(tool_states):
+                    if tool_name in name and st in ("pending", "running"):
+                        tool_states[i] = (name, "done")
+                        break
+                if tool_states:
+                    await update_status(format_status(tool_states))
+
         elif chunk.event == "messages":
             data = chunk.data
             if isinstance(data, list) and len(data) >= 2:
@@ -110,13 +133,19 @@ async def _handle_stream(
                 node = metadata.get("langgraph_node", "") if isinstance(metadata, dict) else ""
                 msg_type = msg.get("type", "") if isinstance(msg, dict) else ""
 
-                if msg_type == "ai" and not _is_tool_node(node):
-                    content = msg.get("content", "")
-                    if isinstance(content, str) and content:
-                        if current_ai_node and current_ai_node != node:
-                            await flush_text()
-                        current_ai_node = node
-                        accumulated_text = content
+                if msg_type == "ai":
+                    um = msg.get("usage_metadata")
+                    if um and isinstance(um, dict):
+                        usage["input_tokens"] += um.get("input_tokens", 0)
+                        usage["output_tokens"] += um.get("output_tokens", 0)
+
+                    if not _is_tool_node(node):
+                        content = msg.get("content", "")
+                        if isinstance(content, str) and content:
+                            if current_ai_node and current_ai_node != node:
+                                await flush_text()
+                            current_ai_node = node
+                            accumulated_text = content
 
         elif chunk.event == "updates":
             data = chunk.data
@@ -196,8 +225,14 @@ async def _handle_stream(
 
         elif chunk.event == "end":
             await flush_text()
+            parts = []
             if tool_states:
-                await update_status(format_status(tool_states) + " done")
+                parts.append(format_status(tool_states))
+            total = usage["input_tokens"] + usage["output_tokens"]
+            if total > 0:
+                parts.append(f"{_fmt_tokens(usage['input_tokens'])} in / {_fmt_tokens(usage['output_tokens'])} out")
+            if parts:
+                await update_status(" | ".join(parts))
 
         elif chunk.event == "error":
             await flush_text()

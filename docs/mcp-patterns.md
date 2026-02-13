@@ -16,9 +16,9 @@ Patterns for building effective MCP tools. Based on [Anthropic's tool design gui
 
 ### Parameter Descriptions
 
-FastMCP builds per-parameter JSON schema via Pydantic's `Field()` — but with no args, so parameters only get type + default, **no `"description"`**. The full docstring becomes the tool's top-level `description`, but weaker models don't reliably map examples in a text blob to the right parameters.
+FastMCP builds per-parameter JSON schema via Pydantic's `Field()` — but with no args, parameters only get type + default, **no `"description"`**. Descriptions add tokens to every tool call, so only include them when they carry real information beyond what name + type already convey.
 
-**Fix:** Use `Annotated[type, Field(description="...")]` on every parameter:
+**Two-tier approach:** Describe params that need it, skip descriptions for self-documenting ones:
 
 ```python
 from typing import Annotated
@@ -26,23 +26,34 @@ from pydantic import Field
 
 @mcp.tool
 def list_torrents(
-    filter_expr: Annotated[str | None, Field(
-        description="JMESPath filter. Examples: search(@, 'interstellar'); progress >= `100` (downloaded)"
-    )] = None,
-    fields: Annotated[list[str] | None, Field(description="Fields to project from results (id always included)")] = None,
-    sort_by: Annotated[str | None, Field(description="Field to sort by, prefix - for desc")] = None,
-    limit: Annotated[int, Field(description="Max results")] = DEFAULT_LIMIT,
-    offset: Annotated[int, Field(description="Starting position")] = 0,
+    filter_expr: Annotated[str | None, Field(description="JMESPath filter; search(@, 'text') for text search")] = None,
+    fields: Annotated[list[str] | None, Field(description="Fields (id auto-incl.)")] = None,
+    sort_by: Annotated[str | None, Field(description="Sort field, - prefix for desc")] = None,
+    limit: Annotated[int, Field()] = DEFAULT_LIMIT,
+    offset: Annotated[int, Field()] = 0,
 ) -> TorrentList:
-    """List torrents in local download queue."""
+    """List torrents. Fields: name, status, progress, eta, ..."""
 ```
 
-Guidelines:
-- **`filter_expr`**: Include domain-specific JMESPath examples (most impactful for agent behavior)
-- **`fields`**: Brief — `"Fields to project from results (id always included)"`
-- **`sort_by`**, **`limit`**, **`offset`**: Brief, self-explanatory
-- **Domain params** (query, torrent_id, etc.): Brief description of purpose
-- **Docstrings**: One-liner + available fields list. Keep workflow notes only for complex tools (e.g. `list_files` depth)
+**Describe** — description adds real info:
+- `filter_expr` — "JMESPath filter; search(@, 'text') for text search" (standardized across all tools)
+- `fields` — "Fields (id auto-incl.)"
+- `sort_by` — "Sort field, - prefix for desc"
+- `imdb_id` — format example (`tt0111161`)
+- `depth` — "Depth. 1=top, 2=sub, None=all"
+- `categories` — ID reference
+- `priority` — level mapping (0=skip, 1=low, …)
+- `file_indices` — source reference (`list_files`)
+- `source` — conditional requirements
+
+**Skip** — name + type + context suffice:
+- `limit`, `offset` — universal pagination
+- `query`, `name` — plain search terms
+- `torrent_id` — obvious from name + `int` type
+- `search_type` — enum values self-document via JSON schema
+- `year`, `season`, `episode` — obvious from name + search_type enum context
+- `page` — universally understood (`int = 1`)
+- **Docstrings**: One-liner + available fields list. Drop articles/filler ("Search movies." not "Search movies by name.")
 
 ### Naming
 
@@ -63,8 +74,8 @@ Combine list/search/filter into one tool with JMESPath:
 async def list_<resource>(
     filter_expr: Annotated[str | None, Field(description="JMESPath filter. Examples: ...")] = None,
     sort_by: Annotated[str | None, Field(description="Field to sort by, prefix - for desc")] = None,
-    limit: Annotated[int, Field(description="Max results")] = 50,
-    offset: Annotated[int, Field(description="Starting position")] = 0,
+    limit: Annotated[int, Field()] = 50,
+    offset: Annotated[int, Field()] = 0,
 ) -> ResourceList:
 ```
 
@@ -79,7 +90,7 @@ Add `fields` param for selective field return:
 ```python
 @mcp.tool
 async def list_<resource>(
-    filter_expr: Annotated[str | None, Field(description="JMESPath filter")] = None,
+    filter_expr: Annotated[str | None, Field(description="JMESPath filter; search(@, 'text') for text search")] = None,
     fields: Annotated[list[str] | None, Field(description="Fields to project from results (id always included)")] = None,
     ...
 ) -> ResourceList:
@@ -241,8 +252,38 @@ uv run pytest tests/joi_mcp/test_tool_schemas.py -v
 uv run pytest tests/joi_mcp/test_tool_schemas.py --update-snapshots
 ```
 
+## Token Optimization
+
+Measured via `test_tool_schema_budget_total` (OpenAI tool format, 13 tools across 3 servers).
+
+**Baseline**: 7964 chars (~1991 tokens) → **Final**: 7256 chars (~1814 tokens) = **-708 chars (-177 tokens, -8.9%)**
+
+### Techniques tested
+
+| # | Technique | Ref | Savings | Risk | Rec |
+|---|-----------|-----|---------|------|-----|
+| 1 | Drop self-documenting param descriptions (`year`, `season`, `episode`) | [NLT](https://arxiv.org/abs/2510.14453) | -141 chars | Low | Adopt |
+| 2 | Standardize `sort_by` desc across tools ("Sort field, - prefix for desc") | [SEP-1576](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/1576) | -133 chars | Low | Adopt |
+| 3 | Compress tool docstrings — drop articles, filler, qualifiers | [10 Strategies](https://thenewstack.io/how-to-reduce-mcp-token-bloat/) | -126 chars | Low | Adopt |
+| 4 | Micro-compress remaining param descriptions | [Anthropic engineering](https://www.anthropic.com/engineering/code-execution-with-mcp) | -247 chars | Low | Adopt |
+| 5 | Deduplicate `filter_expr` to "JMESPath filter" across all 7 tools | [SEP-1576](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/1576) | -258 chars | Medium | Adopt |
+| 6 | Drop `page` description — `page: int = 1` is obvious | [NLT](https://arxiv.org/abs/2510.14453) | -48 chars | Low | Adopt |
+
+### Key takeaways
+
+- **Deduplication has highest yield** (Exp 5: -258 chars). Same param described differently across tools = pure waste.
+- **Micro-compression adds up** (Exp 4: -247 chars). "Fields subset (id auto-included)" → "Fields (id auto-incl.)" across 7 occurrences.
+- **Self-documenting params need no description** (Exp 1, 6: -189 combined). If name + type + enum context tell the story, skip the description.
+- **Standardize cross-tool patterns once** (Exp 2: -133 chars). One canonical `sort_by` description, not per-tool examples.
+- **Docstring compression is modest but free** (Exp 3: -126 chars). Articles and filler words add zero signal.
+
 ## References
 
 - [Writing effective tools for AI agents](https://www.anthropic.com/engineering/writing-tools-for-agents)
 - [Code execution with MCP](https://www.anthropic.com/engineering/code-execution-with-mcp)
 - [MCP Specification](https://modelcontextprotocol.io/specification/2025-11-25)
+- [SEP-1576: Token Bloat in MCP](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/1576)
+- [NLT: Natural Language Tools (ArXiv 2510.14453)](https://arxiv.org/abs/2510.14453)
+- [Less is More (ArXiv 2411.15399)](https://arxiv.org/abs/2411.15399)
+- [10 Strategies to Reduce MCP Token Bloat](https://thenewstack.io/how-to-reduce-mcp-token-bloat/)
+- [Speakeasy: 100x Token Reduction](https://www.speakeasy.com/blog/100x-token-reduction-dynamic-toolsets)

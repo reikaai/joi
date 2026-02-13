@@ -6,6 +6,7 @@ Use linters available - ruff, ty, all the time. All dependencies add thru `uv ad
 Use loguru for all logging (never print). Logs go to logs/ folder.
 Speak short, concise, like an expert to an expert.
 Use agents when possible, we care about tokens and context window.
+If WebFetch fails, retry with `https://r.jina.ai/` prefix.
 
 # Dev Workflow
 MCP server (Terminal 1): `make dev-mcp`

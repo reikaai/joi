@@ -15,5 +15,7 @@ LOGS_DIR.mkdir(exist_ok=True)
 DATA_DIR = Path(__file__).parent.parent.parent / "data"
 DATA_DIR.mkdir(exist_ok=True)
 
+PLAYWRIGHT_MCP_URL = os.getenv("PLAYWRIGHT_MCP_URL", "http://127.0.0.1:3100")
+
 PERSONA_PATH = Path(__file__).parent.parent / "joi_agent" / "persona.md"
 MEDIA_PERSONA_PATH = Path(__file__).parent.parent / "joi_agent" / "media_persona.md"

@@ -180,17 +180,17 @@ def _search(params: dict) -> list[TorrentSummary]:
 def search_torrents(
     query: Annotated[str, Field()],
     search_type: Annotated[Literal["search", "movie", "tvsearch"], Field()] = "search",
-    year: Annotated[int | None, Field(description="Release year for movie/tvsearch")] = None,
-    season: Annotated[int | None, Field(description="Season number for tvsearch")] = None,
-    episode: Annotated[int | None, Field(description="Episode number for tvsearch")] = None,
-    categories: Annotated[list[int] | None, Field(description="Torznab category IDs (2000=Movies, 5000=TV)")] = None,
-    filter_expr: Annotated[str | None, Field(description="JMESPath filter. Examples: seeders > `10`; search(@, 'remux')")] = None,
-    fields: Annotated[list[str] | None, Field(description="Fields subset (id auto-included)")] = None,
-    sort_by: Annotated[str | None, Field(description="Field to sort by, prefix - for desc (e.g. \"-seeders\")")] = None,
+    year: Annotated[int | None, Field()] = None,
+    season: Annotated[int | None, Field()] = None,
+    episode: Annotated[int | None, Field()] = None,
+    categories: Annotated[list[int] | None, Field(description="Category IDs (2000=Movies, 5000=TV)")] = None,
+    filter_expr: Annotated[str | None, Field(description="JMESPath filter; search(@, 'text') for text search")] = None,
+    fields: Annotated[list[str] | None, Field(description="Fields (id auto-incl.)")] = None,
+    sort_by: Annotated[str | None, Field(description="Sort field, - prefix for desc")] = None,
     limit: Annotated[int, Field()] = DEFAULT_LIMIT,
     offset: Annotated[int, Field()] = 0,
 ) -> SearchResults:
-    """Search torrent indexers. Fields: title, size, seeders, leechers, indexer"""
+    """Search torrents. Fields: title, size, seeders, leechers, indexer"""
     params = {"t": search_type, "q": query}
 
     if year:
@@ -211,9 +211,9 @@ def search_torrents(
 
 @mcp.tool
 def get_torrent(
-    id: Annotated[str, Field(description="Torrent ID from search results (jkt_xxxxxxxx)")],
+    id: Annotated[str, Field(description="Torrent ID (jkt_xxxxxxxx)")],
 ) -> TorrentDetail:
-    """Get full torrent details including download link by ID."""
+    """Get torrent details by ID."""
     if not id.startswith(ID_PREFIX):
         raise ValueError(f"Invalid torrent ID format: {id}. Expected jkt_xxxxxxxx from search results.")
     if id not in _cache:

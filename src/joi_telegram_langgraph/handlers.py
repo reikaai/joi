@@ -86,11 +86,18 @@ async def run_agent(content: str, user_id: str, chat_id: int, message: Message) 
             input={"messages": [{"role": "user", "content": content}]},
             stream_mode=["updates", "messages-tuple", "custom"],
             if_not_exists="create",
+            stream_subgraphs=True,
         )
         await asyncio.wait_for(
             _handle_stream(
-                stream, thread_id, message, tool_states, update_status,
-                pending_confirms, resume_agent, ConfirmCallback,
+                stream,
+                thread_id,
+                message,
+                tool_states,
+                update_status,
+                pending_confirms,
+                resume_agent,
+                ConfirmCallback,
             ),
             timeout=600,
         )
@@ -123,11 +130,18 @@ async def resume_agent(thread_id: str, approved: bool, message: Message, tool_st
             assistant_id=ASSISTANT_ID,
             command={"resume": resume_value},
             stream_mode=["updates", "messages-tuple", "custom"],
+            stream_subgraphs=True,
         )
         await asyncio.wait_for(
             _handle_stream(
-                stream, thread_id, message, tool_states, update_status,
-                pending_confirms, resume_agent, ConfirmCallback,
+                stream,
+                thread_id,
+                message,
+                tool_states,
+                update_status,
+                pending_confirms,
+                resume_agent,
+                ConfirmCallback,
             ),
             timeout=600,
         )

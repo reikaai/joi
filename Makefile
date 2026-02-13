@@ -1,4 +1,4 @@
-.PHONY: dev-mcp dev-agent dev-agent-debug dev-telegram dev-agent-langgraph dev-telegram-langgraph test lint docker-build docker-up docker-down docker-logs
+.PHONY: dev-mcp dev-agent dev-agent-debug dev-telegram dev-agent-langgraph dev-telegram-langgraph dev-playwright test lint docker-build docker-up docker-down docker-logs
 
 dev-mcp:
 	uv run uvicorn joi_mcp.server:app --reload --reload-dir src/joi_mcp --host 127.0.0.1 --port 8000
@@ -17,6 +17,9 @@ dev-agent-langgraph:
 
 dev-telegram-langgraph:
 	uv run watchfiles --filter python 'uv run python -m joi_telegram_langgraph.main' src/joi_telegram_langgraph
+
+dev-playwright:
+	docker run --rm --init -p 3100:8931 --shm-size=1g mcr.microsoft.com/playwright/mcp:latest node cli.js --headless --browser chromium --no-sandbox --port 8931 --host 0.0.0.0 --allowed-hosts '*'
 
 test:
 	uv run pytest -v -m contract
