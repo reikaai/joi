@@ -13,7 +13,7 @@ LOGS_DIR.mkdir(exist_ok=True)
 logger.add(LOGS_DIR / "joi_telegram_langgraph.log", rotation="10 MB", retention="7 days")
 
 LANGGRAPH_URL = os.getenv("LANGGRAPH_URL", "http://localhost:2024")
-ASSISTANT_ID = "joi"
+ASSISTANT_ID = os.getenv("ASSISTANT_ID", "joi")
 
 langgraph = get_client(url=LANGGRAPH_URL)
 

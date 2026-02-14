@@ -18,6 +18,9 @@ dev-agent-langgraph:
 dev-telegram-langgraph:
 	uv run watchfiles --filter python 'uv run python -m joi_telegram_langgraph.main' src/joi_telegram_langgraph
 
+dev-telegram-langgraph-v2:
+	ASSISTANT_ID=joi_v2 uv run watchfiles --filter python 'uv run python -m joi_telegram_langgraph.main' src/joi_telegram_langgraph
+
 dev-playwright:
 	docker run --rm --init -p 3100:8931 --shm-size=1g mcr.microsoft.com/playwright/mcp:latest node cli.js --headless --browser chromium --no-sandbox --port 8931 --host 0.0.0.0 --allowed-hosts '*'
 
