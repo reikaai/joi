@@ -8,6 +8,11 @@ Speak short, concise, like an expert to an expert.
 Use agents when possible, we care about tokens and context window.
 If WebFetch fails, retry with `https://r.jina.ai/` prefix.
 
+# On Every Task
+1. Register session: `scripts/session.sh register "<domain>" "<directory>" "<description>"`
+2. Before modifying files outside your domain: `scripts/session.sh check`
+3. On completion: `scripts/session.sh done`
+
 # Dev Workflow
 MCP server (Terminal 1): `make dev-mcp`
 Agent (Terminal 2): `make dev-agent`
@@ -34,14 +39,12 @@ See [docs/mcp-patterns.md](docs/mcp-patterns.md) for tool design guidance.
 
 # Multi-Session Coordination
 Multiple Claude Code sessions run in parallel on this codebase via tmux.
-
-## Session Registry
-On task start: `scripts/session.sh register "<domain>" "<directory>" "<description>"`
-Before modifying files: `scripts/session.sh check` — avoid touching directories another session owns.
-On completion: `scripts/session.sh done`
 See stale entries (>1d): `scripts/session.sh cleanup`
 
-## Linter Ownership
+# Postponed Work
+When we decide to postpone something, add it to `TODO.md` with a clear description of the problem and rough direction.
+
+# Linter Ownership
 Always run `ruff check` and `ty check` after your changes. If you see errors:
 1. Fix errors in files you touched — always your responsibility.
 2. Errors in files you didn't touch — run `scripts/session.sh check`. If another session owns that area, leave it. If no one else is working, fix it yourself.
