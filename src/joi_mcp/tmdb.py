@@ -1,20 +1,17 @@
-import os
 from typing import Annotated, Any, Literal
 
 import tmdbsimple as tmdb
-from dotenv import load_dotenv
 from fastmcp import FastMCP
 from pydantic import BaseModel, Field
 
+from joi_mcp.config import settings
 from joi_mcp.pagination import DEFAULT_LIMIT, paginate
 from joi_mcp.query import apply_query, project
 from joi_mcp.schema import optimize_tool_schemas
 
-load_dotenv()
-
 mcp = FastMCP("TMDB")
 if not tmdb.API_KEY:
-    tmdb.API_KEY = os.getenv("TMDB_API_KEY")
+    tmdb.API_KEY = settings.tmdb_api_key
 
 
 class Movie(BaseModel):

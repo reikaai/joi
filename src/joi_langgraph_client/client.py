@@ -22,7 +22,8 @@ def _is_tool_node(node_name: str) -> bool:
 def format_tool_status(tools: list[ToolState]) -> str:
     if not tools:
         return "Processing..."
-    return " -> ".join(t.format() for t in tools)
+    roots = [t for t in tools if not t._is_child]
+    return " -> ".join(t.format() for t in roots)
 
 
 class AgentStreamClient:
@@ -72,20 +73,23 @@ class AgentStreamClient:
 
     async def _consume_stream(self, stream) -> InterruptData | None:
         async for chunk in stream:
-            logger.debug(f"{self._log_prefix} stream: {chunk.event} data={chunk.data}")
-            match chunk.event:
-                case "updates":
+            base_event = chunk.event.split("|", 1)[0]
+            is_subgraph = "|" in chunk.event
+            logger.debug(f"{self._log_prefix} stream: {chunk.event} (base={base_event}, sub={is_subgraph}) data={chunk.data}")
+            match base_event:
+                case "updates" if not is_subgraph:
                     interrupt = await self._handle_update(chunk.data)
                     if interrupt:
                         return interrupt
+                case "updates" if is_subgraph:
+                    self._collect_subgraph_usage(chunk.data)
                 case "custom":
-                    await self._handle_custom(chunk.data)
-                case "end":
-                    await self._renderer.show_completion(self._tools, self._usage)
+                    await self._handle_custom(chunk.data, is_subgraph=is_subgraph)
                 case "error":
                     error = chunk.data if isinstance(chunk.data, str) else json.dumps(chunk.data, default=str)
                     logger.error(f"{self._log_prefix} stream error: {error}")
                     await self._renderer.show_error(error)
+        await self._renderer.show_completion(self._tools, self._usage)
         return None
 
     async def _handle_update(self, data: dict) -> InterruptData | None:
@@ -101,24 +105,43 @@ class AgentStreamClient:
                 continue
             node = NodeUpdate.model_validate(raw)
             for msg in node.messages:
-                match msg:
-                    case AiMessage(usage_metadata=um) if msg.text:
+                if isinstance(msg, AiMessage):
+                    if msg.text:
                         await self._renderer.send_text(msg.text)
-                        if um:
-                            cache_read = 0
-                            cache_creation = 0
-                            if um.input_token_details:
-                                cache_read = um.input_token_details.cache_read
-                                cache_creation = um.input_token_details.cache_creation
-                                logger.debug(f"{self._log_prefix} cache tokens: read={cache_read}, creation={cache_creation}")
-                            self._usage.add(um.input_tokens, um.output_tokens, cache_read, cache_creation)
+                    self._collect_usage(msg)
         return None
 
-    async def _handle_custom(self, data) -> None:
+    def _collect_usage(self, msg: AiMessage) -> None:
+        um = msg.usage_metadata
+        if not um:
+            return
+        cache_read = cache_creation = 0
+        if um.input_token_details:
+            cache_read = um.input_token_details.cache_read
+            cache_creation = um.input_token_details.cache_creation
+        logger.debug(f"{self._log_prefix} usage: in={um.input_tokens} out={um.output_tokens} cache_read={cache_read}")
+        self._usage.add(um.input_tokens, um.output_tokens, cache_read, cache_creation)
+
+    def _collect_subgraph_usage(self, data: dict) -> None:
+        for node_name, raw in data.items():
+            if node_name == "__metadata__" or not isinstance(raw, dict):
+                continue
+            node = NodeUpdate.model_validate(raw)
+            for msg in node.messages:
+                if isinstance(msg, AiMessage):
+                    self._collect_usage(msg)
+
+    async def _handle_custom(self, data, *, is_subgraph: bool = False) -> None:
         evt = CustomEvent.model_validate(data)
         match evt.type:
             case CustomEventType.TOOL_START:
-                self._tools.append(ToolState(name=evt.tool, display=evt.display or evt.tool, status=ToolStatus.RUNNING))
+                new_tool = ToolState(name=evt.tool, display=evt.display or evt.tool, status=ToolStatus.RUNNING)
+                if is_subgraph:
+                    parent = next((t for t in reversed(self._tools) if t.status == ToolStatus.RUNNING and not t._is_child), None)
+                    if parent:
+                        new_tool._is_child = True
+                        parent.children.append(new_tool)
+                self._tools.append(new_tool)
             case CustomEventType.TOOL_DONE:
                 self._update_tool(evt.tool, ToolStatus.RUNNING, ToolStatus.DONE)
             case CustomEventType.TOOL_ERROR:

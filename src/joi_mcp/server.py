@@ -31,10 +31,8 @@ async def health():
 
 
 if __name__ == "__main__":
-    import os
-
     import uvicorn
 
-    host = os.getenv("HOST", "127.0.0.1")
-    port = int(os.getenv("PORT", "8000"))
-    uvicorn.run(app, host=host, port=port)
+    from joi_mcp.config import settings
+
+    uvicorn.run(app, host=settings.host, port=settings.port)

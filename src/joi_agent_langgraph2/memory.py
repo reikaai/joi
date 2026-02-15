@@ -5,7 +5,7 @@ from langchain_core.tools import tool
 from loguru import logger
 from mem0 import Memory
 
-from joi_agent_langgraph2.config import MEM0_CONFIG
+from joi_agent_langgraph2.config import settings
 
 _mem0: Memory | None = None
 
@@ -13,7 +13,7 @@ _mem0: Memory | None = None
 async def get_mem0() -> Memory:
     global _mem0
     if _mem0 is None:
-        _mem0 = await asyncio.to_thread(Memory.from_config, MEM0_CONFIG)
+        _mem0 = await asyncio.to_thread(Memory.from_config, settings.mem0_config)
         logger.info("Mem0 initialized")
     return _mem0
 

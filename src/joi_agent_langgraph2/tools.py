@@ -4,19 +4,19 @@ from langchain_core.tools import BaseTool
 from langchain_mcp_adapters.client import MultiServerMCPClient
 from loguru import logger
 
-from joi_agent_langgraph2.config import MCP_BASE_URL
+from joi_agent_langgraph2.config import settings
 
 MCP_SERVERS = {
     "tmdb": {
-        "url": f"{MCP_BASE_URL}/tmdb/",
+        "url": f"{settings.mcp_url}/tmdb/",
         "transport": "streamable_http",
     },
     "transmission": {
-        "url": f"{MCP_BASE_URL}/transmission/",
+        "url": f"{settings.mcp_url}/transmission/",
         "transport": "streamable_http",
     },
     "jackett": {
-        "url": f"{MCP_BASE_URL}/jackett/",
+        "url": f"{settings.mcp_url}/jackett/",
         "transport": "streamable_http",
     },
 }
@@ -33,8 +33,9 @@ MAX_RETRY_ATTEMPTS = 3
 RETRY_BACKOFF_BASE = 1.0
 
 
-def _wrap_with_progress(tool: BaseTool) -> BaseTool:
+def _wrap_with_progress(tool: BaseTool, *, retries: int = MAX_RETRY_ATTEMPTS) -> BaseTool:
     original_coro = tool.coroutine  # type: ignore[union-attr]
+    max_attempts = max(retries, 1)
 
     async def _wrapped(**kwargs):
         from langgraph.config import get_stream_writer
@@ -51,7 +52,7 @@ def _wrap_with_progress(tool: BaseTool) -> BaseTool:
             writer({"type": "tool_start", "tool": tool.name, "display": display})
 
         last_err: Exception | None = None
-        for attempt in range(1, MAX_RETRY_ATTEMPTS + 1):
+        for attempt in range(1, max_attempts + 1):
             try:
                 result = await original_coro(**kwargs)
                 if writer:
@@ -59,7 +60,7 @@ def _wrap_with_progress(tool: BaseTool) -> BaseTool:
                 return result
             except Exception as e:
                 last_err = e
-                if attempt < MAX_RETRY_ATTEMPTS:
+                if attempt < max_attempts:
                     delay = RETRY_BACKOFF_BASE * (2 ** (attempt - 1))
                     logger.warning(f"{tool.name} attempt {attempt} failed: {e}, retrying in {delay}s")
                     if writer:
@@ -74,8 +75,20 @@ def _wrap_with_progress(tool: BaseTool) -> BaseTool:
     return tool
 
 
+RETRY_TOOLS = {"delegate_media"}
+
+
+def prepare_tools(tools: list) -> list:
+    return [
+        _wrap_with_progress(t, retries=MAX_RETRY_ATTEMPTS if t.name in RETRY_TOOLS else 0)
+        if isinstance(t, BaseTool)
+        else t
+        for t in tools
+    ]
+
+
 def create_media_mcp_client() -> MultiServerMCPClient:
-    return MultiServerMCPClient(MCP_SERVERS)
+    return MultiServerMCPClient(MCP_SERVERS)  # ty: ignore[invalid-argument-type]  # upstream typing
 
 
 async def load_media_tools() -> tuple[list[BaseTool], MultiServerMCPClient]:

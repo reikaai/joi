@@ -1,5 +1,5 @@
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
 from typing import Annotated, Literal
 
@@ -7,7 +7,6 @@ from pydantic import BaseModel, ConfigDict, Discriminator
 
 
 class ToolStatus(str, Enum):
-    PENDING = "pending"
     RUNNING = "running"
     DONE = "done"
     ERROR = "error"
@@ -20,11 +19,18 @@ class ToolState:
     display: str
     status: ToolStatus
     retry_count: int = 0
+    children: list["ToolState"] = field(default_factory=list)
+    _is_child: bool = False
 
     def format(self) -> str:
         if self.status == ToolStatus.RETRY:
-            return f"retry #{self.retry_count} {self.display}"
-        return f"{self.status.value} {self.display}"
+            base = f"retry #{self.retry_count} {self.display}"
+        else:
+            base = f"{self.status.value} {self.display}"
+        if self.children:
+            child_parts = ", ".join(c.format() for c in self.children)
+            base += f" > {child_parts}"
+        return base
 
 
 @dataclass
@@ -145,16 +151,10 @@ class UsageMeta(BaseModel):
     model_config = ConfigDict(extra="allow")
 
 
-class ToolCallInfo(BaseModel):
-    name: str = ""
-    model_config = ConfigDict(extra="allow")
-
-
 class AiMessage(BaseModel):
     type: Literal["ai", "AIMessage", "AIMessageChunk"]
     content: str | list = ""
     usage_metadata: UsageMeta | None = None
-    tool_calls: list[ToolCallInfo] = []
     model_config = ConfigDict(extra="allow")
 
     @property

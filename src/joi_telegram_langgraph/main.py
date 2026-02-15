@@ -4,11 +4,11 @@ import signal
 from loguru import logger
 
 from . import handlers  # noqa: F401
-from .app import LANGGRAPH_URL, bot, dp
+from .app import bot, dp, settings
 
 
 async def main() -> None:
-    logger.info(f"Starting Joi Telegram (LangGraph)... LANGGRAPH_URL={LANGGRAPH_URL}")
+    logger.info(f"Starting Joi Telegram (LangGraph)... LANGGRAPH_URL={settings.langgraph_url}")
 
     loop = asyncio.get_running_loop()
     stop_event = asyncio.Event()

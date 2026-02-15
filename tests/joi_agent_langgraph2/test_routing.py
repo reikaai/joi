@@ -3,7 +3,7 @@ from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_core.tools import tool
 from langchain_openai import ChatOpenAI
 
-from joi_agent_langgraph2.config import LLM_MODEL, OPENROUTER_API_KEY, PERSONA_PATH
+from joi_agent_langgraph2.config import settings
 
 # --- Stub tools (mirror real signatures + docstrings, no implementation) ---
 
@@ -33,15 +33,15 @@ def remember(fact: str) -> str:
 
 
 TOOLS = [delegate_media, recall, remember]
-PERSONA = PERSONA_PATH.read_text()
+PERSONA = settings.persona_path.read_text()
 
 
 @pytest.fixture
 def model_with_tools():
     llm = ChatOpenAI(
-        model=LLM_MODEL.replace("openai/", ""),
+        model=settings.llm_model.replace("openai/", ""),
         base_url="https://openrouter.ai/api/v1",
-        api_key=OPENROUTER_API_KEY,
+        api_key=settings.openrouter_api_key,
         temperature=0,
     )
     return llm.bind_tools(TOOLS)

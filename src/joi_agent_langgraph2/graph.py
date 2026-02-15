@@ -8,16 +8,11 @@ from langchain_core.messages import HumanMessage, RemoveMessage, SystemMessage, 
 from langchain_core.tools import tool
 from loguru import logger
 
-from joi_agent_langgraph2.config import (
-    ANTHROPIC_API_KEY,
-    LLM_MODEL,
-    LOGS_DIR,
-    MEDIA_PERSONA_PATH,
-    PERSONA_PATH,
-)
+from joi_agent_langgraph2.config import settings
 from joi_agent_langgraph2.delegates import create_media_delegate
+from joi_agent_langgraph2.interpreter import create_interpreter_tool
 from joi_agent_langgraph2.memory import recall, remember
-from joi_agent_langgraph2.tools import load_media_tools
+from joi_agent_langgraph2.tools import load_media_tools, prepare_tools
 
 
 @tool
@@ -26,7 +21,8 @@ async def think(thought: str) -> str:
     Use when: processing complex tool results, deciding between options, checking if you have all info needed."""
     return "OK"
 
-logger.add(LOGS_DIR / "joi_agent_langgraph2.log", rotation="10 MB", retention="7 days")
+
+logger.add(settings.logs_dir / "joi_agent_langgraph2.log", rotation="10 MB", retention="7 days")
 
 SUMMARIZE_AFTER = 80
 KEEP_LAST = 40
@@ -38,9 +34,9 @@ class JoiState(AgentState):
 
 
 def get_model() -> ChatAnthropic:
-    return ChatAnthropic(
-        model=LLM_MODEL,
-        api_key=ANTHROPIC_API_KEY,
+    return ChatAnthropic(  # ty: ignore[missing-argument]  # model is alias for model_name
+        model=settings.llm_model,
+        api_key=settings.anthropic_api_key,
         stream_usage=True,
     )
 
@@ -112,9 +108,7 @@ async def anthropic_cache_system_prompt(request, handler):
     if sys_msg:
         text = sys_msg.content if isinstance(sys_msg.content, str) else str(sys_msg.content)
         request = request.override(
-            system_message=SystemMessage(
-                content=[{"type": "text", "text": text, "cache_control": ANTHROPIC_CACHE_CONTROL}]
-            )
+            system_message=SystemMessage(content=[{"type": "text", "text": text, "cache_control": ANTHROPIC_CACHE_CONTROL}])
         )
     return await handler(request)
 
@@ -129,22 +123,39 @@ class _GraphFactory:
             return self._graph
 
         media_tools, self._mcp_client = await load_media_tools()
-        media_persona = MEDIA_PERSONA_PATH.read_text() if MEDIA_PERSONA_PATH.exists() else ""
-        joi_persona = PERSONA_PATH.read_text() if PERSONA_PATH.exists() else ""
+        media_persona = settings.media_persona_path.read_text() if settings.media_persona_path.exists() else ""
+        joi_persona = settings.persona_path.read_text() if settings.persona_path.exists() else ""
 
-        delegate_media = create_media_delegate(get_model(), media_tools, media_persona)
+        media_interpreter = create_interpreter_tool(
+            media_tools,
+            name="run_media_code",
+            description="Execute Python in a sandbox. All MCP tools available as functions (same names/args). "
+            "Also has pathlib and json. Use for chaining lookups, filtering, comparisons. "
+            "Do NOT call mutation tools here (add_torrent, remove_torrent, etc.) — they bypass user confirmation. "
+            "Last expression is the return value.",
+        )
+        delegate_media = create_media_delegate(get_model(), media_tools, media_persona, media_interpreter)
+        main_interpreter = create_interpreter_tool(
+            [remember, recall],
+            name="run_code",
+            description="Execute Python in a sandbox. Available functions: remember(), recall(). "
+            "Also has pathlib (persistent home dir) and json. "
+            "Use when chaining multiple memory ops or computing over results. "
+            "Last expression is the return value.",
+        )
 
         self._graph = create_agent(
             model=get_model(),
-            tools=[
+            tools=prepare_tools([
                 delegate_media,
                 remember,
                 recall,
                 think,
+                main_interpreter,
                 # Anthropic native server-side tools (no client execution needed)
                 {"type": "web_search_20250305", "name": "web_search", "max_uses": 5},
                 {"type": "web_fetch_20250910", "name": "web_fetch", "max_uses": 3, "citations": {"enabled": True}},
-            ],
+            ]),
             system_prompt=joi_persona,
             # name removed: LangGraph sets AIMessage.name from this param, which leaks into
             # OpenAI API history as {"role":"assistant","name":"joi_v2",...} — the LLM then

@@ -1,17 +1,14 @@
-import os
 from typing import Annotated, Any, Literal
 
 import httpx
-from dotenv import load_dotenv
 from fastmcp import FastMCP
 from pydantic import BaseModel, Field
 from transmission_rpc import Client
 
+from joi_mcp.config import settings
 from joi_mcp.pagination import DEFAULT_LIMIT, paginate
 from joi_mcp.query import apply_query, project, to_tsv
 from joi_mcp.schema import optimize_tool_schemas
-
-load_dotenv()
 
 mcp = FastMCP("Transmission")
 
@@ -21,14 +18,14 @@ _client: Client | None = None
 def get_client() -> Client:
     global _client
     if _client is None:
-        protocol = "https" if os.getenv("TRANSMISSION_SSL", "").lower() in ("1", "true") else "http"
+        protocol = "https" if settings.transmission_ssl else "http"
         _client = Client(
             protocol=protocol,
-            host=os.getenv("TRANSMISSION_HOST", "localhost"),
-            port=int(os.getenv("TRANSMISSION_PORT", "9091")),
-            path=os.getenv("TRANSMISSION_PATH", "/transmission/rpc"),
-            username=os.getenv("TRANSMISSION_USER") or None,
-            password=os.getenv("TRANSMISSION_PASS") or None,
+            host=settings.transmission_host,
+            port=settings.transmission_port,
+            path=settings.transmission_path,
+            username=settings.transmission_user,
+            password=settings.transmission_pass,
         )
     return _client
 

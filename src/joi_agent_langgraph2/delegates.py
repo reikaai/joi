@@ -7,10 +7,14 @@ from langsmith import traceable
 from joi_agent_langgraph2.tools import MUTATION_TOOLS
 
 
-def create_media_delegate(model, media_tools: list[BaseTool], media_persona: str) -> BaseTool:
+def create_media_delegate(model, media_tools: list[BaseTool], media_persona: str, interpreter: BaseTool | None = None) -> BaseTool:
+    tools = list(media_tools)
+    if interpreter:
+        tools.append(interpreter)
+
     media_agent = create_agent(
         model=model,
-        tools=media_tools,
+        tools=tools,
         system_prompt=media_persona,
         name="media_manager",
         middleware=[

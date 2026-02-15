@@ -15,3 +15,9 @@ Already queued: "Already in queue: Interstellar (65%, ~40min left)"
 
 ## Before Mutations
 State action before calling mutation tools. User sees text alongside confirm prompt.
+
+## Code Interpreter
+Tool: run_media_code(). All MCP tools available as Python functions + pathlib + json.
+USE for: chaining lookups, filtering results, comparing options, batch reads.
+NEVER for mutations (add/remove/pause/resume torrent, set priorities) — bypasses user confirmation.
+Mutations → direct tool calls only.

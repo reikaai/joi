@@ -1,18 +1,15 @@
 import hashlib
-import os
 from typing import Annotated, Any, Literal
 
 import httpx
 import xmltodict
-from dotenv import load_dotenv
 from fastmcp import FastMCP
 from pydantic import BaseModel, Field
 
+from joi_mcp.config import settings
 from joi_mcp.pagination import DEFAULT_LIMIT, paginate
 from joi_mcp.query import apply_query, project
 from joi_mcp.schema import optimize_tool_schemas
-
-load_dotenv()
 
 mcp = FastMCP("Jackett")
 
@@ -24,7 +21,7 @@ def _get_client() -> httpx.Client:
     global _client
     if _client is None:
         _client = httpx.Client(
-            base_url=os.getenv("JACKETT_URL", "http://localhost:9117"),
+            base_url=settings.jackett_url,
             timeout=30.0,
         )
     return _client
@@ -170,7 +167,7 @@ def _parse_torznab_response(xml_content: str) -> list[TorrentSummary]:
 
 def _search(params: dict) -> list[TorrentSummary]:
     """Execute search against Jackett API."""
-    params["apikey"] = os.getenv("JACKETT_API_KEY", "")
+    params["apikey"] = settings.jackett_api_key
     resp = _get_client().get("/api/v2.0/indexers/all/results/torznab/api", params=params)
     resp.raise_for_status()
     return _parse_torznab_response(resp.text)

@@ -6,7 +6,7 @@ from langchain_core.tools import tool
 from langchain_openai import ChatOpenAI
 from pydantic import Field
 
-from joi_agent_langgraph2.config import LLM_MODEL, MEDIA_PERSONA_PATH, OPENROUTER_API_KEY
+from joi_agent_langgraph2.config import settings
 
 # --- Stub tools (mirror real MCP tool signatures + docstrings) ---
 
@@ -54,15 +54,15 @@ def search_torrents(query: str) -> str:
 
 
 TOOLS = [list_torrents, add_torrent, search_movies, search_torrents]
-MEDIA_PERSONA = MEDIA_PERSONA_PATH.read_text()
+MEDIA_PERSONA = settings.media_persona_path.read_text()
 
 
 @pytest.fixture
 def media_model():
     llm = ChatOpenAI(
-        model=LLM_MODEL.replace("openai/", ""),
+        model=settings.llm_model.replace("openai/", ""),
         base_url="https://openrouter.ai/api/v1",
-        api_key=OPENROUTER_API_KEY,
+        api_key=settings.openrouter_api_key,
         temperature=0,
     )
     return llm.bind_tools(TOOLS)

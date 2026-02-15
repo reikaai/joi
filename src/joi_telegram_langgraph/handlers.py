@@ -9,7 +9,7 @@ from loguru import logger
 from joi_langgraph_client.client import AgentStreamClient
 from joi_langgraph_client.session import ApprovalGate, MessageDebouncer, make_thread_id, periodic_callback
 
-from .app import ASSISTANT_ID, bot, langgraph, router
+from .app import bot, langgraph, router, settings
 from .ui import ConfirmCallback, TelegramRenderer, build_confirm_keyboard, format_interrupt, send_markdown
 
 _approver = ApprovalGate()
@@ -27,7 +27,7 @@ async def _run_session(content: str, user_id: str, chat_id: int, message: Messag
 
     async with _typing_indicator(chat_id):
         renderer = TelegramRenderer(message)
-        client = AgentStreamClient(thread_id, renderer, langgraph, ASSISTANT_ID, user_id=user_id)
+        client = AgentStreamClient(thread_id, renderer, langgraph, settings.assistant_id, user_id=user_id)
 
         try:
             interrupt = await asyncio.wait_for(client.run(content), timeout=600)

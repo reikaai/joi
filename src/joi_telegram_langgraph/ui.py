@@ -6,7 +6,7 @@ from loguru import logger
 
 from joi_langgraph_client.client import format_tool_status
 from joi_langgraph_client.types import InterruptData, TokenUsage, ToolState
-from joi_telegram_langgraph.app import DEBUG_STATS
+from joi_telegram_langgraph.app import settings
 
 TELEGRAM_MSG_LIMIT = 4096
 
@@ -78,7 +78,8 @@ class TelegramRenderer:
         await self.update_status(f"Error: {error}")
 
     async def show_completion(self, tools: list[ToolState], usage: TokenUsage) -> None:
-        if DEBUG_STATS and self._last_reply:
+        logger.debug(f"show_completion: tools={len(tools)} usage_total={usage.total} debug_stats={settings.joi_debug_stats}")
+        if settings.joi_debug_stats and self._last_reply:
             footer = _format_debug(tools, usage)
             if footer:
                 combined = self._last_reply_text + "\n\n" + footer
