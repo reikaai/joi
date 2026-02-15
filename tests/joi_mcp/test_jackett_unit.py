@@ -212,6 +212,7 @@ class TestParseTorznabResponse:
         detail = _cache[s.id]
         assert detail.link == "https://example.com/download/123.torrent"
         assert detail.infohash == "abc123def456"
+        assert detail.magneturl is not None
         assert "magnet:" in detail.magneturl
         assert detail.category == [2000, 2010]
         assert detail.page_url == "https://example.com/torrent/123"

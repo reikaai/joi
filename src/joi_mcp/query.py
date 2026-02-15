@@ -1,4 +1,5 @@
 import re
+from typing import overload
 
 import jmespath
 from jmespath import Options, functions
@@ -54,11 +55,15 @@ def apply_query[T: BaseModel](
     return [key_to_item[d[key_field]] for d in data]
 
 
+@overload
+def project[T: BaseModel](items: list[T], fields: None = None) -> list[T]: ...
+@overload
+def project[T: BaseModel](items: list[T], fields: list[str]) -> list[dict]: ...
+
 def project[T: BaseModel](
     items: list[T],
     fields: list[str] | None = None,
 ) -> list[T] | list[dict]:
-    """Project fields from models. Returns models if no fields specified."""
     if not fields:
         return items
 

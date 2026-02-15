@@ -82,6 +82,10 @@ missing-argument = "error"
 unsupported-operator = "error"
 division-by-zero = "error"
 
+# Disabled — false positives from third-party stubs (ChatOpenAI kwargs, FunctionTool.__call__)
+unknown-argument = "ignore"
+call-non-callable = "ignore"
+
 # Code quality - warn
 unused-ignore-comment = "warn"
 redundant-cast = "warn"

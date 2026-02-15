@@ -2,7 +2,7 @@ from typing import NotRequired
 
 from langchain.agents import create_agent
 from langchain.agents.middleware import AgentState, before_agent, wrap_model_call
-from langchain_core.messages import HumanMessage, RemoveMessage, SystemMessage
+from langchain_core.messages import HumanMessage, RemoveMessage, SystemMessage, ToolMessage
 from langchain_openai import ChatOpenAI
 from loguru import logger
 
@@ -19,8 +19,9 @@ from joi_agent_langgraph2.tools import load_media_tools
 
 logger.add(LOGS_DIR / "joi_agent_langgraph2.log", rotation="10 MB", retention="7 days")
 
-SUMMARIZE_AFTER = 10
-KEEP_LAST = 6
+SUMMARIZE_AFTER = 80
+KEEP_LAST = 40
+KEEP_TOOL_RESULTS = 10
 
 
 class JoiState(AgentState):
@@ -29,7 +30,7 @@ class JoiState(AgentState):
 
 def get_model() -> ChatOpenAI:
     return ChatOpenAI(
-        model=LLM_MODEL.replace("openai/", ""),
+        model=LLM_MODEL.split("/", 1)[-1] if "/" in LLM_MODEL else LLM_MODEL,
         base_url="https://openrouter.ai/api/v1",
         api_key=OPENROUTER_API_KEY,
         stream_usage=True,
@@ -71,6 +72,28 @@ async def inject_summary(request, handler):
     return await handler(request)
 
 
+def truncate_tool_results(messages: list, keep: int = KEEP_TOOL_RESULTS) -> list:
+    result = list(messages)
+    tool_count = 0
+    for i in range(len(result) - 1, -1, -1):
+        if isinstance(result[i], ToolMessage):
+            tool_count += 1
+            if tool_count > keep:
+                result[i] = ToolMessage(
+                    content="[Output truncated]",
+                    tool_call_id=result[i].tool_call_id,
+                    id=result[i].id,
+                    status=result[i].status,
+                )
+    return result
+
+
+@wrap_model_call(state_schema=JoiState)
+async def truncate_excess_tool_results(request, handler):
+    masked = truncate_tool_results(request.messages, KEEP_TOOL_RESULTS)
+    return await handler(request.override(messages=masked))
+
+
 class _GraphFactory:
     def __init__(self):
         self._graph = None
@@ -92,7 +115,7 @@ class _GraphFactory:
             system_prompt=joi_persona,
             name="joi_v2",
             state_schema=JoiState,
-            middleware=[summarize_if_needed, inject_summary],
+            middleware=[summarize_if_needed, truncate_excess_tool_results, inject_summary],
         )
         logger.info("joi_v2 agent compiled")
         return self._graph
