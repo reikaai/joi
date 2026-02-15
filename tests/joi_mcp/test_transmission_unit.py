@@ -283,9 +283,9 @@ class TestTorrentToModel:
 
     def test_handles_status_without_value_attr(self):
         fake = make_fake_torrent()
-        fake.status = "some_string_status"
+        fake.status = "stopped"
         result = _torrent_to_model(fake)
-        assert result.status == "some_string_status"
+        assert result.status == "stopped"
 
     def test_handles_negative_eta(self):
         fake = make_fake_torrent(eta=timedelta(seconds=-1))
@@ -376,7 +376,7 @@ class TestResolveUrl:
         mock_resp = MagicMock()
         mock_resp.status_code = 302
         mock_resp.headers = {"location": "magnet:?xt=urn:btih:xyz789"}
-        mocker.patch("httpx.head", return_value=mock_resp)
+        mocker.patch("httpx.get", return_value=mock_resp)
 
         result = _resolve_url("http://jackett/dl/123")
         assert result == "magnet:?xt=urn:btih:xyz789"
@@ -385,7 +385,7 @@ class TestResolveUrl:
         mock_resp = MagicMock()
         mock_resp.status_code = 301
         mock_resp.headers = {"location": "magnet:?xt=urn:btih:abc"}
-        mocker.patch("httpx.head", return_value=mock_resp)
+        mocker.patch("httpx.get", return_value=mock_resp)
 
         result = _resolve_url("http://jackett/dl/456")
         assert result == "magnet:?xt=urn:btih:abc"
@@ -394,7 +394,7 @@ class TestResolveUrl:
         mock_resp = MagicMock()
         mock_resp.status_code = 302
         mock_resp.headers = {"location": "http://example.com/file.torrent"}
-        mocker.patch("httpx.head", return_value=mock_resp)
+        mocker.patch("httpx.get", return_value=mock_resp)
 
         result = _resolve_url("http://jackett/dl/789")
         assert result == "http://jackett/dl/789"
@@ -403,7 +403,7 @@ class TestResolveUrl:
         mock_resp = MagicMock()
         mock_resp.status_code = 200
         mock_resp.headers = {}
-        mocker.patch("httpx.head", return_value=mock_resp)
+        mocker.patch("httpx.get", return_value=mock_resp)
 
         result = _resolve_url("http://jackett/dl/torrent.torrent")
         assert result == "http://jackett/dl/torrent.torrent"

@@ -10,10 +10,10 @@ from joi_agent_langgraph2.config import MEM0_CONFIG
 _mem0: Memory | None = None
 
 
-def get_mem0() -> Memory:
+async def get_mem0() -> Memory:
     global _mem0
     if _mem0 is None:
-        _mem0 = Memory.from_config(MEM0_CONFIG)
+        _mem0 = await asyncio.to_thread(Memory.from_config, MEM0_CONFIG)
         logger.info("Mem0 initialized")
     return _mem0
 
@@ -22,7 +22,7 @@ def get_mem0() -> Memory:
 async def remember(fact: str, config: RunnableConfig) -> str:
     """Remember a fact or preference for the user. Use this to store information the user wants you to remember."""
     thread_id = config.get("configurable", {}).get("thread_id", "default")
-    mem0 = get_mem0()
+    mem0 = await get_mem0()
     await asyncio.to_thread(mem0.add, fact, user_id=thread_id)
     logger.info(f"Remembered fact for thread {thread_id}: {fact[:80]}")
     return f"Remembered: {fact}"
@@ -30,9 +30,12 @@ async def remember(fact: str, config: RunnableConfig) -> str:
 
 @tool
 async def recall(query: str, config: RunnableConfig) -> str:
-    """Recall memories relevant to a query. Use this to retrieve previously stored information about the user."""
+    """Recall personal facts/preferences previously saved about the user.
+
+    NOT for media, downloads, or torrents — use delegate_media for those.
+    """
     thread_id = config.get("configurable", {}).get("thread_id", "default")
-    mem0 = get_mem0()
+    mem0 = await get_mem0()
     results = await asyncio.to_thread(mem0.search, query, user_id=thread_id)
     if not results or not results.get("results"):
         return "No relevant memories found."

@@ -143,10 +143,10 @@ class TestModels:
 
 @pytest.mark.unit
 class TestMakeId:
-    def test_returns_8_char_hash(self):
+    def test_returns_prefixed_hash(self):
         result = _make_id("https://example.com/torrent/123")
-        assert len(result) == 8
-        assert result.isalnum()
+        assert result.startswith("jkt_")
+        assert len(result) == 12  # "jkt_" + 8 hex chars
 
     def test_deterministic(self):
         guid = "https://example.com/torrent/456"
@@ -202,7 +202,8 @@ class TestParseTorznabResponse:
         assert len(summaries) == 1
         s = summaries[0]
         assert s.title == "Ubuntu 24.04 LTS"
-        assert len(s.id) == 8
+        assert s.id.startswith("jkt_")
+        assert len(s.id) == 12
         assert s.seeders == 100
         assert s.leechers == 50
         assert s.size == 4294967296
@@ -248,5 +249,5 @@ class TestGetTorrent:
 
     def test_raises_for_unknown_id(self):
         _cache.clear()
-        with pytest.raises(ValueError, match="Unknown torrent ID"):
+        with pytest.raises(ValueError, match="Invalid torrent ID format"):
             get_torrent("nonexistent")

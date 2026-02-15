@@ -155,6 +155,41 @@ class ResourceList(BaseModel):
 - Multi-source → prefix indicates origin: `jkt_`, `tmdb_`
 - Single source → native IDs are fine (UUIDs, integers, whatever)
 
+### Response Format
+
+**Collections (list endpoints):**
+
+1. **Flat items** (all fields are scalars) → **TSV** via `to_tsv()` in `TsvList` envelope.
+   TSV needs no quoting (torrent names contain commas but never tabs) and is ~50% fewer tokens than JSON arrays for tabular data.
+   Values containing `\n` are safe — `to_tsv` uses `str()` which handles escaping.
+   Examples: `list_torrents`, `list_genres`, `search_torrents`
+
+2. **Nested items** (fields contain lists, dicts, or nested BaseModels) → evaluate:
+   - **TOON** ([toonformat.dev](https://toonformat.dev)) — 30-60% fewer tokens than JSON, tabular arrays for uniform items. Use `python-toon` (`toon.encode()`). Best for uniform arrays with nested fields.
+   - **JSON** — fallback if TOON doesn't fit (deeply non-uniform, highly nested).
+   - Decision point: when implementing a nested collection endpoint, evaluate which format fits and discuss before committing.
+
+**Single-item responses** (get, add, mutations) → **JSON** (default Pydantic serialization).
+
+#### TSV Envelope
+
+```python
+class TsvList(BaseModel):
+    data: str      # TSV: header row + data rows
+    total: int
+    offset: int
+    has_more: bool
+```
+
+Pipeline: **Filter → Sort → Paginate → Project → `to_tsv()`** → wrap in `TsvList`
+
+```python
+result = project(paginated, fields)
+return TsvList(data=to_tsv(result), total=total, offset=offset, has_more=has_more)
+```
+
+`fields` controls TSV columns.
+
 ### Token Budget
 
 Default `limit=50`. Truncate large results with message: `"Showing 50 of 182. Use filter_expr to narrow."`
@@ -287,3 +322,4 @@ Measured via `test_tool_schema_budget_total` (OpenAI tool format, 13 tools acros
 - [Less is More (ArXiv 2411.15399)](https://arxiv.org/abs/2411.15399)
 - [10 Strategies to Reduce MCP Token Bloat](https://thenewstack.io/how-to-reduce-mcp-token-bloat/)
 - [Speakeasy: 100x Token Reduction](https://www.speakeasy.com/blog/100x-token-reduction-dynamic-toolsets)
+- [TOON Format Spec](https://toonformat.dev/reference/spec.html)

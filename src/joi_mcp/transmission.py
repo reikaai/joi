@@ -1,5 +1,5 @@
 import os
-from typing import Annotated, Any
+from typing import Annotated, Any, Literal
 
 import httpx
 from dotenv import load_dotenv
@@ -8,7 +8,7 @@ from pydantic import BaseModel, Field
 from transmission_rpc import Client
 
 from joi_mcp.pagination import DEFAULT_LIMIT, paginate
-from joi_mcp.query import apply_query, project
+from joi_mcp.query import apply_query, project, to_tsv
 from joi_mcp.schema import optimize_tool_schemas
 
 load_dotenv()
@@ -49,11 +49,25 @@ class FolderEntry(BaseModel):
     is_folder: bool = True
 
 
+TorrentStatus = Literal[
+    "stopped",
+    "check pending",
+    "checking",
+    "download pending",
+    "downloading",
+    "seed pending",
+    "seeding",
+]
+
+
 class Torrent(BaseModel):
     id: int
     name: str
-    status: str
-    progress: float
+    status: Annotated[
+        TorrentStatus,
+        Field(description="stopped=completed/paused, downloading=in progress, seeding=uploading"),
+    ]
+    progress: Annotated[float, Field(description="0-100. 100=fully downloaded")]
     eta: int | None
     total_size: int
     comment: str
@@ -61,6 +75,13 @@ class Torrent(BaseModel):
     download_speed: int
     upload_speed: int
     file_count: int
+
+
+class TsvList(BaseModel):
+    data: str
+    total: int
+    offset: int
+    has_more: bool
 
 
 class TorrentList(BaseModel):
@@ -154,19 +175,31 @@ def _aggregate_by_depth(files: list[TorrentFile], depth: int) -> list[BaseModel]
 
 @mcp.tool
 def list_torrents(
-    filter_expr: Annotated[str | None, Field(description="JMESPath filter; search(@, 'text') for text search")] = None,
-    fields: Annotated[list[str] | None, Field(description="Fields (id auto-incl.)")] = None,
+    filter_expr: Annotated[
+        str | None,
+        Field(description="JMESPath. Downloaded: progress==`100` (NOT status). Active: status=='downloading'. Text: search(@, 'text')"),
+    ] = None,
+    fields: Annotated[
+        list[str] | None,
+        Field(
+            description="Columns (id auto-incl.). Recommended: name,total_size."
+            " Drop columns implied by filter (e.g. progress if progress==100)"
+        ),
+    ] = None,
     sort_by: Annotated[str | None, Field(description="Sort field, - prefix for desc")] = None,
     limit: Annotated[int, Field()] = DEFAULT_LIMIT,
     offset: Annotated[int, Field()] = 0,
-) -> TorrentList:
-    """List torrents. Fields: name, status, progress, eta, total_size, error_string, download_speed, file_count"""
+) -> TsvList:
+    """List torrents (TSV). No filter = all.
+    Fields: name, status, progress, eta, total_size, error_string, download_speed, file_count.
+    CRITICAL: downloaded/completed = progress==`100` ONLY.
+    NEVER use status for downloaded. status=='downloading' = ACTIVELY in-progress."""
     torrents = get_client().get_torrents()
     items = [_torrent_to_model(t) for t in torrents]
     filtered = apply_query(items, filter_expr, sort_by, limit=None)
     paginated, total, has_more = paginate(filtered, limit, offset)
     result = project(paginated, fields)
-    return TorrentList(torrents=result, total=total, offset=offset, has_more=has_more)
+    return TsvList(data=to_tsv(result), total=total, offset=offset, has_more=has_more)
 
 
 @mcp.tool

@@ -23,7 +23,10 @@ def create_media_delegate(model, media_tools: list[BaseTool], media_persona: str
     @tool
     @traceable(name="media-delegate")
     async def delegate_media(query: str) -> str:
-        """Delegate media tasks (search/download/manage movies, torrents, shows) to the Media Manager specialist."""
+        """Query or manage media: what's downloaded, active torrents, search/download movies/shows.
+
+        Use for ANY question about movies, shows, or torrents.
+        """
         result = await media_agent.ainvoke({"messages": [HumanMessage(content=query)]})
         return result["messages"][-1].content
 

@@ -4,7 +4,7 @@ from langchain_core.tools import BaseTool
 from langchain_mcp_adapters.client import MultiServerMCPClient
 from loguru import logger
 
-from joi_agent_langgraph.config import MCP_BASE_URL, PLAYWRIGHT_MCP_URL
+from joi_agent_langgraph.config import MCP_BASE_URL
 
 MCP_SERVERS = {
     "tmdb": {
@@ -67,10 +67,10 @@ def _wrap_with_progress(tool: BaseTool) -> BaseTool:
 
 
 PLAYWRIGHT_MCP_SERVERS = {
-    "playwright": {
-        "url": f"{PLAYWRIGHT_MCP_URL}/mcp",
-        "transport": "streamable_http",
-    },
+    # "playwright": {
+    #     "url": f"{PLAYWRIGHT_MCP_URL}/mcp",
+    #     "transport": "streamable_http",
+    # },
 }
 
 

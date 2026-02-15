@@ -1,6 +1,15 @@
+import re
+
 import jmespath
 from jmespath import Options, functions
 from pydantic import BaseModel
+
+_BARE_NUMBER = re.compile(r"(==|!=|>=|<=|>|<)\s*(\d+(?:\.\d+)?)\b(?!`)")
+
+
+def _quote_numbers(expr: str) -> str:
+    """Wrap bare numeric literals in JMESPath backticks so `x==100` becomes `x==`100``."""
+    return _BARE_NUMBER.sub(r"\1`\2`", expr)
 
 
 class CustomFunctions(functions.Functions):
@@ -29,6 +38,7 @@ def apply_query[T: BaseModel](
     key_to_item = {getattr(item, key_field): item for item in items}
 
     if filter_expr:
+        filter_expr = _quote_numbers(filter_expr)
         expr = filter_expr if filter_expr.startswith("[") else f"[?{filter_expr}]"
         opts = Options(custom_functions=CustomFunctions())
         data = jmespath.search(expr, data, options=opts) or []
@@ -59,3 +69,21 @@ def project[T: BaseModel](
     key_field = "index" if "index" in sample else "id"
     include = set(fields) | {key_field}
     return [item.model_dump(include=include) for item in items]
+
+
+def _tsv_from_rows(keys: list[str], rows: list[dict]) -> str:
+    lines = ['\t'.join(keys)]
+    for row in rows:
+        lines.append('\t'.join(str(row[k]) for k in keys))
+    return '\n'.join(lines)
+
+
+def to_tsv(items: list[BaseModel] | list[dict]) -> str:
+    if not items:
+        return ""
+    first = items[0]
+    if isinstance(first, BaseModel):
+        keys = list(first.model_fields.keys())
+        return _tsv_from_rows(keys, [item.model_dump() for item in items])  # type: ignore[union-attr]
+    keys = list(first.keys())
+    return _tsv_from_rows(keys, items)  # type: ignore[arg-type]
