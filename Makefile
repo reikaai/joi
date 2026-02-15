@@ -1,7 +1,7 @@
-.PHONY: dev-mcp dev-agent dev-agent-debug dev-telegram dev-agent-langgraph dev-telegram-langgraph dev-playwright test lint docker-build docker-up docker-down docker-logs
+.PHONY: dev-mcp dev-agent dev-agent-debug dev-telegram dev-agent-langgraph dev-telegram-langgraph dev-playwright test lint docker-build docker-up docker-down docker-logs clean-data
 
 dev-mcp:
-	uv run uvicorn joi_mcp.server:app --reload --reload-dir src/joi_mcp --host 127.0.0.1 --port 8000
+	uv run watchfiles --filter python 'uv run uvicorn joi_mcp.server:app --host 127.0.0.1 --port 8000' src/joi_mcp
 
 dev-agent:
 	uv run watchfiles --filter python 'uv run python -m joi_agent.server' src/joi_agent
@@ -42,3 +42,6 @@ docker-down:
 
 docker-logs:
 	docker compose logs -f
+
+clean-data:
+	rm -rf .langgraph_api data/qdrant

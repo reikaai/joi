@@ -11,17 +11,21 @@ LLM providers cache the KV-cache of prompt prefixes. Key properties:
 - **Prefix-based**: only the longest matching prefix from the start of the prompt is cached
 - **Append-only friendly**: adding messages at the end preserves the cache; inserting/deleting/reordering breaks it
 - **What breaks caching**: system message mutation, message deletion or reordering, timestamps injected into prompts, summarization that replaces message history
-- **TTL**: typically 5 minutes (Anthropic), varies by provider
+- **Opt-in vs auto**: Anthropic (including via OpenRouter) requires explicit `cache_control` breakpoints on content blocks. OpenAI and Google auto-cache without any annotation.
+- **TTL**: Anthropic offers 5-min (default, refreshes on each hit) and 1-hour (for gaps >5min between requests). Active conversations keep cache alive via refresh.
+- **Write/read asymmetry**: cache writes cost 1.25x base (5-min TTL) or 2x (1-hour TTL). Cache reads cost 0.1x base. A single-turn request with no subsequent hits is a net 25% cost increase. Multi-turn conversations see massive savings after the first hit.
+- **Summarization interaction**: summarization breaks the conversation prefix cache (rewrites system message + message list). Independent `cache_control` breakpoints on tools survive summarization since tools are first in the prefix order (tools → system → messages).
 
 ### Provider Pricing (as of 2025)
 
-| Provider | Input $/MTok | Cached $/MTok | Discount (D) |
-|----------|-------------|---------------|--------------|
-| Claude Sonnet 4 | $3.00 | $0.30 | 10x |
-| GPT-4o | $2.50 | $1.25 | 2x |
-| Gemini 2.0 Flash | $0.10 | $0.025 | 4x |
+| Provider | Input $/MTok | Cached Read $/MTok | Cache Write $/MTok | Discount (D) |
+|----------|-------------|-------------------|-------------------|--------------|
+| Claude Sonnet 4 | $3.00 | $0.30 | $3.75 | 10x |
+| Claude Haiku 4.5 | $0.80 | $0.08 | $1.00 | 10x |
+| GPT-4o | $2.50 | $1.25 | auto | 2x |
+| Gemini 2.0 Flash | $0.10 | $0.025 | auto | 4x |
 
-D = c_uncached / c_cached — the cache discount ratio. Higher D means caching saves more per token.
+D = c_uncached / c_cached_read — the cache discount ratio. Higher D means caching saves more per token. "auto" = provider handles cache writes transparently (no extra write cost exposed).
 
 ---
 
@@ -183,6 +187,69 @@ Replace old tool outputs with `[Output truncated]` while keeping message structu
 When H_compress is small (low D, steep quality degradation) → summarization is critical — you hit the threshold quickly and need to compress aggressively.
 
 When H_compress is large (high D, gentle degradation) → summarization matters less, especially with mem0 as a memory layer. Yet with prompt caching, the cost penalty for summarization is small in absolute terms (~$0.09/turn at 200K for Claude), so it's rarely worth avoiding.
+
+---
+
+## Scratchpad Think Tool
+
+A no-op tool that gives the model structured space to reason mid-response. The model writes its reasoning as the tool input; the tool returns "OK". No output pollution — thinking stays in tool_use blocks, not assistant content.
+
+**Why it works**: tool_use forces the model to pause, structure its reasoning, and commit to it before continuing. Unlike chain-of-thought in assistant content, it doesn't leak reasoning to the user and doesn't pollute the response.
+
+**Cost**: near-zero. Only output tokens for the tool_call content (~50-200 tokens). No input token overhead. The tool itself does nothing.
+
+**Benchmark results** ([Anthropic blog](https://www.anthropic.com/engineering/claude-think-tool)):
+- tau-bench airline: +54% (0.370 → 0.584 with optimized prompt)
+- tau-bench retail: +3.7% (0.783 → 0.812)
+- SWE-bench: +1.6% (p < .001)
+
+**vs extended thinking**: Extended thinking has a budget minimum of 1024 tokens/turn billed as output tokens ($5/MTok on Haiku 4.5) — ~$0.005/turn even when not needed. Scratchpad costs nothing when not used, and the model self-selects when to invoke it.
+
+**vs model escalation**: Escalation has the meta-reasoning problem (Haiku can't reliably judge when it needs Sonnet) and context tax (every escalation pays Sonnet input rates on the full context). Scratchpad is additive — can layer escalation on top later.
+
+**Implementation**: `src/joi_agent_langgraph2/graph.py` — `think()` tool + persona guidance in `src/joi_agent/persona.md`.
+
+Key insight: just adding the tool helps, but pairing with explicit prompt guidance for when to think yields dramatically better results.
+
+---
+
+## Web Browsing Strategy
+
+### Tiered approach
+
+**Tier 1 (current): Anthropic native tools** — `web_search` + `web_fetch`. Server-side, zero infrastructure, zero bot detection risk. Covers ~80% of web use cases: looking up facts, reading articles, research, fetching URLs shared by the user.
+
+**Tier 2 (deferred): Playwright MCP browser delegate** — for JS-rendered content, form filling, clicking through SPAs. Same delegate pattern as media agent, filtered to ~7 essential tools. Not implementing until a concrete use case demands it.
+
+### Why native first
+
+| Concern | Native (web_search + web_fetch) | Playwright MCP |
+|---------|--------------------------------|----------------|
+| Coverage | "look up X", read articles, research | JS-rendered, forms, interaction |
+| Code change | ~5 lines (dict tools) | ~100+ lines (new delegate, MCP, config) |
+| Infrastructure | None (Anthropic server-side) | Docker container |
+| Bot detection | Zero risk | Needs stealth measures |
+| Cost | search $10/1K, fetch FREE | Token costs + compute |
+| Tool count | 0 new tools for agent routing | 26+ (needs filtering to ~7) |
+
+### Cost
+
+- `web_search`: $10/1K searches. At ~20 searches/day ≈ $6/month
+- `web_fetch`: FREE (only input token costs). Average page ~2,500 tokens ≈ $0.002/fetch
+- `max_uses` bounds per-request: 5 searches, 3 fetches
+
+### Limitations (when Tier 2 is needed)
+
+- JS-rendered SPAs (React/Vue apps that need hydration)
+- Sites behind login / CAPTCHA
+- Multi-step form interactions
+- Content that requires scrolling or clicking to reveal
+
+### Implementation
+
+`web_search` and `web_fetch` are dict-based built-in tools passed to `create_agent()`. `langchain-anthropic` detects them via `_is_builtin_tool()`, auto-injects the required beta header (`web-fetch-2025-09-10`), and routes server-side responses (`server_tool_use`, `web_search_tool_result`, `web_fetch_tool_result`) without client-side `ToolNode` execution.
+
+References: [web search](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool), [web fetch](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-fetch-tool)
 
 ---
 

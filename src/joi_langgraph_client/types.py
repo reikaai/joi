@@ -1,6 +1,9 @@
 import json
 from dataclasses import dataclass
 from enum import Enum
+from typing import Annotated, Literal
+
+from pydantic import BaseModel, ConfigDict, Discriminator
 
 
 class ToolStatus(str, Enum):
@@ -89,18 +92,118 @@ class InterruptData:
 class TokenUsage:
     input_tokens: int = 0
     output_tokens: int = 0
+    cache_read_tokens: int = 0
+    cache_creation_tokens: int = 0
 
-    def add(self, input_t: int, output_t: int) -> None:
+    def add(self, input_t: int, output_t: int, cache_read: int = 0, cache_creation: int = 0) -> None:
         self.input_tokens += input_t
         self.output_tokens += output_t
+        self.cache_read_tokens += cache_read
+        self.cache_creation_tokens += cache_creation
 
     @staticmethod
     def _fmt(n: int) -> str:
         return f"{n / 1000:.1f}k" if n >= 1000 else str(n)
 
     def format(self) -> str:
-        return f"{self._fmt(self.input_tokens)} in / {self._fmt(self.output_tokens)} out"
+        base = f"{self._fmt(self.input_tokens)} in / {self._fmt(self.output_tokens)} out"
+        if self.cache_read_tokens:
+            base += f" | cache: {self._fmt(self.cache_read_tokens)} hit"
+        if self.cache_creation_tokens:
+            base += f" | cache: {self._fmt(self.cache_creation_tokens)} write"
+        return base
+
+    def format_debug(self) -> str:
+        inp = self._fmt(self.input_tokens)
+        out = self._fmt(self.output_tokens)
+        if self.cache_read_tokens and self.input_tokens:
+            pct = round(self.cache_read_tokens / self.input_tokens * 100)
+            cached = self._fmt(self.cache_read_tokens)
+            base = f"{inp} in ({cached} cached {pct}%)"
+        else:
+            base = f"{inp} in"
+        return f"{base} · {out} out"
 
     @property
     def total(self) -> int:
         return self.input_tokens + self.output_tokens
+
+
+# --- Stream message models (discriminated union) ---
+
+
+class InputTokenDetailsMeta(BaseModel):
+    cache_read: int = 0
+    cache_creation: int = 0
+    model_config = ConfigDict(extra="allow")
+
+
+class UsageMeta(BaseModel):
+    input_tokens: int = 0
+    output_tokens: int = 0
+    input_token_details: InputTokenDetailsMeta | None = None
+    model_config = ConfigDict(extra="allow")
+
+
+class ToolCallInfo(BaseModel):
+    name: str = ""
+    model_config = ConfigDict(extra="allow")
+
+
+class AiMessage(BaseModel):
+    type: Literal["ai", "AIMessage", "AIMessageChunk"]
+    content: str | list = ""
+    usage_metadata: UsageMeta | None = None
+    tool_calls: list[ToolCallInfo] = []
+    model_config = ConfigDict(extra="allow")
+
+    @property
+    def text(self) -> str:
+        if isinstance(self.content, list):
+            return "".join(b.get("text", "") if isinstance(b, dict) else str(b) for b in self.content)
+        return self.content
+
+
+class HumanMessage(BaseModel):
+    type: Literal["human", "HumanMessage", "HumanMessageChunk"]
+    content: str | list = ""
+    model_config = ConfigDict(extra="allow")
+
+
+class ToolResultMessage(BaseModel):
+    type: Literal["tool", "ToolMessage", "ToolMessageChunk"]
+    name: str = ""
+    content: str | list = ""
+    model_config = ConfigDict(extra="allow")
+
+
+StreamMessage = Annotated[
+    AiMessage | HumanMessage | ToolResultMessage,
+    Discriminator("type"),
+]
+
+
+# --- Node update container ---
+
+
+class NodeUpdate(BaseModel):
+    messages: list[StreamMessage] = []
+    model_config = ConfigDict(extra="allow")
+
+
+# --- Custom event model ---
+
+
+class CustomEventType(str, Enum):
+    TOOL_START = "tool_start"
+    TOOL_DONE = "tool_done"
+    TOOL_ERROR = "tool_error"
+    TOOL_RETRY = "tool_retry"
+
+
+class CustomEvent(BaseModel):
+    type: CustomEventType
+    tool: str = ""
+    display: str = ""
+    attempt: int = 0
+    model_config = ConfigDict(extra="allow")

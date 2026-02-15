@@ -21,10 +21,11 @@ async def get_mem0() -> Memory:
 @tool
 async def remember(fact: str, config: RunnableConfig) -> str:
     """Remember a fact or preference for the user. Use this to store information the user wants you to remember."""
-    thread_id = config.get("configurable", {}).get("thread_id", "default")
+    cfg = config.get("configurable", {})
+    uid = cfg.get("user_id") or cfg.get("thread_id") or "default"
     mem0 = await get_mem0()
-    await asyncio.to_thread(mem0.add, fact, user_id=thread_id)
-    logger.info(f"Remembered fact for thread {thread_id}: {fact[:80]}")
+    await asyncio.to_thread(mem0.add, fact, user_id=uid)
+    logger.info(f"Remembered fact for user {uid}: {fact[:80]}")
     return f"Remembered: {fact}"
 
 
@@ -34,12 +35,13 @@ async def recall(query: str, config: RunnableConfig) -> str:
 
     NOT for media, downloads, or torrents — use delegate_media for those.
     """
-    thread_id = config.get("configurable", {}).get("thread_id", "default")
+    cfg = config.get("configurable", {})
+    uid = cfg.get("user_id") or cfg.get("thread_id") or "default"
     mem0 = await get_mem0()
-    results = await asyncio.to_thread(mem0.search, query, user_id=thread_id)
+    results = await asyncio.to_thread(mem0.search, query, user_id=uid)
     if not results or not results.get("results"):
         return "No relevant memories found."
     memories = [r["memory"] for r in results["results"]]
     formatted = "\n".join(f"- {m}" for m in memories)
-    logger.info(f"Recalled {len(memories)} memories for thread {thread_id}")
+    logger.info(f"Recalled {len(memories)} memories for user {uid}")
     return f"Relevant memories:\n{formatted}"

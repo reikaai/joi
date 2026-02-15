@@ -8,6 +8,7 @@ load_dotenv()
 LLM_MODEL = os.getenv("LLM_MODEL", "gpt-4o-mini")
 MCP_BASE_URL = os.getenv("MCP_URL", "http://127.0.0.1:8000")
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
 
 LOGS_DIR = Path(__file__).parent.parent.parent / "logs"
 LOGS_DIR.mkdir(exist_ok=True)

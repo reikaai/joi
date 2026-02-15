@@ -13,7 +13,7 @@ from .app import ASSISTANT_ID, bot, langgraph, router
 from .ui import ConfirmCallback, TelegramRenderer, build_confirm_keyboard, format_interrupt, send_markdown
 
 _approver = ApprovalGate()
-_debouncer = MessageDebouncer(timeout=1.5)
+_debouncer = MessageDebouncer(timeout=0.5)
 
 
 @asynccontextmanager
@@ -27,7 +27,7 @@ async def _run_session(content: str, user_id: str, chat_id: int, message: Messag
 
     async with _typing_indicator(chat_id):
         renderer = TelegramRenderer(message)
-        client = AgentStreamClient(thread_id, renderer, langgraph, ASSISTANT_ID)
+        client = AgentStreamClient(thread_id, renderer, langgraph, ASSISTANT_ID, user_id=user_id)
 
         try:
             interrupt = await asyncio.wait_for(client.run(content), timeout=600)
@@ -47,10 +47,10 @@ async def _run_session(content: str, user_id: str, chat_id: int, message: Messag
                 interrupt = await asyncio.wait_for(client.resume(interrupt, approved), timeout=600)
 
         except TimeoutError:
-            logger.error(f"Stream timeout for user {user_id}")
+            logger.error(f"[user:{user_id}] stream timeout")
             await message.answer("Request timed out, please try again.")
         except Exception as e:
-            logger.exception(f"Agent error: {e}")
+            logger.exception(f"[user:{user_id}] agent error: {e}")
             await message.answer("Sorry, something went wrong.")
 
 
@@ -81,10 +81,12 @@ async def handle(message: Message) -> None:
     if not message.from_user or not message.text:
         return
     user_id = str(message.from_user.id)
+    logger.info(f"[user:{user_id}] input: {message.text!r}")
 
     await bot.send_chat_action(message.chat.id, ChatAction.TYPING)
 
     async def on_debounce(combined: str, msg: Message):
+        logger.info(f"[user:{user_id}] debounced input: {combined!r}")
         await _run_session(combined, user_id, msg.chat.id, msg)
 
     await _debouncer.add(user_id, message.text, message, on_debounce)

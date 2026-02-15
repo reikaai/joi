@@ -2,20 +2,29 @@ from typing import NotRequired
 
 from langchain.agents import create_agent
 from langchain.agents.middleware import AgentState, before_agent, wrap_model_call
+from langchain_anthropic import ChatAnthropic
+from langchain_anthropic.middleware import AnthropicPromptCachingMiddleware
 from langchain_core.messages import HumanMessage, RemoveMessage, SystemMessage, ToolMessage
-from langchain_openai import ChatOpenAI
+from langchain_core.tools import tool
 from loguru import logger
 
 from joi_agent_langgraph2.config import (
+    ANTHROPIC_API_KEY,
     LLM_MODEL,
     LOGS_DIR,
     MEDIA_PERSONA_PATH,
-    OPENROUTER_API_KEY,
     PERSONA_PATH,
 )
 from joi_agent_langgraph2.delegates import create_media_delegate
 from joi_agent_langgraph2.memory import recall, remember
 from joi_agent_langgraph2.tools import load_media_tools
+
+
+@tool
+async def think(thought: str) -> str:
+    """Use to reason step by step before acting. No side effects — just structured thinking space.
+    Use when: processing complex tool results, deciding between options, checking if you have all info needed."""
+    return "OK"
 
 logger.add(LOGS_DIR / "joi_agent_langgraph2.log", rotation="10 MB", retention="7 days")
 
@@ -28,11 +37,10 @@ class JoiState(AgentState):
     summary: NotRequired[str]
 
 
-def get_model() -> ChatOpenAI:
-    return ChatOpenAI(
-        model=LLM_MODEL.split("/", 1)[-1] if "/" in LLM_MODEL else LLM_MODEL,
-        base_url="https://openrouter.ai/api/v1",
-        api_key=OPENROUTER_API_KEY,
+def get_model() -> ChatAnthropic:
+    return ChatAnthropic(
+        model=LLM_MODEL,
+        api_key=ANTHROPIC_API_KEY,
         stream_usage=True,
     )
 
@@ -61,7 +69,7 @@ async def summarize_if_needed(state, runtime):
     return {"summary": resp.content, "messages": delete}
 
 
-@wrap_model_call(state_schema=JoiState)
+@wrap_model_call(state_schema=JoiState)  # ty: ignore[invalid-argument-type]  # upstream: langchain-ai/langchain#35244
 async def inject_summary(request, handler):
     summary = request.state.get("summary", "")
     if summary:
@@ -88,10 +96,27 @@ def truncate_tool_results(messages: list, keep: int = KEEP_TOOL_RESULTS) -> list
     return result
 
 
-@wrap_model_call(state_schema=JoiState)
+@wrap_model_call(state_schema=JoiState)  # ty: ignore[invalid-argument-type]  # upstream: langchain-ai/langchain#35244
 async def truncate_excess_tool_results(request, handler):
     masked = truncate_tool_results(request.messages, KEEP_TOOL_RESULTS)
     return await handler(request.override(messages=masked))
+
+
+ANTHROPIC_CACHE_CONTROL = {"type": "ephemeral", "ttl": "5m"}
+
+
+@wrap_model_call(state_schema=JoiState)  # ty: ignore[invalid-argument-type]
+async def anthropic_cache_system_prompt(request, handler):
+    """Anthropic-specific: mark system prompt as cacheable (prefix breakpoint)."""
+    sys_msg = request.system_message
+    if sys_msg:
+        text = sys_msg.content if isinstance(sys_msg.content, str) else str(sys_msg.content)
+        request = request.override(
+            system_message=SystemMessage(
+                content=[{"type": "text", "text": text, "cache_control": ANTHROPIC_CACHE_CONTROL}]
+            )
+        )
+    return await handler(request)
 
 
 class _GraphFactory:
@@ -111,13 +136,30 @@ class _GraphFactory:
 
         self._graph = create_agent(
             model=get_model(),
-            tools=[delegate_media, remember, recall],
+            tools=[
+                delegate_media,
+                remember,
+                recall,
+                think,
+                # Anthropic native server-side tools (no client execution needed)
+                {"type": "web_search_20250305", "name": "web_search", "max_uses": 5},
+                {"type": "web_fetch_20250910", "name": "web_fetch", "max_uses": 3, "citations": {"enabled": True}},
+            ],
             system_prompt=joi_persona,
-            name="joi_v2",
+            # name removed: LangGraph sets AIMessage.name from this param, which leaks into
+            # OpenAI API history as {"role":"assistant","name":"joi_v2",...} — the LLM then
+            # mimics the pattern and prefixes its content with "joi_v2:". Only needed for
+            # multi-agent orchestration, not applicable here.
             state_schema=JoiState,
-            middleware=[summarize_if_needed, truncate_excess_tool_results, inject_summary],
+            middleware=[  # ty: ignore[invalid-argument-type]  # upstream: langchain-ai/langchain#35244
+                summarize_if_needed,
+                truncate_excess_tool_results,
+                inject_summary,
+                anthropic_cache_system_prompt,
+                AnthropicPromptCachingMiddleware(),
+            ],
         )
-        logger.info("joi_v2 agent compiled")
+        logger.info("joi agent compiled")
         return self._graph
 
     async def __aexit__(self, *args):

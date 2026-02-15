@@ -6,6 +6,7 @@ from loguru import logger
 
 from joi_langgraph_client.client import format_tool_status
 from joi_langgraph_client.types import InterruptData, TokenUsage, ToolState
+from joi_telegram_langgraph.app import DEBUG_STATS
 
 TELEGRAM_MSG_LIMIT = 4096
 
@@ -57,9 +58,12 @@ class TelegramRenderer:
     def __init__(self, message: Message):
         self._message = message
         self._status_message: Message | None = None
+        self._last_reply: Message | None = None
+        self._last_reply_text: str = ""
 
     async def send_text(self, text: str) -> None:
-        await send_markdown(self._message, text)
+        self._last_reply = await send_markdown(self._message, text)
+        self._last_reply_text = text
 
     async def update_status(self, text: str) -> None:
         try:
@@ -74,6 +78,19 @@ class TelegramRenderer:
         await self.update_status(f"Error: {error}")
 
     async def show_completion(self, tools: list[ToolState], usage: TokenUsage) -> None:
+        if DEBUG_STATS and self._last_reply:
+            footer = _format_debug(tools, usage)
+            if footer:
+                combined = self._last_reply_text + "\n\n" + footer
+                await _edit_markdown(self._last_reply, combined)
+            if self._status_message:
+                try:
+                    await self._status_message.delete()
+                except Exception:
+                    pass
+                self._status_message = None
+            return
+
         parts = []
         if tools:
             parts.append(format_tool_status(tools))
@@ -81,6 +98,36 @@ class TelegramRenderer:
             parts.append(usage.format())
         if parts:
             await self.update_status(" | ".join(parts))
+        elif self._status_message:
+            try:
+                await self._status_message.delete()
+            except Exception as e:
+                logger.warning(f"Failed to delete status message: {e}")
+            self._status_message = None
+
+
+def _format_debug(tools: list[ToolState], usage: TokenUsage) -> str:
+    parts: list[str] = []
+    if tools:
+        names = [t.name for t in tools]
+        parts.append("tools: " + " → ".join(names))
+    if usage.total > 0:
+        parts.append(usage.format_debug())
+    if not parts:
+        return ""
+    return "---\n" + "\n".join(parts)
+
+
+async def _edit_markdown(msg: Message, text: str) -> None:
+    converted = telegramify_markdown.markdownify(text)
+    chunks = _chunk_text(converted)
+    try:
+        await msg.edit_text(chunks[-1], parse_mode=ParseMode.MARKDOWN_V2)
+    except Exception:
+        try:
+            await msg.edit_text(text[-TELEGRAM_MSG_LIMIT:])
+        except Exception as e:
+            logger.warning(f"Debug edit failed: {e}")
 
 
 def build_confirm_keyboard(thread_id: str) -> InlineKeyboardMarkup:

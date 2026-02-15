@@ -12,6 +12,7 @@ LOGS_DIR = Path(__file__).parent.parent.parent / "logs"
 LOGS_DIR.mkdir(exist_ok=True)
 logger.add(LOGS_DIR / "joi_telegram_langgraph.log", rotation="10 MB", retention="7 days")
 
+DEBUG_STATS = os.getenv("JOI_DEBUG_STATS", "").lower() in ("1", "true")
 LANGGRAPH_URL = os.getenv("LANGGRAPH_URL", "http://localhost:2024")
 ASSISTANT_ID = os.getenv("ASSISTANT_ID", "joi")
 
