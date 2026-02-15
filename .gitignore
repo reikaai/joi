@@ -102,4 +102,6 @@ mlruns/
 chroma_db/
 tickets.jsonl
 .claude/settings.local.json
+.claude/sessions.db
+.claude/sessions.db-*
 .langgraph_api

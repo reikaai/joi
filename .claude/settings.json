@@ -4,10 +4,29 @@
         "command": "npx -y ccusage statusline",
         "padding": 0
     },
-    "enabledMcpjsonServers": [
-        "sequential-thinking",
-        "context7",
-        "playwright"
-    ],
-    "enableAllProjectMcpServers": true
+    "enabledMcpjsonServers": ["context7", "playwright"],
+    "enableAllProjectMcpServers": true,
+    "permissions": {
+        "deny": [
+            "Bash(rm -rf *)",
+            "Bash(rm -r /*)",
+            "Bash(rm -rf /)",
+            "Bash(sudo *)",
+            "Bash(chmod -R 777 *)",
+            "Bash(> /dev/*)",
+            "Bash(mkfs *)",
+            "Bash(dd if=*)",
+            "Bash(git push --force *)",
+            "Bash(git push -f *)",
+            "Bash(git reset --hard *)",
+            "Bash(git clean -fd*)",
+            "Edit(//etc/**)",
+            "Edit(//usr/**)",
+            "Edit(//var/**)",
+            "Edit(//System/**)",
+            "Edit(//Library/**)",
+            "Read(//etc/shadow)",
+            "Read(//etc/passwd)"
+        ]
+    }
 }

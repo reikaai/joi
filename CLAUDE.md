@@ -24,3 +24,24 @@ Cassettes live in `tests/joi_mcp/cassettes/`.
 
 # MCP Patterns
 See [docs/mcp-patterns.md](docs/mcp-patterns.md) for tool design guidance.
+
+# Autonomy
+- Execute planned changes without asking for confirmation. Just do it.
+- Only ask when genuinely ambiguous (2+ valid approaches with different trade-offs).
+- When you need input, be structured: what you tried, what blocked you, 2-3 specific options.
+- Never ask "should I proceed?" — if the plan is approved, proceed.
+- Use subagents aggressively. Use agent teams (teammates) for medium+ tasks.
+
+# Multi-Session Coordination
+Multiple Claude Code sessions run in parallel on this codebase via tmux.
+
+## Session Registry
+On task start: `scripts/session.sh register "<domain>" "<directory>" "<description>"`
+Before modifying files: `scripts/session.sh check` — avoid touching directories another session owns.
+On completion: `scripts/session.sh done`
+See stale entries (>1d): `scripts/session.sh cleanup`
+
+## Linter Ownership
+Always run `ruff check` and `ty check` after your changes. If you see errors:
+1. Fix errors in files you touched — always your responsibility.
+2. Errors in files you didn't touch — run `scripts/session.sh check`. If another session owns that area, leave it. If no one else is working, fix it yourself.
