@@ -27,12 +27,12 @@ class Settings(BaseSettings):
     @computed_field
     @property
     def persona_path(self) -> Path:
-        return Path(__file__).parent.parent / "joi_agent" / "persona.md"
+        return Path(__file__).parent / "persona.md"
 
     @computed_field
     @property
     def media_persona_path(self) -> Path:
-        return Path(__file__).parent.parent / "joi_agent" / "media_persona.md"
+        return Path(__file__).parent / "media_persona.md"
 
     @property
     def mem0_config(self) -> dict:

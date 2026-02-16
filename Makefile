@@ -1,22 +1,10 @@
-.PHONY: dev-mcp dev-agent dev-agent-debug dev-telegram dev-agent-langgraph dev-telegram-langgraph dev-playwright test lint docker-build docker-up docker-down docker-logs clean-data
+.PHONY: dev-mcp dev-agent-langgraph dev-telegram-langgraph-v2 dev-playwright test lint docker-build docker-up docker-down docker-logs clean-data
 
 dev-mcp:
 	uv run watchfiles --filter python 'uv run uvicorn joi_mcp.server:app --host 127.0.0.1 --port 8000' src/joi_mcp
 
-dev-agent:
-	uv run watchfiles --filter python 'uv run python -m joi_agent.server' src/joi_agent
-
-dev-agent-debug:
-	AGNO_DEBUG=true uv run watchfiles --filter python 'uv run python -m joi_agent.server' src/joi_agent
-
-dev-telegram:
-	uv run watchfiles --filter python 'uv run python -m joi_telegram.main' src/joi_telegram
-
 dev-agent-langgraph:
 	uv run langgraph dev --host 127.0.0.1 --port 2024
-
-dev-telegram-langgraph:
-	uv run watchfiles --filter python 'uv run python -m joi_telegram_langgraph.main' src/joi_telegram_langgraph
 
 dev-telegram-langgraph-v2:
 	ASSISTANT_ID=joi_v2 uv run watchfiles --filter python 'uv run python -m joi_telegram_langgraph.main' src/joi_telegram_langgraph
