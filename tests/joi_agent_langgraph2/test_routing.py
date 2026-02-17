@@ -36,10 +36,27 @@ TOOLS = [delegate_media, recall, remember]
 PERSONA = settings.persona_path.read_text()
 
 
+_ANTHROPIC_MODEL_MAP = {
+    "claude-haiku-4-5-20251001": "anthropic/claude-haiku-4.5",
+    "claude-sonnet-4-5-20250929": "anthropic/claude-sonnet-4.5",
+    "claude-opus-4-6": "anthropic/claude-opus-4",
+}
+
+
+def _openrouter_model_id(model: str) -> str:
+    if model in _ANTHROPIC_MODEL_MAP:
+        return _ANTHROPIC_MODEL_MAP[model]
+    if "/" in model:
+        return model.replace("openai/", "")
+    if model.startswith("claude-"):
+        return f"anthropic/{model}"
+    return model
+
+
 @pytest.fixture
 def model_with_tools():
     llm = ChatOpenAI(
-        model=settings.llm_model.replace("openai/", ""),
+        model=_openrouter_model_id(settings.llm_model),
         base_url="https://openrouter.ai/api/v1",
         api_key=settings.openrouter_api_key,
         temperature=0,

@@ -6,10 +6,14 @@ from aiogram.filters import CommandStart
 from aiogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup, Message
 from loguru import logger
 
+from joi_agent_langgraph2.tasks.execution import resume_task_interrupt, resume_task_run
+from joi_agent_langgraph2.tasks.models import TaskStatus
+from joi_agent_langgraph2.tasks.store_sdk import list_tasks_sdk, put_task_sdk
 from joi_langgraph_client.client import AgentStreamClient
 from joi_langgraph_client.session import ApprovalGate, MessageDebouncer, make_thread_id, periodic_callback
 
 from .app import bot, langgraph, router, settings
+from .notifier import register_user
 from .ui import ConfirmCallback, TelegramRenderer, build_confirm_keyboard, format_interrupt, send_markdown
 
 _approver = ApprovalGate()
@@ -54,6 +58,79 @@ async def _run_session(content: str, user_id: str, chat_id: int, message: Messag
             await message.answer("Sorry, something went wrong.")
 
 
+async def _try_task_reply(message: Message, user_id: str) -> bool:
+    reply = message.reply_to_message
+    if not reply:
+        return False
+
+    reply_msg_id = reply.message_id
+    try:
+        tasks = await list_tasks_sdk(user_id, statuses={TaskStatus.WAITING_USER})
+    except Exception as e:
+        logger.warning(f"Task reply check failed: {e}")
+        return False
+
+    for task in tasks:
+        if task.question_msg_id == reply_msg_id:
+            answer = message.text or ""
+            task.status = TaskStatus.RUNNING
+            task.question = None
+            task.question_msg_id = None
+            task.notified = False
+            task.append_log("answered", answer)
+            await put_task_sdk(task)
+            await resume_task_run(task.thread_id, user_id, answer)
+            await message.answer("Got it, resuming the task...")
+            logger.info(f"[user:{user_id}] task reply routed: task={task.task_id}")
+            return True
+
+    return False
+
+
+async def _try_task_interrupt_resolve(thread_id: str, approved: bool) -> bool:
+    from .notifier import _known_users
+
+    for user_id in list(_known_users):
+        try:
+            tasks = await list_tasks_sdk(user_id)
+        except Exception:
+            continue
+
+        for task in tasks:
+            if task.thread_id != thread_id or task.interrupt_data is None:
+                continue
+
+            resume_value = _build_resume_from_stored(task.interrupt_data, approved)
+
+            try:
+                await resume_task_interrupt(task.thread_id, task.user_id, resume_value)
+                task.interrupt_data = None
+                task.interrupt_msg_id = None
+                task.append_log("interrupt_resolved", "approved" if approved else "rejected")
+                await put_task_sdk(task)
+                logger.info(f"Task interrupt resolved: task={task.task_id} approved={approved}")
+                return True
+            except Exception as e:
+                logger.error(f"Failed to resume task interrupt: {e}")
+                return False
+    return False
+
+
+def _build_resume_from_stored(interrupt_data: dict, approved: bool) -> dict:
+    if approved:
+        return interrupt_data
+
+    # Rebuild with reject decisions — interrupt_data was stored as build_resume_value(True)
+    result = {}
+    for key, val in interrupt_data.items():
+        if isinstance(val, dict) and "decisions" in val:
+            count = len(val["decisions"])
+            result[key] = {"decisions": [{"type": "reject"}] * count}
+        else:
+            result[key] = val
+    return result or {"decisions": [{"type": "reject"}]}
+
+
 # --- Handlers ---
 
 
@@ -72,8 +149,16 @@ async def on_ask(callback: CallbackQuery) -> None:
 
 @router.callback_query(ConfirmCallback.filter())
 async def on_confirm(callback: CallbackQuery, callback_data: ConfirmCallback) -> None:
-    _approver.resolve(callback_data.thread_id, callback_data.approved)
-    await callback.answer("yes" if callback_data.approved else "no")
+    resolved = await _try_task_interrupt_resolve(callback_data.thread_id, callback_data.approved)
+    if not resolved:
+        _approver.resolve(callback_data.thread_id, callback_data.approved)
+    label = "Approved" if callback_data.approved else "Rejected"
+    await callback.answer(label)
+    if callback.message and resolved:
+        try:
+            await callback.message.edit_text(f"{callback.message.text}\n\n{label}")
+        except Exception:
+            pass
 
 
 @router.message()
@@ -81,7 +166,11 @@ async def handle(message: Message) -> None:
     if not message.from_user or not message.text:
         return
     user_id = str(message.from_user.id)
+    register_user(user_id)
     logger.info(f"[user:{user_id}] input: {message.text!r}")
+
+    if await _try_task_reply(message, user_id):
+        return
 
     await bot.send_chat_action(message.chat.id, ChatAction.TYPING)
 

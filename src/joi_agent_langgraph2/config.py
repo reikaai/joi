@@ -11,6 +11,8 @@ class Settings(BaseSettings):
 
     llm_model: str = "gpt-4o-mini"
     mcp_url: str = "http://127.0.0.1:8000"
+    langgraph_url: str = "http://localhost:2024"
+    assistant_id: str = "joi"
     openrouter_api_key: str | None = None
     anthropic_api_key: str | None = None
 

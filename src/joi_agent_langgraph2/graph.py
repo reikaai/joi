@@ -12,6 +12,7 @@ from joi_agent_langgraph2.config import settings
 from joi_agent_langgraph2.delegates import create_media_delegate
 from joi_agent_langgraph2.interpreter import create_interpreter_tool
 from joi_agent_langgraph2.memory import recall, remember
+from joi_agent_langgraph2.tasks.tools import list_tasks, schedule_task, update_task
 from joi_agent_langgraph2.tools import load_media_tools, prepare_tools
 
 
@@ -101,7 +102,7 @@ async def truncate_excess_tool_results(request, handler):
 ANTHROPIC_CACHE_CONTROL = {"type": "ephemeral", "ttl": "5m"}
 
 
-@wrap_model_call(state_schema=JoiState)  # ty: ignore[invalid-argument-type]
+@wrap_model_call(state_schema=JoiState)  # ty: ignore[invalid-argument-type]  # upstream: langchain-ai/langchain#35244
 async def anthropic_cache_system_prompt(request, handler):
     """Anthropic-specific: mark system prompt as cacheable (prefix breakpoint)."""
     sys_msg = request.system_message
@@ -152,6 +153,9 @@ class _GraphFactory:
                 recall,
                 think,
                 main_interpreter,
+                schedule_task,
+                list_tasks,
+                update_task,
                 # Anthropic native server-side tools (no client execution needed)
                 {"type": "web_search_20250305", "name": "web_search", "max_uses": 5},
                 {"type": "web_fetch_20250910", "name": "web_fetch", "max_uses": 3, "citations": {"enabled": True}},
