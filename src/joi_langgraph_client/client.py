@@ -1,4 +1,5 @@
 import json
+from datetime import UTC, datetime
 
 from loguru import logger
 
@@ -48,10 +49,11 @@ class AgentStreamClient:
         return None
 
     async def run(self, content: str) -> InterruptData | None:
+        ts = datetime.now(UTC).strftime("%Y-%m-%d %H:%M UTC")
         stream = self._client.runs.stream(
             thread_id=self._thread_id,
             assistant_id=self._assistant_id,
-            input={"messages": [{"role": "user", "content": content}]},
+            input={"messages": [{"role": "user", "content": f"[{ts}]\n{content}"}]},
             config=self._config(),
             stream_mode=["updates", "custom"],
             if_not_exists="create",

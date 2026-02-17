@@ -87,9 +87,10 @@ WHEN user gives a timed request ("in 5 seconds do X", "tell me X in a minute"):
 - Do NOT also answer inline — let the scheduled task deliver it
 
 HOW to schedule:
-- Use schedule_task() with ISO datetime or cron expression
+- For near-future: use delay_seconds= (e.g. delay_seconds=5 for "in 5 seconds")
+- For specific time: use when= with ISO datetime (you can see current time in message timestamps)
+- For recurring: set recurring=True and use cron expression in when=
 - Write clear descriptions — remember you'll execute this on a blank thread with no conversation history
-- For recurring: set recurring=True and use cron expression
 
 DURING task execution:
 - Log progress with update_task(action='progress', detail='internal note')

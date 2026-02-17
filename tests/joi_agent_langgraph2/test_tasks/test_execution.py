@@ -40,7 +40,7 @@ def test_task_context_message_returns_message_pair():
 
 def test_task_context_message_recurring_true():
     msgs = _task_context_message("tid", "Title", "Desc", recurring=True)
-    assert msgs[0]["content"] == "[Recurring Task]"
+    assert msgs[0]["content"].startswith("[Recurring Task]")
     assert "Background Task" not in msgs[0]["content"]
     assert "Title" in msgs[1]["content"]
 

@@ -137,6 +137,65 @@ async def test_schedule_task_past_datetime_clamps_delay(mocker: "MockerFixture",
 
 
 @pytest.mark.asyncio
+async def test_schedule_task_with_delay_seconds(mocker: "MockerFixture", mock_lg_client, task_tools) -> None:
+    mocker.patch(
+        "joi_agent_langgraph2.tasks.tools.make_task_thread_id",
+        return_value="thread-delay",
+    )
+    mock_put = mocker.patch(
+        "joi_agent_langgraph2.tasks.tools.put_task",
+        new_callable=AsyncMock,
+    )
+    mock_uuid = mocker.patch("joi_agent_langgraph2.tasks.tools.uuid.uuid4")
+    mock_uuid.return_value.hex = "delay1234567"
+
+    store = MagicMock()
+    config = {"configurable": {"user_id": "user_delay"}}
+
+    result = await task_tools["schedule_task"].coroutine(
+        title="Delayed Task",
+        description="Do something later",
+        delay_seconds=30,
+        recurring=False,
+        config=config,
+        store=store,
+    )
+
+    assert "Task scheduled" in result
+    assert "Delayed Task" in result
+    assert "30s" in result
+    mock_put.assert_called_once()
+    mock_lg_client.runs.create.assert_called_once()
+    call_kwargs = mock_lg_client.runs.create.call_args
+    assert call_kwargs.kwargs["after_seconds"] == 30
+
+
+@pytest.mark.asyncio
+async def test_schedule_task_no_when_no_delay_errors(mocker: "MockerFixture", mock_lg_client, task_tools) -> None:
+    mocker.patch(
+        "joi_agent_langgraph2.tasks.tools.make_task_thread_id",
+        return_value="thread-err",
+    )
+    mock_uuid = mocker.patch("joi_agent_langgraph2.tasks.tools.uuid.uuid4")
+    mock_uuid.return_value.hex = "errid1234567"
+
+    store = MagicMock()
+    config = {"configurable": {"user_id": "user_err"}}
+
+    result = await task_tools["schedule_task"].coroutine(
+        title="Bad Task",
+        description="Missing timing",
+        recurring=False,
+        config=config,
+        store=store,
+    )
+
+    assert "Error" in result
+    assert "when" in result or "delay_seconds" in result
+    mock_lg_client.runs.create.assert_not_called()
+
+
+@pytest.mark.asyncio
 async def test_list_tasks_empty(mocker: "MockerFixture", task_tools) -> None:
     mock_list = mocker.patch(
         "joi_agent_langgraph2.tasks.tools.list_user_tasks",

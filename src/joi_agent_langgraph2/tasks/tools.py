@@ -1,5 +1,5 @@
 import uuid
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 from typing import TYPE_CHECKING, Annotated
 
 from langchain_core.runnables import RunnableConfig
@@ -14,6 +14,7 @@ from .store import get_task, list_user_tasks, put_message, put_task
 
 if TYPE_CHECKING:
     from langgraph_sdk.client import LangGraphClient
+    from langgraph_sdk.schema import Config
 
 
 def make_task_thread_id(user_id: str, task_id: str) -> str:
@@ -22,8 +23,9 @@ def make_task_thread_id(user_id: str, task_id: str) -> str:
 
 def _task_context_message(task_id: str, title: str, description: str, *, recurring: bool = False) -> list[dict]:
     kind = "Recurring Task" if recurring else "Background Task"
+    ts = datetime.now(UTC).strftime("%Y-%m-%d %H:%M UTC")
     return [
-        {"role": "user", "content": f"[{kind}]"},
+        {"role": "user", "content": f"[{kind}] [{ts}]"},
         {"role": "assistant", "content": (
             f"I have a scheduled task to execute: {title} (task_id: {task_id})\n\n"
             f"What I need to do:\n{description}\n\n"
@@ -32,7 +34,7 @@ def _task_context_message(task_id: str, title: str, description: str, *, recurri
     ]
 
 
-def _make_config(user_id: str) -> dict[str, dict[str, str]]:
+def _make_config(user_id: str) -> "Config":
     return {"configurable": {"user_id": user_id}}
 
 
@@ -45,11 +47,15 @@ def create_task_tools(langgraph: "LangGraphClient", assistant_id: str) -> list[B
     @tool
     async def schedule_task(
         title: str,
+        description: str,
         when: Annotated[
             str,
             Field(description="ISO datetime (e.g. '2026-02-17T09:00:00Z') or cron expression if recurring"),
-        ],
-        description: str,
+        ] = "",
+        delay_seconds: Annotated[
+            int | None,
+            Field(description="Seconds from now to run (alternative to ISO datetime in 'when')"),
+        ] = None,
         recurring: Annotated[bool, Field(description="If true, 'when' is a cron expression")] = False,
         *,
         config: RunnableConfig,
@@ -58,8 +64,9 @@ def create_task_tools(langgraph: "LangGraphClient", assistant_id: str) -> list[B
         """Schedule a background task. Runs autonomously with full tool access, reports back when done.
 
         Examples:
-        - schedule_task("Check oven", "2026-02-16T15:30:00Z", "Remind user to check the oven")
-        - schedule_task("Daily reflection", "0 23 * * *", "Review today's conversations", recurring=True)
+        - schedule_task("Check oven", "Remind user to check the oven", delay_seconds=300)
+        - schedule_task("Check oven", "Remind user to check the oven", when="2026-02-16T15:30:00Z")
+        - schedule_task("Daily reflection", "Review today's conversations", when="0 23 * * *", recurring=True)
         """
         user_id = _get_user_id(config)
         task_id = uuid.uuid4().hex[:12]
@@ -70,6 +77,8 @@ def create_task_tools(langgraph: "LangGraphClient", assistant_id: str) -> list[B
         await langgraph.threads.create(thread_id=thread_id, if_exists="do_nothing")
 
         if recurring:
+            if not when:
+                return "Error: 'when' with cron expression is required for recurring tasks."
             task = TaskState(
                 task_id=task_id,
                 title=title,
@@ -92,15 +101,21 @@ def create_task_tools(langgraph: "LangGraphClient", assistant_id: str) -> list[B
                 config=_make_config(user_id),
             )
             cron_id = cron.cron_id if hasattr(cron, "cron_id") else cron.get("cron_id", str(cron))
-            task.cron_id = cron_id
+            task.cron_id = str(cron_id)
             await put_task(store, task)
 
             logger.info(f"Recurring task created: {task_id} schedule={when}")
             return f"Recurring task scheduled: {title} (cron: {when}, task_id: {task_id})"
 
-        # One-shot: parse ISO datetime
-        scheduled_at = datetime.fromisoformat(when.replace("Z", "+00:00"))
-        delay = max(int((scheduled_at - now).total_seconds()), 1)
+        # One-shot: resolve delay
+        if delay_seconds is not None:
+            delay = max(delay_seconds, 1)
+            scheduled_at = now + timedelta(seconds=delay)
+        elif when:
+            scheduled_at = datetime.fromisoformat(when.replace("Z", "+00:00"))
+            delay = max(int((scheduled_at - now).total_seconds()), 1)
+        else:
+            return "Error: provide 'when' (ISO datetime) or 'delay_seconds' for one-shot tasks."
 
         task = TaskState(
             task_id=task_id,
