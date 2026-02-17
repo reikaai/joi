@@ -1,5 +1,7 @@
 import asyncio
+from typing import Any
 
+from langchain_core.runnables import RunnableConfig
 from langchain_core.tools import BaseTool
 from langchain_mcp_adapters.client import MultiServerMCPClient
 from loguru import logger
@@ -37,7 +39,7 @@ def _wrap_with_progress(tool: BaseTool, *, retries: int = MAX_RETRY_ATTEMPTS) ->
     original_coro = tool.coroutine  # type: ignore[union-attr]
     max_attempts = max(retries, 1)
 
-    async def _wrapped(**kwargs):
+    async def _wrapped(*, config: RunnableConfig = None, **kwargs: Any) -> str:  # type: ignore[assignment]
         from langgraph.config import get_stream_writer
 
         try:
@@ -46,6 +48,9 @@ def _wrap_with_progress(tool: BaseTool, *, retries: int = MAX_RETRY_ATTEMPTS) ->
             writer = None
 
         args_str = ", ".join(f"{v}" for v in kwargs.values())
+
+        if config is not None:
+            kwargs["config"] = config
         display = f"{tool.name}({args_str})" if args_str else tool.name
 
         if writer:
@@ -94,6 +99,5 @@ def create_media_mcp_client() -> MultiServerMCPClient:
 async def load_media_tools() -> tuple[list[BaseTool], MultiServerMCPClient]:
     client = create_media_mcp_client()
     tools = await client.get_tools()
-    tools = [_wrap_with_progress(t) for t in tools]
-    logger.info(f"Loaded {len(tools)} MCP media tools (with progress + retry)")
+    logger.info(f"Loaded {len(tools)} MCP media tools")
     return tools, client

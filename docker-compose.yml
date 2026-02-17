@@ -1,12 +1,64 @@
+x-dev: &dev
+  build:
+    context: .
+    target: dev
+  volumes:
+    - .:/app
+    - dev-venv:/app/.venv
+  env_file: .env
+  restart: unless-stopped
+
 services:
+  mcp:
+    <<: *dev
+    command: uv run watchfiles --filter python 'uv run uvicorn joi_mcp.server:app --host 0.0.0.0 --port 8000' src/joi_mcp
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 60s
+
+  agent:
+    <<: *dev
+    command: uv run langgraph dev --host 0.0.0.0 --port 2024
+    ports:
+      - "2024:2024"
+    environment:
+      MCP_URL: http://mcp:8000
+    depends_on:
+      mcp:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:2024/ok"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 30s
+
+  telegram:
+    <<: *dev
+    command: uv run watchfiles --filter python 'uv run python -m joi_telegram_langgraph.main' src/joi_telegram_langgraph
+    environment:
+      ASSISTANT_ID: joi_v2
+      LANGGRAPH_URL: http://agent:2024
+    depends_on:
+      agent:
+        condition: service_healthy
+
   playwright-mcp:
     image: mcr.microsoft.com/playwright/mcp:latest
     init: true
-    entrypoint: ["node", "cli.js", "--headless", "--browser", "chromium", "--no-sandbox", "--port", "8931", "--host", "0.0.0.0", "--allowed-hosts", "*"]
+    entrypoint: >
+      node cli.js --headless --browser chromium --no-sandbox
+      --port 8931 --host 0.0.0.0 --allowed-hosts '*'
     ports:
       - "3100:8931"
     shm_size: "1g"
+    profiles:
+      - tools
 
 volumes:
-  data:
-  logs:
+  dev-venv:

@@ -5,24 +5,35 @@ from unittest.mock import AsyncMock, MagicMock
 import pytest
 
 from joi_agent_langgraph2.tasks.models import TaskState, TaskStatus
-from joi_agent_langgraph2.tasks.tools import list_tasks, schedule_task, update_task
+from joi_agent_langgraph2.tasks.tools import create_task_tools
 
 if TYPE_CHECKING:
     from pytest_mock import MockerFixture
 
 
+@pytest.fixture
+def mock_lg_client():
+    lg = MagicMock()
+    lg.runs.create = AsyncMock()
+    lg.threads.create = AsyncMock()
+    lg.crons.create_for_thread = AsyncMock(return_value={"cron_id": "cron-789"})
+    return lg
+
+
+@pytest.fixture
+def task_tools(mock_lg_client):
+    tools = create_task_tools(mock_lg_client, "test-assistant")
+    return {t.name: t for t in tools}
+
+
 @pytest.mark.asyncio
-async def test_schedule_task_one_shot(mocker: "MockerFixture") -> None:
+async def test_schedule_task_one_shot(mocker: "MockerFixture", mock_lg_client, task_tools) -> None:
     mock_thread_id = mocker.patch(
         "joi_agent_langgraph2.tasks.tools.make_task_thread_id",
         return_value="thread-123",
     )
     mock_put = mocker.patch(
         "joi_agent_langgraph2.tasks.tools.put_task",
-        new_callable=AsyncMock,
-    )
-    mock_create_run = mocker.patch(
-        "joi_agent_langgraph2.tasks.tools.create_task_run",
         new_callable=AsyncMock,
     )
     mock_uuid = mocker.patch("joi_agent_langgraph2.tasks.tools.uuid.uuid4")
@@ -33,7 +44,7 @@ async def test_schedule_task_one_shot(mocker: "MockerFixture") -> None:
     future = datetime.now(UTC) + timedelta(hours=1)
     when = future.isoformat().replace("+00:00", "Z")
 
-    result = await schedule_task.coroutine(  # type: ignore[attr-defined]
+    result = await task_tools["schedule_task"].coroutine(
         title="Test Task",
         when=when,
         description="Do something",
@@ -51,11 +62,11 @@ async def test_schedule_task_one_shot(mocker: "MockerFixture") -> None:
     assert task_arg.title == "Test Task"
     assert task_arg.status == TaskStatus.SCHEDULED
     assert task_arg.description == "Do something"
-    mock_create_run.assert_called_once()
+    mock_lg_client.runs.create.assert_called_once()
 
 
 @pytest.mark.asyncio
-async def test_schedule_task_recurring(mocker: "MockerFixture") -> None:
+async def test_schedule_task_recurring(mocker: "MockerFixture", mock_lg_client, task_tools) -> None:
     mock_thread_id = mocker.patch(
         "joi_agent_langgraph2.tasks.tools.make_task_thread_id",
         return_value="thread-456",
@@ -64,11 +75,6 @@ async def test_schedule_task_recurring(mocker: "MockerFixture") -> None:
         "joi_agent_langgraph2.tasks.tools.put_task",
         new_callable=AsyncMock,
     )
-    mock_create_cron = mocker.patch(
-        "joi_agent_langgraph2.tasks.tools.create_task_cron",
-        new_callable=AsyncMock,
-        return_value="cron-789",
-    )
     mock_uuid = mocker.patch("joi_agent_langgraph2.tasks.tools.uuid.uuid4")
     mock_uuid.return_value.hex = "fedcba654321"
 
@@ -76,7 +82,7 @@ async def test_schedule_task_recurring(mocker: "MockerFixture") -> None:
     config = {"configurable": {"user_id": "user456"}}
     cron_expr = "0 9 * * *"
 
-    result = await schedule_task.coroutine(  # type: ignore[attr-defined]
+    result = await task_tools["schedule_task"].coroutine(
         title="Daily Task",
         when=cron_expr,
         description="Do it daily",
@@ -94,21 +100,17 @@ async def test_schedule_task_recurring(mocker: "MockerFixture") -> None:
     final_task = mock_put.call_args[0][1]
     assert final_task.cron_id == "cron-789"
     assert final_task.schedule == cron_expr
-    mock_create_cron.assert_called_once()
+    mock_lg_client.crons.create_for_thread.assert_called_once()
 
 
 @pytest.mark.asyncio
-async def test_schedule_task_past_datetime_clamps_delay(mocker: "MockerFixture") -> None:
+async def test_schedule_task_past_datetime_clamps_delay(mocker: "MockerFixture", mock_lg_client, task_tools) -> None:
     mocker.patch(
         "joi_agent_langgraph2.tasks.tools.make_task_thread_id",
         return_value="thread-past",
     )
     mocker.patch(
         "joi_agent_langgraph2.tasks.tools.put_task",
-        new_callable=AsyncMock,
-    )
-    mock_create_run = mocker.patch(
-        "joi_agent_langgraph2.tasks.tools.create_task_run",
         new_callable=AsyncMock,
     )
     mock_uuid = mocker.patch("joi_agent_langgraph2.tasks.tools.uuid.uuid4")
@@ -119,7 +121,7 @@ async def test_schedule_task_past_datetime_clamps_delay(mocker: "MockerFixture")
     past = datetime.now(UTC) - timedelta(hours=1)
     when = past.isoformat().replace("+00:00", "Z")
 
-    result = await schedule_task.coroutine(  # type: ignore[attr-defined]
+    result = await task_tools["schedule_task"].coroutine(
         title="Past Task",
         when=when,
         description="Already happened",
@@ -129,13 +131,13 @@ async def test_schedule_task_past_datetime_clamps_delay(mocker: "MockerFixture")
     )
 
     assert "Task scheduled" in result
-    mock_create_run.assert_called_once()
-    delay = mock_create_run.call_args[0][5]
-    assert delay == 1
+    mock_lg_client.runs.create.assert_called_once()
+    call_kwargs = mock_lg_client.runs.create.call_args
+    assert call_kwargs.kwargs["after_seconds"] == 1
 
 
 @pytest.mark.asyncio
-async def test_list_tasks_empty(mocker: "MockerFixture") -> None:
+async def test_list_tasks_empty(mocker: "MockerFixture", task_tools) -> None:
     mock_list = mocker.patch(
         "joi_agent_langgraph2.tasks.tools.list_user_tasks",
         new_callable=AsyncMock,
@@ -145,7 +147,7 @@ async def test_list_tasks_empty(mocker: "MockerFixture") -> None:
     store = MagicMock()
     config = {"configurable": {"user_id": "user999"}}
 
-    result = await list_tasks.coroutine(  # type: ignore[attr-defined]
+    result = await task_tools["list_tasks"].coroutine(
         status_filter=None,
         config=config,
         store=store,
@@ -156,7 +158,7 @@ async def test_list_tasks_empty(mocker: "MockerFixture") -> None:
 
 
 @pytest.mark.asyncio
-async def test_list_tasks_with_tasks(mocker: "MockerFixture") -> None:
+async def test_list_tasks_with_tasks(mocker: "MockerFixture", task_tools) -> None:
     task1 = TaskState(
         task_id="task1",
         title="Task One",
@@ -184,7 +186,7 @@ async def test_list_tasks_with_tasks(mocker: "MockerFixture") -> None:
     store = MagicMock()
     config = {"configurable": {"user_id": "user1"}}
 
-    result = await list_tasks.coroutine(  # type: ignore[attr-defined]
+    result = await task_tools["list_tasks"].coroutine(
         status_filter=None,
         config=config,
         store=store,
@@ -200,7 +202,7 @@ async def test_list_tasks_with_tasks(mocker: "MockerFixture") -> None:
 
 
 @pytest.mark.asyncio
-async def test_list_tasks_with_status_filter(mocker: "MockerFixture") -> None:
+async def test_list_tasks_with_status_filter(mocker: "MockerFixture", task_tools) -> None:
     task1 = TaskState(
         task_id="task1",
         title="Running Task",
@@ -218,7 +220,7 @@ async def test_list_tasks_with_status_filter(mocker: "MockerFixture") -> None:
     store = MagicMock()
     config = {"configurable": {"user_id": "user2"}}
 
-    result = await list_tasks.coroutine(  # type: ignore[attr-defined]
+    result = await task_tools["list_tasks"].coroutine(
         status_filter="running",
         config=config,
         store=store,
@@ -229,11 +231,11 @@ async def test_list_tasks_with_status_filter(mocker: "MockerFixture") -> None:
 
 
 @pytest.mark.asyncio
-async def test_list_tasks_invalid_status(mocker: "MockerFixture") -> None:
+async def test_list_tasks_invalid_status(task_tools) -> None:
     store = MagicMock()
     config = {"configurable": {"user_id": "user3"}}
 
-    result = await list_tasks.coroutine(  # type: ignore[attr-defined]
+    result = await task_tools["list_tasks"].coroutine(
         status_filter="invalid_status",
         config=config,
         store=store,
@@ -244,7 +246,7 @@ async def test_list_tasks_invalid_status(mocker: "MockerFixture") -> None:
 
 
 @pytest.mark.asyncio
-async def test_update_task_cancel(mocker: "MockerFixture") -> None:
+async def test_update_task_cancel(mocker: "MockerFixture", task_tools) -> None:
     task = TaskState(
         task_id="task1",
         title="Task to Cancel",
@@ -266,7 +268,7 @@ async def test_update_task_cancel(mocker: "MockerFixture") -> None:
     store = MagicMock()
     config = {"configurable": {"user_id": "user1"}}
 
-    result = await update_task.coroutine(  # type: ignore[attr-defined]
+    result = await task_tools["update_task"].coroutine(
         task_id="task1",
         action="cancel",
         detail="User cancelled",
@@ -287,7 +289,7 @@ async def test_update_task_cancel(mocker: "MockerFixture") -> None:
 
 
 @pytest.mark.asyncio
-async def test_update_task_complete(mocker: "MockerFixture") -> None:
+async def test_update_task_complete(mocker: "MockerFixture", task_tools) -> None:
     task = TaskState(
         task_id="task2",
         title="Task to Complete",
@@ -309,7 +311,7 @@ async def test_update_task_complete(mocker: "MockerFixture") -> None:
     store = MagicMock()
     config = {"configurable": {"user_id": "user2"}}
 
-    result = await update_task.coroutine(  # type: ignore[attr-defined]
+    result = await task_tools["update_task"].coroutine(
         task_id="task2",
         action="complete",
         detail="All done",
@@ -329,7 +331,7 @@ async def test_update_task_complete(mocker: "MockerFixture") -> None:
 
 
 @pytest.mark.asyncio
-async def test_update_task_fail(mocker: "MockerFixture") -> None:
+async def test_update_task_fail(mocker: "MockerFixture", task_tools) -> None:
     task = TaskState(
         task_id="task3",
         title="Task to Fail",
@@ -351,7 +353,7 @@ async def test_update_task_fail(mocker: "MockerFixture") -> None:
     store = MagicMock()
     config = {"configurable": {"user_id": "user3"}}
 
-    result = await update_task.coroutine(  # type: ignore[attr-defined]
+    result = await task_tools["update_task"].coroutine(
         task_id="task3",
         action="fail",
         detail="Something went wrong",
@@ -370,13 +372,14 @@ async def test_update_task_fail(mocker: "MockerFixture") -> None:
 
 
 @pytest.mark.asyncio
-async def test_update_task_retry(mocker: "MockerFixture") -> None:
+async def test_update_task_retry(mocker: "MockerFixture", mock_lg_client, task_tools) -> None:
     task = TaskState(
         task_id="task4",
         title="Task to Retry",
         status=TaskStatus.RUNNING,
         thread_id="thread4",
         user_id="user4",
+        description="retry desc",
     )
 
     mocker.patch(
@@ -388,15 +391,11 @@ async def test_update_task_retry(mocker: "MockerFixture") -> None:
         "joi_agent_langgraph2.tasks.tools.put_task",
         new_callable=AsyncMock,
     )
-    mock_create_run = mocker.patch(
-        "joi_agent_langgraph2.tasks.tools.create_task_run",
-        new_callable=AsyncMock,
-    )
 
     store = MagicMock()
     config = {"configurable": {"user_id": "user4"}}
 
-    result = await update_task.coroutine(  # type: ignore[attr-defined]
+    result = await task_tools["update_task"].coroutine(
         task_id="task4",
         action="retry",
         detail="Retrying after error",
@@ -412,13 +411,13 @@ async def test_update_task_retry(mocker: "MockerFixture") -> None:
     updated_task = mock_put.call_args[0][1]
     assert updated_task.status == TaskStatus.RETRY
     assert updated_task.log[0].event == "retry"
-    mock_create_run.assert_called_once()
-    delay = mock_create_run.call_args[0][5]
-    assert delay == 600
+    mock_lg_client.runs.create.assert_called_once()
+    call_kwargs = mock_lg_client.runs.create.call_args
+    assert call_kwargs.kwargs["after_seconds"] == 600
 
 
 @pytest.mark.asyncio
-async def test_update_task_ask_without_question(mocker: "MockerFixture") -> None:
+async def test_update_task_ask_without_question(mocker: "MockerFixture", task_tools) -> None:
     task = TaskState(
         task_id="task5",
         title="Task Asking Question",
@@ -436,7 +435,7 @@ async def test_update_task_ask_without_question(mocker: "MockerFixture") -> None
     store = MagicMock()
     config = {"configurable": {"user_id": "user5"}}
 
-    result = await update_task.coroutine(  # type: ignore[attr-defined]
+    result = await task_tools["update_task"].coroutine(
         task_id="task5",
         action="ask",
         detail="",
@@ -450,7 +449,7 @@ async def test_update_task_ask_without_question(mocker: "MockerFixture") -> None
 
 
 @pytest.mark.asyncio
-async def test_update_task_not_found(mocker: "MockerFixture") -> None:
+async def test_update_task_not_found(mocker: "MockerFixture", task_tools) -> None:
     mocker.patch(
         "joi_agent_langgraph2.tasks.tools.get_task",
         new_callable=AsyncMock,
@@ -460,7 +459,7 @@ async def test_update_task_not_found(mocker: "MockerFixture") -> None:
     store = MagicMock()
     config = {"configurable": {"user_id": "user6"}}
 
-    result = await update_task.coroutine(  # type: ignore[attr-defined]
+    result = await task_tools["update_task"].coroutine(
         task_id="nonexistent",
         action="complete",
         detail="",

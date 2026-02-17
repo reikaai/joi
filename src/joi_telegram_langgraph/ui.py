@@ -14,6 +14,8 @@ TELEGRAM_MSG_LIMIT = 4096
 class ConfirmCallback(CallbackData, prefix="cfm"):
     thread_id: str
     approved: bool
+    task_id: str = ""
+    user_id: str = ""
 
 
 def _chunk_text(text: str, limit: int = TELEGRAM_MSG_LIMIT) -> list[str]:
@@ -131,17 +133,23 @@ async def _edit_markdown(msg: Message, text: str) -> None:
             logger.warning(f"Debug edit failed: {e}")
 
 
-def build_confirm_keyboard(thread_id: str) -> InlineKeyboardMarkup:
+def build_confirm_keyboard(
+    thread_id: str, *, task_id: str = "", user_id: str = ""
+) -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(
         inline_keyboard=[
             [
                 InlineKeyboardButton(
                     text="Yes",
-                    callback_data=ConfirmCallback(thread_id=thread_id, approved=True).pack(),
+                    callback_data=ConfirmCallback(
+                        thread_id=thread_id, approved=True, task_id=task_id, user_id=user_id,
+                    ).pack(),
                 ),
                 InlineKeyboardButton(
                     text="No",
-                    callback_data=ConfirmCallback(thread_id=thread_id, approved=False).pack(),
+                    callback_data=ConfirmCallback(
+                        thread_id=thread_id, approved=False, task_id=task_id, user_id=user_id,
+                    ).pack(),
                 ),
             ]
         ]

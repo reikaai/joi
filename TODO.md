@@ -12,9 +12,6 @@ Skip HITL for trusted tools in background tasks. Requires `TaskAwareHITLMiddlewa
 ## Torrent Search: Cyrillic/Transliteration Problem
 "Interstellar" not found because Jackett results use Russian names. Agent passes English filter expression. Even Russian titles may be transliterated to Latin with dots instead of spaces (e.g. `Интерстеллар` → `Interstellar` or `I.n.t.e.r.s.t.e.l.l.a.r`). Need fuzzy/normalized matching — possibly strip dots, lowercase, and do substring match instead of exact JMESPath filter.
 
-## Shutdown Race Condition
-`main.py` calls `stop_polling` before `cancel`, no `try/finally` wrapping. If an exception occurs between cancel and await, tasks may leak. Should wrap in try/finally and ensure proper ordering.
-
 ## No Stream Error Recovery
 `client.py` logs stream errors but continues processing. Should have retry logic or at least surface errors to the user when the stream breaks mid-conversation.
 
@@ -26,3 +23,21 @@ Timeouts scattered across codebase (600s, 300s, 0.5s, 5s POLL_INTERVAL). Should 
 
 ## Duplicated Test Factories
 `_make_task()` factory duplicated in `test_store.py` and `test_notifier.py`. Extract to a shared `conftest.py` fixture.
+
+## `_factory` Singleton Lifecycle in `graph.py`
+Module-level `_factory = _GraphFactory()` is the composition root entry point. Acceptable, but if caller doesn't use `async with`, MCP client leaks. Document expected usage or add guard.
+
+## `settings` Global Side Effects at Import
+`config.py:67` — `settings = Settings()` triggers `mkdir` on every import. Fine for PoC, but may cause test issues. Consider lazy property.
+
+## `MCP_SERVERS` Dict Evaluated at Import Time
+`tools.py:9-22` — `MCP_SERVERS` uses `settings` at module level, coupling to config global. Fine for PoC.
+
+## Missing Types in `joi_langgraph_client/client.py`
+Three untyped params: `client` (line 30), `stream` (line 74), `data` (line 134). Lower priority — client package.
+
+## Missing Types in `joi_telegram_langgraph/`
+`keyboard` param in `ui.py:40`, `_typing_indicator` return in `handlers.py:22`. Lower priority — telegram package.
+
+## Bare `dict` for `interrupt_data` in `tasks/models.py`
+`interrupt_data: dict | None = None` — unknown shape. Would benefit from `dict[str, Any]` or TypedDict if structure stabilizes.

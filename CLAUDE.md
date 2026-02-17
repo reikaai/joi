@@ -14,10 +14,8 @@ If WebFetch fails, retry with `https://r.jina.ai/` prefix.
 3. On completion: `scripts/session.sh done`
 
 # Dev Workflow
-MCP server (Terminal 1): `make dev-mcp`
-Agent (Terminal 2): `make dev-agent`
-
-Both auto-reload on source changes.
+See [docs/dev-workflow.md](docs/dev-workflow.md) for service management, commands, and auto-reload details.
+Quick start: `docker compose up`
 
 # Testing
 Contract tests use VCR cassettes for HTTP replay. All `@pytest.mark.contract` tests should also have `@pytest.mark.vcr`.
@@ -27,8 +25,23 @@ Refresh cassettes: `uv run pytest -v -m contract --record-mode=all`
 
 Cassettes live in `tests/joi_mcp/cassettes/`.
 
+## E2E Tests
+E2E tests run the full agent path (AgentStreamClient → LangGraph API → agent → MCP → external services) with a `CapturingRenderer` instead of Telegram. Requires running services: `make dev-mcp` + `make dev-agent`.
+
+Run: `make e2e` or `uv run pytest -m e2e -v`
+CLI: `uv run python scripts/e2e.py send "message"` — JSON to stdout, logs to stderr.
+Multi-turn: use `--user <id>` for deterministic thread IDs across sends.
+
+Mark E2E tests with `@pytest.mark.e2e`. Harness lives in `scripts/e2e.py`, fixtures in `tests/e2e/conftest.py`.
+
 # MCP Patterns
 See [docs/mcp-patterns.md](docs/mcp-patterns.md) for tool design guidance.
+
+# Python Standards
+See [docs/python_standards.md](docs/python_standards.md) for import rules, DI patterns, and code style.
+
+# Architecture
+See [docs/architecture.md](docs/architecture.md) for package structure, dependency rules, and DI patterns.
 
 # Autonomy
 - Execute planned changes without asking for confirmation. Just do it.

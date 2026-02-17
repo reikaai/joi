@@ -1,5 +1,6 @@
 from langchain.agents import create_agent
 from langchain.agents.middleware import HumanInTheLoopMiddleware
+from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import HumanMessage
 from langchain_core.tools import BaseTool, tool
 from langsmith import traceable
@@ -7,7 +8,9 @@ from langsmith import traceable
 from joi_agent_langgraph2.tools import MUTATION_TOOLS
 
 
-def create_media_delegate(model, media_tools: list[BaseTool], media_persona: str, interpreter: BaseTool | None = None) -> BaseTool:
+def create_media_delegate(
+    model: BaseChatModel, media_tools: list[BaseTool], media_persona: str, interpreter: BaseTool | None = None,
+) -> BaseTool:
     tools = list(media_tools)
     if interpreter:
         tools.append(interpreter)

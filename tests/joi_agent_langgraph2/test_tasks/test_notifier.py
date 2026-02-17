@@ -1,15 +1,16 @@
 from datetime import datetime
-from unittest.mock import AsyncMock
+from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 
 from joi_agent_langgraph2.tasks.models import TaskLogEntry, TaskState, TaskStatus
+from joi_langgraph_client.tasks.task_client import TaskClient
 from joi_telegram_langgraph.notifier import (
+    _check_interrupt,
     _format_narrative,
     _format_notification,
-    _poll_interrupts,
-    _poll_notifications,
-    register_user,
+    _poll_cycle,
+    _send_notification,
 )
 
 
@@ -19,13 +20,12 @@ def _make_task(**overrides) -> TaskState:
     return TaskState(**defaults)  # type: ignore[arg-type]
 
 
-@pytest.fixture(autouse=True)
-def clear_known_users():
-    from joi_telegram_langgraph.notifier import _known_users
-
-    _known_users.clear()
-    yield
-    _known_users.clear()
+def _make_tc() -> MagicMock:
+    tc = MagicMock(spec=TaskClient)
+    tc.put_task = AsyncMock()
+    tc.list_all_tasks = AsyncMock(return_value=[])
+    tc.get_thread_state = AsyncMock(return_value={})
+    return tc
 
 
 def test_format_notification_completed():
@@ -35,7 +35,7 @@ def test_format_notification_completed():
     )
     result = _format_notification(task)
     assert "Task completed:" in result
-    assert "**Test Task**" in result
+    assert "Test Task" in result
     assert "10:00" in result
     assert "[start]" in result
 
@@ -47,7 +47,7 @@ def test_format_notification_failed():
     )
     result = _format_notification(task)
     assert "Task failed:" in result
-    assert "**Test Task**" in result
+    assert "Test Task" in result
     assert "10:05" in result
     assert "[error]" in result
 
@@ -76,7 +76,7 @@ def test_format_narrative_with_log():
         ]
     )
     result = _format_narrative(task)
-    assert "**Test Task**" in result
+    assert "Test Task" in result
     assert "10:00 [start] Started task" in result
     assert "10:02 [progress] Processing" in result
 
@@ -84,84 +84,74 @@ def test_format_narrative_with_log():
 def test_format_narrative_without_log():
     task = _make_task(log=[])
     result = _format_narrative(task)
-    assert "**Test Task**" in result
+    assert "Test Task" in result
     assert "10:00" not in result
 
 
 @pytest.mark.asyncio
-async def test_poll_notifications_sends_and_marks_notified(mocker):
-    register_user("123")
+async def test_poll_cycle_sends_notification():
     task = _make_task(status=TaskStatus.COMPLETED, notified=False)
-
-    mocker.patch("joi_telegram_langgraph.notifier.list_tasks_sdk", AsyncMock(return_value=[task]))
-    mock_put = mocker.patch("joi_telegram_langgraph.notifier.put_task_sdk", AsyncMock())
+    tc = _make_tc()
+    tc.list_all_tasks.return_value = [task]
 
     bot = AsyncMock()
     sent_msg = AsyncMock()
     sent_msg.message_id = 42
     bot.send_message.return_value = sent_msg
 
-    await _poll_notifications(bot, "http://test")
+    await _poll_cycle(bot, tc)
 
     bot.send_message.assert_called_once()
     args = bot.send_message.call_args
     assert args[0][0] == 123
     assert "Test Task" in args[0][1]
-
     assert task.notified is True
-    mock_put.assert_called_once_with(task)
+    tc.put_task.assert_called_once_with(task)
 
 
 @pytest.mark.asyncio
-async def test_poll_notifications_skips_already_notified(mocker):
-    register_user("123")
+async def test_poll_cycle_skips_already_notified():
     task = _make_task(status=TaskStatus.COMPLETED, notified=True)
-
-    mocker.patch("joi_telegram_langgraph.notifier.list_tasks_sdk", AsyncMock(return_value=[task]))
-    mock_put = mocker.patch("joi_telegram_langgraph.notifier.put_task_sdk", AsyncMock())
+    tc = _make_tc()
+    tc.list_all_tasks.return_value = [task]
 
     bot = AsyncMock()
-    await _poll_notifications(bot, "http://test")
+    await _poll_cycle(bot, tc)
 
     bot.send_message.assert_not_called()
-    mock_put.assert_not_called()
+    tc.put_task.assert_not_called()
 
 
 @pytest.mark.asyncio
-async def test_poll_notifications_handles_sdk_errors(mocker):
-    register_user("123")
-    mocker.patch("joi_telegram_langgraph.notifier.list_tasks_sdk", AsyncMock(side_effect=RuntimeError("DB down")))
+async def test_poll_cycle_handles_sdk_errors():
+    tc = _make_tc()
+    tc.list_all_tasks.side_effect = RuntimeError("DB down")
 
     bot = AsyncMock()
-    await _poll_notifications(bot, "http://test")
+    await _poll_cycle(bot, tc)
 
     bot.send_message.assert_not_called()
 
 
 @pytest.mark.asyncio
-async def test_poll_interrupts_detects_and_sends(mocker):
-    register_user("123")
+async def test_poll_cycle_checks_interrupts_for_running_tasks(mocker):
     task = _make_task(status=TaskStatus.RUNNING, interrupt_data=None)
-
-    mocker.patch("joi_telegram_langgraph.notifier.list_tasks_sdk", AsyncMock(return_value=[task]))
-    mock_put = mocker.patch("joi_telegram_langgraph.notifier.put_task_sdk", AsyncMock())
-
-    mock_state = {"interrupts": [{"value": {"action": "approve", "details": "Run command"}}]}
-    mock_client = AsyncMock()
-    mock_client.threads.get_state.return_value = mock_state
-    mocker.patch("joi_telegram_langgraph.notifier.get_client", return_value=mock_client)
+    tc = _make_tc()
+    tc.list_all_tasks.return_value = [task]
+    tc.get_thread_state.return_value = {
+        "interrupts": [{"value": {"action": "approve", "details": "Run command"}}]
+    }
 
     mocker.patch("joi_telegram_langgraph.notifier.format_interrupt", return_value="Approve: Run command")
+    mock_kb = mocker.MagicMock()
+    mocker.patch("joi_telegram_langgraph.notifier.build_confirm_keyboard", return_value=mock_kb)
 
     bot = AsyncMock()
     sent_msg = AsyncMock()
     sent_msg.message_id = 99
     bot.send_message.return_value = sent_msg
 
-    mock_kb = mocker.MagicMock()
-    mocker.patch("joi_telegram_langgraph.notifier.build_confirm_keyboard", return_value=mock_kb)
-
-    await _poll_interrupts(bot, "http://test")
+    await _poll_cycle(bot, tc)
 
     bot.send_message.assert_called_once()
     args = bot.send_message.call_args
@@ -171,34 +161,54 @@ async def test_poll_interrupts_detects_and_sends(mocker):
 
     assert task.interrupt_data is not None
     assert task.interrupt_msg_id == 99
-    mock_put.assert_called_once_with(task)
+    tc.put_task.assert_called_once_with(task)
 
 
 @pytest.mark.asyncio
-async def test_poll_interrupts_skips_existing_interrupt_data(mocker):
-    register_user("123")
-    task = _make_task(status=TaskStatus.RUNNING, interrupt_data={"approved": True})
-
-    mocker.patch("joi_telegram_langgraph.notifier.list_tasks_sdk", AsyncMock(return_value=[task]))
-    mock_put = mocker.patch("joi_telegram_langgraph.notifier.put_task_sdk", AsyncMock())
-
-    mock_client = AsyncMock()
-    mocker.patch("joi_telegram_langgraph.notifier.get_client", return_value=mock_client)
+async def test_poll_cycle_skips_existing_interrupt_data():
+    task = _make_task(status=TaskStatus.RUNNING, interrupt_data={"some": "data"})
+    tc = _make_tc()
+    tc.list_all_tasks.return_value = [task]
 
     bot = AsyncMock()
-    await _poll_interrupts(bot, "http://test")
+    await _poll_cycle(bot, tc)
 
-    mock_client.threads.get_state.assert_not_called()
+    tc.get_thread_state.assert_not_called()
     bot.send_message.assert_not_called()
-    mock_put.assert_not_called()
+    tc.put_task.assert_not_called()
 
 
-def test_register_user():
-    from joi_telegram_langgraph.notifier import _known_users
+@pytest.mark.asyncio
+async def test_send_notification_waiting_user_sets_msg_id():
+    task = _make_task(status=TaskStatus.WAITING_USER, question="What color?")
+    tc = _make_tc()
 
-    register_user("456")
-    assert "456" in _known_users
+    bot = AsyncMock()
+    sent_msg = AsyncMock()
+    sent_msg.message_id = 77
+    bot.send_message.return_value = sent_msg
 
-    register_user("789")
-    assert "456" in _known_users
-    assert "789" in _known_users
+    await _send_notification(bot, task, tc)
+
+    assert task.question_msg_id == 77
+    assert task.notified is True
+
+
+@pytest.mark.asyncio
+async def test_check_interrupt_stores_raw_interrupt(mocker):
+    task = _make_task(status=TaskStatus.RUNNING, interrupt_data=None)
+    tc = _make_tc()
+    raw_interrupt = {"id": "int-1", "value": {"action_requests": [{"name": "add_torrent", "args": {}}]}}
+    tc.get_thread_state.return_value = {"interrupts": [raw_interrupt]}
+
+    mocker.patch("joi_telegram_langgraph.notifier.format_interrupt", return_value="Confirm action")
+    mocker.patch("joi_telegram_langgraph.notifier.build_confirm_keyboard", return_value=MagicMock())
+
+    bot = AsyncMock()
+    sent_msg = AsyncMock()
+    sent_msg.message_id = 55
+    bot.send_message.return_value = sent_msg
+
+    await _check_interrupt(bot, task, tc)
+
+    assert task.interrupt_data == raw_interrupt
