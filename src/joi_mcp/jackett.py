@@ -1,5 +1,5 @@
 import hashlib
-from typing import Annotated, Any, Literal
+from typing import Annotated, Literal
 
 import httpx
 import xmltodict
@@ -7,8 +7,8 @@ from fastmcp import FastMCP
 from pydantic import BaseModel, Field
 
 from joi_mcp.config import settings
-from joi_mcp.pagination import DEFAULT_LIMIT, paginate
-from joi_mcp.query import apply_query, project
+from joi_mcp.pagination import DEFAULT_LIMIT, TsvList, paginate
+from joi_mcp.query import apply_query, project, to_tsv
 from joi_mcp.schema import optimize_tool_schemas
 
 mcp = FastMCP("Jackett")
@@ -60,13 +60,6 @@ class TorrentDetail(BaseModel):
 
 # Keep for backwards compat during transition
 TorrentResult = TorrentDetail
-
-
-class SearchResults(BaseModel):
-    results: list[TorrentSummary] | list[dict[str, Any]]
-    total: int
-    offset: int
-    has_more: bool
 
 
 def _extract_torznab_attrs(attrs: list | dict | None) -> dict:
@@ -176,6 +169,7 @@ def _search(params: dict) -> list[TorrentSummary]:
 @mcp.tool
 def search_torrents(
     query: Annotated[str, Field()],
+    alt_queries: Annotated[list[str] | None, Field(description="Alternative queries (OR, deduped)")] = None,
     search_type: Annotated[Literal["search", "movie", "tvsearch"], Field()] = "search",
     year: Annotated[int | None, Field()] = None,
     season: Annotated[int | None, Field()] = None,
@@ -186,24 +180,31 @@ def search_torrents(
     sort_by: Annotated[str | None, Field(description="Sort field, - prefix for desc")] = None,
     limit: Annotated[int, Field()] = DEFAULT_LIMIT,
     offset: Annotated[int, Field()] = 0,
-) -> SearchResults:
-    """Search torrents. Fields: title, size, seeders, leechers, indexer"""
-    params = {"t": search_type, "q": query}
-
+) -> TsvList:
+    """Search torrents (TSV). Fields: title, size, seeders, leechers, indexer"""
+    base_params: dict[str, str] = {"t": search_type}
     if year:
-        params["year"] = str(year)
+        base_params["year"] = str(year)
     if season is not None and search_type == "tvsearch":
-        params["season"] = str(season)
+        base_params["season"] = str(season)
     if episode is not None and search_type == "tvsearch":
-        params["ep"] = str(episode)
+        base_params["ep"] = str(episode)
     if categories:
-        params["cat"] = ",".join(str(c) for c in categories)
+        base_params["cat"] = ",".join(str(c) for c in categories)
 
-    results = _search(params)
+    all_queries = [query] + (alt_queries or [])
+    seen_ids: set[str] = set()
+    results: list[TorrentSummary] = []
+    for q in all_queries:
+        for item in _search({**base_params, "q": q}):
+            if item.id not in seen_ids:
+                seen_ids.add(item.id)
+                results.append(item)
+
     filtered = apply_query(results, filter_expr, sort_by, limit=None)
     paginated, total, has_more = paginate(filtered, limit, offset)
     projected = project(paginated, fields)
-    return SearchResults(results=projected, total=total, offset=offset, has_more=has_more)
+    return TsvList(data=to_tsv(projected), total=total, offset=offset, has_more=has_more)
 
 
 @mcp.tool

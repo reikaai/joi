@@ -42,8 +42,8 @@ def add_torrent(url: str, download_dir: str | None = None) -> str:
 
 
 @tool
-def search_movies(query: str) -> str:
-    """Search for movies on TMDB."""
+def search_media(query: str) -> str:
+    """Search movies/TV on TMDB."""
     return ""
 
 
@@ -53,7 +53,7 @@ def search_torrents(query: str) -> str:
     return ""
 
 
-TOOLS = [list_torrents, add_torrent, search_movies, search_torrents]
+TOOLS = [list_torrents, add_torrent, search_media, search_torrents]
 MEDIA_PERSONA = settings.media_persona_path.read_text()
 
 

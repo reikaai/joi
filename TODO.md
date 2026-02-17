@@ -9,9 +9,6 @@ Outside interpreter: CSV/TSV works great — LLM parses it natively. Inside inte
 ## Pre-approved Tools for Background Tasks
 Skip HITL for trusted tools in background tasks. Requires `TaskAwareHITLMiddleware` that filters `interrupt_on` based on runtime config (e.g. `configurable.pre_approved` list). This allows background tasks to auto-approve known-safe tools without user interaction.
 
-## Torrent Search: Cyrillic/Transliteration Problem
-"Interstellar" not found because Jackett results use Russian names. Agent passes English filter expression. Even Russian titles may be transliterated to Latin with dots instead of spaces (e.g. `Интерстеллар` → `Interstellar` or `I.n.t.e.r.s.t.e.l.l.a.r`). Need fuzzy/normalized matching — possibly strip dots, lowercase, and do substring match instead of exact JMESPath filter.
-
 ## No Stream Error Recovery
 `client.py` logs stream errors but continues processing. Should have retry logic or at least surface errors to the user when the stream breaks mid-conversation.
 

@@ -43,16 +43,19 @@ def _format_notification(task: TaskState, *, debug: bool = False) -> str:
 
 
 async def _deliver_messages(bot: Bot, task: TaskState, tc: TaskClient) -> None:
-    if not task.pending_messages:
+    messages = await tc.list_messages(task.user_id, task.task_id)
+    if not messages:
         return
     chat_id = int(task.user_id)
-    for msg in task.pending_messages:
+    for key, text in messages:
         try:
-            await bot.send_message(chat_id, msg)
+            await bot.send_message(chat_id, text)
         except Exception as e:
             logger.error(f"Notifier: failed to deliver message for task {task.task_id}: {e}")
-    task.pending_messages.clear()
-    await tc.put_task(task)
+        try:
+            await tc.delete_message(task.user_id, task.task_id, key)
+        except Exception as e:
+            logger.error(f"Notifier: failed to delete message {key}: {e}")
 
 
 async def _send_notification(bot: Bot, task: TaskState, tc: TaskClient, *, debug: bool = False) -> None:

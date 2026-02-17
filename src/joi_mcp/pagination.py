@@ -1,4 +1,13 @@
+from pydantic import BaseModel
+
 DEFAULT_LIMIT = 50
+
+
+class TsvList(BaseModel):
+    data: str
+    total: int
+    offset: int
+    has_more: bool
 
 
 def paginate[T](items: list[T], limit: int = DEFAULT_LIMIT, offset: int = 0) -> tuple[list[T], int, bool]:

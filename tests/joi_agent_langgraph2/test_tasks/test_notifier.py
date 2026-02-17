@@ -26,6 +26,8 @@ def _make_tc() -> MagicMock:
     tc.put_task = AsyncMock()
     tc.list_all_tasks = AsyncMock(return_value=[])
     tc.get_thread_state = AsyncMock(return_value={})
+    tc.list_messages = AsyncMock(return_value=[])
+    tc.delete_message = AsyncMock()
     return tc
 
 
@@ -90,8 +92,9 @@ def test_format_narrative_without_log():
 
 @pytest.mark.asyncio
 async def test_deliver_messages_sends_all():
-    task = _make_task(pending_messages=["msg one", "msg two"])
+    task = _make_task()
     tc = _make_tc()
+    tc.list_messages.return_value = [("msg_aaa", "msg one"), ("msg_bbb", "msg two")]
     bot = AsyncMock()
 
     await _deliver_messages(bot, task, tc)
@@ -99,20 +102,23 @@ async def test_deliver_messages_sends_all():
     assert bot.send_message.call_count == 2
     bot.send_message.assert_any_call(123, "msg one")
     bot.send_message.assert_any_call(123, "msg two")
-    assert task.pending_messages == []
-    tc.put_task.assert_called_once_with(task)
+    assert tc.delete_message.call_count == 2
+    tc.delete_message.assert_any_call("123", "t1", "msg_aaa")
+    tc.delete_message.assert_any_call("123", "t1", "msg_bbb")
+    tc.put_task.assert_not_called()
 
 
 @pytest.mark.asyncio
 async def test_deliver_messages_empty():
-    task = _make_task(pending_messages=[])
+    task = _make_task()
     tc = _make_tc()
+    tc.list_messages.return_value = []
     bot = AsyncMock()
 
     await _deliver_messages(bot, task, tc)
 
     bot.send_message.assert_not_called()
-    tc.put_task.assert_not_called()
+    tc.delete_message.assert_not_called()
 
 
 @pytest.mark.asyncio
@@ -134,20 +140,20 @@ async def test_poll_cycle_completed_silently_notified():
 @pytest.mark.asyncio
 async def test_poll_cycle_completed_with_messages():
     """COMPLETED task with pending messages → messages delivered, then silently notified."""
-    task = _make_task(status=TaskStatus.COMPLETED, notified=False, pending_messages=["here's your answer"])
+    task = _make_task(status=TaskStatus.COMPLETED, notified=False)
     tc = _make_tc()
     tc.list_all_tasks.return_value = [task]
+    tc.list_messages.return_value = [("msg_abc", "here's your answer")]
 
     bot = AsyncMock()
 
     await _poll_cycle(bot, tc)
 
-    # First call: deliver message. Second call: none (no debug)
     bot.send_message.assert_called_once_with(123, "here's your answer")
     assert task.notified is True
-    assert task.pending_messages == []
-    # put_task called twice: once for message drain, once for notified mark
-    assert tc.put_task.call_count == 2
+    tc.delete_message.assert_called_once_with("123", "t1", "msg_abc")
+    # put_task called once for notified mark (no longer for message drain)
+    assert tc.put_task.call_count == 1
 
 
 @pytest.mark.asyncio

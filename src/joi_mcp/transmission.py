@@ -6,7 +6,7 @@ from pydantic import BaseModel, Field
 from transmission_rpc import Client
 
 from joi_mcp.config import settings
-from joi_mcp.pagination import DEFAULT_LIMIT, paginate
+from joi_mcp.pagination import DEFAULT_LIMIT, TsvList, paginate
 from joi_mcp.query import apply_query, project, to_tsv
 from joi_mcp.schema import optimize_tool_schemas
 
@@ -72,13 +72,6 @@ class Torrent(BaseModel):
     download_speed: int
     upload_speed: int
     file_count: int
-
-
-class TsvList(BaseModel):
-    data: str
-    total: int
-    offset: int
-    has_more: bool
 
 
 class TorrentList(BaseModel):

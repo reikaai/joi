@@ -37,7 +37,6 @@ class TaskState(BaseModel):
     description: str = ""
     interrupt_data: dict | None = None
     interrupt_msg_id: int | None = None
-    pending_messages: list[str] = Field(default_factory=list)
     log: list[TaskLogEntry] = Field(default_factory=list)
 
     def append_log(self, event: str, detail: str = "") -> None:

@@ -3,6 +3,7 @@ from loguru import logger
 from joi_agent_langgraph2.tasks.models import TaskState, TaskStatus
 
 TASK_NAMESPACE_PREFIX = "tasks"
+MSG_NS_PREFIX = "task_msgs"
 
 
 class TaskClient:
@@ -46,6 +47,22 @@ class TaskClient:
         ns = [TASK_NAMESPACE_PREFIX, user_id]
         response = await self._client.store.search_items(ns, limit=50)
         return self._parse_search_results(response, statuses)
+
+    async def list_messages(self, user_id: str, task_id: str) -> list[tuple[str, str]]:
+        ns = [MSG_NS_PREFIX, user_id, task_id]
+        response = await self._client.store.search_items(ns, limit=50)
+        items = response.get("items", []) if isinstance(response, dict) else response
+        result = []
+        for item in items:
+            val = item.get("value") if isinstance(item, dict) else getattr(item, "value", None)
+            key = item.get("key") if isinstance(item, dict) else getattr(item, "key", None)
+            if val and key:
+                result.append((key, val.get("text", "")))
+        return result
+
+    async def delete_message(self, user_id: str, task_id: str, key: str) -> None:
+        ns = [MSG_NS_PREFIX, user_id, task_id]
+        await self._client.store.delete_item(ns, key)
 
     async def list_all_tasks(self, statuses: set[TaskStatus] | None = None) -> list[TaskState]:
         response = await self._client.store.search_items(

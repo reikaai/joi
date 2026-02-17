@@ -307,6 +307,10 @@ async def test_update_task_complete(mocker: "MockerFixture", task_tools) -> None
         "joi_agent_langgraph2.tasks.tools.put_task",
         new_callable=AsyncMock,
     )
+    mock_put_msg = mocker.patch(
+        "joi_agent_langgraph2.tasks.tools.put_message",
+        new_callable=AsyncMock,
+    )
 
     store = MagicMock()
     config = {"configurable": {"user_id": "user2"}}
@@ -329,7 +333,7 @@ async def test_update_task_complete(mocker: "MockerFixture", task_tools) -> None
     assert updated_task.status == TaskStatus.COMPLETED
     assert updated_task.log[0].event == "completed"
     assert updated_task.log[0].detail == "All done"
-    assert updated_task.pending_messages == ["here's your answer"]
+    mock_put_msg.assert_called_once_with(store, "user2", "task2", "here's your answer")
 
 
 @pytest.mark.asyncio
@@ -494,6 +498,10 @@ async def test_update_task_progress_with_message(mocker: "MockerFixture", task_t
         "joi_agent_langgraph2.tasks.tools.put_task",
         new_callable=AsyncMock,
     )
+    mock_put_msg = mocker.patch(
+        "joi_agent_langgraph2.tasks.tools.put_message",
+        new_callable=AsyncMock,
+    )
 
     store = MagicMock()
     config = {"configurable": {"user_id": "user7"}}
@@ -513,8 +521,8 @@ async def test_update_task_progress_with_message(mocker: "MockerFixture", task_t
     mock_put.assert_called_once()
     updated_task = mock_put.call_args[0][1]
     assert updated_task.status == TaskStatus.RUNNING
-    assert updated_task.pending_messages == ["still looking, hold on"]
     assert updated_task.log[0].event == "progress"
+    mock_put_msg.assert_called_once_with(store, "user7", "task7", "still looking, hold on")
 
 
 @pytest.mark.asyncio
@@ -536,6 +544,10 @@ async def test_update_task_complete_no_message(mocker: "MockerFixture", task_too
         "joi_agent_langgraph2.tasks.tools.put_task",
         new_callable=AsyncMock,
     )
+    mock_put_msg = mocker.patch(
+        "joi_agent_langgraph2.tasks.tools.put_message",
+        new_callable=AsyncMock,
+    )
 
     store = MagicMock()
     config = {"configurable": {"user_id": "user8"}}
@@ -555,4 +567,4 @@ async def test_update_task_complete_no_message(mocker: "MockerFixture", task_too
     mock_put.assert_called_once()
     updated_task = mock_put.call_args[0][1]
     assert updated_task.status == TaskStatus.COMPLETED
-    assert updated_task.pending_messages == []
+    mock_put_msg.assert_not_called()

@@ -1,6 +1,6 @@
 import pytest
 
-from joi_mcp.tmdb import FindResult, Genre, GenreList, Movie, MovieList, TvShow
+from joi_mcp.tmdb import Genre, GenreList, MediaItem, MediaList, Movie, MovieList, TvShow, _movie_to_media, _tv_to_media
 
 
 @pytest.mark.unit
@@ -84,15 +84,57 @@ class TestModels:
         assert gl.total == 19
         assert gl.has_more is False
 
-    def test_find_result_with_totals(self):
+
+@pytest.mark.unit
+class TestMediaItem:
+    def test_media_item_defaults(self):
+        item = MediaItem(id=1, title="Test")
+        assert item.media_type == ""
+        assert item.alt_titles is None
+        assert item.genre_ids == []
+
+    def test_media_item_with_alt_titles(self):
+        item = MediaItem(id=1, title="Interstellar", alt_titles={"RU": "Интерстеллар", "DE": "Interstellar"})
+        assert item.alt_titles is not None
+        assert item.alt_titles["RU"] == "Интерстеллар"
+
+    def test_media_list_model(self):
         data = {
-            "movie_results": [{"id": 1, "title": "Test Movie"}],
-            "tv_results": [{"id": 2, "name": "Test Show"}],
-            "movie_total": 1,
-            "tv_total": 1,
+            "results": [{"id": 1, "title": "Test", "media_type": "movie"}],
+            "total": 1,
+            "offset": 0,
+            "has_more": False,
         }
-        fr = FindResult.model_validate(data)
-        assert len(fr.movie_results) == 1
-        assert len(fr.tv_results) == 1
-        assert fr.movie_total == 1
-        assert fr.tv_total == 1
+        ml = MediaList.model_validate(data)
+        assert len(ml.results) == 1
+        assert ml.total == 1
+
+
+@pytest.mark.unit
+class TestMediaConversion:
+    def test_movie_to_media(self):
+        movie = Movie(id=157336, title="Interstellar", original_title="Interstellar", release_date="2014-11-05")
+        item = _movie_to_media(movie)
+        assert item.media_type == "movie"
+        assert item.title == "Interstellar"
+        assert item.release_date == "2014-11-05"
+        assert item.alt_titles is None
+
+    def test_movie_to_media_with_alt_titles(self):
+        movie = Movie(id=157336, title="Interstellar")
+        alt = {"RU": "Интерстеллар", "FR": "Interstellaire"}
+        item = _movie_to_media(movie, alt)
+        assert item.alt_titles == alt
+
+    def test_tv_to_media(self):
+        tv = TvShow(id=1396, name="Breaking Bad", original_name="Breaking Bad", first_air_date="2008-01-20")
+        item = _tv_to_media(tv)
+        assert item.media_type == "tv"
+        assert item.title == "Breaking Bad"
+        assert item.release_date == "2008-01-20"
+
+    def test_tv_to_media_with_alt_titles(self):
+        tv = TvShow(id=1396, name="Breaking Bad")
+        alt = {"RU": "Во все тяжкие"}
+        item = _tv_to_media(tv, alt)
+        assert item.alt_titles == alt

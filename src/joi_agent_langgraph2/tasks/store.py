@@ -1,6 +1,10 @@
+import uuid
+
 from langgraph.store.base import BaseStore
 
 from .models import TaskState, TaskStatus
+
+MSG_NS_PREFIX = "task_msgs"
 
 
 def _ns(user_id: str, task_id: str) -> tuple[str, ...]:
@@ -29,6 +33,15 @@ async def list_user_tasks(
             if statuses is None or task.status in statuses:
                 tasks.append(task)
     return tasks
+
+
+def _msg_ns(user_id: str, task_id: str) -> tuple[str, ...]:
+    return (MSG_NS_PREFIX, user_id, task_id)
+
+
+async def put_message(store: BaseStore, user_id: str, task_id: str, text: str) -> None:
+    key = f"msg_{uuid.uuid4().hex[:12]}"
+    await store.aput(_msg_ns(user_id, task_id), key, {"text": text})
 
 
 async def append_log(store: BaseStore, user_id: str, task_id: str, event: str, detail: str = "") -> TaskState | None:

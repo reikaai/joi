@@ -10,7 +10,7 @@ from loguru import logger
 from pydantic import Field
 
 from .models import TaskState, TaskStatus
-from .store import get_task, list_user_tasks, put_task
+from .store import get_task, list_user_tasks, put_message, put_task
 
 if TYPE_CHECKING:
     from langgraph_sdk.client import LangGraphClient
@@ -178,7 +178,7 @@ def create_task_tools(langgraph: "LangGraphClient", assistant_id: str) -> list[B
             return f"Task {task_id} not found."
 
         if message:
-            task.pending_messages.append(message)
+            await put_message(store, user_id, task_id, message)
 
         match action:
             case "cancel":

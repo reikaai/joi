@@ -215,6 +215,38 @@ class TestProject:
 
 
 @pytest.mark.unit
+class TestSearchNormalized:
+    """search() matches across transliteration, Cyrillic, dot-separated titles."""
+
+    def _items(self):
+        return [
+            Item(id=1, name="Интерстеллар 2014 BDRip 1080p", status="ok", progress=0),
+            Item(id=2, name="I.n.t.e.r.s.t.e.l.l.a.r.2014", status="ok", progress=0),
+            Item(id=3, name="Interstellar (2014)", status="ok", progress=0),
+            Item(id=4, name="Unrelated Movie", status="ok", progress=0),
+        ]
+
+    def test_english_matches_cyrillic(self):
+        result = apply_query(self._items(), filter_expr="search(@, 'interstellar')")
+        ids = {r.id for r in result}
+        assert ids == {1, 2, 3}
+
+    def test_cyrillic_needle_matches_cyrillic(self):
+        result = apply_query(self._items(), filter_expr="search(@, 'Интерстеллар')")
+        ids = {r.id for r in result}
+        assert 1 in ids
+
+    def test_dot_separated_matches(self):
+        result = apply_query(self._items(), filter_expr="search(@, 'interstellar')")
+        ids = {r.id for r in result}
+        assert 2 in ids
+
+    def test_no_false_positives(self):
+        result = apply_query(self._items(), filter_expr="search(@, 'inception')")
+        assert result == []
+
+
+@pytest.mark.unit
 class TestIndexKeyField:
     class FileItem(BaseModel):
         index: int

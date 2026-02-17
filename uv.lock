@@ -141,6 +141,15 @@ wheels = [
 ]
 
 [[package]]
+name = "anyascii"
+version = "0.3.3"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/db/ba/edebda727008390936da4a9bf677c19cd63b32d51e864656d2cbd1028e25/anyascii-0.3.3.tar.gz", hash = "sha256:c94e9dd9d47b3d9494eca305fef9447d00b4bf1a32aff85aa746fa3ec7fb95c3", size = 264680 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/c2/76/783b75a21ce3563b8709050de030ae253853b147bd52e141edc1025aa268/anyascii-0.3.3-py3-none-any.whl", hash = "sha256:f5ab5e53c8781a36b5a40e1296a0eeda2f48c649ef10c3921c1381b1d00dee7a", size = 345090 },
+]
+
+[[package]]
 name = "anyio"
 version = "4.12.1"
 source = { registry = "https://pypi.org/simple" }
@@ -1052,6 +1061,7 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "aiogram" },
+    { name = "anyascii" },
     { name = "fastapi" },
     { name = "fastmcp" },
     { name = "httpx" },
@@ -1096,6 +1106,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "aiogram", specifier = ">=3.24.0" },
+    { name = "anyascii", specifier = ">=0.3.3" },
     { name = "fastapi", specifier = ">=0.128.0" },
     { name = "fastmcp", specifier = ">=2.14.4" },
     { name = "httpx", specifier = ">=0.28.1" },

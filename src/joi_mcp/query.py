@@ -2,10 +2,16 @@ import re
 from typing import overload
 
 import jmespath
+from anyascii import anyascii
 from jmespath import Options, functions
 from pydantic import BaseModel
 
 _BARE_NUMBER = re.compile(r"(==|!=|>=|<=|>|<)\s*(\d+(?:\.\d+)?)\b(?!`)")
+_NON_ALNUM = re.compile(r"[^a-z0-9]")
+
+
+def _normalize(text: str) -> str:
+    return _NON_ALNUM.sub("", anyascii(text).lower())
 
 
 def _quote_numbers(expr: str) -> str:
@@ -16,10 +22,10 @@ def _quote_numbers(expr: str) -> str:
 class CustomFunctions(functions.Functions):
     @functions.signature({"types": ["object"]}, {"types": ["string"]})
     def _func_search(self, obj, needle):
-        """Case-insensitive search across all string fields."""
-        needle_lower = needle.lower()
+        """Normalized search across all string fields (handles Cyrillic, dots, etc.)."""
+        needle_norm = _normalize(needle)
         for v in obj.values():
-            if isinstance(v, str) and needle_lower in v.lower():
+            if isinstance(v, str) and needle_norm in _normalize(v):
                 return True
         return False
 

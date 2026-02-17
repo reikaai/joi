@@ -1,7 +1,6 @@
 import pytest
 
 from joi_mcp.jackett import (
-    SearchResults,
     TorrentDetail,
     TorrentSummary,
     _cache,
@@ -9,6 +8,7 @@ from joi_mcp.jackett import (
     _make_id,
     _parse_torznab_response,
     get_torrent,
+    search_torrents,
 )
 
 SAMPLE_XML = """<?xml version="1.0" encoding="UTF-8"?>
@@ -125,20 +125,6 @@ class TestModels:
         assert result.page_url == ""
         assert result.publish_date is None
 
-    def test_search_results_model(self):
-        data = {
-            "results": [
-                {"id": "a1", "title": "Result 1", "size": 100},
-                {"id": "b2", "title": "Result 2", "size": 200},
-            ],
-            "total": 10,
-            "offset": 0,
-            "has_more": True,
-        }
-        sr = SearchResults.model_validate(data)
-        assert len(sr.results) == 2
-        assert sr.total == 10
-        assert sr.has_more is True
 
 
 @pytest.mark.unit
@@ -252,3 +238,63 @@ class TestGetTorrent:
         _cache.clear()
         with pytest.raises(ValueError, match="Invalid torrent ID format"):
             get_torrent("nonexistent")
+
+
+SECOND_ITEM_XML = """<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:torznab="http://torznab.com/schemas/2015/feed">
+  <channel>
+    <item>
+      <title>Interstellar RUS</title>
+      <guid>https://example.com/torrent/rus</guid>
+      <link>https://example.com/download/rus.torrent</link>
+      <torznab:attr name="seeders" value="20"/>
+      <torznab:attr name="size" value="5000000000"/>
+    </item>
+  </channel>
+</rss>"""
+
+
+@pytest.mark.unit
+class TestAltQueriesDedup:
+    def test_dedup_by_id(self, monkeypatch):
+        _cache.clear()
+        call_count = 0
+
+        def fake_search(params):
+            nonlocal call_count
+            call_count += 1
+            if call_count == 1:
+                return _parse_torznab_response(SAMPLE_XML)
+            return _parse_torznab_response(SAMPLE_XML)  # same results
+
+        monkeypatch.setattr("joi_mcp.jackett._search", fake_search)
+        result = search_torrents(query="Ubuntu", alt_queries=["Убунту"])
+        assert call_count == 2
+        # Deduplicated: same GUID → same ID → kept once
+        lines = result.data.strip().split("\n")
+        assert len(lines) == 2  # header + 1 row
+
+    def test_alt_queries_merges_different_results(self, monkeypatch):
+        _cache.clear()
+        call_count = 0
+
+        def fake_search(params):
+            nonlocal call_count
+            call_count += 1
+            if call_count == 1:
+                return _parse_torznab_response(SAMPLE_XML)
+            return _parse_torznab_response(SECOND_ITEM_XML)
+
+        monkeypatch.setattr("joi_mcp.jackett._search", fake_search)
+        result = search_torrents(query="Interstellar", alt_queries=["Интерстеллар"])
+        lines = result.data.strip().split("\n")
+        assert len(lines) == 3  # header + 2 distinct rows
+
+    def test_returns_tsv_format(self, monkeypatch):
+        _cache.clear()
+        monkeypatch.setattr("joi_mcp.jackett._search", lambda p: _parse_torznab_response(SAMPLE_XML))
+        result = search_torrents(query="Ubuntu")
+        assert "\t" in result.data
+        header = result.data.split("\n")[0]
+        assert "title" in header
+        assert "seeders" in header

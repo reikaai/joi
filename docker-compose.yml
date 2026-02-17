@@ -8,7 +8,7 @@ x-dev: &dev
 services:
   mcp:
     <<: *dev
-    command: uv run watchfiles --filter python 'uv run uvicorn joi_mcp.server:app --host 0.0.0.0 --port 8000' src/joi_mcp
+    command: sh -c "uv sync --frozen && uv run watchfiles --filter python 'uv run uvicorn joi_mcp.server:app --host 0.0.0.0 --port 8000' src/joi_mcp"
     ports:
       - "8000:8000"
     healthcheck:
@@ -22,14 +22,16 @@ services:
         - action: sync
           path: ./src
           target: /app/src
-        - action: rebuild
+        - action: sync+restart
           path: ./pyproject.toml
-        - action: rebuild
+          target: /app/pyproject.toml
+        - action: sync+restart
           path: ./uv.lock
+          target: /app/uv.lock
 
   agent:
     <<: *dev
-    command: uv run langgraph dev --host 0.0.0.0 --port 2024
+    command: sh -c "uv sync --frozen && uv run langgraph dev --host 0.0.0.0 --port 2024"
     ports:
       - "2024:2024"
     environment:
@@ -53,14 +55,16 @@ services:
         - action: sync
           path: ./langgraph.json
           target: /app/langgraph.json
-        - action: rebuild
+        - action: sync+restart
           path: ./pyproject.toml
-        - action: rebuild
+          target: /app/pyproject.toml
+        - action: sync+restart
           path: ./uv.lock
+          target: /app/uv.lock
 
   telegram:
     <<: *dev
-    command: uv run watchfiles --filter python 'uv run python -m joi_telegram_langgraph.main' src/joi_telegram_langgraph
+    command: sh -c "uv sync --frozen && uv run watchfiles --filter python 'uv run python -m joi_telegram_langgraph.main' src/joi_telegram_langgraph"
     environment:
       ASSISTANT_ID: joi_v2
       LANGGRAPH_URL: http://agent:2024
@@ -72,10 +76,12 @@ services:
         - action: sync
           path: ./src
           target: /app/src
-        - action: rebuild
+        - action: sync+restart
           path: ./pyproject.toml
-        - action: rebuild
+          target: /app/pyproject.toml
+        - action: sync+restart
           path: ./uv.lock
+          target: /app/uv.lock
 
   playwright-mcp:
     image: mcr.microsoft.com/playwright/mcp:latest
