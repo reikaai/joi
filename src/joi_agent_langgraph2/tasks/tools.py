@@ -165,15 +165,20 @@ def create_task_tools(langgraph: "LangGraphClient", assistant_id: str) -> list[B
         detail: str = "",
         retry_in: Annotated[int | None, Field(description="Minutes until retry (for action=retry)")] = None,
         question: Annotated[str | None, Field(description="Question for user (for action=ask)")] = None,
+        message: Annotated[str | None, Field(description="Message to send to the user")] = None,
         *,
         config: RunnableConfig,
         store: Annotated[BaseStore, InjectedStore()],
     ) -> str:
-        """Update task status. Actions: cancel, complete, fail, retry, ask (question for user), progress."""
+        """Update task status. Actions: cancel, complete, fail, retry, ask (question for user), progress.
+        Set message= to send a message to the user (works with any action)."""
         user_id = _get_user_id(config)
         task = await get_task(store, user_id, task_id)
         if not task:
             return f"Task {task_id} not found."
+
+        if message:
+            task.pending_messages.append(message)
 
         match action:
             case "cancel":
@@ -183,7 +188,6 @@ def create_task_tools(langgraph: "LangGraphClient", assistant_id: str) -> list[B
 
             case "complete":
                 task.status = TaskStatus.COMPLETED
-                task.notified = False
                 task.append_log("completed", detail or "Task completed")
 
             case "fail":

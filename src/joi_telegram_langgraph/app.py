@@ -15,6 +15,7 @@ class Settings(BaseSettings):
     langgraph_url: str = "http://localhost:2024"
     assistant_id: str = "joi_v2"
     joi_debug_stats: bool = False
+    task_debug: bool = False
 
 
 settings = Settings()

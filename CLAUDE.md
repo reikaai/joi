@@ -15,7 +15,7 @@ If WebFetch fails, retry with `https://r.jina.ai/` prefix.
 
 # Dev Workflow
 See [docs/dev-workflow.md](docs/dev-workflow.md) for service management, commands, and auto-reload details.
-Quick start: `docker compose up`
+Quick start: `docker compose up --watch`
 
 # Testing
 Contract tests use VCR cassettes for HTTP replay. All `@pytest.mark.contract` tests should also have `@pytest.mark.vcr`.

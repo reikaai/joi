@@ -13,7 +13,7 @@ _background_tasks: set[asyncio.Task] = set()
 @dp.startup()
 async def on_startup(bot: Bot, **_kw) -> None:
     logger.info(f"Starting Joi Telegram (LangGraph)... LANGGRAPH_URL={settings.langgraph_url}")
-    task = asyncio.create_task(run_notifier(bot, task_client))
+    task = asyncio.create_task(run_notifier(bot, task_client, debug=settings.task_debug))
     _background_tasks.add(task)
     task.add_done_callback(_background_tasks.discard)
 

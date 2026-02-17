@@ -317,6 +317,7 @@ async def test_update_task_complete(mocker: "MockerFixture", task_tools) -> None
         detail="All done",
         retry_in=None,
         question=None,
+        message="here's your answer",
         config=config,
         store=store,
     )
@@ -328,6 +329,7 @@ async def test_update_task_complete(mocker: "MockerFixture", task_tools) -> None
     assert updated_task.status == TaskStatus.COMPLETED
     assert updated_task.log[0].event == "completed"
     assert updated_task.log[0].detail == "All done"
+    assert updated_task.pending_messages == ["here's your answer"]
 
 
 @pytest.mark.asyncio
@@ -471,3 +473,86 @@ async def test_update_task_not_found(mocker: "MockerFixture", task_tools) -> Non
 
     assert "not found" in result
     assert "nonexistent" in result
+
+
+@pytest.mark.asyncio
+async def test_update_task_progress_with_message(mocker: "MockerFixture", task_tools) -> None:
+    task = TaskState(
+        task_id="task7",
+        title="Task with Message",
+        status=TaskStatus.RUNNING,
+        thread_id="thread7",
+        user_id="user7",
+    )
+
+    mocker.patch(
+        "joi_agent_langgraph2.tasks.tools.get_task",
+        new_callable=AsyncMock,
+        return_value=task,
+    )
+    mock_put = mocker.patch(
+        "joi_agent_langgraph2.tasks.tools.put_task",
+        new_callable=AsyncMock,
+    )
+
+    store = MagicMock()
+    config = {"configurable": {"user_id": "user7"}}
+
+    result = await task_tools["update_task"].coroutine(
+        task_id="task7",
+        action="progress",
+        detail="internal note",
+        retry_in=None,
+        question=None,
+        message="still looking, hold on",
+        config=config,
+        store=store,
+    )
+
+    assert "task7" in result
+    mock_put.assert_called_once()
+    updated_task = mock_put.call_args[0][1]
+    assert updated_task.status == TaskStatus.RUNNING
+    assert updated_task.pending_messages == ["still looking, hold on"]
+    assert updated_task.log[0].event == "progress"
+
+
+@pytest.mark.asyncio
+async def test_update_task_complete_no_message(mocker: "MockerFixture", task_tools) -> None:
+    task = TaskState(
+        task_id="task8",
+        title="Silent Complete",
+        status=TaskStatus.RUNNING,
+        thread_id="thread8",
+        user_id="user8",
+    )
+
+    mocker.patch(
+        "joi_agent_langgraph2.tasks.tools.get_task",
+        new_callable=AsyncMock,
+        return_value=task,
+    )
+    mock_put = mocker.patch(
+        "joi_agent_langgraph2.tasks.tools.put_task",
+        new_callable=AsyncMock,
+    )
+
+    store = MagicMock()
+    config = {"configurable": {"user_id": "user8"}}
+
+    result = await task_tools["update_task"].coroutine(
+        task_id="task8",
+        action="complete",
+        detail="done silently",
+        retry_in=None,
+        question=None,
+        message=None,
+        config=config,
+        store=store,
+    )
+
+    assert "task8" in result
+    mock_put.assert_called_once()
+    updated_task = mock_put.call_args[0][1]
+    assert updated_task.status == TaskStatus.COMPLETED
+    assert updated_task.pending_messages == []

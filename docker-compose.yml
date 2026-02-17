@@ -2,9 +2,6 @@ x-dev: &dev
   build:
     context: .
     target: dev
-  volumes:
-    - .:/app
-    - dev-venv:/app/.venv
   env_file: .env
   restart: unless-stopped
 
@@ -20,6 +17,15 @@ services:
       timeout: 3s
       retries: 5
       start_period: 60s
+    develop:
+      watch:
+        - action: sync
+          path: ./src
+          target: /app/src
+        - action: rebuild
+          path: ./pyproject.toml
+        - action: rebuild
+          path: ./uv.lock
 
   agent:
     <<: *dev
@@ -28,6 +34,8 @@ services:
       - "2024:2024"
     environment:
       MCP_URL: http://mcp:8000
+    volumes:
+      - ./data:/app/data
     depends_on:
       mcp:
         condition: service_healthy
@@ -37,6 +45,18 @@ services:
       timeout: 3s
       retries: 10
       start_period: 30s
+    develop:
+      watch:
+        - action: sync
+          path: ./src
+          target: /app/src
+        - action: sync
+          path: ./langgraph.json
+          target: /app/langgraph.json
+        - action: rebuild
+          path: ./pyproject.toml
+        - action: rebuild
+          path: ./uv.lock
 
   telegram:
     <<: *dev
@@ -47,6 +67,15 @@ services:
     depends_on:
       agent:
         condition: service_healthy
+    develop:
+      watch:
+        - action: sync
+          path: ./src
+          target: /app/src
+        - action: rebuild
+          path: ./pyproject.toml
+        - action: rebuild
+          path: ./uv.lock
 
   playwright-mcp:
     image: mcr.microsoft.com/playwright/mcp:latest
@@ -60,5 +89,3 @@ services:
     profiles:
       - tools
 
-volumes:
-  dev-venv:

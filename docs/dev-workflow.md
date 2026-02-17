@@ -2,8 +2,8 @@
 
 ## Quick Start
 
-Start all services: `docker compose up`
-Background: `docker compose up -d`
+Start all services: `docker compose up --watch`
+Background: `docker compose up -d --watch`
 
 ## Services
 
@@ -28,11 +28,11 @@ docker compose --profile tools up -d playwright-mcp  # start Playwright
 
 ## How Auto-Reload Works
 
-Source code is bind-mounted into containers. watchfiles/langgraph dev detect changes and reload the app inside the container — no container restart needed.
+`docker compose watch` syncs source files from host into containers. watchfiles/langgraph dev detect the synced changes and reload the app — no container restart needed for code changes.
 
 ## Dependency Changes
 
-After `uv add` on host, the bind-mounted `pyproject.toml`/`uv.lock` are visible inside containers. Next `uv run` invocation (triggered by watchfiles restart) picks up new deps automatically.
+After `uv add` on host, the changed `pyproject.toml`/`uv.lock` trigger an automatic `rebuild` via compose watch — the image is rebuilt with new deps and the container is recreated. No manual restart needed.
 
 ## Fallback (native, no Docker)
 

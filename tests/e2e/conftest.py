@@ -11,7 +11,7 @@ assert _spec and _spec.loader
 _mod = importlib.util.module_from_spec(_spec)
 sys.modules["e2e"] = _mod
 _spec.loader.exec_module(_mod)
-E2EHarness = _mod.E2EHarness  # type: ignore[attr-defined]
+E2EHarness = _mod.E2EHarness
 
 
 @pytest_asyncio.fixture

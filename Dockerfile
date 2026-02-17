@@ -5,9 +5,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl procps build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# Dev: source + venv volume-mounted, uv syncs at runtime
+# Dev: deps + source baked in, watch syncs changes
 FROM base AS dev
-ENV UV_LINK_MODE=copy
+COPY pyproject.toml uv.lock README.md langgraph.json ./
+RUN uv sync --frozen
+COPY src/ ./src/
 
 # Prod: deps + source baked in
 FROM base AS prod

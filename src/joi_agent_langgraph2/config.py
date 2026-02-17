@@ -15,6 +15,7 @@ class Settings(BaseSettings):
     assistant_id: str = "joi_v2"
     openrouter_api_key: str | None = None
     anthropic_api_key: str | None = None
+    task_debug: bool = False
 
     @computed_field
     @property

@@ -7,6 +7,7 @@ from joi_agent_langgraph2.tasks.models import TaskLogEntry, TaskState, TaskStatu
 from joi_langgraph_client.tasks.task_client import TaskClient
 from joi_telegram_langgraph.notifier import (
     _check_interrupt,
+    _deliver_messages,
     _format_narrative,
     _format_notification,
     _poll_cycle,
@@ -28,26 +29,25 @@ def _make_tc() -> MagicMock:
     return tc
 
 
-def test_format_notification_completed():
-    task = _make_task(
-        status=TaskStatus.COMPLETED,
-        log=[TaskLogEntry(event="start", detail="Started", at=datetime(2026, 2, 16, 10, 0))],
-    )
-    result = _format_notification(task)
-    assert "Task completed:" in result
-    assert "Test Task" in result
-    assert "10:00" in result
-    assert "[start]" in result
-
-
 def test_format_notification_failed():
     task = _make_task(
         status=TaskStatus.FAILED,
         log=[TaskLogEntry(event="error", detail="Connection failed", at=datetime(2026, 2, 16, 10, 5))],
     )
     result = _format_notification(task)
-    assert "Task failed:" in result
+    assert "task failed:" in result
     assert "Test Task" in result
+    assert "Connection failed" in result
+
+
+def test_format_notification_failed_debug():
+    task = _make_task(
+        status=TaskStatus.FAILED,
+        log=[TaskLogEntry(event="error", detail="Connection failed", at=datetime(2026, 2, 16, 10, 5))],
+    )
+    result = _format_notification(task, debug=True)
+    assert "task failed:" in result
+    assert "Connection failed" in result
     assert "10:05" in result
     assert "[error]" in result
 
@@ -89,8 +89,96 @@ def test_format_narrative_without_log():
 
 
 @pytest.mark.asyncio
-async def test_poll_cycle_sends_notification():
+async def test_deliver_messages_sends_all():
+    task = _make_task(pending_messages=["msg one", "msg two"])
+    tc = _make_tc()
+    bot = AsyncMock()
+
+    await _deliver_messages(bot, task, tc)
+
+    assert bot.send_message.call_count == 2
+    bot.send_message.assert_any_call(123, "msg one")
+    bot.send_message.assert_any_call(123, "msg two")
+    assert task.pending_messages == []
+    tc.put_task.assert_called_once_with(task)
+
+
+@pytest.mark.asyncio
+async def test_deliver_messages_empty():
+    task = _make_task(pending_messages=[])
+    tc = _make_tc()
+    bot = AsyncMock()
+
+    await _deliver_messages(bot, task, tc)
+
+    bot.send_message.assert_not_called()
+    tc.put_task.assert_not_called()
+
+
+@pytest.mark.asyncio
+async def test_poll_cycle_completed_silently_notified():
+    """COMPLETED task with no pending messages → silently marked notified, no send."""
     task = _make_task(status=TaskStatus.COMPLETED, notified=False)
+    tc = _make_tc()
+    tc.list_all_tasks.return_value = [task]
+
+    bot = AsyncMock()
+
+    await _poll_cycle(bot, tc)
+
+    bot.send_message.assert_not_called()
+    assert task.notified is True
+    tc.put_task.assert_called_once_with(task)
+
+
+@pytest.mark.asyncio
+async def test_poll_cycle_completed_with_messages():
+    """COMPLETED task with pending messages → messages delivered, then silently notified."""
+    task = _make_task(status=TaskStatus.COMPLETED, notified=False, pending_messages=["here's your answer"])
+    tc = _make_tc()
+    tc.list_all_tasks.return_value = [task]
+
+    bot = AsyncMock()
+
+    await _poll_cycle(bot, tc)
+
+    # First call: deliver message. Second call: none (no debug)
+    bot.send_message.assert_called_once_with(123, "here's your answer")
+    assert task.notified is True
+    assert task.pending_messages == []
+    # put_task called twice: once for message drain, once for notified mark
+    assert tc.put_task.call_count == 2
+
+
+@pytest.mark.asyncio
+async def test_poll_cycle_completed_debug():
+    """debug=True, completed, no messages → sends debug log."""
+    task = _make_task(
+        status=TaskStatus.COMPLETED,
+        notified=False,
+        log=[TaskLogEntry(event="done", detail="finished", at=datetime(2026, 2, 16, 12, 0))],
+    )
+    tc = _make_tc()
+    tc.list_all_tasks.return_value = [task]
+
+    bot = AsyncMock()
+
+    await _poll_cycle(bot, tc, debug=True)
+
+    bot.send_message.assert_called_once()
+    text = bot.send_message.call_args[0][1]
+    assert text.startswith("[debug]")
+    assert "Test Task" in text
+    assert task.notified is True
+
+
+@pytest.mark.asyncio
+async def test_poll_cycle_failed_sends_notification():
+    task = _make_task(
+        status=TaskStatus.FAILED,
+        notified=False,
+        log=[TaskLogEntry(event="failed", detail="timeout", at=datetime(2026, 2, 16, 10, 0))],
+    )
     tc = _make_tc()
     tc.list_all_tasks.return_value = [task]
 
@@ -104,9 +192,24 @@ async def test_poll_cycle_sends_notification():
     bot.send_message.assert_called_once()
     args = bot.send_message.call_args
     assert args[0][0] == 123
-    assert "Test Task" in args[0][1]
+    assert "task failed:" in args[0][1]
     assert task.notified is True
-    tc.put_task.assert_called_once_with(task)
+    assert task.status == TaskStatus.CLOSED
+
+
+@pytest.mark.asyncio
+async def test_poll_cycle_recurring_completed_stays_completed():
+    task = _make_task(status=TaskStatus.COMPLETED, notified=False, cron_id="cron-1")
+    tc = _make_tc()
+    tc.list_all_tasks.return_value = [task]
+
+    bot = AsyncMock()
+
+    await _poll_cycle(bot, tc)
+
+    assert task.notified is True
+    assert task.status == TaskStatus.COMPLETED
+    bot.send_message.assert_not_called()
 
 
 @pytest.mark.asyncio

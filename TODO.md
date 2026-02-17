@@ -39,5 +39,8 @@ Three untyped params: `client` (line 30), `stream` (line 74), `data` (line 134).
 ## Missing Types in `joi_telegram_langgraph/`
 `keyboard` param in `ui.py:40`, `_typing_indicator` return in `handlers.py:22`. Lower priority — telegram package.
 
+## RETRY/SCHEDULED Tasks Don't Transition to RUNNING During Execution
+The `progress` action only appends a log entry — it doesn't change status from RETRY/SCHEDULED to RUNNING. This means interrupt detection (`_check_interrupt`) never fires for actively-executing RETRY/SCHEDULED tasks, since the notifier only checks RUNNING tasks for interrupts.
+
 ## Bare `dict` for `interrupt_data` in `tasks/models.py`
 `interrupt_data: dict | None = None` — unknown shape. Would benefit from `dict[str, Any]` or TypedDict if structure stabilizes.
