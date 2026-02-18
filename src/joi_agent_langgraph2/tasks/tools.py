@@ -61,12 +61,13 @@ def create_task_tools(langgraph: "LangGraphClient", assistant_id: str) -> list[B
         config: RunnableConfig,
         store: Annotated[BaseStore, InjectedStore()],
     ) -> str:
-        """Schedule a background task. Runs autonomously with full tool access, reports back when done.
+        """Schedule ONE background task. For sequences, call once per task with staggered delay_seconds.
 
         Examples:
         - schedule_task("Check oven", "Remind user to check the oven", delay_seconds=300)
         - schedule_task("Check oven", "Remind user to check the oven", when="2026-02-16T15:30:00Z")
         - schedule_task("Daily reflection", "Review today's conversations", when="0 23 * * *", recurring=True)
+        - "count to 3 with 5s pauses" → call 3 times: delay_seconds=5, delay_seconds=10, delay_seconds=15
         """
         user_id = _get_user_id(config)
         task_id = uuid.uuid4().hex[:12]
