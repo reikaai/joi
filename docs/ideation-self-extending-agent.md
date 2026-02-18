@@ -125,6 +125,45 @@ MCP Servers (TMDB, Transmission, Jackett, etc.)
 - This makes the human the trust anchor: agent proposes, human disposes
 - **Source**: Our reasoning, validated by [STA](https://openreview.net/forum?id=VnMcTvEqhd) (dynamic tool creation > static tool libraries)
 
+### 14. Remote Brain + Local Hands Is the Architecture Everyone Wants But Nobody Has Shipped
+- The pattern: agent reasoning/memory always on (cloud/VPS), local PC provides optional capabilities (browser, voice, filesystem) when available
+- OpenClaw community calls their most advanced setup **"brain in the cloud, hands on your desk"** (Setup 6)
+- Ben Goertzel: "OpenClaw is a better set of hands for an artificial brain" — proposes QwestorClaw with explicit Brain/Hands/Guardrails separation
+- HN user KurSix: "A cloud agent has fat pipe to APIs but can't see your local printer. Ideal future is hybrid — smart cloud brain via secure tunnel, dumb local executor."
+- **Nobody has shipped this cleanly.** OpenClaw is monolithic, Omnara is coding-only, Moltworker moves everything to cloud
+- Our inversion: brain is always on, hands are sometimes available. Agent knows what capabilities are currently online.
+- **Source**: Community research across Reddit, HN, Moltbook, OpenClaw docs (Feb 2026)
+
+### 15. Presence-Aware Capability Is the Unfilled Gap
+- No AI agent dynamically adjusts its tool set based on which devices/services are currently online
+- OpenClaw's node system is "implicit" — nodes connect/disconnect, but the agent doesn't *reason about* what's available
+- OpenClaw docs: "does not explicitly discuss offline node handling, graceful degradation, or fallback mechanisms"
+- Joi could say "I can chat but can't use your browser right now — need your PC client running"
+- This is the UX differentiator nobody else has
+- **Source**: Gap identified across all 3 research agents (Feb 2026)
+
+### 16. LangGraph Platform Is the Untapped Multi-Client Foundation
+- `RemoteGraph` implements same `Runnable` interface as `CompiledGraph` — `.invoke()`, `.stream()`, `.get_state()`, `.update_state()`
+- Multiple consumers can connect to same agent output stream, connections re-establishable
+- Nobody publicly demonstrates "Telegram bot + local CLI + browser extension all hitting same LangGraph deployment"
+- The integration layer (adapting different client UIs to same thread/state model) remains custom work — but the infra is ready
+- **Source**: [LangGraph RemoteGraph docs](https://docs.langchain.com/langgraph-platform/use-remote-graph), community research
+
+### 17. Messaging-First Is Validated — Manus Just Shipped It
+- Manus launched personal AI agents in Telegram (Feb 16, 2026): "The agent should not live behind a login screen — it should be wherever you are"
+- OpenClaw's most common access pattern: messaging apps (Telegram, WhatsApp, Discord) as universal remote
+- Brandon Wang workflow: messages via Slack from anywhere, Mac Mini at home handles execution
+- Tom's Guide: user sent voice messages via Telegram while shopping at Target
+- Our Telegram bot is already this — it's the primary interface, not a secondary adapter
+- **Source**: [Manus blog](https://manus.im/blog/manus-agents-telegram), [SiliconAngle](https://siliconangle.com/2026/02/16/manus-launches-personal-ai-agents-telegram-messaging-apps-come/)
+
+### 18. OpenClaw's Real Cost Kills the "Personal Assistant" Dream
+- Real usage with Claude Opus: $10-25/day, Reddit thread "An Unaffordable Novelty"
+- Installation alone required "$250 in Anthropic API tokens" before useful results
+- $300-750/month for "proactive personal assistant experience"
+- Our architecture: prompt caching (3 breakpoints), observation masking, summarization at 80 msgs — deliberately token-efficient
+- **Source**: [Shelly Palmer](https://shellypalmer.com/2026/02/clawdbot-the-gap-between-ai-assistant-hype-and-reality/)
+
 ---
 
 ## Research Sources & Findings
@@ -246,6 +285,65 @@ MCP Servers (TMDB, Transmission, Jackett, etc.)
 - **Results**: 60-80% reduction in integration code, 3.1x performance via concurrent execution
 - **MCP ecosystem**: 2000+ servers available via Smithery registry
 - [arXiv 2507.10593](https://arxiv.org/html/2507.10593v1)
+
+### Goertzel's QwestorClaw Architecture (Feb 2026)
+- **What**: Ben Goertzel (SingularityNET) proposes explicit Brain/Hands/Guardrails separation for OpenClaw
+- **Central thesis**: "OpenClaw is a better set of hands for an artificial brain" — and "if the brain is short on general intelligence, giving it better and better hands is not going to close the gap"
+- **Three layers**: Brain (reasoning, memory, goal-driven motivation), Hands (file ops, code exec, browser, APIs), Guardrails (capability tokens, deterministic policy, "no LLM can talk its way past the policy engine")
+- **Cognitive flywheel**: "the hands keep working while the brain gets smarter"
+- **Why it matters**: Validates our brain/hands separation at the philosophical level; we're implementing what he's theorizing
+- [Substack](https://bengoertzel.substack.com/p/openclaw-amazing-hands-for-a-brain)
+
+### Omnara (YC S25)
+- **What**: Coding agent with local daemon + cloud relay architecture
+- **Architecture**: Lightweight daemon on user's machine maintains "authenticated, outbound WebSocket connection to our server, which relays messages between the agent and any connected web or mobile clients"
+- **Offline handling**: Syncs state to cloud sandboxes via git commits per conversation turn
+- **Community reaction**: Split — many said "hack this in a couple hours with Tailscale and Claude Code"
+- **Why it matters**: Most literal implementation of our pattern, but coding-only
+- [HN Discussion](https://news.ycombinator.com/item?id=46991591)
+
+### Cloudflare Moltworker (Jan 2026)
+- **What**: OpenClaw Gateway running on Cloudflare Workers + Sandboxes
+- **Cost**: ~$34.50/month 24/7, ~$5-6/month with 4hr daily use
+- **Limitations**: 1-2min cold starts, "experimental — not officially supported", data loss without R2
+- **Community**: Mixed. HN: "gets old faster than paying $5/month" vs "everything was actually run locally was the appeal"
+- **Why it matters**: Shows demand for cloud-hosted agents but loses local capabilities
+- [Cloudflare Blog](https://blog.cloudflare.com/moltworker-self-hosted-ai-agent/), [GitHub](https://github.com/cloudflare/moltworker)
+
+### Tailscale MCP Proxy (2026)
+- **What**: Tailscale engineer Lee Briggs built proxy + server for secure remote MCP access
+- **Architecture**: `tailscale-mcp-proxy` (Go) forwards `X-Tailscale-User` headers; `tailscale-mcp-server` uses grants for per-tool-per-user ACLs
+- **Key argument**: "Protecting data means preventing internet exposure entirely, not relying solely on authentication"
+- **MCP transport evolution**: stdio (local) → SSE (remote, DNS rebinding vuln) → Streamable HTTP (OAuth 2.1 + PKCE)
+- **Why it matters**: Production-ready secure tunneling for our local PC client's MCP tools
+- [Tailscale Blog](https://tailscale.com/blog/model-for-mcp-connectivity-lee-briggs)
+
+### Voice AI Pipeline (2026 State of Art)
+- **What**: Local STT/TTS + remote LLM pattern well-established
+- **local-voice-ai**: Whisper (VoxBox) + Kokoro TTS + llama.cpp, all Docker Compose. Key: "swap out LLM/STT/TTS URLs to use cloud models"
+- **vox** (Rust): `Mic → VAD (Silero) → STT (Whisper) → Your Code → TTS (Kokoro) → Speaker`, pluggable
+- **Gap**: No "voice client for LangGraph agent" pattern exists. All embed their own orchestration.
+- [ShayneP/local-voice-ai](https://github.com/ShayneP/local-voice-ai), [mrtozner/vox](https://github.com/mrtozner/vox)
+
+### OpenClaw Deployment Architectures (Feb 2026)
+- **What**: 6 deployment models documented by community, from native install to hybrid
+- **Setup 6 (Hybrid)**: "Gateway runs in cloud (VPS/managed), Nodes on local devices provide screen access, camera, canvas, system capabilities. Think of it as 'brain in the cloud, hands on your desk.'"
+- **Node offline handling**: Undocumented. Decision diamond "Local task needed?" implies cloud tasks proceed, local tasks fail.
+- **Ratings**: Setup 6 gets Speed ★★★☆☆ (roundtrips), Security ★★★☆☆ (attack surface), Power ★★★★★
+- **Always-on problem**: Mac Mini surge in sales, MacMate app created just to prevent sleep, GitHub #7700 catalogs headless issues
+- [FlowZap](https://flowzap.xyz/blog/every-way-to-deploy-openclaw), [OpenClaw FAQ](https://docs.openclaw.ai/help/faq)
+
+### Manus on Telegram (Feb 16, 2026)
+- **What**: Meta's Manus launches personal AI agents in Telegram
+- **Philosophy**: "The agent should not live behind a login screen — it should be wherever you are, ready the moment you need it"
+- **Why it matters**: Validates Telegram as first-class agent interface. Competition moving fast.
+- [Manus Blog](https://manus.im/blog/manus-agents-telegram), [SiliconAngle](https://siliconangle.com/2026/02/16/manus-launches-personal-ai-agents-telegram-messaging-apps-come/)
+
+### OpenClaw Acquired by OpenAI (Feb 15, 2026)
+- **What**: Peter Steinberger joined OpenAI, OpenClaw to "live in a foundation"
+- **Impact**: Indie lane MORE open — OpenClaw's future uncertain under OpenAI stewardship
+- **Community reaction**: Compared to Bun acquisition — "super hyped until acquired"
+- **Source**: Multiple news reports, Feb 2026
 
 ---
 
@@ -471,13 +569,162 @@ This mirrors the existing HITL pattern for mutation tools in the media delegate.
 
 ---
 
+## Remote Brain + Local Hands Architecture
+
+### The Thesis
+> The brain is always on. The hands are sometimes available. The agent knows the difference.
+
+This is the architectural inversion that the community is groping toward but hasn't cleanly articulated. OpenClaw starts from "everything runs locally" and bolts on remote access. We start from "brain is always remote" and add local capabilities as optional extensions.
+
+### Architecture Diagram
+```
+┌─────────────────────────────────────────────────┐
+│              LangGraph Platform (VPS)            │
+│                                                  │
+│   ┌──────────┐  ┌──────────┐  ┌──────────┐     │
+│   │  Agent    │  │  Memory  │  │  Tasks/  │     │
+│   │  Graph    │  │  (Mem0)  │  │  Crons   │     │
+│   └────┬─────┘  └──────────┘  └──────────┘     │
+│        │                                         │
+│   ┌────┴─────────────────────────────────┐      │
+│   │        LangGraph Platform API         │      │
+│   └────┬──────────┬──────────┬───────────┘      │
+│        │          │          │                    │
+└────────┼──────────┼──────────┼───────────────────┘
+         │          │          │
+    ┌────┴───┐ ┌────┴───┐ ┌───┴────────┐
+    │Telegram│ │  PC    │ │  Future    │
+    │  Bot   │ │ Client │ │  Clients   │
+    │(always)│ │(when   │ │(voice,     │
+    │        │ │ on)    │ │ mobile)    │
+    └────────┘ └────┬───┘ └────────────┘
+                    │
+              ┌─────┴─────┐
+              │ Local MCP  │
+              │ Tools:     │
+              │ - Browser  │
+              │ - Voice    │
+              │ - Files    │
+              │ - Screen   │
+              └────────────┘
+```
+
+### Component Roles
+
+**LangGraph Platform (The Brain)** — Always on, VPS-hosted
+- Agent reasoning (Claude via Anthropic API)
+- Long-term memory (Mem0)
+- Task scheduling (crons, delayed runs)
+- Thread persistence across all clients
+- MCP tool routing (TMDB, Jackett, Transmission — API tools that don't need local hardware)
+
+**Telegram Bot (Primary Interface)** — Always available
+- Text and voice messages
+- HITL confirmation keyboards
+- Task notifications
+- Works from phone, laptop, anywhere
+- Already built and running
+
+**PC Client (Local Hands)** — Available when user's computer is on
+- Connects to same LangGraph Platform API (like Telegram does)
+- Exposes local MCP tools: Playwright browser, filesystem, screen capture, voice I/O
+- Registers capabilities on connect, deregisters on disconnect
+- Agent sees available tools change dynamically
+- Communicates via Tailscale (secure tunnel, no port exposure) or local network
+
+**Future Clients** — Same pattern
+- Voice-only client (Whisper STT + Kokoro TTS → LangGraph API)
+- Mobile app (lightweight, messaging + notifications)
+- Work laptop client (restricted tool set, no personal data)
+
+### How Presence-Awareness Works
+
+The agent's available tool set changes based on which clients are connected:
+
+| Client Status | Available Capabilities |
+|--------------|----------------------|
+| Telegram only | Chat, memory, API tools (TMDB, torrents), scheduling, web search |
+| Telegram + PC Client | + Browser automation, local files, screen capture, voice |
+| PC Client disconnects | Agent notifies: "lost access to your browser — I'll queue that task" |
+| PC Client reconnects | Agent processes queued local tasks |
+
+Implementation sketch:
+- PC Client writes a heartbeat to LangGraph store on connect/disconnect
+- Agent's tool list is dynamically filtered based on current client registrations
+- When agent needs a local tool that's unavailable, it can: (a) tell user, (b) queue the task, (c) find an API alternative
+
+### Why This Beats OpenClaw's Approach
+
+| Aspect | OpenClaw | Joi |
+|--------|----------|-----|
+| Default state | Everything on one machine | Brain always on, hands optional |
+| When computer sleeps | Agent dies | Agent keeps chatting, queues local tasks |
+| Security model | Full OS access from day 1 | Structured tools only, HITL for mutations |
+| Cost | $10-25/day with Opus | Prompt caching, observation masking, efficient |
+| Browser automation | Requires running machine | Works when PC Client is connected |
+| Remote access | Bolted on (Tailscale/SSH) | Native (Telegram IS the primary interface) |
+| Multi-device | Nodes = capability extension | Clients = equal participants |
+
+### Integration with Existing Stack
+
+What we already have:
+- LangGraph Platform with agent graph, memory, task scheduling — **the brain**
+- Telegram bot with HITL, voice messages, notifications — **the primary interface**
+- MCP tools (TMDB, Jackett, Transmission) — **API-based hands that don't need local hardware**
+
+What we'd build for PC Client:
+- A lightweight Python daemon that:
+  1. Connects to LangGraph Platform API (same way Telegram bot does)
+  2. Starts local MCP servers (Playwright, filesystem, voice)
+  3. Registers available tools with the agent (store heartbeat)
+  4. Listens for tool invocations from the agent
+  5. Runs on user's PC, auto-starts, auto-reconnects
+- Transport: MCP Streamable HTTP over Tailscale, or local network if same machine
+
+### Phasing (Extends Existing Phases)
+
+- **Phase 0**: Use cases enumerated (done)
+- **Phase 1**: Composition skills (self-extending agent, no local client needed)
+- **Phase 2**: CLI skills via Popen + allowlist (still server-side)
+- **Phase 2.5**: PC Client MVP — Playwright browser automation as remote MCP tool
+- **Phase 3**: Full PC Client — voice, files, screen, presence-awareness
+- **Phase 4**: Multiple client types, capability negotiation protocol
+
+### Key Design Decisions
+
+1. **Telegram is primary, PC Client is secondary** — The agent must be fully useful without any local client. Browser/voice/files are power-ups, not requirements.
+
+2. **PC Client = another LangGraph client, not a separate agent** — Same thread, same memory, same state. Just different transport for tool execution.
+
+3. **No PC-to-Telegram bridge needed** — Both clients talk to LangGraph Platform independently. Thread persistence handles state sync automatically.
+
+4. **Graceful degradation, not failure** — When PC Client disconnects, agent doesn't crash. It tells you what it can't do and suggests alternatives.
+
+5. **Media manager works without PC Client** — TMDB, Jackett, Transmission are all API-based MCP tools on the server. Browser automation is bonus, not prerequisite.
+
+### Validated By Community Research (Feb 2026)
+
+| Signal | Source | Finding |
+|--------|--------|---------|
+| People want always-on messaging | OpenClaw community, Manus launch | Telegram/WhatsApp as universal agent interface is the dominant pattern |
+| Brain/hands separation theorized | Goertzel's QwestorClaw | Three layers proposed but unimplemented: Brain, Hands, Guardrails |
+| Hybrid architecture is "most advanced" | OpenClaw Setup 6 | "Brain in cloud, hands on desk" — rated Power ★★★★★ |
+| Nobody has presence-awareness | All research agents | OpenClaw nodes don't reason about availability |
+| LangGraph infra is ready | RemoteGraph docs | Multi-client support exists, nobody's built the adapter layer |
+| Secure tunneling solved | Tailscale MCP proxy | Production-ready, identity-based auth, no port exposure |
+| Voice pipeline exists | local-voice-ai, vox | Can swap LLM URL to cloud while keeping STT/TTS local |
+| OpenClaw cost is prohibitive | Shelly Palmer, Reddit | $300-750/month vs our token-efficient architecture |
+| OpenClaw security is broken | CVE-2026-25253, Cisco | "Security was bolted on after the fact" |
+
+---
+
 ## Open Questions
 
 ### Fundamental
 - **Self-modification boundary**: Can agent improve itself? Only skills? A sandboxed copy? (Compiler bootstrapping analogy)
 - **Trust escalation**: How does a skill "earn" more permissions over time? Auto-approve after N successful runs?
-- **Scheduler primitive**: Many use cases need time-based triggers. Is this a skill or infrastructure?
-- **Physical presence**: Containerization might break browser automation (different IP, fingerprint). When is real hardware required?
+- ~~**Scheduler primitive**: Many use cases need time-based triggers. Is this a skill or infrastructure?~~ **RESOLVED**: Infrastructure. Already built — `schedule_task()`, `list_tasks()`, `update_task()` in `tasks/tools.py`. Supports one-shot (delay_seconds, ISO datetime) and recurring (cron). Tasks execute on separate threads with full tool access.
+- ~~**Physical presence**: Containerization might break browser automation (different IP, fingerprint). When is real hardware required?~~ **RESOLVED**: PC Client architecture. Browser runs on user's actual machine via PC Client → Playwright. Brain stays on VPS. Best of both worlds — real hardware identity for browser, always-on for reasoning.
 
 ### Implementation
 - **Skill retrieval**: Mem0 semantic search vs. file-based glob vs. both?
@@ -509,9 +756,12 @@ This mirrors the existing HITL pattern for mutation tools in the media delegate.
 - **Skill marketplace**: Share skills between Joi instances (after trust model is solid)
 - **Agent self-modification**: Bootstrapping pattern. Needs deep thought on boundaries.
 - **Multi-agent teams**: Specialized agents with separate skill libraries
-- **Scheduler/cron integration**: Time-based skill triggers
+- ~~**Scheduler/cron integration**: Time-based skill triggers~~ **DONE**: Built in `tasks/tools.py`
 - **Air-gapped MCP gateway**: Production security layer
-- **Browser automation skills**: Playwright + real hardware for purchases/forms
+- ~~**Browser automation skills**: Playwright + real hardware for purchases/forms~~ **PROMOTED**: Part of PC Client architecture (Phase 2.5). Playwright runs on user's PC via local MCP server, invoked by remote brain.
+- **Voice client**: Whisper STT + Kokoro TTS as local daemon, sends transcriptions to LangGraph API, plays back TTS responses
+- **Work laptop client**: Restricted tool set, no personal data access, corporate-safe
+- **Capability negotiation protocol**: Formal protocol for clients to advertise/withdraw tools dynamically
 
 ---
 
@@ -815,11 +1065,12 @@ minimal_env = {"PATH": "/usr/local/bin:/usr/bin:/bin", "HOME": "/tmp/agent", "LA
 
 ## Cross-Cutting Considerations
 
-### Why Physical Presence Matters
+### Why Physical Presence Matters (Resolved by PC Client Architecture)
 - Browser automation (Playwright) on real hardware works because: same IP, fingerprint, cookies, session history
 - Containerization/cloud VPS breaks this identity continuity
 - For purchasing, SaaS interaction, form filling — agent MUST run on user's real machine/network
-- Selective sandboxing: sandbox CLI execution, but let browser actions use real environment
+- **Resolution**: PC Client runs Playwright on user's actual machine. Brain stays on VPS for always-on reasoning. Browser actions happen through local MCP tools, preserving IP/fingerprint/cookies.
+- Selective sandboxing: CLI execution can be containerized server-side, browser actions use real local environment
 
 ### Personalization Through Learning
 - Over time, Joi becomes personalized to each user's *specific infrastructure*
@@ -839,11 +1090,21 @@ minimal_env = {"PATH": "/usr/local/bin:/usr/bin:/bin", "HOME": "/tmp/agent", "LA
 - Resolution: containerization + mounted volumes (only expose the data dirs, not the home dir)
 - User's vLLM + MCP gateway idea: air-gap both LLM inference AND tool access on the same network
 
-### Joi's Media Scope = Lower Security Bar for PoC
-- Joi is a personal media assistant, not a general-purpose agent
-- The skill system is scoped to media workflows, tool discovery, and user preference learning
-- This means we can take more security risks in the PoC than a general-purpose agent would warrant
-- However: the user's vision is bigger than media — the architecture should be extensible
+### Joi's Scope: Media First, Everything Else Through PC Client
+- Media manager (TMDB + Jackett + Transmission) = first proof/demo, works entirely server-side
+- Browser automation, voice, local files = future capabilities via PC Client, not prerequisites
+- This means v1 ships without any local hardware dependency
+- PC Client is the expansion path: browser automation for purchases, form filling, SaaS interaction
+- The architecture is extensible by design — each new client type adds capabilities without changing the brain
+
+### Market Context (Feb 2026)
+- **OpenClaw**: 145-200K stars, acquired by OpenAI (Feb 15), security nightmare (135K exposed instances, 1-click RCE)
+- **Letta**: $10M seed / $70M valuation, best memory tech, invisible to users. Respect without excitement.
+- **Nanobot**: 4K lines Python, proves OpenClaw's core concept doesn't need 430K lines
+- **Manus**: Launched Telegram agents (Feb 16). Direct competition for messaging-first approach.
+- **AI companion market**: $120M revenue 2025, Character.ai 20M+ MAU settling teen lawsuits, "legally radioactive"
+- **Gap we fill**: Too complex (OpenClaw) or too minimal (Nanobot), no one has well-engineered middle ground with proper security + messaging-first + optional local capabilities
+- **OpenAI acquisition opens indie lane**: OpenClaw's future uncertain, community looking for alternatives
 
 ### Self-Modification Boundary (Compiler Bootstrapping)
 | What Agent Can Do | What Agent Cannot Do |
