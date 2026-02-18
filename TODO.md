@@ -42,5 +42,8 @@ The `progress` action only appends a log entry — it doesn't change status from
 ## Bare `dict` for `interrupt_data` in `tasks/models.py`
 `interrupt_data: dict | None = None` — unknown shape. Would benefit from `dict[str, Any]` or TypedDict if structure stabilizes.
 
+## Dev Workflow Tooling (PARKED — March 2026)
+SDD tooling ecosystem too immature (1-3 months old). All tools have significant open issues. No single tool solves brownfield + evolving requirements + codebase knowledge. Continue with Claude Code plan mode + CLAUDE.md + architecture docs. Full research in [docs/adr-dev-workflow-tooling.md](docs/adr-dev-workflow-tooling.md).
+
 ## Cron Expressions Have No Timezone Context
 Cron strings pass raw to `langgraph.crons.create_for_thread` (`tasks/tools.py:97-101`) with no timezone conversion — LangGraph likely interprets as UTC. User saying "every morning at 8am" (Istanbul, UTC+3) → LLM outputs `0 8 * * *` → fires at 8am UTC = 11am Istanbul. Affects all task scheduling variants equally. Options: inject user TZ in system prompt so LLM offsets the cron, add explicit `tz` param to the tool, or convert cron to UTC before passing to LangGraph.
