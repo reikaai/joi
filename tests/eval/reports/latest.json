@@ -1,246 +1,155 @@
 {
   "variants": {
-    "description_a": {
+    "applike": {
       "n_samples": 60,
       "success_rate": {
-        "mean": 0.95,
-        "ci_low": 0.8666666666666667,
+        "mean": 0.9333333333333333,
+        "ci_low": 0.8403908265967192,
         "ci_high": 0.9833333333333332,
-        "std_error": 0.028484410512865564,
+        "std_error": 0.03209191100859211,
         "n_samples": 60
       },
       "token_usage": {
-        "mean": 2985.85,
-        "ci_low": 2947.383333333333,
-        "ci_high": 3046.9166666666665,
-        "std_error": 24.436620545618844,
+        "mean": 2960.983333333333,
+        "ci_low": 2921.383333333333,
+        "ci_high": 3023.8465557491218,
+        "std_error": 24.910124541536092,
         "n_samples": 60
       },
       "cost_usd": {
-        "mean": 0.0036575833333333334,
-        "ci_low": 0.00346635,
-        "ci_high": 0.00396166046418982,
-        "std_error": 0.00012159179381186313,
-        "n_samples": 60
-      }
-    },
-    "description_b": {
-      "n_samples": 60,
-      "success_rate": {
-        "mean": 0.95,
-        "ci_low": 0.8666666666666667,
-        "ci_high": 0.9833333333333334,
-        "std_error": 0.028540616737376026,
+        "mean": 0.0036372500000000007,
+        "ci_low": 0.003440516666666666,
+        "ci_high": 0.003949843811510924,
+        "std_error": 0.0001238628324158054,
         "n_samples": 60
       },
-      "token_usage": {
-        "mean": 2794.7833333333333,
-        "ci_low": 2752.7833333333333,
-        "ci_high": 2860.526580532073,
-        "std_error": 26.355556777254012,
-        "n_samples": 60
-      },
-      "cost_usd": {
-        "mean": 0.0035462500000000004,
-        "ci_low": 0.003336718760345252,
-        "ci_high": 0.00387419647484749,
-        "std_error": 0.00013113788947283084,
-        "n_samples": 60
-      }
-    },
-    "rename": {
-      "n_samples": 60,
-      "success_rate": {
-        "mean": 0.9166666666666666,
-        "ci_low": 0.8166666666666667,
-        "ci_high": 0.9666666666666667,
-        "std_error": 0.03595672833084474,
-        "n_samples": 60
-      },
-      "token_usage": {
-        "mean": 2825.6833333333334,
-        "ci_low": 2783.3867430750497,
-        "ci_high": 2892.242151474548,
-        "std_error": 26.656869997103822,
-        "n_samples": 60
-      },
-      "cost_usd": {
-        "mean": 0.0035487500000000003,
-        "ci_low": 0.0033380611529328728,
-        "ci_high": 0.003880869111792735,
-        "std_error": 0.00013264676075772647,
-        "n_samples": 60
-      }
-    },
-    "simplify": {
-      "n_samples": 60,
-      "success_rate": {
-        "mean": 0.9166666666666666,
-        "ci_low": 0.8166666666666667,
-        "ci_high": 0.9666666666666666,
-        "std_error": 0.03525170968353986,
-        "n_samples": 60
-      },
-      "token_usage": {
-        "mean": 2755.65,
-        "ci_low": 2719.440084898805,
-        "ci_high": 2814.562679042304,
-        "std_error": 22.89687702509704,
-        "n_samples": 60
-      },
-      "cost_usd": {
-        "mean": 0.0034025833333333334,
-        "ci_low": 0.003222247547310483,
-        "ci_high": 0.0036951580367313368,
-        "std_error": 0.00011385190767715458,
-        "n_samples": 60
+      "by_category": {
+        "multi": {
+          "mean": 0.4,
+          "ci_low": 0.0,
+          "ci_high": 0.8,
+          "std_error": 0.2199258121310575,
+          "n_samples": 5
+        },
+        "negative": {
+          "mean": 0.96,
+          "ci_low": 0.8,
+          "ci_high": 1.0,
+          "std_error": 0.03946404368631029,
+          "n_samples": 25
+        },
+        "recurring": {
+          "mean": 1.0,
+          "ci_low": 1.0,
+          "ci_high": 1.0,
+          "std_error": 0.0,
+          "n_samples": 10
+        },
+        "sequence": {
+          "mean": 1.0,
+          "ci_low": 1.0,
+          "ci_high": 1.0,
+          "std_error": 0.0,
+          "n_samples": 15
+        },
+        "single": {
+          "mean": 1.0,
+          "ci_low": 1.0,
+          "ci_high": 1.0,
+          "std_error": 0.0,
+          "n_samples": 5
+        }
       }
     },
     "baseline": {
       "n_samples": 60,
       "success_rate": {
-        "mean": 0.95,
-        "ci_low": 0.8666666666666667,
-        "ci_high": 0.9833333333333332,
-        "std_error": 0.028449041955916594,
+        "mean": 0.9833333333333333,
+        "ci_low": 0.9166666666666666,
+        "ci_high": 1.0,
+        "std_error": 0.016504955880653406,
         "n_samples": 60
       },
       "token_usage": {
-        "mean": 2886.4,
-        "ci_low": 2845.4666666666667,
-        "ci_high": 2951.646295152332,
-        "std_error": 25.585826670695866,
+        "mean": 2897.483333333333,
+        "ci_low": 2856.9446751513856,
+        "ci_high": 2961.739781084905,
+        "std_error": 25.505069621337938,
         "n_samples": 60
       },
       "cost_usd": {
-        "mean": 0.003620333333333334,
-        "ci_low": 0.003416739707044516,
-        "ci_high": 0.003945850428925011,
-        "std_error": 0.0001272474950674893,
+        "mean": 0.0036757499999999998,
+        "ci_low": 0.0034746972009530885,
+        "ci_high": 0.003996997606362997,
+        "std_error": 0.00012684222823762775,
         "n_samples": 60
+      },
+      "by_category": {
+        "multi": {
+          "mean": 0.8,
+          "ci_low": 0.2,
+          "ci_high": 1.0,
+          "std_error": 0.17898088391322345,
+          "n_samples": 5
+        },
+        "negative": {
+          "mean": 1.0,
+          "ci_low": 1.0,
+          "ci_high": 1.0,
+          "std_error": 0.0,
+          "n_samples": 25
+        },
+        "recurring": {
+          "mean": 1.0,
+          "ci_low": 1.0,
+          "ci_high": 1.0,
+          "std_error": 0.0,
+          "n_samples": 10
+        },
+        "sequence": {
+          "mean": 1.0,
+          "ci_low": 1.0,
+          "ci_high": 1.0,
+          "std_error": 0.0,
+          "n_samples": 15
+        },
+        "single": {
+          "mean": 1.0,
+          "ci_low": 1.0,
+          "ci_high": 1.0,
+          "std_error": 0.0,
+          "n_samples": 5
+        }
       }
     }
   },
   "comparisons": [
     {
-      "mean_a": 0.95,
-      "mean_b": 0.95,
-      "difference": 0.0,
-      "ci_low": -0.06666666666666665,
-      "ci_high": 0.06666666666666665,
-      "confidence_level": 0.95,
-      "significant": false,
-      "standard_error": 0.03357696682641426,
-      "variant_a": "description_a",
-      "variant_b": "description_b"
-    },
-    {
-      "mean_a": 0.95,
-      "mean_b": 0.9166666666666666,
-      "difference": 0.033333333333333326,
-      "ci_low": -0.033333333333333326,
-      "ci_high": 0.1333333333333333,
-      "confidence_level": 0.95,
-      "significant": false,
-      "standard_error": 0.04126782642944761,
-      "variant_a": "description_a",
-      "variant_b": "rename"
-    },
-    {
-      "mean_a": 0.95,
-      "mean_b": 0.9166666666666666,
-      "difference": 0.033333333333333326,
-      "ci_low": -0.01666666666666672,
-      "ci_high": 0.11666666666666659,
-      "confidence_level": 0.95,
-      "significant": false,
-      "standard_error": 0.03295516267079709,
-      "variant_a": "description_a",
-      "variant_b": "simplify"
-    },
-    {
-      "mean_a": 0.95,
-      "mean_b": 0.95,
-      "difference": 0.0,
-      "ci_low": -0.06666666666666665,
-      "ci_high": 0.06666666666666665,
-      "confidence_level": 0.95,
-      "significant": false,
-      "standard_error": 0.033425289866443886,
-      "variant_a": "description_a",
-      "variant_b": "baseline"
-    },
-    {
-      "mean_a": 0.95,
-      "mean_b": 0.9166666666666666,
-      "difference": 0.033333333333333326,
-      "ci_low": -0.050000000000000044,
-      "ci_high": 0.1333333333333333,
-      "confidence_level": 0.95,
-      "significant": false,
-      "standard_error": 0.04724457544756494,
-      "variant_a": "description_b",
-      "variant_b": "rename"
-    },
-    {
-      "mean_a": 0.95,
-      "mean_b": 0.9166666666666666,
-      "difference": 0.033333333333333326,
-      "ci_low": -0.033333333333333326,
-      "ci_high": 0.1166666666666667,
-      "confidence_level": 0.95,
-      "significant": false,
-      "standard_error": 0.04036409812893559,
-      "variant_a": "description_b",
-      "variant_b": "simplify"
-    },
-    {
-      "mean_a": 0.95,
-      "mean_b": 0.95,
-      "difference": 0.0,
-      "ci_low": -0.06666666666666665,
-      "ci_high": 0.06666666666666665,
-      "confidence_level": 0.95,
-      "significant": false,
-      "standard_error": 0.03345624865082342,
-      "variant_a": "description_b",
-      "variant_b": "baseline"
-    },
-    {
-      "mean_a": 0.9166666666666666,
-      "mean_b": 0.9166666666666666,
-      "difference": 0.0,
-      "ci_low": -0.06666666666666665,
-      "ci_high": 0.06666666666666665,
-      "confidence_level": 0.95,
-      "significant": false,
-      "standard_error": 0.033814661117972634,
-      "variant_a": "rename",
-      "variant_b": "simplify"
-    },
-    {
-      "mean_a": 0.9166666666666666,
-      "mean_b": 0.95,
-      "difference": -0.033333333333333326,
-      "ci_low": -0.1333333333333333,
-      "ci_high": 0.050000000000000044,
-      "confidence_level": 0.95,
-      "significant": false,
-      "standard_error": 0.04747214262190338,
-      "variant_a": "rename",
-      "variant_b": "baseline"
-    },
-    {
-      "mean_a": 0.9166666666666666,
-      "mean_b": 0.95,
-      "difference": -0.033333333333333326,
+      "mean_a": 0.9333333333333333,
+      "mean_b": 0.9833333333333333,
+      "difference": -0.04999999999999993,
       "ci_low": -0.1166666666666667,
-      "ci_high": 0.033333333333333326,
+      "ci_high": 0.0,
       "confidence_level": 0.95,
       "significant": false,
-      "standard_error": 0.04038921856497509,
-      "variant_a": "simplify",
-      "variant_b": "baseline"
+      "standard_error": 0.028030516456126836,
+      "variant_a": "applike",
+      "variant_b": "baseline",
+      "fisher_exact": {
+        "table": [
+          [
+            56,
+            4
+          ],
+          [
+            59,
+            1
+          ]
+        ],
+        "odds_ratio": 0.23728813559322035,
+        "p_value": 0.36436112906701146,
+        "significant": false
+      }
     }
   ]
 }

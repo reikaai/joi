@@ -83,7 +83,11 @@ def _check_is_recurring(calls: list[dict], variant: ToolVariant) -> str | None:
             return f"Self-schedule needs 'when'. args={args}"
         return None
 
-    has_recurring = args.get("recurring") is True or _looks_like_cron(args.get("when", ""))
+    has_recurring = (
+        args.get("recurring") is True
+        or _looks_like_cron(args.get("when", ""))
+        or _looks_like_cron(args.get("schedule", ""))
+    )
     if not has_recurring:
         return f"Self-schedule should indicate recurring. args={args}"
     return None
