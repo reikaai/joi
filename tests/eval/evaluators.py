@@ -33,31 +33,27 @@ def _looks_like_cron(value: str) -> bool:
 
 def _check_staggered_timing(calls: list[dict], variant: ToolVariant) -> str | None:
     """Verify staggered timing: delay_seconds strictly increasing OR distinct when values."""
-    sname = variant.schedule_tool_name
+    # Check for delay_seconds (baseline, rename, description_a/b)
+    delays = [tc["args"].get("delay_seconds") for tc in calls]
+    if any(d is not None for d in delays):
+        if not all(d is not None for d in delays):
+            return f"Mixed delay_seconds presence. delays={delays}"
+        if delays != sorted(delays) or len(set(delays)) != len(delays):
+            return f"delay_seconds not strictly increasing. delays={delays}"
+        return None
 
-    # Tools with delay_seconds param
-    if sname in ("schedule_task", "tasks"):
-        delays = [tc["args"].get("delay_seconds") for tc in calls]
-        if any(d is not None for d in delays):
-            if not all(d is not None for d in delays):
-                return f"Mixed delay_seconds presence. delays={delays}"
-            if delays != sorted(delays) or len(set(delays)) != len(delays):
-                return f"delay_seconds not strictly increasing. delays={delays}"
-            return None
+    # Check for int-valued when (simplify variant, applike)
+    whens = [tc["args"].get("when", "") for tc in calls]
+    int_whens = [w for w in whens if isinstance(w, int)]
+    if len(int_whens) == len(calls) and len(calls) > 1:
+        if int_whens != sorted(int_whens) or len(set(int_whens)) != len(int_whens):
+            return f"int when values not strictly increasing. whens={int_whens}"
+        return None
 
-    # For typed_when: 'when' may be int (seconds) -- check strictly increasing ints
-    if sname in ("schedule_task", "do_later"):
-        whens = [tc["args"].get("when", "") for tc in calls]
-        int_whens = [w for w in whens if isinstance(w, int)]
-        if len(int_whens) == len(calls) and len(calls) > 1:
-            if int_whens != sorted(int_whens) or len(set(int_whens)) != len(int_whens):
-                return f"int when values not strictly increasing. whens={int_whens}"
-            return None
-
-        # For minimal_when/do_later: just verify different 'when' values
-        unique = len(set(str(w) for w in whens if w != "" and w is not None))
-        if unique < 2:
-            return f"Sequence calls should have distinct timing. whens={whens}"
+    # String when values: just verify distinct
+    unique = len(set(str(w) for w in whens if w != "" and w is not None))
+    if unique < 2:
+        return f"Sequence calls should have distinct timing. whens={whens}"
 
     return None
 
@@ -110,7 +106,8 @@ def evaluate_tool_calls(response, scenario: Scenario, variant: ToolVariant) -> E
 
     # Extract schedule-relevant tool calls
     all_tool_calls = response.tool_calls
-    schedule_calls = [tc for tc in all_tool_calls if tc["name"] == variant.schedule_tool_name]
+    schedule_names = variant.schedule_tool_names or [variant.schedule_tool_name]
+    schedule_calls = [tc for tc in all_tool_calls if tc["name"] in schedule_names]
     if variant.schedule_action:
         schedule_calls = [c for c in schedule_calls if c["args"].get("action") == variant.schedule_action]
 
@@ -141,7 +138,7 @@ def evaluate_tool_calls(response, scenario: Scenario, variant: ToolVariant) -> E
     failures: list[str] = []
 
     if result.correct_tool_score < 1.0:
-        failures.append(f"Expected tool {variant.schedule_tool_name} not called (got {result.tool_call_names})")
+        failures.append(f"Expected tool {schedule_names} not called (got {result.tool_call_names})")
 
     if result.correct_count_score < 1.0:
         failures.append(f"Expected >= {scenario.min_calls} calls, got {result.call_count}")

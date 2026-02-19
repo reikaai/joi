@@ -145,7 +145,8 @@ async def test_negative(variant_name: str, scenario: Scenario, eval_results: dic
     response = await invoke_variant(variant, scenario.prompt, variant_name, scenario.id)
 
     # Count scheduling tool calls
-    schedule_calls = [tc for tc in response.tool_calls if tc["name"] == variant.schedule_tool_name]
+    schedule_names = variant.schedule_tool_names or [variant.schedule_tool_name]
+    schedule_calls = [tc for tc in response.tool_calls if tc["name"] in schedule_names]
     if variant.schedule_action:
         schedule_calls = [c for c in schedule_calls if c["args"].get("action") == variant.schedule_action]
 
