@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-02-19)
 
 ## Current Position
 
-Phase: 5 of 6 (Full Comparison)
-Plan: 1 of 2 in current phase (05-01 COMPLETE)
-Status: Initial applike-vs-baseline comparison complete, proceeding to hard scenario exploration
-Last activity: 2026-02-19 — 120 LLM calls, Fisher exact test, EXPLORATION.md Pivot 0
+Phase: 5 of 6 (Full Comparison) -- COMPLETE
+Plan: 2 of 2 in current phase (05-02 COMPLETE)
+Status: Phase 5 complete -- REJECT recommendation produced, ready for Phase 6 ADR
+Last activity: 2026-02-19 — 660 LLM calls total, 3 pivots, hard_ambiguous p=0.006
 
-Progress: [████████░░] 82%
+Progress: [█████████░] 91%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 9
-- Average duration: 5.9min
-- Total execution time: 53min
+- Total plans completed: 10
+- Average duration: 8.8min
+- Total execution time: 88min
 
 **By Phase:**
 
@@ -31,11 +31,11 @@ Progress: [████████░░] 82%
 | 2. Eval Framework | 3 | 10min | 3.3min |
 | 3. App-Like Variant Design | 2 | 5min | 2.5min |
 | 4. Isolated Variable Experiments | 2 | 24min | 12min |
-| 5. Full Comparison | 1 | 9min | 9min |
+| 5. Full Comparison | 2 | 44min | 22min |
 
 **Recent Trend:**
-- Last 5 plans: 03-01 (2min), 03-02 (3min), 04-01 (4min), 04-02 (20min), 05-01 (9min)
-- Trend: 05-01 includes 120 LLM calls (~6min test runtime) plus analysis
+- Last 5 plans: 03-02 (3min), 04-01 (4min), 04-02 (20min), 05-01 (9min), 05-02 (35min)
+- Trend: 05-02 includes 660 LLM calls (~30min test runtime) plus analysis and recommendation
 
 *Updated after each plan completion*
 
@@ -79,6 +79,12 @@ Recent decisions affecting current work:
 - Comparison: Multi-tool routing is only differentiating dimension (applike 40% vs baseline 80% on multi:two_reminders)
 - Comparison: Additive null model predicts 88.4%; actual 93.3% suggests slight positive synergy from coherent framing
 - Comparison: Fisher exact + bootstrap CI dual reporting established as standard statistical approach
+- Exploration: Hard scenarios lower baseline from 98% to 69% -- sufficient power to detect differences
+- Exploration: hard_ambiguous is the key differentiator: baseline 53.3% vs applike 16.7% (p=0.006)
+- Exploration: Tool decomposition creates routing tax under ambiguity -- Haiku 4.5 freezes choosing between two tools
+- Exploration: REJECT applike variant -- 660 LLM calls, 3 pivots, significant deficit on hard scenarios
+- Exploration: Cost is neutral (<1% difference) -- not a factor in recommendation
+- Exploration: hard_implicit scenarios (before_weekend, usual_morning) fail for both variants equally -- floor effect
 
 ### Pending Todos
 
@@ -91,5 +97,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-19
-Stopped at: Completed 05-01-PLAN.md — Initial comparison done, ready for 05-02 (hard scenario exploration)
-Resume file: .planning/phases/05-full-comparison/05-01-SUMMARY.md
+Stopped at: Completed 05-02-PLAN.md — Phase 5 complete, REJECT recommendation produced, ready for Phase 6 ADR
+Resume file: .planning/phases/05-full-comparison/05-02-SUMMARY.md
