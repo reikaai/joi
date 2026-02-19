@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-19)
 
 **Core value:** Validated architectural decisions backed by evidence, not gut feel
-**Current focus:** Phase 5 — Full Comparison
+**Current focus:** Phase 6 — ADR and Decision (COMPLETE)
 
 ## Current Position
 
-Phase: 5 of 6 (Full Comparison) -- COMPLETE
-Plan: 2 of 2 in current phase (05-02 COMPLETE)
-Status: Phase 5 complete -- REJECT recommendation produced, ready for Phase 6 ADR
-Last activity: 2026-02-19 — 660 LLM calls total, 3 pivots, hard_ambiguous p=0.006
+Phase: 6 of 6 (ADR and Decision) -- COMPLETE
+Plan: 1 of 1 in current phase (06-01 COMPLETE)
+Status: All phases complete -- ADR written, project finished
+Last activity: 2026-02-19 — ADR documenting REJECT decision with root cause analysis
 
-Progress: [█████████░] 91%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 10
-- Average duration: 8.8min
-- Total execution time: 88min
+- Total plans completed: 11
+- Average duration: 8.2min
+- Total execution time: 90min
 
 **By Phase:**
 
@@ -32,10 +32,11 @@ Progress: [█████████░] 91%
 | 3. App-Like Variant Design | 2 | 5min | 2.5min |
 | 4. Isolated Variable Experiments | 2 | 24min | 12min |
 | 5. Full Comparison | 2 | 44min | 22min |
+| 6. ADR and Decision | 1 | 2min | 2min |
 
 **Recent Trend:**
-- Last 5 plans: 03-02 (3min), 04-01 (4min), 04-02 (20min), 05-01 (9min), 05-02 (35min)
-- Trend: 05-02 includes 660 LLM calls (~30min test runtime) plus analysis and recommendation
+- Last 5 plans: 04-01 (4min), 04-02 (20min), 05-01 (9min), 05-02 (35min), 06-01 (2min)
+- Trend: 06-01 is documentation-only (no LLM calls), hence fast
 
 *Updated after each plan completion*
 
@@ -85,6 +86,10 @@ Recent decisions affecting current work:
 - Exploration: REJECT applike variant -- 660 LLM calls, 3 pivots, significant deficit on hard scenarios
 - Exploration: Cost is neutral (<1% difference) -- not a factor in recommendation
 - Exploration: hard_implicit scenarios (before_weekend, usual_morning) fail for both variants equally -- floor effect
+- ADR: REJECT app-like variant for task scheduling with Haiku 4.5 -- documented in docs/adr-tool-interface-experiment.md
+- ADR: Default to consolidated tool interfaces (fewer tools with flags) for future Joi development
+- ADR: Decision is model-specific and domain-specific -- revisit with Sonnet/Opus or tool count >15
+- ADR: Extended ADR format with "Why It Didn't Work" and "What Would Need To Be True" sections for negative results
 
 ### Pending Todos
 
@@ -97,5 +102,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-19
-Stopped at: Completed 05-02-PLAN.md — Phase 5 complete, REJECT recommendation produced, ready for Phase 6 ADR
-Resume file: .planning/phases/05-full-comparison/05-02-SUMMARY.md
+Stopped at: Completed 06-01-PLAN.md — All phases complete, ADR written, project finished
+Resume file: .planning/phases/06-adr-and-decision/06-01-SUMMARY.md

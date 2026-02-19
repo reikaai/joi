@@ -29,7 +29,7 @@ Requirements for this milestone. Each maps to roadmap phases.
 
 ### Documentation
 
-- [ ] **DOCS-01**: Write ADR documenting hypothesis, methodology, results, and architectural decision
+- [x] **DOCS-01**: Write ADR documenting hypothesis, methodology, results, and architectural decision
 
 ## v2 Requirements
 
@@ -75,7 +75,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | EXPR-01 | Phase 3: App-Like Variant Design | Complete |
 | EXPR-02 | Phase 4: Isolated Variable Experiments | Complete |
 | EXPR-03 | Phase 5: Full Comparison | Complete |
-| DOCS-01 | Phase 6: ADR and Decision | Pending |
+| DOCS-01 | Phase 6: ADR and Decision | Complete |
 
 **Coverage:**
 - v1 requirements: 12 total
