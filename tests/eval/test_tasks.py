@@ -10,7 +10,7 @@ from langsmith import testing as t
 
 import tests.eval.variants.tasks_baseline  # noqa: F401 -- trigger registration
 from joi_agent_langgraph2.config import settings
-from tests.eval.conftest import Scenario, load_scenarios
+from tests.eval.conftest import Scenario, load_scenarios, record_eval_result
 from tests.eval.evaluators import evaluate_tool_calls
 from tests.eval.variants.registry import VARIANTS, ToolVariant
 
@@ -96,7 +96,7 @@ _variant_names = list(VARIANTS.keys())
     _positive_scenarios,
     ids=[s.id for s in _positive_scenarios],
 )
-async def test_positive(variant_name: str, scenario: Scenario):
+async def test_positive(variant_name: str, scenario: Scenario, eval_results: dict):
     variant = VARIANTS[variant_name]
 
     t.log_inputs({"prompt": scenario.prompt, "variant": variant_name, "category": scenario.category})
@@ -112,6 +112,18 @@ async def test_positive(variant_name: str, scenario: Scenario):
     t.log_feedback(key="output_tokens", value=result.output_tokens)
     t.log_feedback(key="total_tokens", value=result.total_tokens)
 
+    record_eval_result(
+        eval_results,
+        variant_name,
+        correct_tool_score=result.correct_tool_score,
+        correct_count_score=result.correct_count_score,
+        input_tokens=result.input_tokens,
+        output_tokens=result.output_tokens,
+        total_tokens=result.total_tokens,
+        scenario_id=scenario.id,
+        category=scenario.category,
+    )
+
     assert result.passed, result.failure_message
 
 
@@ -124,7 +136,7 @@ async def test_positive(variant_name: str, scenario: Scenario):
     _negative_scenarios,
     ids=[s.id for s in _negative_scenarios],
 )
-async def test_negative(variant_name: str, scenario: Scenario):
+async def test_negative(variant_name: str, scenario: Scenario, eval_results: dict):
     variant = VARIANTS[variant_name]
 
     t.log_inputs({"prompt": scenario.prompt, "variant": variant_name, "category": "negative"})
@@ -145,6 +157,18 @@ async def test_negative(variant_name: str, scenario: Scenario):
     t.log_feedback(key="input_tokens", value=usage.get("input_tokens", 0))
     t.log_feedback(key="output_tokens", value=usage.get("output_tokens", 0))
     t.log_feedback(key="total_tokens", value=usage.get("total_tokens", 0))
+
+    record_eval_result(
+        eval_results,
+        variant_name,
+        correct_tool_score=no_false_trigger,
+        correct_count_score=1.0,
+        input_tokens=usage.get("input_tokens", 0),
+        output_tokens=usage.get("output_tokens", 0),
+        total_tokens=usage.get("total_tokens", 0),
+        scenario_id=scenario.id,
+        category="negative",
+    )
 
     assert len(schedule_calls) == 0, (
         f"[{variant_name}] Expected 0 scheduling calls for negative scenario '{scenario.id}', "
