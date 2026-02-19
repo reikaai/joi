@@ -1,12 +1,12 @@
-# Joi — Codebase Alignment & Tasks Experiment
+# Joi — Personal AI Agent
 
 ## What This Is
 
-Joi is a personal AI agent (LangGraph v2 + Anthropic Claude + Telegram) that manages media, remembers context, schedules tasks, and will eventually gain self-extending capabilities via a skills system. This milestone is about auditing the existing codebase against strategic goals, then running a focused experiment on the tasks subsystem to test whether "app-like" tool interfaces (calendar, reminders) outperform programmatic ones (schedule_task, update_task) for autonomous agent behavior.
+Joi is a personal AI agent (LangGraph v2 + Anthropic Claude + Telegram) that manages media, remembers context, schedules tasks, and will eventually gain self-extending capabilities via a skills system. v1.0 established evidence-based decision discipline — auditing the codebase against strategic goals and running a rigorous tool interface experiment (960+ LLM calls) that produced a clear REJECT recommendation for app-like interfaces.
 
 ## Core Value
 
-Validated architectural decisions backed by evidence, not gut feel. Every change to Joi should be defensible with data — this milestone establishes that discipline.
+Validated architectural decisions backed by evidence, not gut feel. Every change to Joi should be defensible with data — v1.0 established that discipline.
 
 ## Requirements
 
@@ -21,24 +21,35 @@ Validated architectural decisions backed by evidence, not gut feel. Every change
 - ✓ Sandboxed Python interpreter — existing
 - ✓ E2E test harness — existing
 - ✓ Contract tests with VCR cassettes — existing
+- ✓ Codebase alignment audit against strategic goals — v1.0
+- ✓ Eval suite with LangSmith tracking and bootstrap CIs — v1.0
+- ✓ Statistical significance testing via scipy bootstrap — v1.0
+- ✓ Negative test cases for tool misuse detection — v1.0
+- ✓ Token cost measurement per tool variant — v1.0
+- ✓ Reusable eval system (registry pattern, YAML scenarios) — v1.0
+- ✓ App-like tool variant design with capability parity audit — v1.0
+- ✓ Isolated variable experiments (rename, simplify, description) — v1.0
+- ✓ Full app-like vs programmatic comparison with statistical rigor — v1.0
+- ✓ ADR documenting hypothesis, methodology, results, decision — v1.0
 
 ### Active
 
-- [ ] Codebase alignment audit against strategic goals
-- [ ] Research: OpenClaw user UX insights + LLM tool interaction priors
-- [ ] Eval suite: "apps vs tools" hypothesis test on tasks subsystem
-- [ ] ADR documenting findings (hypothesis, method, results, decision)
-- [ ] Tasks subsystem rework (if hypothesis validated)
+(None yet — define in next milestone via `/gsd:new-milestone`)
 
 ### Out of Scope
 
-- Skills system implementation — separate milestone, after this audit establishes the discipline
+- Skills system implementation — separate milestone, after evidence-based discipline established
 - PC Client / browser automation — future milestone
-- Persona rework — not the focus here
+- Persona rework — not the focus yet
 - Media delegate improvements — not misaligned, works fine
 - Deployment / infra changes — run locally only
 
 ## Context
+
+**Shipped v1.0** with 8,584 LOC Python across 182 files.
+Tech stack: LangGraph v2, Anthropic Claude, aiogram (Telegram), MCP tools, LangSmith, scipy.
+Key finding: app-like tool interfaces (Calendar/Reminders) perform significantly worse than programmatic interfaces under ambiguity (p=0.006). Default to consolidated tool interfaces for future development.
+Memory subsystem (Mem0) identified as highest-impact misalignment (8/10) — architectural replacement needed.
 
 **Strategic goals** (from `docs/strategic-context.md`):
 1. Professional manifesto — demonstrate vision and experience
@@ -46,28 +57,23 @@ Validated architectural decisions backed by evidence, not gut feel. Every change
 3. Breakaway opportunity — potential product
 4. Daily tool — useful for self + wife
 
-**The hypothesis**: LLMs have stronger priors about familiar app interfaces (Calendar, Reminders, Alarms) than programmatic tool APIs (schedule_task, update_task). If true, exposing agent capabilities as "virtual apps" could improve autonomous task completion, especially for complex multi-step workflows. If false, document why and save future teams the experiment.
-
-**Why tasks first**: The tasks subsystem was optimized for token consumption. The real optimization target should be success rate based on end-user interaction patterns and agent internal interaction patterns. Tasks is the smallest subsystem where this hypothesis can be tested cleanly.
-
-**OpenClaw context**: First-mover in dynamic agent capabilities. Community of 2.5M+ agents. Acquired by OpenAI Feb 2026. Security nightmare (135K exposed, 1-click RCE). Key insight: we can learn from their users' real feedback — what works, what doesn't, what people actually want — without inheriting their architecture or security problems.
-
-## Constraints
-
-- **Approval gates**: Each phase (research → evals → ADR → implementation) requires explicit user approval before proceeding
-- **Token budget awareness**: The experiment itself should measure token cost as a key metric
-- **No deployment changes**: Everything runs locally via docker compose
-- **Eval reproducibility**: Experiments must be repeatable with recorded results
-
 ## Key Decisions
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Audit before building | Avoid building on misaligned foundations | — Pending |
-| Research OpenClaw UX first | Learn from real user feedback before designing experiment | — Pending |
-| Eval before implementation | Don't rework tasks unless evidence supports it | — Pending |
-| ADR as deliverable format | Internal record for project history and portfolio | — Pending |
-| Tasks subsystem as test bed | Smallest subsystem where apps-vs-tools can be tested cleanly | — Pending |
+| Audit before building | Avoid building on misaligned foundations | ✓ Good — identified Memory as top priority |
+| Eval before implementation | Don't rework tasks unless evidence supports it | ✓ Good — saved wasted implementation work |
+| ADR as deliverable format | Internal record for project history and portfolio | ✓ Good — 249-line ADR as portfolio artifact |
+| Tasks subsystem as test bed | Smallest subsystem where apps-vs-tools can be tested cleanly | ✓ Good — confirmed hypothesis testable here |
+| REJECT app-like interfaces | Tool decomposition creates routing tax under ambiguity (p=0.006) | ✓ Good — evidence-based, model/domain-specific caveat documented |
+| Default to consolidated tools | Fewer tools with flags beats more tools with routing | ✓ Good — generalization conditions documented in ADR |
+
+## Constraints
+
+- **Approval gates**: Each phase requires explicit user approval before proceeding
+- **Token budget awareness**: Experiments measure token cost as key metric
+- **No deployment changes**: Everything runs locally via docker compose
+- **Eval reproducibility**: Experiments must be repeatable with recorded results
 
 ---
-*Last updated: 2026-02-19 after initialization*
+*Last updated: 2026-02-19 after v1.0 milestone*
