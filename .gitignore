@@ -105,3 +105,7 @@ tickets.jsonl
 .claude/sessions.db
 .claude/sessions.db-*
 .langgraph_api
+
+# Eval cache (LLM response cache for regression tests)
+tests/eval/cache/*
+!tests/eval/cache/.gitkeep
