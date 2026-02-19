@@ -36,7 +36,7 @@ Deferred to future. Formalize after seeing experiment data.
 
 - **EVAL-01**: Behavioral classifier (5 outcome types) for automated scoring
 - **EVAL-02**: Per-scenario YAML scoring weights (encode patterns from manual review)
-- **EVAL-03**: Golden-response unit tests per evaluator × variant
+- **EVAL-03**: Golden-response unit tests per evaluator x variant
 - **EVAL-04**: Multi-turn eval sequences (if clean single-turn data shows need)
 - **EVAL-05**: Review CLI script for terminal-based JSONL analysis
 
@@ -55,23 +55,23 @@ Deferred to future. Formalize after seeing experiment data.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INFRA-01 | — | Pending |
-| INFRA-02 | — | Pending |
-| CAPT-01 | — | Pending |
-| CAPT-02 | — | Pending |
-| EXPR-01 | — | Pending |
-| EXPR-02 | — | Pending |
-| EXPR-03 | — | Pending |
-| EXPR-04 | — | Pending |
-| ANLS-01 | — | Pending |
-| ANLS-02 | — | Pending |
-| ANLS-03 | — | Pending |
+| INFRA-01 | Phase 7 | Pending |
+| INFRA-02 | Phase 7 | Pending |
+| CAPT-01 | Phase 8 | Pending |
+| CAPT-02 | Phase 8 | Pending |
+| EXPR-01 | Phase 8 | Pending |
+| EXPR-02 | Phase 8 | Pending |
+| EXPR-03 | Phase 8 | Pending |
+| EXPR-04 | Phase 8 | Pending |
+| ANLS-01 | Phase 9 | Pending |
+| ANLS-02 | Phase 10 | Pending |
+| ANLS-03 | Phase 10 | Pending |
 
 **Coverage:**
 - v1.1 requirements: 11 total
-- Mapped to phases: 0
-- Unmapped: 11 (pending roadmap)
+- Mapped to phases: 11
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-20*
-*Last updated: 2026-02-20 after initial definition*
+*Last updated: 2026-02-20 after roadmap creation*
