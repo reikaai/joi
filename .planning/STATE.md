@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-02-19)
 
 ## Current Position
 
-Phase: 3 of 6 (App-Like Variant Design)
-Plan: 1 of 2 in current phase (COMPLETE)
-Status: Plan 03-01 complete — executing Plan 03-02 next
-Last activity: 2026-02-19 — 4 isolated-variable variants created
+Phase: 3 of 6 (App-Like Variant Design) -- COMPLETE
+Plan: 2 of 2 in current phase (COMPLETE)
+Status: Phase 3 complete — all variants designed, parity matrix + token budget done
+Last activity: 2026-02-19 — App-like variant + parity matrix + token budget
 
-Progress: [█████░░░░░] 50%
+Progress: [██████░░░░] 58%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5
+- Total plans completed: 6
 - Average duration: 3min
-- Total execution time: 17min
+- Total execution time: 20min
 
 **By Phase:**
 
@@ -29,10 +29,10 @@ Progress: [█████░░░░░] 50%
 |-------|-------|-------|----------|
 | 1. Codebase Alignment Audit | 1 | 5min | 5min |
 | 2. Eval Framework | 3 | 10min | 3.3min |
-| 3. App-Like Variant Design | 1 | 2min | 2min |
+| 3. App-Like Variant Design | 2 | 5min | 2.5min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (5min), 02-01 (2min), 02-02 (5min), 02-03 (3min), 03-01 (2min)
+- Last 5 plans: 02-01 (2min), 02-02 (5min), 02-03 (3min), 03-01 (2min), 03-02 (3min)
 - Trend: stable/accelerating
 
 *Updated after each plan completion*
@@ -62,6 +62,11 @@ Recent decisions affecting current work:
 - Variants: Simplify uses typed when: int | str merging 3 timing params (validated pattern from old eval)
 - Variants: All isolated variants share baseline system prompt (only full app-like changes it)
 - Variants: All experimental variants exclude run_code (orthogonal noise reduction)
+- Variants: App-like splits schedule_task into calendar_create_event (one-shot) and reminders_create (recurring)
+- Variants: App-like absorbs retry_in/question/message into single detail param
+- Variants: App-like persona patching via regex replacement of Background Tasks section
+- Variants: Token budget confirmed -- applike at +3.3% vs baseline (well within 10%)
+- Variants: Parity matrix covers 9 capabilities x 6 variants with absorption notes
 
 ### Pending Todos
 
@@ -74,5 +79,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-19
-Stopped at: Completed 03-01-PLAN.md — ready for 03-02
-Resume file: .planning/phases/03-app-like-variant-design/03-01-SUMMARY.md
+Stopped at: Completed 03-02-PLAN.md — Phase 3 complete, ready for Phase 4
+Resume file: .planning/phases/03-app-like-variant-design/03-02-SUMMARY.md
