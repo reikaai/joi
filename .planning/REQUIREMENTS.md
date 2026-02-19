@@ -19,7 +19,7 @@ Requirements for this milestone. Each maps to roadmap phases.
 - [ ] **EVAL-02**: Implement statistical significance testing via scipy bootstrap
 - [ ] **EVAL-03**: Include negative test cases (agent should NOT misuse tools)
 - [ ] **EVAL-04**: Measure and compare token cost per tool variant (using Haiku for cost efficiency)
-- [ ] **EVAL-05**: Design eval system for reuse across future experiments (not just tasks)
+- [x] **EVAL-05**: Design eval system for reuse across future experiments (not just tasks)
 
 ### Tool Interface Experiment
 
@@ -71,7 +71,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | EVAL-02 | Phase 2: Eval Framework | Pending |
 | EVAL-03 | Phase 2: Eval Framework | Pending |
 | EVAL-04 | Phase 2: Eval Framework | Pending |
-| EVAL-05 | Phase 2: Eval Framework | Pending |
+| EVAL-05 | Phase 2: Eval Framework | Complete |
 | EXPR-01 | Phase 3: App-Like Variant Design | Pending |
 | EXPR-02 | Phase 4: Isolated Variable Experiments | Pending |
 | EXPR-03 | Phase 5: Full Comparison | Pending |
