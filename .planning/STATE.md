@@ -69,5 +69,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-19
-Stopped at: Phase 02 verified and complete — ready for Phase 3 approval gate
-Resume file: .planning/phases/02-eval-framework/02-VERIFICATION.md
+Stopped at: Phase 3 context gathered — ready for planning
+Resume file: .planning/phases/03-app-like-variant-design/03-CONTEXT.md
