@@ -61,3 +61,87 @@ scenarios:
     min_calls: 1
     assertions:
       - type: is_recurring
+
+  # ── hard_ambiguous: vague intent that still requires scheduling ────
+  - id: hard_ambiguous:vague_delay
+    prompt: "remind me about the meeting in a bit"
+    category: hard_ambiguous
+    expected_tool: schedule_task
+    min_calls: 1
+    assertions:
+      - type: has_timing
+
+  - id: hard_ambiguous:implicit_recurring
+    prompt: "I keep forgetting to take my vitamins"
+    category: hard_ambiguous
+    expected_tool: schedule_task
+    min_calls: 1
+    assertions:
+      - type: is_recurring
+
+  - id: hard_ambiguous:minimal_wake
+    prompt: "wake me up"
+    category: hard_ambiguous
+    expected_tool: schedule_task
+    min_calls: 1
+    assertions:
+      - type: has_timing
+
+  # ── hard_multi: requests requiring multiple distinct tool calls ────
+  - id: hard_multi:onetime_plus_recurring
+    prompt: "set a reminder for 7am tomorrow and also remind me every Monday to check the trash"
+    category: hard_multi
+    expected_tool: schedule_task
+    min_calls: 2
+    assertions:
+      - type: has_timing
+
+  - id: hard_multi:two_different_times
+    prompt: "check on me in an hour, and also every evening at 9pm"
+    category: hard_multi
+    expected_tool: schedule_task
+    min_calls: 2
+    assertions:
+      - type: has_timing
+
+  # ── hard_distractor: scheduling buried in noise ────────────────────
+  - id: hard_distractor:buried_intent
+    prompt: "I was looking at my calendar earlier and thinking about next week. Oh actually, remind me at 3pm to buy groceries"
+    category: hard_distractor
+    expected_tool: schedule_task
+    min_calls: 1
+    assertions:
+      - type: has_timing
+
+  - id: hard_distractor:long_context
+    prompt: "My schedule is so packed, I had three meetings today and I'm exhausted. Anyway can you ping me in 30 minutes to start cooking dinner?"
+    category: hard_distractor
+    expected_tool: schedule_task
+    min_calls: 1
+    assertions:
+      - type: has_timing
+
+  - id: hard_distractor:mixed_topic
+    prompt: "What do you think about the weather today? Also set a reminder for 5pm to call the dentist"
+    category: hard_distractor
+    expected_tool: schedule_task
+    min_calls: 1
+    assertions:
+      - type: has_timing
+
+  # ── hard_implicit: timing must be inferred from context ────────────
+  - id: hard_implicit:before_weekend
+    prompt: "I need to finish this report before the weekend, remind me"
+    category: hard_implicit
+    expected_tool: schedule_task
+    min_calls: 1
+    assertions:
+      - type: has_timing
+
+  - id: hard_implicit:usual_morning
+    prompt: "do the usual morning check on me"
+    category: hard_implicit
+    expected_tool: schedule_task
+    min_calls: 1
+    assertions:
+      - type: has_timing

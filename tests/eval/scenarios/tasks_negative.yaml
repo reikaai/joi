@@ -33,3 +33,32 @@ scenarios:
     expected_tool: null
     min_calls: 0
     assertions: []
+
+  # ── hard_negative: scheduling-adjacent language that should NOT trigger ──
+  - id: neg:hard_hedging
+    prompt: "I should probably set a reminder at some point to clean the house"
+    category: hard_negative
+    expected_tool: null
+    min_calls: 0
+    assertions: []
+
+  - id: neg:hard_statement
+    prompt: "my calendar is packed this week, I have no free time at all"
+    category: hard_negative
+    expected_tool: null
+    min_calls: 0
+    assertions: []
+
+  - id: neg:hard_question
+    prompt: "do you think I need a reminder for that meeting?"
+    category: hard_negative
+    expected_tool: null
+    min_calls: 0
+    assertions: []
+
+  - id: neg:hard_past_reference
+    prompt: "I used to have an alarm for 7am but I stopped using it last year"
+    category: hard_negative
+    expected_tool: null
+    min_calls: 0
+    assertions: []
