@@ -9,8 +9,8 @@ Requirements for eval pipeline rebuild. Each maps to roadmap phases.
 
 ### Infrastructure (INFRA)
 
-- [ ] **INFRA-01**: Eval captures full response text + tool calls (fix serialization bug that discards list content)
-- [ ] **INFRA-02**: Corrupted v1.0 eval cache invalidated and re-recordable
+- [x] **INFRA-01**: Eval captures full response text + tool calls (fix serialization bug that discards list content)
+- [x] **INFRA-02**: Corrupted v1.0 eval cache invalidated and re-recordable
 
 ### Capture & Review (CAPT)
 
@@ -55,8 +55,8 @@ Deferred to future. Formalize after seeing experiment data.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INFRA-01 | Phase 7 | Pending |
-| INFRA-02 | Phase 7 | Pending |
+| INFRA-01 | Phase 7 | Complete |
+| INFRA-02 | Phase 7 | Complete |
 | CAPT-01 | Phase 8 | Pending |
 | CAPT-02 | Phase 8 | Pending |
 | EXPR-01 | Phase 8 | Pending |
