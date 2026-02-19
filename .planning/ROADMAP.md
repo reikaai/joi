@@ -30,11 +30,10 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. Each misalignment has a written reasoning explaining WHY it's misaligned (not just that it is)
   3. A prioritized fix list exists, ranked by impact, that can inform future milestone planning
   4. The tasks subsystem's position in the priority list validates (or challenges) the decision to experiment on it first
-**Plans**: TBD
+**Plans**: 1 plan
 
 Plans:
-- [ ] 01-01: TBD
-- [ ] 01-02: TBD
+- [ ] 01-01-PLAN.md — Alignment matrix, misalignment reasoning, prioritized fix list, tasks-first validation
 
 ### Phase 2: Eval Framework
 **Goal**: A reusable eval harness that can measure tool-use accuracy, token cost, and statistical significance for any future experiment
