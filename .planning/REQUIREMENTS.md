@@ -15,10 +15,10 @@ Requirements for this milestone. Each maps to roadmap phases.
 
 ### Eval Infrastructure
 
-- [ ] **EVAL-01**: Build eval framework with LangSmith experiment tracking (pytest plugin)
+- [x] **EVAL-01**: Build eval framework with LangSmith experiment tracking (pytest plugin)
 - [ ] **EVAL-02**: Implement statistical significance testing via scipy bootstrap
-- [ ] **EVAL-03**: Include negative test cases (agent should NOT misuse tools)
-- [ ] **EVAL-04**: Measure and compare token cost per tool variant (using Haiku for cost efficiency)
+- [x] **EVAL-03**: Include negative test cases (agent should NOT misuse tools)
+- [x] **EVAL-04**: Measure and compare token cost per tool variant (using Haiku for cost efficiency)
 - [x] **EVAL-05**: Design eval system for reuse across future experiments (not just tasks)
 
 ### Tool Interface Experiment
@@ -67,10 +67,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | AUDIT-01 | Phase 1: Codebase Alignment Audit | Complete |
 | AUDIT-02 | Phase 1: Codebase Alignment Audit | Complete |
 | AUDIT-03 | Phase 1: Codebase Alignment Audit | Complete |
-| EVAL-01 | Phase 2: Eval Framework | Pending |
+| EVAL-01 | Phase 2: Eval Framework | Complete |
 | EVAL-02 | Phase 2: Eval Framework | Pending |
-| EVAL-03 | Phase 2: Eval Framework | Pending |
-| EVAL-04 | Phase 2: Eval Framework | Pending |
+| EVAL-03 | Phase 2: Eval Framework | Complete |
+| EVAL-04 | Phase 2: Eval Framework | Complete |
 | EVAL-05 | Phase 2: Eval Framework | Complete |
 | EXPR-01 | Phase 3: App-Like Variant Design | Pending |
 | EXPR-02 | Phase 4: Isolated Variable Experiments | Pending |

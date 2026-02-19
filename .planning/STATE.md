@@ -10,29 +10,29 @@ See: .planning/PROJECT.md (updated 2026-02-19)
 ## Current Position
 
 Phase: 2 of 6 (Eval Framework)
-Plan: 1 of 3 in current phase (COMPLETE)
-Status: Plan 02-01 complete — continuing to 02-02
-Last activity: 2026-02-19 — Eval data layer (scenarios + variants) built
+Plan: 2 of 3 in current phase (COMPLETE)
+Status: Plan 02-02 complete — continuing to 02-03
+Last activity: 2026-02-19 — Eval test engine with LangSmith tracking built
 
-Progress: [██░░░░░░░░] 20%
+Progress: [███░░░░░░░] 30%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 2
+- Total plans completed: 3
 - Average duration: 4min
-- Total execution time: 7min
+- Total execution time: 12min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 1. Codebase Alignment Audit | 1 | 5min | 5min |
-| 2. Eval Framework | 1 | 2min | 2min |
+| 2. Eval Framework | 2 | 7min | 3.5min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (5min), 02-01 (2min)
-- Trend: accelerating
+- Last 5 plans: 01-01 (5min), 02-01 (2min), 02-02 (5min)
+- Trend: stable
 
 *Updated after each plan completion*
 
@@ -51,6 +51,9 @@ Recent decisions affecting current work:
 - Eval: YAML scenarios use typed dataclasses (Scenario, ScenarioAssertion) not raw dicts
 - Eval: Variant registry uses decorator pattern -- new variant = decorate a function in a new file
 - Eval: Baseline variant includes 4 tools (schedule_task, list_tasks, update_task, run_code) matching production
+- Eval: Eval model hardcoded to claude-haiku-4-5-20251001 for cost-effective consistency
+- Eval: Dual-mode cache (LANGSMITH_TEST_CACHE env var) for real vs cached LLM responses
+- Eval: LangSmith feedback logged per test: correct_tool, correct_count, token metrics
 
 ### Pending Todos
 
@@ -63,5 +66,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-19
-Stopped at: Completed 02-01-PLAN.md (eval data layer)
-Resume file: .planning/phases/02-eval-framework/02-01-SUMMARY.md
+Stopped at: Completed 02-02-PLAN.md (eval test engine)
+Resume file: .planning/phases/02-eval-framework/02-02-SUMMARY.md
