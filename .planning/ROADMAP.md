@@ -39,10 +39,10 @@ Full details: `.planning/milestones/v1.0-ROADMAP.md`
 **Success Criteria** (what must be TRUE):
   1. Running an eval scenario that returns list-type AIMessage content produces JSONL with non-empty response text (the serialization bug that discarded all text to "" is fixed)
   2. No v1.0 cached responses are used — cache is invalidated and fresh responses are recorded on next run
-**Plans**: TBD
+**Plans**: 1 plan
 
 Plans:
-- [ ] 07-01: TBD
+- [ ] 07-01-PLAN.md — Fix serialization bug and wipe corrupted v1.0 cache
 
 ### Phase 8: Experiment Harness
 **Goal**: An isolated experiment mode exists that controls every variable except the one being tested (tool interface design), with full capture for post-hoc review
@@ -99,7 +99,7 @@ Phases execute in numeric order: 7 -> 8 -> 9 -> 10
 | 4. Isolated Variable Experiments | v1.0 | 2/2 | Complete | 2026-02-19 |
 | 5. Full Comparison | v1.0 | 2/2 | Complete | 2026-02-19 |
 | 6. ADR and Decision | v1.0 | 1/1 | Complete | 2026-02-19 |
-| 7. Infrastructure Fixes | v1.1 | 0/? | Not started | - |
+| 7. Infrastructure Fixes | v1.1 | 0/1 | Planned | - |
 | 8. Experiment Harness | v1.1 | 0/? | Not started | - |
 | 9. Run Experiments | v1.1 | 0/? | Not started | - |
 | 10. Review and ADR | v1.1 | 0/? | Not started | - |
