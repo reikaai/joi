@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Codebase Alignment Audit** - Audit all subsystems against strategic goals, document misalignments, produce prioritized fix list (completed 2026-02-19)
 - [ ] **Phase 2: Eval Framework** - Build reusable eval harness with experiment tracking, statistical rigor, negative cases, and token cost measurement
 - [x] **Phase 3: App-Like Variant Design** - Define tool variants (rename-only, simplify-only, description-only, full app) with capability parity audit (completed 2026-02-19)
-- [ ] **Phase 4: Isolated Variable Experiments** - Run single-variable experiments (rename, simplify, description) against baseline with statistical analysis
+- [x] **Phase 4: Isolated Variable Experiments** - Run single-variable experiments (rename, simplify, description) against baseline with statistical analysis (completed 2026-02-19)
 - [ ] **Phase 5: Full Comparison** - Run combined app-like variant vs programmatic baseline, interpret against isolated variable results
 - [ ] **Phase 6: ADR and Decision** - Write Architecture Decision Record documenting hypothesis, methodology, results, and recommendation
 
@@ -121,6 +121,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 1. Codebase Alignment Audit | 0/TBD | Complete    | 2026-02-19 |
 | 2. Eval Framework | 3/3 | Complete | 2026-02-19 |
 | 3. App-Like Variant Design | 0/TBD | Complete    | 2026-02-19 |
-| 4. Isolated Variable Experiments | 0/TBD | Not started | - |
+| 4. Isolated Variable Experiments | 2/2 | Complete | 2026-02-19 |
 | 5. Full Comparison | 0/TBD | Not started | - |
 | 6. ADR and Decision | 0/TBD | Not started | - |
