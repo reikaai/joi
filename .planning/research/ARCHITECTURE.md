@@ -1,438 +1,601 @@
-# Architecture Research: Eval System for Tool Interface A/B Testing
+# Architecture: Eval Pipeline Rebuild (v1.1)
 
 **Domain:** LLM agent tool interface evaluation
-**Researched:** 2026-02-19
-**Confidence:** HIGH (architecture builds on existing proven patterns in codebase + well-documented LangSmith APIs)
+**Researched:** 2026-02-20
+**Confidence:** HIGH (builds on existing proven architecture, changes are surgical)
 
-## System Overview
-
-```
-+================================================================+
-|                     Eval Orchestrator (pytest)                   |
-|  Reads scenarios, dispatches variants, collects results          |
-+====+=================+=================+=================+======+
-     |                 |                 |                 |
-     v                 v                 v                 v
-+----------+   +----------+   +----------+   +----------+
-| Variant  |   | Variant  |   | Variant  |   | Variant  |
-| Registry |   | Registry |   | Registry |   | Registry |
-| "prog"   |   | "app"    |   | "hybrid" |   | ...      |
-+----+-----+   +----+-----+   +----+-----+   +----+-----+
-     |              |              |              |
-     v              v              v              v
-+================================================================+
-|               Tool Interface Layer (swappable)                   |
-|  Same backend functions, different schemas/descriptions/names    |
-+====+==========================================================+=+
-     |                                                          |
-     v                                                          v
-+----------------------------+    +------------------------------+
-| Agent Invocation           |    | Metrics Collector            |
-| ChatAnthropic.bind_tools() |    | - tool_calls (names, args)   |
-| Single LLM call per case   |    | - token usage (in/out/cache) |
-+----------------------------+    | - success criteria checks    |
-                                  | - error/fallback detection   |
-                                  +----------+-------------------+
-                                             |
-                                             v
-+================================================================+
-|                      Results Store                               |
-|  Per-run: variant, scenario, tool_calls, tokens, pass/fail      |
-|  Format: JSON lines + LangSmith experiments                     |
-+====+==========================================================+=+
-     |                                                          |
-     v                                                          v
-+----------------------------+    +------------------------------+
-| Report Generator           |    | LangSmith Comparative View   |
-| - Success rate per variant |    | - evaluate_comparative()     |
-| - Token cost per variant   |    | - Pairwise preference        |
-| - Pass/fail matrix         |    | - Trajectory analysis        |
-| - Console + markdown       |    | - Side-by-side dashboard     |
-+----------------------------+    +------------------------------+
-```
-
-## Component Responsibilities
-
-| Component | Responsibility | Typical Implementation |
-|-----------|----------------|------------------------|
-| **Scenario Registry** | Defines test cases with inputs, expected behaviors, and success criteria | Python dataclasses/dicts in test module; later LangSmith datasets |
-| **Variant Registry** | Maps variant names to tool factories, persona overrides, and config | Dict of `{name: {tools_factory, persona, schedule_name}}` -- already exists |
-| **Tool Interface Layer** | Creates tool instances with different schemas/descriptions for same backend | Factory functions returning `StructuredTool` or `BaseTool` |
-| **Agent Invocation** | Runs a single LLM call (or full agent loop) with bound tools + persona | `ChatAnthropic.bind_tools(tools).ainvoke([system, human])` |
-| **Metrics Collector** | Extracts structured metrics from each invocation response | Post-invocation analysis of `response.tool_calls` + `usage_metadata` |
-| **Results Store** | Persists per-run results for aggregation | JSON lines file + LangSmith experiment traces |
-| **Report Generator** | Aggregates results into human-readable comparison tables | pytest terminal output + optional markdown report |
-| **LangSmith Integration** | Optional: pushes results as experiments for pairwise comparison | `langsmith.evaluate()` + `evaluate_comparative()` |
-
-## Recommended Project Structure
+## Current Architecture (What Exists)
 
 ```
-tests/
-  joi_agent_langgraph2/
-    eval/                           # Eval framework
-      conftest.py                   # Shared fixtures (model, scenarios)
-      scenarios.py                  # Scenario definitions
-      variants.py                   # Variant registry (tools + personas)
-      metrics.py                    # Metrics extraction + assertion helpers
-      report.py                     # Aggregation + reporting
-      test_tool_interface_eval.py   # Main parametrized eval tests
-      test_apps_vs_tools.py         # Specific apps-vs-tools hypothesis tests
-    test_task_scheduling_eval.py    # Existing eval (keep as-is, refactor later)
+tests/eval/
+  conftest.py          -- Scenario/ScenarioAssertion dataclasses, YAML loader, session fixtures
+  evaluators.py        -- EvalResult dataclass, evaluate_tool_calls(), assertion checks
+  stats.py             -- bootstrap_ci(), compare_variants(), fisher_exact, generate_report()
+  token_budget.py      -- Token overhead measurement per variant
+  test_tasks.py        -- Parametrized pytest tests (test_positive, test_negative)
+  scenarios/
+    tasks_positive.yaml  -- 16 positive scenarios across 8 categories
+    tasks_negative.yaml  -- 9 negative scenarios across 2 categories
+  variants/
+    registry.py         -- ToolVariant dataclass, VARIANTS dict, @register decorator
+    tasks_baseline.py   -- Production-equivalent baseline
+    tasks_applike.py    -- Calendar/Reminders decomposition
+    tasks_rename.py     -- Name-only change
+    tasks_simplify.py   -- Parameter merging
+    tasks_description_a.py  -- WHAT/WHEN/HOW description format
+    tasks_description_b.py  -- Alternative description
+  cache/               -- JSON response cache per variant/scenario
+  reports/             -- latest.json, phase4_summary.md
+
+scripts/eval_probe.py   -- Quick manual probe (standalone, not pytest)
 ```
 
-### Structure Rationale
+### Data Flow (Current)
 
-- **`eval/` subdirectory**: Separates eval framework code from individual tests. The existing `test_task_scheduling_eval.py` is a 579-line monolith mixing framework, variants, and tests. The new structure separates concerns.
-- **`scenarios.py`**: Decouples test data from test logic. Enables scenario reuse across different eval dimensions.
-- **`variants.py`**: Centralizes the variant registry. Currently, `TOOL_VARIANTS`, `COMBO_VARIANTS`, `PERSONA_VARIANTS` are defined inline. Moving to a registry enables programmatic variant generation.
-- **`metrics.py`**: The existing eval mixes metric extraction (`_get_schedule_calls`) with assertions (`_assert_staggered`). Separating metrics from assertions enables flexible aggregation.
-- **`report.py`**: Currently results are only visible via pytest pass/fail. A dedicated reporter enables success-rate tables, token comparisons, and markdown output.
+```
+YAML scenarios ──> load_scenarios() ──> list[Scenario]
+                                              │
+Variant registry ──> VARIANTS dict            │
+         │                                    │
+         v                                    v
+    pytest.mark.parametrize(variant x scenario)
+         │
+         v
+    invoke_variant()
+      ├── cache check (LANGSMITH_TEST_CACHE)
+      ├── ChatAnthropic.bind_tools(variant.tools_factory())
+      ├── model.ainvoke([SystemMessage, HumanMessage])
+      └── cache write
+         │
+         v
+    AIMessage (response)
+         │
+         ├──> evaluate_tool_calls(response, scenario, variant) ──> EvalResult
+         │       ├── tool extraction
+         │       ├── token usage
+         │       └── assertion checks (has_timing, staggered, recurring, no_run_code)
+         │
+         ├──> LangSmith: t.log_inputs(), t.log_outputs(), t.log_feedback()
+         │
+         └──> record_eval_result() ──> session-wide dict
+                                              │
+                                              v
+                                    generate_report() ──> latest.json
+                                      ├── bootstrap_ci() per variant
+                                      ├── compare_variants() pairwise
+                                      └── fisher_exact_comparison()
+```
 
-## Architectural Patterns
+## Problems to Fix
 
-### Pattern 1: Variant Registry with Factory Functions
+### Problem 1: Response Content Serialization (CRITICAL)
 
-**What:** Each variant is a config dict containing a tools factory, persona, and metadata. The factory returns tool instances with specific schemas/descriptions. This is the pattern already proven in the existing eval.
+**File:** `tests/eval/test_tasks.py` line 34
 
-**When to use:** Always -- this is the core abstraction that enables A/B testing of tool interfaces.
-
-**Trade-offs:** Simple, explicit, no magic. Slightly verbose for many variants but highly debuggable.
-
-**Example:**
 ```python
-@dataclass
-class EvalVariant:
-    name: str
-    persona: str
-    tools_factory: Callable[[], list[BaseTool]]
-    schedule_name: str  # which tool name counts as "scheduling"
-    schedule_action: str | None = None  # for consolidated tools
-    metadata: dict = field(default_factory=dict)
-
-VARIANTS: dict[str, EvalVariant] = {
-    "programmatic": EvalVariant(
-        name="programmatic",
-        persona=PERSONA_FULL,
-        tools_factory=lambda: [
-            make_schedule_tool(DESC_CURRENT),
-            make_list_tasks_tool(),
-            make_update_task_tool(),
-        ],
-        schedule_name="schedule_task",
-    ),
-    "app_calendar": EvalVariant(
-        name="app_calendar",
-        persona=PERSONA_APP_STYLE,
-        tools_factory=lambda: [
-            make_calendar_create_event(),
-            make_calendar_list_events(),
-            make_reminders_add(),
-            make_reminders_list(),
-        ],
-        schedule_name="Calendar.create_event",
-    ),
-}
+def _serialize_response(response: AIMessage) -> dict:
+    return {
+        "content": response.content if isinstance(response.content, str) else "",  # BUG: drops list content
+        ...
+    }
 ```
 
-### Pattern 2: Scenario-as-Data with Structured Assertions
-
-**What:** Each test scenario is a data object with input, expected behavior type, minimum tool call count, and specific assertion hooks. This decouples "what to test" from "how to test."
-
-**When to use:** When scenarios are reused across multiple variant configurations.
-
-**Trade-offs:** More upfront structure but enables cross-variant comparison matrices.
-
-**Example:**
+When Claude returns both text AND tool calls, `response.content` is a list like:
 ```python
-@dataclass
-class EvalScenario:
-    prompt: str
-    min_calls: int
-    case_type: Literal["sequence", "single", "multi", "self_schedule"]
-    assertions: list[Callable] = field(default_factory=list)
-    tags: set[str] = field(default_factory=set)
-
-SCENARIOS = [
-    EvalScenario("count to 3 with 5 sec pauses", 3, "sequence", tags={"timing", "multi-call"}),
-    EvalScenario("remind me to call mom in 5 min", 1, "single", tags={"reminder", "delay"}),
-    EvalScenario("check on me every morning", 1, "self_schedule", tags={"recurring", "cron"}),
+[
+    {"type": "text", "text": "Sure, I'll set that up."},
+    {"type": "tool_use", "id": "toolu_...", "name": "schedule_task", ...}
 ]
 ```
 
-### Pattern 3: Metrics Extraction as Pure Functions
+Current code serializes this as `""` -- losing all text content. The probe script (`eval_probe.py` line 42-44) handles this correctly but the pytest eval does not.
 
-**What:** Metric extraction is separated from assertion logic. Each metric is a pure function: `response -> MetricValue`. Assertions compose metrics with thresholds.
+**Impact:** Cached responses lose text content. Any evaluator that needs to inspect text (e.g., "did the model ask a clarifying question?") gets empty string. Reproducibility is broken for mixed content responses.
 
-**When to use:** When you need to aggregate metrics across runs (e.g., "average token cost for variant X across all scenarios").
+**Fix location:** `_serialize_response()` and `_deserialize_response()` in `test_tasks.py`.
 
-**Trade-offs:** Slightly more code but enables rich reporting and statistical analysis.
+### Problem 2: Evaluator Only Scores Binary Tool Presence
 
-**Example:**
+**File:** `tests/eval/evaluators.py`
+
+Current evaluators check:
+- Did the right tool get called? (binary)
+- Were there enough calls? (binary)
+- Specific assertion types: has_timing, staggered_timing, is_recurring, no_run_code
+
+Missing:
+- No scoring for "asked a clarifying question" as valid behavior
+- No scoring for "gathered context first" (e.g., called list_tasks before scheduling)
+- No capture of text responses for qualitative review
+- No way to mark a scenario as "clarification is acceptable"
+
+**Impact:** Ambiguous scenarios (hard_ambiguous, hard_implicit) either pass or fail, but "I need more info -- when do you want the vitamin reminder?" is scored as failure when it should be valid.
+
+### Problem 3: No Experiment Isolation (Persona Coupling)
+
+**File:** `tests/eval/variants/tasks_baseline.py` line 57
+
 ```python
-@dataclass
-class EvalMetrics:
-    tool_calls: list[dict]
-    schedule_calls: list[dict]
-    fallback_calls: list[dict]  # e.g., run_code when it shouldn't
-    input_tokens: int
-    output_tokens: int
-    cache_read_tokens: int
-    total_tokens: int
-    passed: bool
-    failure_reason: str | None = None
+persona = settings.persona_path.read_text()
+```
 
-def extract_metrics(response, variant: EvalVariant) -> EvalMetrics:
-    all_calls = response.tool_calls
-    schedule_calls = [c for c in all_calls if c["name"] == variant.schedule_name]
-    fallback_calls = [c for c in all_calls if c["name"] == "run_code"]
-    usage = getattr(response, "usage_metadata", {})
-    return EvalMetrics(
-        tool_calls=all_calls,
-        schedule_calls=schedule_calls,
-        fallback_calls=fallback_calls,
-        input_tokens=usage.get("input_tokens", 0),
-        output_tokens=usage.get("output_tokens", 0),
-        cache_read_tokens=usage.get("cache_creation_input_tokens", 0),
-        total_tokens=usage.get("total_tokens", 0),
-        passed=False,  # set by assertion layer
-        failure_reason=None,
+Every variant loads Joi's full persona. This means experiments measure `persona + tool_interface` jointly. Persona includes personality quirks, media instructions, memory instructions -- all noise for a tool interface experiment.
+
+**Impact:** Can't distinguish "the tool description was bad" from "the persona confused the model." The applike variant patches the persona (`_patch_persona`) which changes TWO variables at once.
+
+### Problem 4: No Batch Review Output
+
+Current output is:
+- pytest pass/fail in terminal
+- `reports/latest.json` with aggregate statistics
+- LangSmith traces (if enabled)
+
+Missing: a format where a human (or Claude Code) can review individual responses, see what the model said, see what tools it called, and make qualitative judgments. The cached JSON files exist but are scattered across `cache/{variant}/{scenario}.json` and lack the scenario expectations alongside the response.
+
+### Problem 5: No Run Metadata for Reproducibility
+
+`reports/latest.json` contains results but no metadata about:
+- Which model was used
+- What date/time the run happened
+- What commit/state the code was in
+- What environment variables were set
+- What the variant definitions looked like at run time
+
+## Recommended Architecture (v1.1)
+
+### New Components (bold = new, regular = modified)
+
+```
+tests/eval/
+  conftest.py          -- MODIFIED: add experiment_config fixture
+  evaluators.py        -- MODIFIED: add outcome-based scoring (clarification, context_gather)
+  stats.py             -- unchanged
+  token_budget.py      -- unchanged
+  test_tasks.py        -- MODIFIED: fix serialization, add response capture
+  **test_experiment.py** -- NEW: isolated zero-persona experiment runner
+  scenarios/
+    tasks_positive.yaml  -- MODIFIED: add acceptable_outcomes field
+    tasks_negative.yaml  -- unchanged
+    **experiment.yaml**  -- NEW: scenarios for isolated experiments
+  variants/
+    registry.py         -- MODIFIED: add persona_mode field to ToolVariant
+    tasks_baseline.py   -- unchanged
+    tasks_applike.py    -- unchanged
+    ...
+    **experiment_baseline.py** -- NEW: zero-persona baseline variant
+    **experiment_applike.py**  -- NEW: zero-persona applike variant
+  cache/               -- unchanged
+  reports/             -- unchanged
+  **review/**          -- NEW: batch review output directory
+```
+
+### Component Boundary Changes
+
+| Component | Current Responsibility | New Responsibility | Change Type |
+|-----------|----------------------|-------------------|-------------|
+| `_serialize_response` | Serialize AIMessage to cache JSON | Serialize FULL AIMessage (list content preserved) | Bug fix |
+| `_deserialize_response` | Reconstruct AIMessage from cache | Reconstruct with full content type | Bug fix |
+| `evaluators.py` | Binary tool-call scoring | Multi-outcome scoring (success, clarification, context_gather, failure) | Enhancement |
+| `Scenario` dataclass | id, prompt, expected_tool, min_calls, assertions | + acceptable_outcomes, + expected_patterns | Enhancement |
+| `ToolVariant` dataclass | name, persona, tools_factory, schedule_tool_name | + persona_mode (full/minimal/none) | Enhancement |
+| `record_eval_result` | Scores only | + full response text, tool_calls, outcome type | Enhancement |
+| **review writer** | N/A | Writes batch review JSONL after each run | New |
+| **experiment runner** | N/A | Zero-persona, parity-checked experiment harness | New |
+| `generate_report` | Aggregate stats JSON | + run metadata, + per-scenario detail | Enhancement |
+
+## Detailed Design: Each Integration Point
+
+### 1. Response Serialization Fix
+
+**Where:** `tests/eval/test_tasks.py`
+
+```python
+def _serialize_response(response: AIMessage) -> dict:
+    # Preserve content in its original form (str or list)
+    content = response.content
+    tool_calls = [
+        {"name": tc["name"], "args": tc["args"], "id": tc.get("id", "")}
+        for tc in response.tool_calls
+    ]
+    usage = response.usage_metadata
+    return {
+        "content": content,  # str OR list -- preserve as-is
+        "tool_calls": tool_calls,
+        "usage_metadata": {
+            "input_tokens": usage.get("input_tokens", 0) if usage else 0,
+            "output_tokens": usage.get("output_tokens", 0) if usage else 0,
+            "total_tokens": usage.get("total_tokens", 0) if usage else 0,
+        },
+    }
+
+
+def _deserialize_response(data: dict) -> AIMessage:
+    return AIMessage(
+        content=data.get("content", ""),  # AIMessage accepts both str and list
+        tool_calls=data.get("tool_calls", []),
+        usage_metadata=data.get("usage_metadata"),
     )
 ```
 
-### Pattern 4: Two-Tier Eval (Single-Call + Full-Agent)
+**Dependency:** None. This is a standalone fix. Do first.
 
-**What:** Run evals at two levels: (1) single LLM call with mock tools (current approach -- fast, cheap, tests tool selection), and (2) full agent loop via E2E harness (slow, expensive, tests end-to-end behavior including error recovery).
+### 2. Outcome-Based Evaluator
 
-**When to use:** Single-call for rapid iteration on tool descriptions. Full-agent for validating that tool selection translates to successful task completion.
+**Where:** `tests/eval/evaluators.py`
 
-**Trade-offs:** Single-call misses multi-turn dynamics but is 10-100x cheaper. Full-agent catches real issues but is expensive and flaky due to LLM nondeterminism.
+Current: `EvalResult.passed: bool` -- binary.
 
-**Example:**
-```python
-# Tier 1: Single-call eval (existing pattern)
-model = ChatAnthropic(model=settings.llm_model).bind_tools(variant.tools_factory())
-response = await model.ainvoke([SystemMessage(content=persona), HumanMessage(content=prompt)])
-
-# Tier 2: Full-agent eval (via E2E harness)
-harness = E2EHarness()
-result = await harness.send(prompt, user_id=f"eval-{variant.name}")
-# result.tool_names, result.usage, result.messages, result.errors
-```
-
-## Data Flow
-
-### Eval Run Flow
-
-```
-Scenario Registry                 Variant Registry
-     |                                  |
-     v                                  v
-[scenario x variant] = test case matrix (pytest parametrize)
-     |
-     v
-Agent Invocation
-  - bind_tools(variant.tools_factory())
-  - ainvoke([system_prompt(variant.persona), human_message(scenario.prompt)])
-     |
-     v
-Response (AIMessage with tool_calls + usage_metadata)
-     |
-     +---> Metrics Extraction (pure function)
-     |         |
-     |         v
-     |     EvalMetrics {tool_calls, tokens, schedule_calls, fallback_calls}
-     |         |
-     |         +---> Assertion Layer (pass/fail + reason)
-     |         |
-     |         +---> Results Store (append to JSON lines)
-     |         |
-     |         +---> LangSmith (optional: trace + experiment)
-     |
-     v
-Report Aggregation (after all tests complete)
-  - Group by variant: success_rate, avg_tokens, failure_modes
-  - Group by scenario: which scenarios are hardest
-  - Cross-tabulation: variant x scenario matrix
-```
-
-### LangSmith Integration Flow (Optional Enhancement)
-
-```
-LangSmith Dataset
-  - Create dataset "apps-vs-tools-scenarios"
-  - Upload scenarios as examples (input + reference_output)
-     |
-     v
-langsmith.evaluate(target=run_variant_A, dataset="apps-vs-tools-scenarios")
-  -> Experiment "programmatic-v1"
-
-langsmith.evaluate(target=run_variant_B, dataset="apps-vs-tools-scenarios")
-  -> Experiment "app-calendar-v1"
-     |
-     v
-langsmith.evaluate_comparative(
-    ("programmatic-v1", "app-calendar-v1"),
-    evaluators=[token_efficiency_preference, success_rate_preference],
-    randomize_order=True,
-)
-  -> Pairwise comparison dashboard in LangSmith UI
-```
-
-## Key Data Flows
-
-1. **Variant construction flow:** Variant config -> tools_factory() -> list[BaseTool] -> model.bind_tools() -> ready for invocation. The factory closure captures only the tool schema/description differences; backend behavior is identical (noop stubs).
-
-2. **Metrics aggregation flow:** Individual EvalMetrics -> grouped by variant -> aggregated stats (mean tokens, success rate, failure breakdown) -> report tables. The aggregation is a pure reduce over the results store.
-
-3. **Repeat-for-confidence flow:** Each (scenario, variant) pair runs N times (via pytest-repeat, already a dependency). The N results are aggregated to compute mean + stddev, giving statistical confidence. The existing eval runs 5 repeats per combo.
-
-## "App-Like" vs "Programmatic" Tool Structural Differences
-
-This is the core architectural question. Here is how the two interface styles differ structurally:
-
-### Programmatic Style (Current)
+New: Add `outcome` field that captures WHY the result is what it is.
 
 ```python
-# 3 tools: schedule_task, list_tasks, update_task
-# All task operations go through these generic tools
-# LLM must understand: schedule_task creates, update_task modifies, list_tasks queries
-# Parameters are implementation-oriented: delay_seconds, when (ISO/cron), recurring (bool)
+from enum import Enum
 
-schedule_task(title, description, when, delay_seconds, recurring)
-list_tasks(status_filter)
-update_task(task_id, action, detail, retry_in, question, message)
+class Outcome(str, Enum):
+    SUCCESS = "success"              # correct tool called with valid args
+    CLARIFICATION = "clarification"  # model asked for more info (valid for ambiguous)
+    CONTEXT_GATHER = "context_gather"  # model called info-gathering tool first
+    WRONG_TOOL = "wrong_tool"        # called wrong tool
+    NO_TOOL = "no_tool"              # didn't call any tool when expected
+    FALSE_TRIGGER = "false_trigger"  # called tool when shouldn't have
+    INVALID_ARGS = "invalid_args"    # right tool, wrong arguments
+
+@dataclass
+class EvalResult:
+    outcome: Outcome = Outcome.NO_TOOL
+    tool_call_names: list[str] = field(default_factory=list)
+    call_count: int = 0
+    correct_tool_score: float = 0.0
+    correct_count_score: float = 0.0
+    text_response: str = ""  # NEW: captured text for review
+    input_tokens: int = 0
+    output_tokens: int = 0
+    total_tokens: int = 0
+    passed: bool = False
+    failure_message: str = ""
 ```
 
-### App-Like Style (Hypothesis)
+**Scenario YAML change:**
+
+```yaml
+- id: hard_ambiguous:vague_delay
+  prompt: "remind me about the meeting in a bit"
+  category: hard_ambiguous
+  expected_tool: schedule_task
+  min_calls: 1
+  acceptable_outcomes: [success, clarification]  # NEW
+  assertions:
+    - type: has_timing
+```
+
+When `acceptable_outcomes` includes `clarification`, the evaluator checks: if no tool was called AND the text response contains question indicators (question mark, "when", "what time", etc.), score as `CLARIFICATION` and mark `passed=True`.
+
+**Detection heuristic for clarification:**
 
 ```python
-# Namespace tools by familiar "app" concepts
-# LLM has strong priors: Calendar = events with times, Reminders = one-off notifications
-
-Calendar.create_event(title, start_time, description, recurrence)
-Calendar.list_events(date_range, status)
-Calendar.cancel_event(event_id, reason)
-
-Reminders.add(what, when)          # "when" is natural language
-Reminders.list(upcoming_only)
-Reminders.dismiss(reminder_id)
-
-Alarms.set(label, time, repeat)    # maps to recurring tasks
-Alarms.list()
-Alarms.cancel(alarm_id)
+def _is_clarification(text: str) -> bool:
+    if not text:
+        return False
+    indicators = ["?", "when would you", "what time", "how often", "could you clarify"]
+    return any(ind in text.lower() for ind in indicators)
 ```
 
-### Key Structural Differences
+This is a heuristic, not perfect. The batch review output lets humans verify.
 
-| Dimension | Programmatic | App-Like |
-|-----------|-------------|----------|
-| Tool count | 3 (generic) | 6-9 (specific) |
-| Naming | Implementation-oriented (`schedule_task`) | Domain-oriented (`Reminders.add`) |
-| Parameters | Flexible, multi-purpose (`when` = ISO or cron) | Constrained, single-purpose (`start_time` = datetime only) |
-| LLM priors | Must learn from description | Leverages existing training data about Calendar/Reminders apps |
-| Disambiguation | LLM must decide: is "every morning" `recurring=True` or `delay_seconds`? | Clear routing: "every morning" -> `Alarms.set` with `repeat` |
-| Token cost | Fewer tools = smaller tool block in context | More tools = larger tool block but simpler args |
-| Error surface | Complex args (when accepts 3 formats) = more parsing errors | Typed args (start_time is always datetime) = fewer errors |
+**Dependency:** Requires serialization fix (#1) for text_response access.
 
-### Hybrid Style (Worth Testing)
+### 3. Isolated Experiment Harness
+
+**Concept:** A separate test module that runs experiments with:
+- Zero persona (minimal system prompt: "You are a helpful assistant with tools.")
+- Tool parity enforced (same capabilities, different interfaces)
+- Explicit experiment metadata captured
+
+**Where:** `tests/eval/test_experiment.py`
 
 ```python
-# Fewer tools than full app-style, but with domain-oriented naming
-do_later(what, when)               # natural language, covers schedule_task
-list_scheduled()                   # covers list_tasks
-cancel_scheduled(id)               # covers update_task(action=cancel)
+ZERO_PERSONA = "You are a helpful assistant. Use the provided tools when appropriate."
+
+@register("exp_baseline")
+def exp_baseline_variant() -> ToolVariant:
+    return ToolVariant(
+        name="exp_baseline",
+        persona=ZERO_PERSONA,
+        persona_mode="none",
+        tools_factory=lambda: [_make_schedule_tool(), list_tasks, update_task],
+        schedule_tool_name="schedule_task",
+    )
+
+@register("exp_applike")
+def exp_applike_variant() -> ToolVariant:
+    return ToolVariant(
+        name="exp_applike",
+        persona=ZERO_PERSONA,
+        persona_mode="none",
+        tools_factory=lambda: [
+            _make_calendar_create_event(),
+            _make_reminders_create(),
+            calendar_list_events,
+            calendar_update_event,
+        ],
+        schedule_tool_name="calendar_create_event",
+        schedule_tool_names=["calendar_create_event", "reminders_create"],
+    )
 ```
 
-## Build Order (Dependencies)
+**Key design choice:** Experiment variants are in SEPARATE files from Joi-specific variants. They use the same `ToolVariant` dataclass and `@register` decorator but with different names prefixed `exp_`. This means:
 
-The system should be built in this order, where each step depends on the previous:
+- Running `pytest -m eval -k "not experiment"` runs Joi-specific evals (backward compatible)
+- Running `pytest -m eval -k experiment` runs isolated experiments
+- Running `pytest -m eval` runs both
 
-### Step 1: Scenario + Variant Registries (no dependencies)
-Extract and formalize what already exists in `test_task_scheduling_eval.py`. The existing test has ~15 variants and ~7 scenarios defined inline. Move to structured dataclasses.
+**Dependency:** Requires ToolVariant.persona_mode field (#2 indirectly).
 
-### Step 2: Metrics Extraction Layer (depends on Step 1)
-Factor out `_get_schedule_calls`, `_assert_staggered`, etc. into pure metric functions. Add token tracking (already available via `response.usage_metadata`).
+### 4. Batch Review Output
 
-### Step 3: New "App-Like" Variant Definitions (depends on Step 1)
-Define the Calendar/Reminders/Alarms tool factories. These are noop stubs (same as existing pattern) with different names, schemas, and descriptions.
+**Format:** JSONL (one JSON object per line) in `tests/eval/review/`.
 
-### Step 4: Assertion Framework (depends on Steps 1-3)
-Generalize assertions to work across both programmatic and app-like naming. Currently assertions hardcode `schedule_task` / `run_code`. Need variant-aware assertions.
+Each line contains everything needed to review a single scenario-variant result:
 
-### Step 5: Report Generator (depends on Steps 2-4)
-Aggregation of per-run metrics into comparison tables. Console output for quick iteration. Optional markdown export.
+```json
+{
+  "run_id": "2026-02-20T14:30:00Z_abc123",
+  "variant": "exp_baseline",
+  "scenario_id": "hard_ambiguous:vague_delay",
+  "scenario_prompt": "remind me about the meeting in a bit",
+  "scenario_category": "hard_ambiguous",
+  "expected_tool": "schedule_task",
+  "acceptable_outcomes": ["success", "clarification"],
+  "response_text": "When would you like me to remind you? Do you mean in about 15 minutes?",
+  "tool_calls": [],
+  "outcome": "clarification",
+  "passed": true,
+  "scores": {
+    "correct_tool": 0.0,
+    "correct_count": 0.0
+  },
+  "tokens": {
+    "input": 245,
+    "output": 28,
+    "total": 273
+  },
+  "failure_message": ""
+}
+```
 
-### Step 6: LangSmith Integration (optional, depends on Steps 1-5)
-Upload scenarios as LangSmith dataset. Run variants as experiments. Use `evaluate_comparative()` for pairwise analysis. This is optional -- the pytest-based flow works standalone.
+**File naming:** `review/{run_id}.jsonl` where `run_id` is ISO timestamp + short hash.
 
-### Step 7: Full-Agent E2E Eval (optional, depends on Step 4)
-Extend eval to use E2EHarness for full agent loop testing. Much more expensive but validates that tool selection translates to task completion.
+**Why JSONL:**
+- One line per result = easy to grep/filter with CLI tools
+- Append-friendly = can stream results as tests run
+- Claude Code can read with `Read` tool and parse
+- Easy to load into pandas for further analysis
+
+**Writer implementation:** A pytest fixture that writes each result as it completes:
+
+```python
+@pytest.fixture(scope="session")
+def review_writer():
+    run_id = datetime.now(UTC).strftime("%Y%m%dT%H%M%S")
+    path = REVIEW_DIR / f"{run_id}.jsonl"
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+    results = []
+    yield results
+
+    with path.open("w") as f:
+        for r in results:
+            f.write(json.dumps(r) + "\n")
+```
+
+**Dependency:** Requires serialization fix (#1) and outcome evaluator (#2).
+
+### 5. Experiment Results Storage
+
+**Current:** `reports/latest.json` -- single file, overwritten each run.
+
+**New:** Keep latest.json but add per-run archives.
+
+```
+tests/eval/
+  reports/
+    latest.json           -- always the most recent run (overwritten)
+    runs/
+      20260220T143000.json  -- archived run with full metadata
+      20260220T160000.json
+```
+
+**Run metadata added to report:**
+
+```json
+{
+  "metadata": {
+    "run_id": "20260220T143000",
+    "model": "claude-haiku-4-5-20251001",
+    "date": "2026-02-20T14:30:00Z",
+    "git_commit": "abc1234",
+    "variants_tested": ["exp_baseline", "exp_applike"],
+    "scenarios_count": 25,
+    "repetitions": 10,
+    "total_calls": 500,
+    "cache_mode": "none"
+  },
+  "variants": { ... },
+  "comparisons": [ ... ]
+}
+```
+
+**Git commit capture:**
+
+```python
+import subprocess
+
+def _git_commit() -> str:
+    try:
+        return subprocess.check_output(
+            ["git", "rev-parse", "--short", "HEAD"],
+            text=True, timeout=5
+        ).strip()
+    except Exception:
+        return "unknown"
+```
+
+**Dependency:** Minimal. Can be done alongside other changes.
+
+### 6. LangSmith Integration Points
+
+Current integration uses `langsmith.testing` (`t.log_inputs`, `t.log_outputs`, `t.log_feedback`). This is the lightweight approach -- works inside pytest, adds metadata to traces.
+
+**What to keep:** All existing LangSmith integration. It works.
+
+**What to add:**
+
+1. **Log outcome type as feedback:** `t.log_feedback(key="outcome", value=result.outcome.value)`
+2. **Log full text response:** `t.log_outputs({"text_response": result.text_response, ...})`
+3. **Experiment name in trace metadata:** Use `LANGSMITH_PROJECT` env var to group experiment runs
+
+**What NOT to do:**
+- Don't migrate to `langsmith.evaluate()` dataset-based approach. It's a different paradigm (push scenarios to LangSmith cloud, run from there). The pytest-based approach is better for local iteration.
+- Don't build custom LangSmith dashboards. The built-in experiment comparison view is sufficient.
+
+The existing `@pytest.mark.langsmith` marker + `langsmith.testing` module handles the integration. No architectural change needed -- just log more data.
+
+## Data Flow (v1.1)
+
+```
+YAML scenarios ──> load_scenarios() ──> list[Scenario]
+  (+ acceptable_outcomes)                     │
+                                              │
+Variant registry ──> VARIANTS dict            │
+  (+ persona_mode)         │                  │
+                           v                  v
+                   pytest.mark.parametrize(variant x scenario)
+                           │
+                           v
+                   invoke_variant()
+                     ├── cache check
+                     ├── ChatAnthropic.bind_tools(variant.tools_factory())
+                     ├── model.ainvoke([SystemMessage, HumanMessage])
+                     ├── cache write (FULL content preserved)  ◄── FIX
+                     └── return AIMessage
+                           │
+                           v
+                   evaluate_tool_calls(response, scenario, variant)
+                     ├── extract text_response from content  ◄── NEW
+                     ├── determine Outcome enum  ◄── NEW
+                     ├── check acceptable_outcomes  ◄── NEW
+                     ├── run assertion checks
+                     └── return EvalResult (with outcome + text)
+                           │
+                           ├──> LangSmith: log outcome + text  ◄── ENHANCED
+                           │
+                           ├──> record_eval_result()
+                           │       └──> session-wide dict
+                           │
+                           └──> review_writer.append()  ◄── NEW
+                                   └──> review/{run_id}.jsonl
+                                              │
+                                              v
+                                    BATCH REVIEW FILE  ◄── NEW
+                                    (human + Claude Code readable)
+
+Session end:
+  ├──> generate_report() ──> latest.json + runs/{run_id}.json  ◄── ENHANCED
+  │       ├── + run metadata (model, git, date)
+  │       ├── bootstrap_ci() per variant
+  │       ├── compare_variants() pairwise
+  │       └── fisher_exact_comparison()
+  │
+  └──> review_writer flush ──> review/{run_id}.jsonl  ◄── NEW
+```
+
+## Build Order (Dependency-Driven)
+
+### Step 1: Serialization Fix (blocks everything)
+- Fix `_serialize_response` / `_deserialize_response`
+- Invalidate existing cache (all old cached responses have `""` for list content)
+- **Files:** `tests/eval/test_tasks.py`
+- **Dependency:** None
+- **Risk:** Low -- straightforward bug fix
+
+### Step 2: Outcome-Based Evaluator
+- Add `Outcome` enum to `evaluators.py`
+- Add `text_response` and `outcome` to `EvalResult`
+- Add `acceptable_outcomes` to `Scenario` dataclass and YAML
+- Implement clarification detection heuristic
+- **Files:** `tests/eval/evaluators.py`, `tests/eval/conftest.py`, YAML scenarios
+- **Dependency:** Step 1 (needs text content to detect clarification)
+- **Risk:** Medium -- heuristic-based detection may need tuning
+
+### Step 3: Batch Review Writer
+- Add review_writer fixture
+- Integrate into test_tasks.py
+- Write JSONL output with full context
+- **Files:** `tests/eval/conftest.py`, `tests/eval/test_tasks.py`
+- **Dependency:** Steps 1 + 2 (needs outcome + text)
+- **Risk:** Low -- pure output addition
+
+### Step 4: Run Metadata & Archival
+- Add metadata dict to report generation
+- Archive each run to `reports/runs/`
+- **Files:** `tests/eval/stats.py`, `tests/eval/conftest.py`
+- **Dependency:** None (can parallel with Step 2-3)
+- **Risk:** Low
+
+### Step 5: Isolated Experiment Harness
+- Add persona_mode to ToolVariant
+- Create experiment variant files (exp_baseline, exp_applike)
+- Create experiment scenario YAML
+- Create test_experiment.py
+- **Files:** New files in `tests/eval/variants/`, `tests/eval/scenarios/`, `tests/eval/test_experiment.py`
+- **Dependency:** Steps 1-3 (to get the improved eval infrastructure)
+- **Risk:** Medium -- need to ensure tool parity between experiment variants
+
+### Step 6: Re-run Experiments & Review
+- Run full experiment suite
+- Batch review output with Claude Code
+- Updated ADR
+- **Dependency:** Steps 1-5
+
+## Anti-Patterns to Avoid
+
+### Anti-Pattern: Rebuilding the Eval Framework from Scratch
+**What:** Replacing the existing pytest-based eval with a new framework.
+**Why bad:** The existing framework works. It has registry, scenarios, evaluators, stats. The problems are specific: serialization bug, missing outcomes, no batch review.
+**Instead:** Surgical fixes to existing components. Add new capabilities alongside.
+
+### Anti-Pattern: LLM-as-Judge for Clarification Detection
+**What:** Using another LLM call to evaluate whether a response is a clarification.
+**Why bad:** Doubles API cost per eval. Introduces its own nondeterminism. For the specific question "did the model ask a clarifying question?", heuristics (presence of `?`, question words) are sufficient as a first pass, with batch review catching edge cases.
+**Instead:** Heuristic detection + batch review for human verification.
+
+### Anti-Pattern: Overcounting Outcomes
+**What:** Adding 10+ outcome types to cover every possible model behavior.
+**Why bad:** Each outcome needs detection logic and scoring rules. Complexity explodes.
+**Instead:** Five outcomes cover 95% of cases: success, clarification, wrong_tool, no_tool, false_trigger. Add `invalid_args` only if needed.
+
+### Anti-Pattern: Separate Experiment Database
+**What:** Building a SQLite or PostgreSQL store for experiment results.
+**Why bad:** Overkill for local-only, single-user eval. JSON files are simpler, git-trackable, and readable by Claude Code.
+**Instead:** JSONL for review, JSON for reports, git for version control.
 
 ## Integration with Existing Infrastructure
 
-### pytest
-The eval framework IS pytest. Tests are parametrized across `(scenario, variant, repeat)`. The existing `@pytest.mark.eval` marker is already defined. Run with `uv run pytest -m eval -v`.
-
-### pytest-repeat
-Already a dependency. Used for statistical confidence. `@pytest.mark.repeat(5)` or `--count=5` flag.
-
-### LangSmith Tracing
-Already configured via `LANGCHAIN_TRACING_V2=true` in the environment. Every `ChatAnthropic.ainvoke()` call is automatically traced. Token usage is captured per trace.
-
-### E2E Harness
-The existing `E2EHarness` + `CapturingRenderer` already captures `tool_names`, `usage`, `messages`, `errors`, and `duration_s`. This is the foundation for Tier 2 (full-agent) evals.
-
-### LangSmith Experiments (Enhancement)
-Use `langsmith.evaluate()` to run scenarios as a LangSmith experiment. This enables the LangSmith UI for visual comparison, but is NOT required for the core eval. The pytest flow is self-sufficient.
-
-## Anti-Patterns
-
-### Anti-Pattern 1: Overly Complex Eval Framework
-
-**What people do:** Build an elaborate eval framework with databases, web UIs, and pluggable evaluator chains before running a single eval.
-**Why it's wrong:** The goal is answering "apps vs tools?" not building an eval platform. The existing pattern in `test_task_scheduling_eval.py` already works.
-**Do this instead:** Refactor the existing 579-line test into modular components. Add the new variants. Keep it in pytest. Resist the urge to build infrastructure.
-
-### Anti-Pattern 2: Testing Too Many Dimensions Simultaneously
-
-**What people do:** Cross-product of 10 variants x 7 scenarios x 3 persona versions x 5 repeats = 1050 LLM calls ($$$).
-**Why it's wrong:** Exponential cost. LLM nondeterminism means marginal variants are indistinguishable from noise.
-**Do this instead:** Start with 2-3 variants that represent the core hypothesis (programmatic vs app-like vs hybrid). Add variants incrementally based on findings. The existing eval already proved this works with a staged approach (Round 1 -> Round 2 combo variants).
-
-### Anti-Pattern 3: Confusing Tool Selection with Task Completion
-
-**What people do:** Measure only "did the LLM call the right tool?" and declare victory.
-**Why it's wrong:** The LLM might select the right tool but with wrong arguments (wrong time format, missing recurring flag). Or it might select the right tool but in a way that doesn't actually accomplish the user's goal.
-**Do this instead:** Multi-level assertions: (1) correct tool selected, (2) correct arguments, (3) correct sequencing, (4) no fallback to run_code. The existing eval already does this with `_assert_staggered`, `_assert_has_timing`, `_assert_recurring`.
-
-### Anti-Pattern 4: Ignoring Token Cost in Comparison
-
-**What people do:** Focus only on success rate. Variant A passes 95% and Variant B passes 93%, so A wins.
-**Why it's wrong:** If A uses 2x the tokens (because more tools = larger tool definitions in context), the 2% improvement may not be worth the cost for a personal agent running hundreds of interactions daily.
-**Do this instead:** Track and report both success rate AND token cost. The decision is a Pareto frontier, not a single metric.
-
-## Scaling Considerations
-
-| Scale | Architecture Adjustments |
-|-------|--------------------------|
-| 1-5 variants, 7 scenarios | Current approach: pytest parametrize, console output. ~35-175 LLM calls per run (~$1-5). |
-| 10-20 variants, 20+ scenarios | Add JSON results store, markdown reports, pytest-xdist for parallelism. ~200-2000 calls (~$10-50). |
-| Continuous regression | LangSmith dataset + experiments. Automate with CI. Track metrics over time. |
-
-### Scaling Priorities
-
-1. **First constraint: LLM API cost.** Each eval run costs real money. At 5 repeats x 7 scenarios x 10 variants = 350 calls, that is ~$3-15 depending on model. Design the eval to start small and expand.
-2. **Second constraint: LLM nondeterminism.** More repeats increase confidence but also cost. 5 repeats per combination (existing approach) provides reasonable signal. Consider 10 repeats only for close comparisons.
+| System | Integration Point | Change Required |
+|--------|-------------------|-----------------|
+| pytest | `@pytest.mark.eval`, parametrize | None -- same pattern |
+| pytest-repeat | `--count=N` for statistical power | None |
+| LangSmith | `langsmith.testing` (log_inputs/outputs/feedback) | Add outcome logging |
+| Cache system | `LANGSMITH_TEST_CACHE` env var | Fix serialization |
+| Report generation | Session-scoped fixture | Add metadata + archival |
+| CI | Not used (local only) | None |
 
 ## Sources
 
-- Anthropic tool design best practices: https://www.anthropic.com/research/building-effective-agents, https://www.anthropic.com/engineering/advanced-tool-use (HIGH confidence)
-- LangSmith evaluation concepts: https://docs.langchain.com/langsmith/evaluation-concepts (HIGH confidence)
-- LangSmith pairwise evaluation: https://docs.langchain.com/langsmith/evaluate-pairwise (HIGH confidence)
-- LangSmith cost tracking: https://docs.langchain.com/langsmith/cost-tracking (MEDIUM confidence -- verified exists, not tested)
-- agentevals trajectory evaluators: https://github.com/langchain-ai/agentevals (MEDIUM confidence -- verified API, not used in codebase)
-- Existing codebase eval pattern: `tests/joi_agent_langgraph2/test_task_scheduling_eval.py` (HIGH confidence -- running, proven, 97% pass rate)
+- Existing codebase: `tests/eval/` (HIGH confidence -- read every file)
+- LangChain AIMessage content type: list content is documented in LangChain Core (HIGH confidence -- verified in codebase behavior)
+- LangSmith testing module: `langsmith.testing` (HIGH confidence -- already in use)
+- JSONL format for eval outputs: industry standard pattern (HIGH confidence)
 
 ---
-*Architecture research for: LLM agent tool interface evaluation*
-*Researched: 2026-02-19*
+*Architecture research for eval pipeline rebuild v1.1*
+*Researched: 2026-02-20*

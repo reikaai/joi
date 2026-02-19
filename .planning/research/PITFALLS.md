@@ -1,289 +1,409 @@
-# Pitfalls Research
+# Domain Pitfalls: Rebuilding a Broken Agent Eval Pipeline
 
-**Domain:** AI Agent Tool Interface Evaluation ("Apps vs Tools" Experiment)
-**Researched:** 2026-02-19
-**Confidence:** HIGH (multi-source verification across Anthropic engineering docs, academic papers, and practitioner reports)
+**Domain:** Agent evaluation pipeline rebuild (post-mortem informed)
+**Researched:** 2026-02-20
+**Context:** v1.0 eval produced statistically significant results (p=0.006) that were partially based on 5 systemic bugs. The REJECT decision for app-like interfaces may need revision. This document catalogs pitfalls specific to rebuilding an eval pipeline after trust has been broken.
+
+---
 
 ## Critical Pitfalls
 
-### Pitfall 1: Confounding Tool Design Changes with Prompt Wording Effects
-
-**What goes wrong:**
-You redesign `schedule_task` into a "Calendar" app-like tool, see improved success rates, and conclude the "app metaphor" works. But the improvement came from better tool descriptions, clearer parameter names, or more examples in the docstring -- not the metaphor itself. Research shows LLMs exhibit up to 463% performance swings from prompt rewording alone (Llama-2-70B-chat: 9.4% to 54.9% accuracy from 12 rephrasings of the same instruction). When you change the tool interface, you simultaneously change the tool name, description, parameter names, description text, and schema structure. Every one of these is a variable.
-
-**Why it happens:**
-The "apps vs tools" comparison is inherently multi-variable. Moving from `schedule_task(title, description, when, delay_seconds, recurring)` to a "Calendar" app with `add_event(what, when, recurring)` changes at minimum: (a) tool name/metaphor, (b) parameter count, (c) parameter naming convention, (d) description prose, (e) schema complexity. You cannot isolate which change drove the result.
-
-**How to avoid:**
-Design the experiment as a series of incremental, single-variable changes:
-1. **Baseline:** Current `schedule_task` as-is
-2. **Rename only:** Same schema, rename to `calendar_add_event` -- tests the naming/metaphor hypothesis
-3. **Simplify params:** Same name, reduce parameter count -- tests complexity reduction
-4. **Improve descriptions:** Same schema, rewrite descriptions only -- tests description quality
-5. **Full "app" design:** Everything combined -- gives the final number
-
-Compare each step against baseline. If step 2 (rename only) explains 80% of the gain, the metaphor matters. If step 3 (simplify) explains it, then it was complexity reduction, not the app metaphor.
-
-**Warning signs:**
-- You only test "before" and "after" with no intermediate variants
-- Results are dramatic (>20% improvement) -- likely multi-variable confound
-- You cannot articulate which specific change drove which specific improvement
-
-**Phase to address:** Eval Framework Design (Phase 1)
+Mistakes that invalidated v1.0 results or would invalidate v2.0 results if repeated. Each is paired with the specific v1.0 failure it maps to.
 
 ---
 
-### Pitfall 2: Evaluation Set Too Small or Too Narrow to Draw Conclusions
+### Pitfall 1: Response Data Silently Discarded by Type Coercion
 
-**What goes wrong:**
-You test with 10-20 hand-crafted scenarios, see 80% vs 60% success rates, declare victory for the new interface. But with n=20, the 95% confidence interval for an 80% success rate is [56%, 94%]. Your 60% baseline falls squarely within it. You have measured noise, not signal. Worse, correlated LLM outputs mean your effective sample size is even smaller than the nominal count -- semantically similar prompts may only provide the statistical power of a few independent samples.
+**v1.0 failure:** `_serialize_response` used `response.content if isinstance(response.content, str) else ""` -- when Haiku returns tool calls + text, `content` is a list of dicts, not a string. The entire response text was replaced with `""`. LangSmith `t.log_outputs` only logged `tool_call_names` and `call_count`. The actual words the agent spoke were lost forever.
 
-**Why it happens:**
-LLM evaluations feel expensive: each test case requires prompt construction, tool execution, and grading (often manual). Teams stop at "feels like enough." Additionally, LLM stochasticity means even the same prompt produces different results across runs, requiring multiple trials per test case (pass@k).
+**What goes wrong:** Response serialization code assumes a fixed type shape that doesn't match reality. LLM APIs return polymorphic content fields -- sometimes a string, sometimes a list of blocks (text + tool_use). A simple `isinstance` check silently drops data instead of raising an error. You end up with an eval that can tell you WHAT tools were called but not WHAT the agent said, making failure diagnosis impossible without re-running (and spending money).
 
-**How to avoid:**
-- Use power analysis upfront. For detecting a 20% improvement (60% to 80%) at p<0.05 with 80% power, you need approximately 82 independent test cases per variant (McNemar's test for paired comparisons).
-- For each test case, run 3-5 trials to account for LLM stochasticity. Report both pass@1 (single attempt) and pass@5 (at least one success in 5 attempts).
-- Ensure semantic diversity: "remind me to check the oven in 5 minutes" and "set a 5-minute oven reminder" are NOT independent test cases. Cluster by intent and count clusters, not individual prompts.
-- Use Joi's actual conversation logs to mine real user intents rather than hand-crafting synthetic scenarios.
+**Why it happens:** LangChain's `AIMessage.content` type is `Union[str, list[dict]]`. When only tool calls are present, some providers return a string; when text accompanies tool calls, it becomes a list. Developers write serialization for the common case and never see the data loss because the eval still "works" -- it just loses half the information.
 
-**Warning signs:**
-- Fewer than 50 test cases per variant
-- No reported confidence intervals
-- Test cases are all slight rephrasings of the same 5 intents
-- No multi-trial runs (only pass@1 reported)
-- Results are "close" (within 15%) but declared significant
+**Consequences:**
+- Cannot distinguish "agent asked a clarification question" from "agent said nothing" -- both show as `""`
+- Cannot diagnose failures without re-running ($$ and different LLM sampling = non-reproducible)
+- Failure analysis becomes impossible at scale -- you must re-run every suspicious result
+- v1.0 required a dedicated `eval_probe.py` script and ~$2 of re-runs just to understand 5 scenarios
 
-**Phase to address:** Eval Framework Design (Phase 1)
+**Prevention:**
+1. **Serialize defensively:** Always handle the union type. Extract text from list content.
+   ```python
+   if isinstance(content, list):
+       text = " ".join(c["text"] for c in content if isinstance(c, dict) and c.get("type") == "text")
+   else:
+       text = content or ""
+   ```
+2. **Assert completeness:** Add a post-serialization check that response text is non-empty when the LLM produced output tokens.
+3. **Log EVERYTHING:** Store raw `response.content` (whatever type it is) alongside parsed fields. Disk is cheap; re-runs are not.
+4. **Smoke test serialization:** Before any batch run, serialize 1 response manually and verify all fields are present. Print it. Look at it.
 
----
+**Detection (warning signs you have this bug):**
+- Response text column is empty or `""` for most/all rows
+- You can see tool call names but not what the agent said alongside them
+- Failure diagnosis requires re-running scenarios
+- `output_tokens > 0` but stored text is empty
 
-### Pitfall 3: Optimizing Metrics That Don't Map to User Value
-
-**What goes wrong:**
-You measure "tool call accuracy" (did the LLM select the right tool with correct parameters?) and optimize for it. The "Calendar" tool wins on accuracy because it has fewer parameters to get wrong. But in production, the user experience degrades because the simplified tool can't express complex scheduling scenarios that `schedule_task` handled. Or conversely: the new tool's accuracy is high but its token cost is 2x, making the agent noticeably slower.
-
-**Why it happens:**
-Tool call accuracy is easy to measure and satisfying to optimize. Real user value -- "did the user's intent get fulfilled end-to-end?" -- requires evaluating the full pipeline: intent understanding, tool selection, parameter extraction, execution, and response quality. Teams default to the easiest metric.
-
-**How to avoid:**
-Define a metric hierarchy before starting:
-1. **Primary:** Task completion rate (did the user's stated intent actually happen? Verified by checking task store state)
-2. **Secondary:** Token efficiency (total tokens consumed for the full interaction, including retries)
-3. **Secondary:** First-attempt success rate (no retries needed)
-4. **Tertiary:** Tool selection accuracy (chose the right tool)
-5. **Tertiary:** Parameter accuracy (correct parameters on first try)
-
-Never let tertiary metrics override primary metrics. A tool design that scores 95% on parameter accuracy but only 70% on task completion is worse than one that scores 80% on parameter accuracy but 90% on task completion.
-
-**Warning signs:**
-- Evaluation only measures tool call correctness, not end-to-end task completion
-- No measurement of what happens after the tool executes (was the result correct?)
-- Token cost is not part of the evaluation
-- You're celebrating parameter accuracy improvements while ignoring that some scenarios are now impossible to express
-
-**Phase to address:** Eval Framework Design (Phase 1)
+**Phase to address:** Phase 1 (eval infrastructure rebuild) -- fix before running ANY experiments.
 
 ---
 
-### Pitfall 4: The "App Metaphor" Smuggles in Capability Reduction
+### Pitfall 2: Evaluator Bug in Parameter Checking (Incomplete Coverage)
 
-**What goes wrong:**
-The move from programmatic tools to "app-like" tools feels like an improvement because it reduces the parameter space. But you've secretly dropped capabilities. The current `schedule_task` supports: one-shot by ISO datetime, one-shot by delay_seconds, recurring by cron expression, with title and description separation. If "Calendar.add_event" simplifies to `what` + `when` + `recurring`, you've lost: (a) explicit delay_seconds for relative scheduling, (b) title/description separation (important for task context messages), (c) possibly cron expression support. The eval shows "improvement" because the reduced tool is easier to call correctly -- on the scenarios that still work.
+**v1.0 failure:** `_check_has_timing` (evaluators.py:61-72) checked `delay_seconds` and `when` but NOT `schedule` (cron expressions). The `reminders_create` tool uses `schedule` for its timing parameter. This caused 100% false FAIL on `hard_multi:onetime_plus_recurring` and `hard_multi:two_different_times` -- all 20 applike runs were actually correct but marked as failures.
 
-**Why it happens:**
-Simplification bias. The "app metaphor" implicitly encourages fewer, higher-level operations. This is sometimes good (less room for error) but sometimes bad (less expressiveness). The risk is acute when the existing interface evolved to handle real edge cases that synthetic eval scenarios don't cover.
+**What goes wrong:** A deterministic evaluator checks for expected parameter names, but the tool interface has multiple valid ways to express the same concept. When a new tool variant uses a different parameter name for timing (e.g., `schedule` instead of `when` or `delay_seconds`), the evaluator silently marks correct responses as failures. The bug is invisible in aggregate statistics because it looks like a genuine performance difference.
 
-**How to avoid:**
-- Before redesigning, audit every parameter and capability of the current tools. Document which real user scenarios depend on each parameter. Use Joi's actual conversation history.
-- Define "capability parity" as a hard requirement: the new interface must handle every scenario the old one handles.
-- Include capability coverage in the eval: test cases must explicitly cover features that exist in the old design but might be missing from the new one.
-- If you intentionally drop capabilities, document it as a conscious tradeoff, not an accidental omission.
+**Why it happens:** Evaluators are written against one tool interface and tested against that interface. When a new variant introduces different parameter names, nobody updates the evaluator to handle the new names. The evaluator "works" (no crashes, no errors) -- it just produces wrong answers. This is the eval equivalent of a silent data corruption bug.
 
-**Warning signs:**
-- The new design has fewer parameters but nobody checked which scenarios break
-- Eval test cases only cover the "happy path" -- basic scheduling
-- Real user scenarios from conversation history are not part of the eval set
-- "We can always add those features later" -- the deferred features were load-bearing
+**Consequences:**
+- v1.0: 20 runs scored as FAIL that were actually PASS -- a 100% false negative rate on 2 scenario categories
+- The aggregate `hard_multi` category showed "baseline 100% vs applike 0%" -- entirely an evaluator artifact
+- This fake signal contributed to the statistically significant p=0.006 result
+- The REJECT decision was partially based on fabricated evidence
 
-**Phase to address:** Tool Redesign (Phase 2), with audit in Phase 1
+**Prevention:**
+1. **Evaluator-variant co-testing:** Every tool variant must have a unit test that feeds a known-correct response through the evaluator and asserts PASS. If you add a variant with `schedule` instead of `when`, there must be a test proving the evaluator handles `schedule`.
+2. **Exhaustive parameter coverage:** For timing checks, enumerate ALL parameter names that can carry timing info: `delay_seconds`, `when`, `schedule`, and any future additions. Use a whitelist, not a blacklist.
+3. **Golden response tests:** For each scenario x variant, create a "golden" response (hand-crafted correct answer) and assert the evaluator scores it as PASS. If the golden response fails, the evaluator is broken.
+4. **Symmetric testing:** For every evaluator assertion, test BOTH directions: (a) correct response scores PASS, (b) incorrect response scores FAIL. v1.0 only tested direction (b) implicitly through live runs.
 
----
+**Detection (warning signs you have this bug):**
+- One variant shows 0% on a category while another shows 100% -- too clean, too perfect
+- The 0% variant's responses, when examined manually, look reasonable
+- Evaluator logic references specific parameter names from one variant but not others
+- Adding a new tool variant without touching evaluator code
 
-### Pitfall 5: Token Bloat from "App-Like" Tool Descriptions Degrades Overall Agent Performance
-
-**What goes wrong:**
-"App-like" tools tend toward richer descriptions -- the Calendar "app" might include usage patterns, examples, state management docs, and relationship descriptions. Research shows MCP tool definitions can consume 14K+ tokens per server (20 tools), and Claude's tool selection accuracy degrades as context grows (0.24ms latency per token, attention interference from irrelevant definitions). If your "app" tools add 30% more description tokens, you've degraded performance on everything else the agent does, not just scheduling.
-
-**Why it happens:**
-The "app" metaphor encourages treating tool descriptions like documentation -- comprehensive, with examples and usage patterns. This is good for human developers but bad for LLMs in context-constrained settings. Anthropic's own guidance says to build "a few thoughtful tools" but also says to "make implicit context explicit." These goals conflict when the tool set grows.
-
-**How to avoid:**
-- Measure total tool description token count before and after redesign. Set a budget: new design must not exceed current token count by more than 10%.
-- Use Anthropic's `defer_loading: true` / Tool Search Tool if the tool set grows beyond ~10 tools.
-- Test agent performance on NON-scheduling tasks with the new tool definitions loaded. If unrelated task performance drops, your descriptions are too heavy.
-- Prefer schema clarity (good parameter names, types, enums) over prose description. `when: str | Field(description="ISO datetime or cron")` is better than a paragraph explaining scheduling.
-
-**Warning signs:**
-- Tool descriptions exceed 500 tokens per tool
-- Agent becomes slower or less accurate on unrelated tasks after tool change
-- You added examples/usage patterns to tool descriptions (high token cost, marginal benefit for Claude)
-- Total tool definition overhead exceeds 5% of context window
-
-**Phase to address:** Tool Redesign (Phase 2)
+**Phase to address:** Phase 1 (eval infrastructure rebuild) -- evaluators must be co-tested with every variant before experiments run.
 
 ---
 
-### Pitfall 6: Evaluating on Synthetic Scenarios Instead of Real User Behavior
+### Pitfall 3: Single-Turn Eval Penalizes Correct Multi-Turn Behavior
 
-**What goes wrong:**
-You create test cases like "schedule a meeting for tomorrow at 3pm" and "remind me to call mom." These are clean, unambiguous intents. Real Joi usage (from conversation logs) includes: ambiguous timing ("later today"), multi-step sequences ("count to 3 with 5s pauses"), context-dependent scheduling ("after the movie finishes"), and corrections ("actually make it 4pm not 3pm"). The eval shows improvement on synthetic cases but the agent performs the same or worse on real cases.
+**v1.0 failure:** The eval sent one message and expected immediate tool calls. But for ambiguous inputs ("remind me about the meeting in a bit"), a GOOD agent should ask for clarification or gather context first. The eval scored clarification-seeking as FAIL. It literally rewarded guessing (baseline: `delay_seconds=300` for "in a bit" = PASS) and punished precision (applike: "how long is 'a bit'?" = FAIL).
 
-**Why it happens:**
-Synthetic test cases reflect what developers think users say, not what users actually say. Anthropic's eval guide explicitly warns: "Everything the grader checks should be clear from the task description." But real user messages are inherently unclear, and the tool interface must handle that ambiguity.
+**What goes wrong:** A single-turn eval assumes the correct behavior fits in one response. For agents that handle ambiguity well -- by asking clarifying questions, checking context (memory, calendar), or requesting more information -- the eval cannot observe the multi-step process. It only sees "no tool call on turn 1" and marks it as failure. The eval systematically rewards trigger-happy, overconfident agents and punishes cautious, accurate ones.
 
-**How to avoid:**
-- Mine Joi's actual Telegram conversation history for real scheduling-related messages. Extract at least 50 unique, real intents.
-- Categorize by difficulty: simple ("remind me in 5 min"), moderate ("every weekday at 8am"), complex ("check if the download finished, if not retry in 10 minutes"), ambiguous ("sometime this afternoon").
-- Weight the eval set toward the distribution of real usage, not uniform across categories.
-- Include at least 20% "adversarial" cases: typos, ambiguous timing, contradictory instructions, corrections mid-flow.
+**Why it happens:** Multi-turn eval is genuinely harder to build. You need: (a) a conversation simulator or script, (b) a way to mock tool responses, (c) evaluation criteria that span multiple turns, (d) a way to determine when the conversation should end. Single-turn is simple: send prompt, check response, done. Teams default to what's easy.
 
-**Warning signs:**
-- All test cases are grammatically perfect, single-intent sentences
-- No test cases derived from actual Joi usage
-- Edge cases (cron, delay_seconds, multi-step) are underrepresented
-- No ambiguous or correction-based scenarios
+**Consequences:**
+- v1.0: Baseline "passed" `vague_delay` by blindly guessing 5 minutes. Applike "failed" by asking "how long is 'a bit'?" -- the better UX behavior
+- The eval rewarded trigger-happiness and punished precision -- the OPPOSITE of what a good personal assistant should do
+- `hard_ambiguous` category showed 53.3% baseline vs 16.7% applike -- but the "failures" were actually the applike variant being smarter (asking clarification)
+- `hard_implicit` showed 20% baseline vs 5% applike -- both asking clarification, both scored as failure
+- The entire "routing tax on ambiguous inputs" finding was actually "applike asks more clarification questions"
 
-**Phase to address:** Eval Dataset Creation (Phase 1)
+**Prevention:**
+1. **Distinguish scenario types:** Classify scenarios as "clear intent" (single-turn eval OK) vs "ambiguous intent" (needs multi-turn or different scoring).
+2. **Score clarification as valid:** For ambiguous scenarios, "asks clarifying question" should be a PASS, not a FAIL. Add an assertion type `accepts_clarification` that checks if the response contains a question.
+3. **Multi-turn eval for ambiguous scenarios:** For scenarios where clarification is the correct first step, script a 2-3 turn conversation: (1) ambiguous user message, (2) agent asks clarification, (3) user provides specific answer, (4) NOW check for correct tool call.
+4. **Annotate expected behavior per scenario:** Each scenario should explicitly state: "Is asking for clarification correct here?" If yes, the evaluator must handle it.
 
----
+**Detection (warning signs you have this bug):**
+- Agent responses that contain questions ("what time?", "how long?") are scored as FAIL
+- The "better" variant (by human judgment) scores lower than the "worse" variant
+- You read the failure transcripts and think "but that's actually a good response"
+- High scores correlate with guessing/assuming rather than precision
 
-### Pitfall 7: Breaking Existing Task System Workflows During Migration
-
-**What goes wrong:**
-Research shows tool versioning causes 60% of production agent failures. Joi's task system is live -- background tasks, recurring crons, the notifier, HITL interrupts all depend on the current `schedule_task`/`update_task`/`list_tasks` interface. Changing tool names, parameter shapes, or return value formats breaks: (a) in-flight scheduled tasks that reference old tool schemas, (b) the system prompt examples that teach the agent how to use tools, (c) the `_task_context_message` format, (d) the `MUTATION_TOOLS` set, (e) any mem0 memories that reference old tool names.
-
-**Why it happens:**
-Tool interfaces are APIs. They have downstream consumers you don't always see. In Joi's case, the task system is deeply integrated: `graph.py` imports task tools, the notifier checks task states, background task threads send context messages that reference tool behavior. Changing the tool surface is not just a tool change -- it's a system change.
-
-**How to avoid:**
-- Run the experiment with ADDITIONAL tools, not REPLACEMENT tools. Add `calendar_add_event` alongside `schedule_task`. Compare which one the agent chooses and how well it performs.
-- Only replace after the experiment concludes with clear results.
-- If replacing, use a migration phase: keep old tools as deprecated aliases that delegate to new implementations.
-- Test the full lifecycle: create task, list tasks, update task, cancel task, recurring task, notifier delivery. Not just creation.
-
-**Warning signs:**
-- You deleted old tools before proving new ones are better
-- Test coverage only covers tool creation, not the full task lifecycle
-- System prompt wasn't updated to match new tool names
-- Background tasks created with old interface fail silently with new interface
-
-**Phase to address:** Migration Strategy (Phase 3)
+**Phase to address:** Phase 1 (scoring design) and Phase 2 (multi-turn infrastructure).
 
 ---
 
-## Technical Debt Patterns
+### Pitfall 4: Persona-Tool Set Mismatch in Eval Environment
 
-Shortcuts that seem reasonable but create long-term problems.
+**v1.0 failure:** The eval stripped `recall` and `remember` tools from baseline, but kept the persona that says "First message -> call recall() first. Silently." Haiku obeyed the persona instructions and generated `recall` calls -- but the tool wasn't in the bound schema. Every `recall` call inflated "wrong tool" failure counts. This wasn't hallucination; it was the agent correctly following instructions about tools that weren't available.
 
-| Shortcut | Immediate Benefit | Long-term Cost | When Acceptable |
-|----------|-------------------|----------------|-----------------|
-| Hardcode eval scenarios | Fast eval setup | Brittle, doesn't catch real-world edge cases | Never for final evaluation; OK for initial smoke tests |
-| Skip multi-trial runs | 3-5x fewer API calls | Can't distinguish signal from LLM stochasticity | Only during rapid prototyping, never for comparison |
-| Evaluate tool selection only, not end-to-end | Simple grading | Misses actual user impact | Never as primary metric |
-| Replace tools without alias period | Clean codebase | Breaks in-flight tasks and agent memories | Never in a live system |
-| Use LLM-as-judge without calibration | No human grading needed | Systematic bias, false positives | OK for ranking, never for absolute measurements |
+**What goes wrong:** The eval creates a "zero persona" or stripped-down environment that differs from production. The system prompt references tools, behaviors, or capabilities that don't exist in the eval context. The LLM reads the system prompt, follows its instructions, and gets penalized for it. The eval is testing "how well does the LLM handle contradictory instructions" rather than "how well does the LLM use these tools."
 
-## Integration Gotchas
+**Why it happens:** Production system prompts evolve organically. They accumulate references to tools, memory systems, and behaviors. When creating an eval, you copy the system prompt but selectively remove tools. Nobody audits the system prompt for references to removed tools. The LLM, being instruction-following, tries to use what the prompt tells it to use.
 
-Common mistakes when connecting to the existing Joi ecosystem during the experiment.
+**Consequences:**
+- v1.0: Baseline generated `recall({})` calls that were counted as "wrong tool" -- inflating failure rates
+- Baseline also generated `run_code(remember(...))` as a workaround -- persona said "run_code sandboxed Python with remember(), recall()"
+- These weren't model failures -- they were the model correctly following a contradictory eval setup
+- Impossible to know how many of the 300+ baseline runs were affected by this persona leak
 
-| Integration | Common Mistake | Correct Approach |
-|-------------|----------------|------------------|
-| Task Store (`tasks/store.py`) | New tool writes different field shapes, breaks notifier reads | Keep TaskState model unchanged; adapt at tool level |
-| System Prompt | Forget to update tool usage examples after renaming | Parameterize examples or test system prompt compatibility |
-| `MUTATION_TOOLS` set | New tool names not added, HITL interrupts don't fire | Audit `tools.py:MUTATION_TOOLS` whenever tool names change |
-| `_task_context_message` | New tool generates context messages the background agent doesn't understand | Test background task execution, not just creation |
-| Mem0 memories | Old memories reference "schedule_task" by name, agent confused by mismatch | Either migrate memories or ensure backward-compatible tool names |
+**Prevention:**
+1. **Persona-tool audit:** Before ANY eval run, enumerate every tool mentioned in the persona/system prompt. Verify every mentioned tool is in the eval tool set. If not, either add a mock tool or strip the reference from the persona.
+2. **Isolated eval personas:** Create eval-specific personas that ONLY reference the tools available in that eval variant. Don't copy production persona and hope for the best.
+3. **Mock unavailable tools:** If the persona references `recall`/`remember` and you don't want to test memory, add dummy tools that accept calls but return a canned response. This prevents the LLM from generating calls to non-existent tools.
+4. **Automated persona-tool consistency check:** Write a function that extracts tool names from the persona text (regex for function-call patterns) and asserts every extracted name exists in the tool set.
 
-## Performance Traps
+**Detection (warning signs you have this bug):**
+- Agent calls tools that aren't in the bound schema
+- Error logs show "unknown tool" or tool call names that don't match any registered tool
+- The system prompt mentions capabilities that the eval doesn't provide
+- Removing a tool from the eval changes the persona's effectiveness on UNRELATED scenarios
 
-Patterns that work at small scale but fail as usage grows.
+**Phase to address:** Phase 1 (eval environment design) -- before first experiment.
 
-| Trap | Symptoms | Prevention | When It Breaks |
-|------|----------|------------|----------------|
-| Verbose "app" tool descriptions | Works with 3 tools, degrades with 10+ | Token budget per tool (<500 tokens) | >10 tools or >5K total description tokens |
-| Running eval with temperature=0 only | Consistent results, false confidence | Test at temperature=0 and temperature=0.7 | Any production deployment (temp>0) |
-| Evaluating with current Claude model only | Works on Sonnet 4, breaks on model update | Test on 2+ model versions | Next model release |
-| Loading all tool variants simultaneously for A/B | Doubles context overhead | Load only one variant per session | >20 total tools loaded |
+---
 
-## UX Pitfalls
+### Pitfall 5: Statistical Significance From Evaluator Artifacts
 
-Common user experience mistakes in this domain.
+**v1.0 failure:** The p=0.006 result on `hard_ambiguous` was real statistically but partially fabricated by evaluator bugs. The `hard_multi` 100% vs 0% was entirely an evaluator bug. The single-turn bias inflated the gap on `hard_ambiguous`. After accounting for these bugs, the evidence for "routing tax" is substantially weaker than the p-value suggests.
 
-| Pitfall | User Impact | Better Approach |
-|---------|-------------|-----------------|
-| App-like tool requires structured input the user doesn't provide | Agent asks clarifying questions = slower UX | Tool must handle ambiguous input and resolve internally |
-| Over-consolidated tool with too many internal modes | Agent picks wrong mode, user gets unexpected behavior | Each mode should be testable independently |
-| Tool returns human-friendly text but agent needs structured data | Agent can't chain tool results for multi-step tasks | Return structured data with human-readable summary |
-| Simplified tool drops "delay_seconds" capability | User says "in 5 minutes" and agent can't express it | Audit every parameter against real usage before removing |
+**What goes wrong:** You run a properly designed experiment with proper statistical analysis. The numbers come back significant. You publish the finding. Later, you discover that evaluator bugs created or inflated the signal. The statistics were correct given the data -- but the data was wrong. This is the most dangerous pitfall because the eval LOOKS rigorous. It has confidence intervals, p-values, Fisher exact tests, power analysis -- everything except correct underlying measurements.
 
-## "Looks Done But Isn't" Checklist
+**Why it happens:** Statistical rigor is applied to the analysis layer but not the measurement layer. Teams invest in bootstrap CIs, Fisher exact tests, and power analysis while assuming their evaluators are correct. The evaluator is treated as infrastructure that "just works" rather than as a critical measurement instrument that needs its own validation.
 
-Things that appear complete but are missing critical pieces.
+**Consequences:**
+- v1.0: A REJECT decision was issued based on p=0.006. This looks highly significant.
+- The real signal, after accounting for evaluator bugs and single-turn bias, is "substantially weaker than reported"
+- If the eval hadn't been audited post-hoc, the wrong decision would have stood
+- The v1.0 pipeline looked MORE rigorous than most team evals (660 calls, bootstrap CIs, iterative exploration) -- yet still produced misleading results
 
-- [ ] **Eval framework:** Often missing multi-trial runs -- verify each test case runs 3+ times
-- [ ] **Tool redesign:** Often missing capability parity check -- verify every old parameter maps to new interface
-- [ ] **A/B comparison:** Often missing confidence intervals -- verify statistical significance is computed
-- [ ] **Migration:** Often missing background task lifecycle test -- verify create/list/update/cancel/notify all work
-- [ ] **System prompt:** Often missing updated examples -- verify system prompt references correct tool names
-- [ ] **Token budget:** Often missing measurement -- verify total tool description tokens before and after
-- [ ] **Real user scenarios:** Often missing from eval set -- verify at least 30% of test cases from real Joi conversations
-- [ ] **Non-scheduling regression:** Often not tested -- verify agent performance on media/memory tasks is unchanged
+**Prevention:**
+1. **Validate evaluators BEFORE experiments:** Run golden-response tests for every evaluator x variant combination. The evaluator itself needs tests.
+2. **Manual spot-check every significant finding:** When a result is significant, manually read 10+ transcripts from each variant on the significant category. Do the scores match your human judgment?
+3. **A/A test:** Run the same variant against itself. If the evaluator shows a significant difference between identical variants, the evaluator is broken.
+4. **Evaluator change log:** Track every evaluator modification. If an evaluator changes mid-experiment, ALL data collected with the old evaluator is suspect.
+5. **Pre-registration:** Define your evaluator logic, scenarios, and success criteria BEFORE running experiments. This prevents unconscious "fixing" of evaluators to match expected results.
+
+**Detection (warning signs you have this bug):**
+- Significant results come from categories where the evaluator logic is most complex
+- The significance concentrates in scenarios that exercise variant-specific evaluator paths
+- Manual transcript review contradicts automated scores
+- The "worse" variant's failures, when read, look like reasonable responses
+
+**Phase to address:** Phase 1 (evaluator validation suite) -- evaluators are tested before they test anything else.
+
+---
+
+### Pitfall 6: Tool Naming Creates Evaluation Confounds
+
+**v1.0 failure:** Users say "remind me" for both one-time and recurring tasks. The applike tool named `reminders_create` captured this word, causing one-time requests to route to the recurring tool. The `reminders_create` tool's only timing parameter was `schedule` (cron expression), which forced recurring behavior even for one-time requests. This was a tool DESIGN problem, not a model CAPABILITY problem, but the eval scored it as model failure.
+
+**What goes wrong:** The eval is supposed to test whether a tool interface design works well. But when the tool design contains a naming trap (a tool name that overlaps with common user language in misleading ways), the eval conflates "the LLM chose the wrong tool" with "the tool naming misled the LLM." You can't tell if the LLM is bad at routing or if the tool names are bad at communicating their purpose.
+
+**Why it happens:** Tool naming is part of the design being tested. You can't isolate "LLM routing ability" from "tool name quality" because the LLM routes BASED on the name. This creates a confound: poor results might mean the LLM is bad at routing, OR they might mean the names are confusing. The eval can't distinguish these causes.
+
+**Prevention:**
+1. **Diagnostic annotation:** For each failure, annotate whether the LLM's interpretation of the tool name was reasonable. "User said 'remind me', LLM chose `reminders_create`" is a naming trap, not a routing failure.
+2. **Tool name probes:** Test each tool name in isolation: "If the user says X, which tool name SOUNDS like the right match?" If the "correct" tool has a name that sounds WRONG for common requests, the naming is the problem.
+3. **Separate routing accuracy from intent accuracy:** Score both: (a) did the LLM pick the right conceptual action? (b) did the LLM pick the right technical tool? If (a) is right but (b) is wrong, the tool naming is the issue.
+4. **Evaluate tool designs with naming analysis BEFORE running experiments.**
+
+**Detection:**
+- Failures correlate with specific words in user prompts matching the "wrong" tool name
+- The LLM's reasoning (when captured) shows it chose the tool BECAUSE of the name match
+- Renaming the tool changes the failure pattern
+
+**Phase to address:** Phase 1 (scenario design) and Phase 2 (tool variant design).
+
+---
+
+## Moderate Pitfalls
+
+---
+
+### Pitfall 7: Batch Review Bias -- Post-Hoc Human Review Distorted by Anchoring
+
+**What goes wrong:** After running 660 LLM calls, you sit down to review results in aggregate. You see p=0.006. You're now anchored to "there IS a significant difference." When you review individual transcripts, you unconsciously interpret ambiguous responses in ways that confirm the statistical finding. You find "evidence" for the routing tax because you're looking for it. You miss evaluator bugs because you trust the numbers.
+
+**Why it happens:** Post-hoc review is inherently susceptible to confirmation bias. The reviewer already knows the aggregate result. Human brains pattern-match to confirm existing beliefs. Reviewing 100+ transcripts is cognitively exhausting, making it easy to skim and confirm rather than carefully evaluate each one.
+
+**Prevention:**
+1. **Blind review:** Before looking at aggregate statistics, review a random sample of transcripts without knowing which variant produced them and without knowing the eval score. Record your own pass/fail judgment. THEN compare to automated scores.
+2. **Adversarial review:** After finding a significant result, specifically look for reasons the result might be WRONG. What evaluator bugs could produce this? What confounds exist?
+3. **Pre-register review criteria:** Before reviewing, write down what a "correct" response looks like for each scenario. Then score against your own criteria.
+4. **Inter-rater reliability:** If possible, have two people independently review the same transcripts. For solo developers: review once, wait 24 hours, review again.
+
+**Detection:**
+- Your human review always agrees with the automated scores
+- You can't find any evaluator bugs or confounds after specifically looking for them
+- Your review takes less than 1 minute per transcript on complex scenarios
+
+**Phase to address:** Phase 3 (analysis methodology) -- built into the review process.
+
+---
+
+### Pitfall 8: Isolated Experiments Diverge from Production (The Eval-Production Gap)
+
+**What goes wrong:** The eval runs a "zero persona" agent with a stripped tool set in a controlled environment. Production runs a full persona agent with all tools, conversation history, memory, HITL interrupts, and background tasks. The eval agent behaves fundamentally differently because the environment is fundamentally different. Results that hold in eval don't transfer to production.
+
+**Why it happens:** Evals need isolation for controlled comparison. But each thing you strip out (memory, conversation history, other tools, HITL) changes agent behavior. The LLM's tool-use decisions are influenced by the full context -- removing parts changes the decision. It's the evaluation equivalent of testing a fish's walking ability by removing the water.
+
+**Prevention:**
+1. **Minimal isolation:** Only strip what you MUST for the experiment. If you're testing tool interface design, keep memory, keep conversation history, keep the full persona. Only change the tools under test.
+2. **Integration eval layer:** After isolated experiments, run a small set of integration evals with the full production setup. Verify that isolated findings hold.
+3. **Document isolation decisions:** Explicitly list everything stripped from the eval environment and justify each removal. If the justification is weak ("it was easier"), add it back.
+4. **Compare eval behavior to production behavior:** For a few common scenarios, run both the eval agent and the production agent. If their behavior diverges substantially on the SAME scenario, your eval environment is too different.
+
+**Detection:**
+- Production users report issues that the eval never catches
+- The "best" variant in eval performs poorly in production
+- Agent behavior changes dramatically when you add/remove non-test-relevant tools
+- Eval agent never asks for clarification but production agent frequently does
+
+**Phase to address:** Phase 2 (eval environment design) and Phase 4 (integration validation).
+
+---
+
+### Pitfall 9: Deterministic Evaluators Silently Rot as Tool Interfaces Evolve
+
+**What goes wrong:** You build evaluators that check specific parameter names, tool call structures, and response formats. The tool interface evolves (parameter renamed, new optional field, response structure change). The evaluator keeps running -- no crashes, no errors -- but its checks no longer match the tool interface. It either false-passes (checking a field that no longer exists, defaulting to "OK") or false-fails (checking for an old field name that was renamed).
+
+**Why it happens:** Evaluators are code that tests other code. Like any test, they can go stale. But unlike normal tests (which fail noisily when the interface changes), eval assertions often degrade silently because they check for the PRESENCE of fields (which might just be missing instead of wrong) or check SPECIFIC values (which might have new valid values). Anthropic's engineering blog specifically warns that "checking that agents followed very specific steps like a sequence of tool calls in the right order" produces brittle tests.
+
+**Prevention:**
+1. **Schema-driven evaluators:** Generate evaluator checks from the tool schema, not from hardcoded parameter names. If the schema has `schedule`, the evaluator checks `schedule`. If the schema changes to `cron_expression`, the evaluator automatically updates.
+2. **Evaluator health checks:** Before each experiment run, execute a small "calibration" set of known-correct responses through the evaluator. If any known-correct response fails, the evaluator has rotted.
+3. **Version-pin evaluators to tool versions:** When tool schemas change, require evaluator updates in the same PR. Like API versioning.
+4. **Avoid checking tool call ORDER unless order is semantically important.** Check that the right tools were called with the right arguments, not that they were called in a specific sequence.
+
+**Detection:**
+- Evaluator hasn't been modified in months but tool interfaces have changed
+- New tool variants pass at suspiciously high rates (evaluator not checking new params)
+- Old tool variants start failing on scenarios they used to pass (evaluator checking stale param names)
+- The evaluator code references parameter names that don't exist in current tool schemas
+
+**Phase to address:** Phase 1 (evaluator architecture) -- design for evolvability from the start.
+
+---
+
+### Pitfall 10: Measuring the Eval Rather Than the System Under Test
+
+**What goes wrong:** Your eval results reflect properties of the eval infrastructure (evaluator bugs, scenario bias, scoring methodology) rather than properties of the system you're testing. You optimize the system to score well on the eval, which is different from optimizing the system to work well for users. Anthropic documents this as a persistent problem: CORE-Bench scores jumped from 42% to 95% after fixing eval bugs, not after improving the model.
+
+**Why it happens:** Any measurement instrument has its own characteristics. When the instrument is complex (multi-step evaluator pipeline with serialization, scoring, aggregation), the instrument's characteristics dominate the signal. Signs include:
+- Scores change when you modify the evaluator but not the system
+- Different evaluators give different rankings for the same system variants
+- Achieving high scores requires understanding the eval's quirks rather than building genuinely better behavior
+
+**Prevention:**
+1. **Evaluator invariance test:** Change the evaluator implementation (different but equivalent logic) and verify scores don't change. If they do, the scores depend on evaluator implementation details.
+2. **Human-eval correlation:** Regularly compare automated eval scores to human judgment on the same responses. If they diverge, the eval is measuring itself.
+3. **A/A test:** Same system, same evaluator, two runs. Results should be statistically identical. If not, the eval has systematic bias or the measurement is too noisy.
+4. **Read the transcripts:** As Anthropic emphasizes: "You won't know if your graders are working well unless you read the transcripts and grades from many trials." There is no substitute for looking at the actual data.
+
+**Detection (the definitive signs):**
+- Fixing an evaluator bug changes results more than modifying the system under test
+- Reading transcripts reveals correct responses scored as failures (or vice versa)
+- Scores improve when you "game" the eval format without improving actual behavior
+- 100% or 0% scores on any category (too clean -- likely evaluator artifact)
+- Different evaluator implementations give different rankings
+
+**Phase to address:** All phases -- this is an ongoing discipline, not a one-time fix.
+
+---
+
+## Minor Pitfalls
+
+---
+
+### Pitfall 11: Likert Scales and Non-Binary Scoring Create Unreliable Signals
+
+**What goes wrong:** You score agent responses on a 1-5 scale. Annotators (human or LLM) default to middle values, the difference between 3 and 4 is subjective and inconsistent, and detecting statistical differences requires much larger sample sizes. Hamel Husain's eval FAQ specifically calls this out: "If your evaluations consist of a bunch of metrics that LLMs score on a 1-5 scale, you're doing it wrong."
+
+**Prevention:** Use binary pass/fail for primary metrics. Force a clear decision. Reserve continuous scores for secondary metrics where gradations genuinely matter (like token cost).
+
+---
+
+### Pitfall 12: Evaluation Cost Escalation
+
+**What goes wrong:** Eval costs balloon to 10x the cost of running the system itself. Each scenario x variant x repetition requires an LLM call. Adding statistical rigor (more reps) multiplies cost linearly.
+
+**Prevention:** Budget upfront. v1.0 spent $2.25 on 660 calls -- affordable. But doubling scenarios, reps, and adding multi-turn would be $18-36. Use caching for regression baselines, only run fresh calls for active experiments. Set a per-experiment budget ceiling.
+
+---
+
+### Pitfall 13: Static Eval Datasets Become Stale
+
+**What goes wrong:** You build a great eval set, run it, get results, make a decision. Six months later, the agent has evolved, user patterns have changed, and the eval set no longer represents real usage. You re-run the old eval and get high scores, falsely concluding everything is fine.
+
+**Prevention:** Version eval datasets. Tag them with the date, system version, and user behavior assumptions. Periodically mine real conversations for new scenarios. Treat eval datasets as living documents, not artifacts.
+
+---
+
+### Pitfall 14: Assuming Negative Results Mean "Doesn't Exist"
+
+**What goes wrong:** You test for a behavior, don't find it, and conclude the system can't do it. But the eval environment was wrong (persona mismatch), or the evaluator didn't check for it (parameter coverage gap), or the scenario didn't elicit it (single-turn limitation). Absence of evidence is not evidence of absence.
+
+**Prevention:** When a result is negative, ask: "Could the eval have missed this?" Check evaluator coverage, persona-tool consistency, and scenario design before concluding the system lacks a capability.
+
+---
+
+## Phase-Specific Warnings
+
+| Phase Topic | Likely Pitfall | Mitigation | v1.0 Precedent |
+|-------------|---------------|------------|-----------------|
+| Response serialization | Pitfall 1: Type coercion data loss | Defensive union-type handling, completeness assertions | `content` list serialized as `""` |
+| Evaluator design | Pitfall 2: Incomplete parameter coverage | Golden-response tests per variant, exhaustive param whitelist | `_check_has_timing` missed `schedule` |
+| Scoring methodology | Pitfall 3: Single-turn penalizes clarification | Ambiguous-scenario classification, multi-turn support | "guessing > clarification" reward |
+| Eval environment | Pitfall 4: Persona-tool mismatch | Automated persona-tool audit, eval-specific personas | Persona said "call recall()" but tool wasn't available |
+| Statistical analysis | Pitfall 5: Significance from evaluator artifacts | Evaluator validation BEFORE experiments, manual spot-checks | p=0.006 partially from evaluator bugs |
+| Tool variant design | Pitfall 6: Naming confounds | Diagnostic annotation separating routing from naming | "remind me" -> `reminders_create` naming trap |
+| Post-hoc analysis | Pitfall 7: Anchoring bias in batch review | Blind review protocol, adversarial review | Significant result accepted without questioning evaluator |
+| Production integration | Pitfall 8: Eval-production gap | Minimal isolation, integration eval layer | Zero-persona agent behaved differently than production |
+| Evaluator maintenance | Pitfall 9: Evaluator rot | Schema-driven checks, evaluator health checks | Dead `do_later` branches, stale param assumptions |
+| Overall validity | Pitfall 10: Measuring eval not system | A/A tests, human-eval correlation, transcript reading | CORE-Bench: 42% -> 95% from eval fixes alone |
+
+---
+
+## The v1.0 Failure Taxonomy
+
+Mapping v1.0's 5 systemic bugs to pitfall categories:
+
+| v1.0 Bug | Pitfall Category | Severity | Would v2 Catch It? |
+|----------|-----------------|----------|---------------------|
+| Response text discarded (list -> "") | Data loss (Pitfall 1) | Critical | Yes, if serialization smoke test added |
+| `_check_has_timing` missed `schedule` | Evaluator coverage (Pitfall 2) | Critical | Yes, if golden-response tests per variant |
+| Single-turn rewards guessing | Scoring methodology (Pitfall 3) | Critical | Yes, if ambiguous scenarios classified separately |
+| Persona references unavailable tools | Environment mismatch (Pitfall 4) | Moderate | Yes, if persona-tool audit automated |
+| "reminder" -> `reminders_create` naming trap | Design confound (Pitfall 6) | Moderate | Partially -- requires diagnostic annotation discipline |
+
+**Key insight:** ALL five v1.0 bugs would have been caught by standard eval validation practices (golden tests, smoke tests, persona audits). None required sophisticated tooling. They were process failures, not technology failures.
+
+---
 
 ## Recovery Strategies
 
-When pitfalls occur despite prevention, how to recover.
+If pitfalls occur despite prevention:
 
 | Pitfall | Recovery Cost | Recovery Steps |
 |---------|---------------|----------------|
-| Confounded multi-variable results | MEDIUM | Re-run with isolated variables; design A/A test to establish baseline variance |
-| Too-small eval set | LOW | Add more test cases; existing results are still valid data points |
-| Wrong metrics optimized | HIGH | Re-evaluate with correct metrics; may need to undo tool changes |
-| Capability silently dropped | MEDIUM | Add missing capabilities to new design; re-run affected eval scenarios |
-| Token bloat degraded agent | LOW | Trim descriptions, add `defer_loading`; immediate improvement |
-| Synthetic-only eval | MEDIUM | Mine real conversations; re-run eval with mixed real+synthetic set |
-| Broke live task system | HIGH | Rollback to old tools; debug and fix new tools separately; migration alias pattern |
+| Response data loss (P1) | LOW | Fix serialization, re-run affected experiments, compare results |
+| Evaluator coverage gap (P2) | MEDIUM | Fix evaluator, re-run experiments on affected variants, recompute statistics |
+| Single-turn scoring bias (P3) | HIGH | Redesign scoring for ambiguous scenarios, potentially re-run entire experiment |
+| Persona-tool mismatch (P4) | MEDIUM | Fix persona, re-run baseline experiments, compare to original results |
+| Significance from artifacts (P5) | HIGH | Full re-analysis required; may invalidate published decisions |
+| Naming confounds (P6) | MEDIUM | Add diagnostic annotations, re-analyze existing data |
+| Anchoring bias in review (P7) | MEDIUM | Blind re-review of transcripts; may change conclusions |
+| Eval-production gap (P8) | HIGH | Integration eval suite needed; isolated results may not transfer |
+| Evaluator rot (P9) | LOW | Schema-sync evaluators, run calibration set, fix mismatches |
+| Measuring eval not system (P10) | HIGH | A/A test + human correlation check; may require eval redesign |
 
-## Pitfall-to-Phase Mapping
+---
 
-How roadmap phases should address these pitfalls.
+## The Meta-Pitfall: Thinking You've Fixed It
 
-| Pitfall | Prevention Phase | Verification |
-|---------|------------------|--------------|
-| Multi-variable confounding | Phase 1: Eval Design | Eval plan documents isolated variable tests |
-| Small eval set | Phase 1: Eval Design | Power analysis completed; n >= 50 independent cases |
-| Wrong metrics | Phase 1: Eval Design | Metric hierarchy documented with primary = task completion |
-| Capability reduction | Phase 1: Audit + Phase 2: Redesign | Capability parity matrix complete |
-| Token bloat | Phase 2: Redesign | Token count before/after measured; budget not exceeded |
-| Synthetic-only scenarios | Phase 1: Dataset Creation | >= 30% test cases from real Joi conversations |
-| Breaking live system | Phase 3: Migration | Additive deployment (new tools alongside old); full lifecycle test |
+The most dangerous state is "we learned from v1.0, so v2.0 will be fine." v1.0 LOOKED rigorous: 660 LLM calls, bootstrap CIs, iterative exploration, Fisher exact tests, power analysis, lab notebook methodology. It had more statistical sophistication than most team evals. It still produced misleading results.
+
+**The fix is not more sophistication. The fix is more verification.** Test the evaluators. Read the transcripts. Run A/A tests. Do blind reviews. Check the data at every stage. The sophistication of the analysis is worthless if the measurement is wrong.
+
+---
 
 ## Sources
 
-- [Anthropic: Demystifying Evals for AI Agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) -- task design, grading, multi-trial methodology
-- [Anthropic: Writing Effective Tools for Agents](https://www.anthropic.com/engineering/writing-tools-for-agents) -- tool description best practices, consolidation vs granularity
-- [Anthropic: Advanced Tool Use](https://www.anthropic.com/engineering/advanced-tool-use) -- Tool Search, defer_loading, token management
-- [HoneyHive: Avoiding Common Pitfalls in LLM Evaluation](https://www.honeyhive.ai/post/avoiding-common-pitfalls-in-llm-evaluation) -- statistical rigor, metric decomposition
-- [arXiv 2410.19920: Prompt Overfitting in RL-Aligned LLM Agents](https://arxiv.org/html/2410.19920v2) -- prompt format sensitivity, contrastive regularization
-- [NAACL 2025: Quantifying LLMs' Sensitivity to Prompt Engineering](https://aclanthology.org/2025.naacl-long.73.pdf) -- 463% accuracy swing from rewording
-- [Chroma Research: Context Rot](https://research.trychroma.com/context-rot) -- performance degradation with context length
-- [GitHub: Claude Code MCP Token Bloat](https://github.com/anthropics/claude-code/issues/3406) -- 10-20K token overhead from tool definitions
-- [Maxim: A/B Testing Strategies for AI Agents](https://www.getmaxim.ai/articles/a-b-testing-strategies-for-ai-agents-how-to-optimize-performance-and-quality/) -- sample size, confounding variables
-- [arXiv 2503.11069: API Agents vs GUI Agents](https://arxiv.org/html/2503.11069v1) -- paradigm comparison challenges
-- [MCP Token Bloat Issue #1576](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/1576) -- schema redundancy in tool definitions
-- [Berkeley Function Calling Leaderboard V4](https://gorilla.cs.berkeley.edu/leaderboard.html) -- format sensitivity test cases
+### Primary (HIGH confidence -- from v1.0 codebase and post-mortem)
+- `/Users/iorlas/Projects/my/serega/docs/eval-failure-analysis.md` -- v1.0 post-mortem with all 5 bugs documented
+- `/Users/iorlas/Projects/my/serega/tests/eval/evaluators.py` -- v1.0 evaluator code showing exact bugs
+- `/Users/iorlas/Projects/my/serega/.planning/milestones/v1.0-phases/05-full-comparison/EXPLORATION.md` -- full experiment data (660 calls)
+- `/Users/iorlas/Projects/my/serega/scripts/eval_probe.py` -- v1.0 diagnostic script showing response serialization fix
+
+### Secondary (MEDIUM confidence -- verified industry sources)
+- [Anthropic: Demystifying Evals for AI Agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) -- task design failures, grader bugs, transcript reading as validation
+- [Hamel Husain: LLM Evals FAQ](https://hamel.dev/blog/posts/evals-faq/) -- binary scoring, error analysis first, 60-80% time on understanding failures
+- [Block Engineering: Testing Pyramid for AI Agents](https://engineering.block.xyz/blog/testing-pyramid-for-ai-agents) -- brittle assertions, tool interface evolution, measurement-based validation
+- [Monte Carlo: AI Agent Evaluation - 5 Lessons](https://www.montecarlodata.com/blog-ai-agent-evaluation/) -- evaluators hallucinating, cost escalation, non-determinism
+- [HoneyHive: Avoiding Common Pitfalls in LLM Evaluation](https://www.honeyhive.ai/post/avoiding-common-pitfalls-in-llm-evaluation) -- static datasets, statistical rigor timing
+
+### Tertiary (LOW confidence -- general patterns, needs validation for this specific context)
+- [Confident AI: Single vs Multi-Turn Evals](https://www.confident-ai.com/docs/llm-evaluation/core-concepts/single-vs-multi-turn-evals) -- multi-turn reveals problems single-turn misses
+- [Pragmatic Engineer: LLM Evals for Devs](https://newsletter.pragmaticengineer.com/p/evals) -- evaluation biases
+- [Pillar Security: Multi-Turn Tests vs Single-Turn](https://www.pillar.security/blog/practical-ai-red-teaming-the-power-of-multi-turn-tests-vs-single-turn-evaluations) -- attack success rates increase 27% in multi-turn
 
 ---
-*Pitfalls research for: AI Agent Tool Interface Evaluation ("Apps vs Tools")*
-*Researched: 2026-02-19*
+*Pitfalls research for: Eval Pipeline Rebuild (post-v1.0 failure analysis)*
+*Researched: 2026-02-20*
