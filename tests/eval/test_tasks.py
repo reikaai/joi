@@ -30,8 +30,12 @@ def _serialize_response(response: AIMessage) -> dict:
         for tc in response.tool_calls
     ]
     usage = response.usage_metadata
+    content = response.content
+    if isinstance(content, list):
+        text_parts = [c["text"] for c in content if isinstance(c, dict) and c.get("type") == "text"]
+        content = " ".join(text_parts)
     return {
-        "content": response.content if isinstance(response.content, str) else "",
+        "content": content if isinstance(content, str) else "",
         "tool_calls": tool_calls,
         "usage_metadata": {
             "input_tokens": usage.get("input_tokens", 0) if usage else 0,
@@ -105,7 +109,14 @@ async def test_positive(variant_name: str, scenario: Scenario, eval_results: dic
     response = await invoke_variant(variant, scenario.prompt, variant_name, scenario.id)
     result = evaluate_tool_calls(response, scenario, variant)
 
-    t.log_outputs({"tool_call_names": result.tool_call_names, "call_count": result.call_count})
+    resp_content = response.content
+    if isinstance(resp_content, list):
+        text_parts = [c["text"] for c in resp_content if isinstance(c, dict) and c.get("type") == "text"]
+        response_text = " ".join(text_parts)
+    else:
+        response_text = resp_content or ""
+
+    t.log_outputs({"response_text": response_text, "tool_call_names": result.tool_call_names, "call_count": result.call_count})
     t.log_feedback(key="correct_tool", score=result.correct_tool_score)
     t.log_feedback(key="correct_count", score=result.correct_count_score)
     t.log_feedback(key="input_tokens", value=result.input_tokens)
@@ -175,3 +186,37 @@ async def test_negative(variant_name: str, scenario: Scenario, eval_results: dic
         f"[{variant_name}] Expected 0 scheduling calls for negative scenario '{scenario.id}', "
         f"got {len(schedule_calls)}"
     )
+
+
+# ── Round-trip serialization test ──────────────────────────────────────────────
+
+
+def test_serialize_deserialize_roundtrip():
+    # Test list-type content (text + tool_use dicts)
+    list_content = [
+        {"type": "text", "text": "I'll set that reminder."},
+        {"type": "tool_use", "id": "toolu_123", "name": "schedule_task", "input": {}},
+    ]
+    msg_list = AIMessage(
+        content=list_content,
+        tool_calls=[{"name": "schedule_task", "args": {"task": "test"}, "id": "toolu_123"}],
+    )
+    serialized = _serialize_response(msg_list)
+    assert serialized["content"] == "I'll set that reminder."
+    assert len(serialized["tool_calls"]) == 1
+    assert serialized["tool_calls"][0]["name"] == "schedule_task"
+
+    deserialized = _deserialize_response(serialized)
+    assert deserialized.content == "I'll set that reminder."
+    assert len(deserialized.tool_calls) == 1
+
+    # Test plain string content (no regression)
+    msg_str = AIMessage(
+        content="Simple string response",
+        tool_calls=[],
+    )
+    serialized_str = _serialize_response(msg_str)
+    assert serialized_str["content"] == "Simple string response"
+
+    deserialized_str = _deserialize_response(serialized_str)
+    assert deserialized_str.content == "Simple string response"
