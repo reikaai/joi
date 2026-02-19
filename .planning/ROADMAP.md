@@ -45,12 +45,12 @@ Plans:
   3. Negative test cases exist (prompts that should NOT trigger tool calls) and are evaluated alongside positive cases
   4. Bootstrap confidence intervals are computed for success rates, and the report shows whether two variants differ with statistical significance
   5. The eval system accepts new tool variants and scenario sets without modifying framework code (registry pattern)
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 02-01: TBD
-- [ ] 02-02: TBD
-- [ ] 02-03: TBD
+- [ ] 02-01-PLAN.md — Scenario YAML files, loader, variant registry, baseline variant
+- [ ] 02-02-PLAN.md — Evaluators module, eval test file with LangSmith tracking
+- [ ] 02-03-PLAN.md — Statistical analysis (bootstrap CI), report generation
 
 ### Phase 3: App-Like Variant Design
 **Goal**: A set of well-defined tool interface variants ready to be measured, with no silent capability loss
@@ -119,7 +119,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Codebase Alignment Audit | 0/TBD | Complete    | 2026-02-19 |
-| 2. Eval Framework | 0/TBD | Not started | - |
+| 2. Eval Framework | 0/3 | Planned | - |
 | 3. App-Like Variant Design | 0/TBD | Not started | - |
 | 4. Isolated Variable Experiments | 0/TBD | Not started | - |
 | 5. Full Comparison | 0/TBD | Not started | - |
