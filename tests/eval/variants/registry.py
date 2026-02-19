@@ -10,6 +10,7 @@ class ToolVariant:
     persona: str
     tools_factory: Callable[[], list[BaseTool]]
     schedule_tool_name: str = "schedule_task"
+    schedule_tool_names: list[str] | None = None
     schedule_action: str | None = None
     description: str = ""
 
@@ -26,3 +27,7 @@ def register(name: str):
 
 
 import tests.eval.variants.tasks_baseline  # noqa: E402, F401
+import tests.eval.variants.tasks_description_a  # noqa: E402, F401
+import tests.eval.variants.tasks_description_b  # noqa: E402, F401
+import tests.eval.variants.tasks_rename  # noqa: E402, F401
+import tests.eval.variants.tasks_simplify  # noqa: E402, F401
