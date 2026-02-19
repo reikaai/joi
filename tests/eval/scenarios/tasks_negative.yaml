@@ -1,0 +1,35 @@
+scenarios:
+  - id: neg:greeting
+    prompt: "hey, how are you?"
+    category: negative
+    expected_tool: null
+    min_calls: 0
+    assertions: []
+
+  - id: neg:question_about_tasks
+    prompt: "what can you do with tasks?"
+    category: negative
+    expected_tool: null
+    min_calls: 0
+    assertions: []
+
+  - id: neg:past_tense_reminder
+    prompt: "I forgot to call mom yesterday"
+    category: negative
+    expected_tool: null
+    min_calls: 0
+    assertions: []
+
+  - id: neg:ambiguous_time
+    prompt: "that reminds me of when I used to wake up early"
+    category: negative
+    expected_tool: null
+    min_calls: 0
+    assertions: []
+
+  - id: neg:task_word_not_scheduling
+    prompt: "this task at work is really boring"
+    category: negative
+    expected_tool: null
+    min_calls: 0
+    assertions: []
