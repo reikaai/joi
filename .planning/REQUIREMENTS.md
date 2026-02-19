@@ -64,24 +64,24 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AUDIT-01 | — | Pending |
-| AUDIT-02 | — | Pending |
-| AUDIT-03 | — | Pending |
-| EVAL-01 | — | Pending |
-| EVAL-02 | — | Pending |
-| EVAL-03 | — | Pending |
-| EVAL-04 | — | Pending |
-| EVAL-05 | — | Pending |
-| EXPR-01 | — | Pending |
-| EXPR-02 | — | Pending |
-| EXPR-03 | — | Pending |
-| DOCS-01 | — | Pending |
+| AUDIT-01 | Phase 1: Codebase Alignment Audit | Pending |
+| AUDIT-02 | Phase 1: Codebase Alignment Audit | Pending |
+| AUDIT-03 | Phase 1: Codebase Alignment Audit | Pending |
+| EVAL-01 | Phase 2: Eval Framework | Pending |
+| EVAL-02 | Phase 2: Eval Framework | Pending |
+| EVAL-03 | Phase 2: Eval Framework | Pending |
+| EVAL-04 | Phase 2: Eval Framework | Pending |
+| EVAL-05 | Phase 2: Eval Framework | Pending |
+| EXPR-01 | Phase 3: App-Like Variant Design | Pending |
+| EXPR-02 | Phase 4: Isolated Variable Experiments | Pending |
+| EXPR-03 | Phase 5: Full Comparison | Pending |
+| DOCS-01 | Phase 6: ADR and Decision | Pending |
 
 **Coverage:**
 - v1 requirements: 12 total
-- Mapped to phases: 0
-- Unmapped: 12 ⚠️
+- Mapped to phases: 12
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-19*
-*Last updated: 2026-02-19 after initial definition*
+*Last updated: 2026-02-19 after roadmap creation*
