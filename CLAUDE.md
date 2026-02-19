@@ -57,6 +57,10 @@ See stale entries (>1d): `scripts/session.sh cleanup`
 # Postponed Work
 When we decide to postpone something, add it to `TODO.md` with a clear description of the problem and rough direction.
 
+# Brainstorming
+See [docs/brainstorm-guide.md](docs/brainstorm-guide.md) for technique routing.
+Use `/iorlas-brainstorm` for adversarial brainstorming sessions.
+
 # Linter Ownership
 Always run `ruff check` and `ty check` after your changes. If you see errors:
 1. Fix errors in files you touched — always your responsibility.
