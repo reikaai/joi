@@ -91,11 +91,11 @@ Plans:
   2. Token cost comparison shows cost-per-task for both variants
   3. Results are interpreted against Phase 4 isolated variable findings (e.g., "rename accounts for X% of the improvement, simplification accounts for Y%")
   4. A clear adopt/reject/hybrid recommendation exists, backed by the data
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 05-01: TBD
-- [ ] 05-02: TBD
+- [ ] 05-01-PLAN.md -- Fisher exact test, per-category report breakdown, initial applike-vs-baseline comparison (120 LLM calls), EXPLORATION.md Pivot 0
+- [ ] 05-02-PLAN.md -- Hard scenario design, iterative exploration loop (multiple pivots), final adopt/reject/hybrid recommendation
 
 ### Phase 6: ADR and Decision
 **Goal**: A permanent record of this experiment that informs future Joi development and serves as a portfolio artifact
