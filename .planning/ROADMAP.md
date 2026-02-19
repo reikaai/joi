@@ -76,11 +76,11 @@ Plans:
   3. Description-only variant has been compared to baseline with bootstrap confidence intervals reported
   4. Each comparison has sufficient sample size for interpretable results (minimum 3 repeat runs per scenario)
   5. Results clearly show which variable(s) produce statistically significant improvement (or show no significant difference)
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 04-01: TBD
-- [ ] 04-02: TBD
+- [ ] 04-01-PLAN.md — Fix evaluator bugs for non-baseline variants (multi-tool filtering, hardcoded name removal)
+- [ ] 04-02-PLAN.md — Run 5-variant experiment with 5 repetitions, generate comparison report
 
 ### Phase 5: Full Comparison
 **Goal**: Definitive answer on whether the combined app-like interface outperforms the programmatic interface, interpreted against isolated variable results
