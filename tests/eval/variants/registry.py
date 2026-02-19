@@ -26,6 +26,7 @@ def register(name: str):
     return decorator
 
 
+import tests.eval.variants.tasks_applike  # noqa: E402, F401
 import tests.eval.variants.tasks_baseline  # noqa: E402, F401
 import tests.eval.variants.tasks_description_a  # noqa: E402, F401
 import tests.eval.variants.tasks_description_b  # noqa: E402, F401
