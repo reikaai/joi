@@ -101,3 +101,61 @@
 **WHY:** The client abstraction (`ChannelRenderer` protocol, `AgentStreamClient`) shows good engineering -- but the actual implementation is single-platform. A product needs at minimum a web interface. The current architecture supports this (the protocol pattern is right), but it hasn't been proven with a second frontend.
 
 **DIRECTION:** The architecture is ready for multi-frontend. Proving it by adding a second frontend (web, CLI) would strengthen both manifesto and breakaway alignment.
+
+## Section 3: Prioritized Fix List
+
+Issues grouped by subsystem and root cause, ranked by weighted impact score.
+
+**Scoring:** Manifesto=3, Skills=3, Breakaway=2, Daily Tool=2. Score = sum of weights for goals where this issue causes a "Misaligned" verdict.
+
+| Rank | Subsystem | Issue | Goals Affected | Impact | Effort |
+|------|-----------|-------|----------------|--------|--------|
+| 1 | Memory (Mem0) | Mem0 dependency: thin wrapper, no LangGraph patterns, OpenAI coupling, no architecture depth | Manifesto, Skills, Breakaway | 8 | M |
+| 2 | Tasks | State machine bugs: missing SCHEDULED->RUNNING transition, no timezone context on cron, no transition validation | Manifesto, Daily Tool | 5 | S |
+| 3 | Client & Telegram | Code quality issues: hardcoded timeouts, bare exception swallowing, missing type hints | Manifesto, Breakaway | 5 | S |
+| 4 | Media Delegate | Media-specific domain: delegate pattern is good but domain is a dead end for product | Breakaway | 2 | S |
+| 5 | Tool Loading & MCP | MCP servers are media-specific: tool loading pattern is reusable but content is niche | Breakaway | 2 | M |
+
+**Notes:**
+- Memory ranks highest because it's misaligned on 3 of 4 goals (the only subsystem with triple misalignment)
+- Tasks and Client/Telegram tie at 5, but Tasks bugs are more actionable (targeted fixes vs. distributed cleanup)
+- Media Delegate and MCP server content rank low because the misalignment is domain-specific and doesn't block near-term goals -- it becomes relevant only when building a product
+- Graph Core, Context Management, and Sandbox/Interpreter have zero misalignments and need no fixes
+
+## Section 4: Tasks Subsystem Validation
+
+**Question:** Is tasks the right first experiment target for the apps-vs-tools hypothesis test?
+
+### Position in Fix List
+
+Tasks ranks #2 with impact score 5 (Manifesto: 3 + Daily Tool: 2). Memory ranks higher (#1, score 8), but Memory's fix is architectural (replace Mem0), not experimental (test a hypothesis). Tasks' fix is two-fold: bug fixes (state machine) AND interface redesign (apps vs tools) -- the experiment tests the second part.
+
+### Evidence FOR Tasks First
+
+1. **Highest LangGraph pattern density.** Tasks uses Store, crons, threads, delayed runs, and InjectedStore. Experimenting here builds the most transferable LangGraph skills. No other subsystem touches as many LangGraph primitives.
+
+2. **Smallest testable subsystem.** 3 tools (`schedule_task`, `list_tasks`, `update_task`), ~250 LOC, well-defined input/output. Memory is 35 lines (too small for meaningful experiment), media delegate is 41 lines (wrong domain), client/telegram is 1100+ lines (too large).
+
+3. **Direct hypothesis fit.** The user's app-like interface idea (Calendar, Reminders, Alarms) maps directly to task tools. The hypothesis ("LLMs have stronger priors about familiar app interfaces") is most cleanly testable on tasks because tasks have natural app analogues. Memory doesn't (no common "memory app" for LLMs to have priors about).
+
+4. **Bugs provide a natural baseline.** Current tasks have known daily-use bugs, establishing a clear "before" state. If the redesigned interface also fixes these bugs, the experiment captures both interface improvement and reliability improvement -- separable through isolated variable testing.
+
+5. **User energy and vision.** The user explicitly described their tasks vision ("calendar, reminders, alarms, essentially giving her an OS") -- this is where their design intuition lives. Experimenting where the user has strong ideas produces better variants than experimenting in a domain they're less engaged with.
+
+### Evidence AGAINST Tasks First
+
+1. **Memory has higher impact score (8 vs 5).** Fixing Memory's Mem0 dependency would improve alignment across 3 goals simultaneously. Tasks only touches 2 goals.
+
+2. **Tasks bugs could be fixed without an experiment.** The state machine bugs (SCHEDULED->RUNNING, timezone, retry UI) are straightforward engineering fixes, not hypothesis tests. You don't need an eval framework to fix a missing state transition.
+
+3. **Media delegate is what they actually use daily.** The user and wife use media management for dinner movies. Tasks scheduling is used but has bugs. Fixing daily-use bugs in media (if any existed) would have more immediate impact.
+
+### Verdict: Tasks is the right first experiment target
+
+**Confirmed.** The evidence for outweighs the evidence against for this specific milestone's purpose:
+
+- Memory's higher score doesn't matter here -- Memory needs architectural replacement (a future milestone), not an experiment. The apps-vs-tools hypothesis doesn't apply to Memory.
+- The tasks bugs argument is actually evidence FOR: fix the bugs as part of the experiment's variant design, giving the experiment both scientific and practical value.
+- Media delegate works fine and the user doesn't want to invest there.
+
+Tasks is the unique intersection of: (a) testable hypothesis, (b) deep LangGraph patterns, (c) user-facing impact, and (d) user vision alignment. No other subsystem sits at this intersection.
