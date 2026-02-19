@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-19)
 
 **Core value:** Validated architectural decisions backed by evidence, not gut feel
-**Current focus:** Phase 4 — Isolated Variable Experiments
+**Current focus:** Phase 5 — Full Comparison
 
 ## Current Position
 
-Phase: 4 of 6 (Isolated Variable Experiments) COMPLETE
-Plan: 2 of 2 in current phase (04-02 COMPLETE)
-Status: Phase 4 complete — all isolated experiments run, no significant differences found
-Last activity: 2026-02-19 — Run 5-variant experiment (300 LLM calls), generate summary report
+Phase: 5 of 6 (Full Comparison)
+Plan: 1 of 2 in current phase (05-01 COMPLETE)
+Status: Initial applike-vs-baseline comparison complete, proceeding to hard scenario exploration
+Last activity: 2026-02-19 — 120 LLM calls, Fisher exact test, EXPLORATION.md Pivot 0
 
-Progress: [████████░░] 75%
+Progress: [████████░░] 82%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 8
-- Average duration: 5.5min
-- Total execution time: 44min
+- Total plans completed: 9
+- Average duration: 5.9min
+- Total execution time: 53min
 
 **By Phase:**
 
@@ -31,10 +31,11 @@ Progress: [████████░░] 75%
 | 2. Eval Framework | 3 | 10min | 3.3min |
 | 3. App-Like Variant Design | 2 | 5min | 2.5min |
 | 4. Isolated Variable Experiments | 2 | 24min | 12min |
+| 5. Full Comparison | 1 | 9min | 9min |
 
 **Recent Trend:**
-- Last 5 plans: 02-03 (3min), 03-01 (2min), 03-02 (3min), 04-01 (4min), 04-02 (20min)
-- Trend: 04-02 longer due to 300 real LLM calls (~16min test runtime)
+- Last 5 plans: 03-01 (2min), 03-02 (3min), 04-01 (4min), 04-02 (20min), 05-01 (9min)
+- Trend: 05-01 includes 120 LLM calls (~6min test runtime) plus analysis
 
 *Updated after each plan completion*
 
@@ -74,6 +75,10 @@ Recent decisions affecting current work:
 - Experiment: Baseline already strong at 95% success rate -- ceiling effect limits differentiability
 - Experiment: Rename and simplify show non-significant negative trend (-3.3% each)
 - Experiment: Description rewrites (A and B) indistinguishable from baseline and each other (all 95%)
+- Comparison: Applike 93.3% vs baseline 98.3% on easy scenarios -- not significant (Fisher p=0.364)
+- Comparison: Multi-tool routing is only differentiating dimension (applike 40% vs baseline 80% on multi:two_reminders)
+- Comparison: Additive null model predicts 88.4%; actual 93.3% suggests slight positive synergy from coherent framing
+- Comparison: Fisher exact + bootstrap CI dual reporting established as standard statistical approach
 
 ### Pending Todos
 
@@ -86,5 +91,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-19
-Stopped at: Completed 04-02-PLAN.md — Phase 4 complete, ready for Phase 5 (combined comparison)
-Resume file: .planning/phases/04-isolated-variable-experiments/04-02-SUMMARY.md
+Stopped at: Completed 05-01-PLAN.md — Initial comparison done, ready for 05-02 (hard scenario exploration)
+Resume file: .planning/phases/05-full-comparison/05-01-SUMMARY.md
