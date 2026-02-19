@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-19)
 
 **Core value:** Validated architectural decisions backed by evidence, not gut feel
-**Current focus:** Phase 3 — App-Like Variant Design
+**Current focus:** Phase 4 — Isolated Variable Experiments
 
 ## Current Position
 
-Phase: 3 of 6 (App-Like Variant Design) -- COMPLETE
-Plan: 2 of 2 in current phase (COMPLETE)
-Status: Phase 3 complete — all variants designed, parity matrix + token budget done
-Last activity: 2026-02-19 — App-like variant + parity matrix + token budget
+Phase: 4 of 6 (Isolated Variable Experiments)
+Plan: 1 of 2 in current phase (04-01 COMPLETE)
+Status: Evaluator bugs fixed — ready for experiment execution (04-02)
+Last activity: 2026-02-19 — Fix evaluator multi-tool and hardcoded-name bugs
 
-Progress: [██████░░░░] 58%
+Progress: [███████░░░] 67%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6
+- Total plans completed: 7
 - Average duration: 3min
-- Total execution time: 20min
+- Total execution time: 24min
 
 **By Phase:**
 
@@ -30,10 +30,11 @@ Progress: [██████░░░░] 58%
 | 1. Codebase Alignment Audit | 1 | 5min | 5min |
 | 2. Eval Framework | 3 | 10min | 3.3min |
 | 3. App-Like Variant Design | 2 | 5min | 2.5min |
+| 4. Isolated Variable Experiments | 1 | 4min | 4min |
 
 **Recent Trend:**
-- Last 5 plans: 02-01 (2min), 02-02 (5min), 02-03 (3min), 03-01 (2min), 03-02 (3min)
-- Trend: stable/accelerating
+- Last 5 plans: 02-02 (5min), 02-03 (3min), 03-01 (2min), 03-02 (3min), 04-01 (4min)
+- Trend: stable
 
 *Updated after each plan completion*
 
@@ -67,6 +68,8 @@ Recent decisions affecting current work:
 - Variants: App-like persona patching via regex replacement of Background Tasks section
 - Variants: Token budget confirmed -- applike at +3.3% vs baseline (well within 10%)
 - Variants: Parity matrix covers 9 capabilities x 6 variants with absorption notes
+- Eval: schedule_tool_names fallback pattern (plural or [singular]) for multi-tool variant filtering
+- Eval: Three-tier staggered timing: delay_seconds -> int when -> distinct string when (no tool-name gating)
 
 ### Pending Todos
 
@@ -79,5 +82,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-19
-Stopped at: Completed 03-02-PLAN.md — Phase 3 complete, ready for Phase 4
-Resume file: .planning/phases/03-app-like-variant-design/03-02-SUMMARY.md
+Stopped at: Completed 04-01-PLAN.md — Evaluator bugs fixed, ready for 04-02 experiment execution
+Resume file: .planning/phases/04-isolated-variable-experiments/04-01-SUMMARY.md

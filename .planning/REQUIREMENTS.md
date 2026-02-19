@@ -24,7 +24,7 @@ Requirements for this milestone. Each maps to roadmap phases.
 ### Tool Interface Experiment
 
 - [x] **EXPR-01**: Define app-like tool variants (Calendar, Reminders, Alarms style interfaces)
-- [ ] **EXPR-02**: Run isolated variable experiments (rename-only, simplify-only, description-only)
+- [x] **EXPR-02**: Run isolated variable experiments (rename-only, simplify-only, description-only)
 - [ ] **EXPR-03**: Compare app-like vs programmatic variants with statistical rigor
 
 ### Documentation
@@ -73,7 +73,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | EVAL-04 | Phase 2: Eval Framework | Complete |
 | EVAL-05 | Phase 2: Eval Framework | Complete |
 | EXPR-01 | Phase 3: App-Like Variant Design | Complete |
-| EXPR-02 | Phase 4: Isolated Variable Experiments | Pending |
+| EXPR-02 | Phase 4: Isolated Variable Experiments | Complete |
 | EXPR-03 | Phase 5: Full Comparison | Pending |
 | DOCS-01 | Phase 6: ADR and Decision | Pending |
 
