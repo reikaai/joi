@@ -9,29 +9,29 @@ See: .planning/PROJECT.md (updated 2026-02-19)
 
 ## Current Position
 
-Phase: 2 of 6 (Eval Framework)
-Plan: 2 of 3 in current phase (COMPLETE)
-Status: Plan 02-02 complete — continuing to 02-03
-Last activity: 2026-02-19 — Eval test engine with LangSmith tracking built
+Phase: 2 of 6 (Eval Framework) -- PHASE COMPLETE
+Plan: 3 of 3 in current phase (COMPLETE)
+Status: Phase 02 complete — all 3 plans delivered, awaiting approval gate
+Last activity: 2026-02-19 — Statistical analysis and reporting built
 
-Progress: [███░░░░░░░] 30%
+Progress: [████░░░░░░] 40%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 3
+- Total plans completed: 4
 - Average duration: 4min
-- Total execution time: 12min
+- Total execution time: 15min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 1. Codebase Alignment Audit | 1 | 5min | 5min |
-| 2. Eval Framework | 2 | 7min | 3.5min |
+| 2. Eval Framework | 3 | 10min | 3.3min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (5min), 02-01 (2min), 02-02 (5min)
+- Last 5 plans: 01-01 (5min), 02-01 (2min), 02-02 (5min), 02-03 (3min)
 - Trend: stable
 
 *Updated after each plan completion*
@@ -54,6 +54,9 @@ Recent decisions affecting current work:
 - Eval: Eval model hardcoded to claude-haiku-4-5-20251001 for cost-effective consistency
 - Eval: Dual-mode cache (LANGSMITH_TEST_CACHE env var) for real vs cached LLM responses
 - Eval: LangSmith feedback logged per test: correct_tool, correct_count, token metrics
+- Eval: Bootstrap BCa CIs with fixed seed (rng=42) for reproducible statistical analysis
+- Eval: record_eval_result uses keyword-only args for decoupling from EvalResult dataclass
+- Eval: Autouse session fixture generates JSON report after all eval tests complete
 
 ### Pending Todos
 
@@ -66,5 +69,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-19
-Stopped at: Completed 02-02-PLAN.md (eval test engine)
-Resume file: .planning/phases/02-eval-framework/02-02-SUMMARY.md
+Stopped at: Completed 02-03-PLAN.md (statistical analysis & reporting) -- Phase 02 complete
+Resume file: .planning/phases/02-eval-framework/02-03-SUMMARY.md

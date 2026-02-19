@@ -16,7 +16,7 @@ Requirements for this milestone. Each maps to roadmap phases.
 ### Eval Infrastructure
 
 - [x] **EVAL-01**: Build eval framework with LangSmith experiment tracking (pytest plugin)
-- [ ] **EVAL-02**: Implement statistical significance testing via scipy bootstrap
+- [x] **EVAL-02**: Implement statistical significance testing via scipy bootstrap
 - [x] **EVAL-03**: Include negative test cases (agent should NOT misuse tools)
 - [x] **EVAL-04**: Measure and compare token cost per tool variant (using Haiku for cost efficiency)
 - [x] **EVAL-05**: Design eval system for reuse across future experiments (not just tasks)
@@ -68,7 +68,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | AUDIT-02 | Phase 1: Codebase Alignment Audit | Complete |
 | AUDIT-03 | Phase 1: Codebase Alignment Audit | Complete |
 | EVAL-01 | Phase 2: Eval Framework | Complete |
-| EVAL-02 | Phase 2: Eval Framework | Pending |
+| EVAL-02 | Phase 2: Eval Framework | Complete |
 | EVAL-03 | Phase 2: Eval Framework | Complete |
 | EVAL-04 | Phase 2: Eval Framework | Complete |
 | EVAL-05 | Phase 2: Eval Framework | Complete |
