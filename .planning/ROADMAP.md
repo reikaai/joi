@@ -121,6 +121,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 1. Codebase Alignment Audit | 0/TBD | Complete    | 2026-02-19 |
 | 2. Eval Framework | 3/3 | Complete | 2026-02-19 |
 | 3. App-Like Variant Design | 0/TBD | Complete    | 2026-02-19 |
-| 4. Isolated Variable Experiments | 2/2 | Complete | 2026-02-19 |
+| 4. Isolated Variable Experiments | 2/2 | Complete    | 2026-02-19 |
 | 5. Full Comparison | 0/TBD | Not started | - |
 | 6. ADR and Decision | 0/TBD | Not started | - |
