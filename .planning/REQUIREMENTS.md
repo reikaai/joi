@@ -9,9 +9,9 @@ Requirements for this milestone. Each maps to roadmap phases.
 
 ### Codebase Audit
 
-- [ ] **AUDIT-01**: Audit all subsystems against the 4 strategic goals (manifesto, skills, breakaway, daily tool)
-- [ ] **AUDIT-02**: Document which subsystems are misaligned with reasoning for each
-- [ ] **AUDIT-03**: Produce prioritized fix list ranked by impact for future milestones
+- [x] **AUDIT-01**: Audit all subsystems against the 4 strategic goals (manifesto, skills, breakaway, daily tool)
+- [x] **AUDIT-02**: Document which subsystems are misaligned with reasoning for each
+- [x] **AUDIT-03**: Produce prioritized fix list ranked by impact for future milestones
 
 ### Eval Infrastructure
 
@@ -64,9 +64,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AUDIT-01 | Phase 1: Codebase Alignment Audit | Pending |
-| AUDIT-02 | Phase 1: Codebase Alignment Audit | Pending |
-| AUDIT-03 | Phase 1: Codebase Alignment Audit | Pending |
+| AUDIT-01 | Phase 1: Codebase Alignment Audit | Complete |
+| AUDIT-02 | Phase 1: Codebase Alignment Audit | Complete |
+| AUDIT-03 | Phase 1: Codebase Alignment Audit | Complete |
 | EVAL-01 | Phase 2: Eval Framework | Pending |
 | EVAL-02 | Phase 2: Eval Framework | Pending |
 | EVAL-03 | Phase 2: Eval Framework | Pending |
