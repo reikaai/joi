@@ -106,10 +106,10 @@ Plans:
   2. The ADR includes the actual statistical results (not just "it was better" but confidence intervals, effect sizes, token costs)
   3. The decision section clearly states whether to proceed with tasks rework (and if so, which variant) or to preserve the current interface
   4. The ADR is understandable by someone who wasn't involved in the experiment (portfolio-quality writing)
-**Plans**: TBD
+**Plans**: 1 plan
 
 Plans:
-- [ ] 06-01: TBD
+- [ ] 06-01-PLAN.md — Write ADR documenting hypothesis, methodology, results, decision, root cause analysis, and generalization conditions
 
 ## Progress
 
