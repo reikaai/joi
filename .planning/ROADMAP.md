@@ -60,11 +60,11 @@ Plans:
   1. At least 4 tool variants exist in the variant registry: baseline (current tools), rename-only, simplify-only, description-only, and full app-like (Calendar/Reminders/Alarms decomposition)
   2. A capability parity matrix shows that every parameter and behavior of the current task tools is accounted for in the full app-like variant (no silent drops)
   3. Token budget measurement confirms the app-like tool definitions do not exceed current tool definitions by more than 10%
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 03-01: TBD
-- [ ] 03-02: TBD
+- [ ] 03-01-PLAN.md — Registry extension + 4 isolated-variable variants (rename, simplify, description_a, description_b)
+- [ ] 03-02-PLAN.md — Full app-like variant + capability parity matrix + token budget measurement
 
 ### Phase 4: Isolated Variable Experiments
 **Goal**: Interpretable signal on which individual variable (naming, parameter simplification, description style) drives tool-use improvement
