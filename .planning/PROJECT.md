@@ -34,7 +34,16 @@ Validated architectural decisions backed by evidence, not gut feel. Every change
 
 ### Active
 
-(None yet — define in next milestone via `/gsd:new-milestone`)
+## Current Milestone: v1.1 Eval Pipeline Rebuild & Re-validation
+
+**Goal:** Get trustworthy experiment results so we can make defensible decisions about tool interfaces.
+
+**Target features:**
+- Fix eval infrastructure (serialization, evaluator bugs, response capture)
+- Redesign scenarios and evaluators for challenging single-turn with proper scoring
+- Build isolated experiment harness (zero persona, tool parity)
+- Re-run experiments with full response capture for batch review
+- Updated ADR with clean data
 
 ### Out of Scope
 
@@ -76,4 +85,4 @@ Memory subsystem (Mem0) identified as highest-impact misalignment (8/10) — arc
 - **Eval reproducibility**: Experiments must be repeatable with recorded results
 
 ---
-*Last updated: 2026-02-19 after v1.0 milestone*
+*Last updated: 2026-02-20 after v1.1 milestone started*
