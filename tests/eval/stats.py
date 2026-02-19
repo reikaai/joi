@@ -1,8 +1,10 @@
+from collections import defaultdict
 from pathlib import Path
 
 import numpy as np
 from loguru import logger
 from scipy.stats import bootstrap
+from scipy.stats import fisher_exact as _fisher_exact
 
 # Haiku 4.5 pricing (USD per token)
 HAIKU_INPUT_COST_PER_TOKEN = 1.0 / 1_000_000  # $1 per 1M input tokens
@@ -106,6 +108,22 @@ def compare_variants(
     }
 
 
+def fisher_exact_comparison(a_scores: list[float], b_scores: list[float]) -> dict:
+    """Fisher exact test on binary success/fail outcomes."""
+    a_pass = sum(1 for s in a_scores if s >= 1.0)
+    a_fail = len(a_scores) - a_pass
+    b_pass = sum(1 for s in b_scores if s >= 1.0)
+    b_fail = len(b_scores) - b_pass
+    table = [[a_pass, a_fail], [b_pass, b_fail]]
+    odds_ratio, p_value = _fisher_exact(table, alternative="two-sided")
+    return {
+        "table": table,
+        "odds_ratio": float(odds_ratio),
+        "p_value": float(p_value),
+        "significant": bool(p_value < 0.05),
+    }
+
+
 def generate_report(
     results_by_variant: dict[str, list[dict]],
     output_path: Path,
@@ -124,11 +142,20 @@ def generate_report(
             for r in results
         ]
 
+        # Per-category breakdown
+        by_category: dict[str, list[float]] = defaultdict(list)
+        for r in results:
+            by_category[r["category"]].append(r["correct_tool_score"])
+        category_stats = {
+            cat: bootstrap_ci(cat_scores) for cat, cat_scores in sorted(by_category.items())
+        }
+
         report["variants"][name] = {
             "n_samples": len(results),
             "success_rate": bootstrap_ci(scores),
             "token_usage": bootstrap_ci(tokens),
             "cost_usd": bootstrap_ci(costs),
+            "by_category": category_stats,
         }
 
         logger.info(
@@ -152,6 +179,7 @@ def generate_report(
                 comparison = compare_variants(a_scores, b_scores)
                 comparison["variant_a"] = a_name
                 comparison["variant_b"] = b_name
+                comparison["fisher_exact"] = fisher_exact_comparison(a_scores, b_scores)
                 report["comparisons"].append(comparison)
 
                 sig_label = "SIGNIFICANT" if comparison["significant"] else "not significant"
