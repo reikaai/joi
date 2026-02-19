@@ -64,7 +64,7 @@ Each task was committed atomically:
 
 1. **Task 1: Fix evaluator multi-tool and hardcoded-name bugs** - `67d6213` (fix)
 
-**Plan metadata:** (pending)
+**Plan metadata:** `c8b3ac1` (docs: complete plan)
 
 ## Files Created/Modified
 - `tests/eval/evaluators.py` - Fixed evaluate_tool_calls() multi-tool filtering, removed hardcoded name gates from _check_staggered_timing()
