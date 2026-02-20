@@ -4,14 +4,17 @@ from pathlib import Path
 
 
 class JSONLWriter:
-    def __init__(self, run_id: str, git_commit: str) -> None:
+    def __init__(self, run_id: str, git_commit: str, filename: str | None = None) -> None:
         self.run_id = run_id
         self.git_commit = git_commit
-        ts = datetime.now(tz=UTC).strftime("%Y%m%d_%H%M%S")
         results_dir = Path("results")
         results_dir.mkdir(exist_ok=True)
-        self._path = results_dir / f"experiment_{run_id}_{ts}.jsonl"
-        self._fh = self._path.open("w")
+        if filename:
+            self._path = results_dir / filename
+        else:
+            ts = datetime.now(tz=UTC).strftime("%Y%m%d_%H%M%S")
+            self._path = results_dir / f"experiment_{run_id}_{ts}.jsonl"
+        self._fh = self._path.open("a")
 
     def write_metadata(self, **kwargs) -> None:
         record = {

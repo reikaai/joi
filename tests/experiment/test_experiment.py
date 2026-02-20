@@ -4,7 +4,7 @@ from langchain_core.messages import HumanMessage, SystemMessage
 from langsmith import testing as t
 
 from joi_agent_langgraph2.config import settings
-from tests.experiment.conftest import EVAL_MODEL, FIXED_TIMESTAMP, ZERO_PERSONA
+from tests.experiment.conftest import EVAL_MODEL, EVAL_TEMPERATURE, FIXED_TIMESTAMP, ZERO_PERSONA
 from tests.experiment.scenarios import SCENARIOS
 from tests.experiment.variants.registry import VARIANTS
 
@@ -14,9 +14,9 @@ from tests.experiment.variants.registry import VARIANTS
 @pytest.mark.asyncio
 @pytest.mark.parametrize("variant_name", list(VARIANTS), ids=list(VARIANTS))
 @pytest.mark.parametrize("scenario", SCENARIOS, ids=[s.id for s in SCENARIOS])
-async def test_scenario(variant_name, scenario, run_id, jsonl_writer):
+async def test_scenario(variant_name, scenario, run_id, writer_pool, rep_number):
     variant = VARIANTS[variant_name]
-    llm = ChatAnthropic(model=EVAL_MODEL, api_key=settings.anthropic_api_key)
+    llm = ChatAnthropic(model=EVAL_MODEL, api_key=settings.anthropic_api_key, temperature=EVAL_TEMPERATURE)
     model = llm.bind_tools(variant.tools_factory())
 
     t.log_inputs(
@@ -25,6 +25,7 @@ async def test_scenario(variant_name, scenario, run_id, jsonl_writer):
             "variant": variant_name,
             "category": scenario.category,
             "run_id": run_id,
+            "rep": rep_number,
             "fixed_timestamp": FIXED_TIMESTAMP,
         }
     )
@@ -56,17 +57,20 @@ async def test_scenario(variant_name, scenario, run_id, jsonl_writer):
     t.log_outputs({"response_text": response_text, "tool_calls": tool_calls})
     t.log_feedback(key="variant", value=variant_name)
     t.log_feedback(key="run_id", value=run_id)
+    t.log_feedback(key="rep", value=rep_number)
     t.log_feedback(key="category", value=scenario.category)
     t.log_feedback(key="input_tokens", value=usage.get("input_tokens", 0))
     t.log_feedback(key="output_tokens", value=usage.get("output_tokens", 0))
 
-    jsonl_writer.write_result(
+    writer = writer_pool.get(variant_name, rep_number)
+    writer.write_result(
         variant=variant_name,
         scenario_id=scenario.id,
         category=scenario.category,
         prompt=scenario.prompt,
         response_text=response_text,
         tool_calls=tool_calls,
+        rep=rep_number,
         input_tokens=usage.get("input_tokens", 0),
         output_tokens=usage.get("output_tokens", 0),
         total_tokens=usage.get("total_tokens", 0),
