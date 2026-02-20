@@ -26,7 +26,7 @@ Full details: `.planning/milestones/v1.0-ROADMAP.md`
 **Milestone Goal:** Get trustworthy experiment results so we can make defensible decisions about tool interfaces. Fix the 5 systemic bugs that invalidated v1.0 data, rebuild the experiment harness with proper isolation, run clean experiments, and make a decision grounded in real evidence.
 
 - [ ] **Phase 7: Infrastructure Fixes** — Fix serialization bug and invalidate corrupted cache so the measurement instrument works
-- [ ] **Phase 8: Experiment Harness** — Build zero-persona isolated experiment mode with full capture, tool parity checks, clean scenarios, and fixed timestamps
+- [x] **Phase 8: Experiment Harness** — Build zero-persona isolated experiment mode with full capture, tool parity checks, clean scenarios, and fixed timestamps (completed 2026-02-20)
 - [ ] **Phase 9: Run Experiments** — Execute both tool variants against clean scenarios and collect JSONL for review
 - [ ] **Phase 10: Review and ADR** — Review experiment data via LangSmith + Claude Code and produce ADR with defensible conclusions
 
@@ -100,6 +100,6 @@ Phases execute in numeric order: 7 -> 8 -> 9 -> 10
 | 5. Full Comparison | v1.0 | 2/2 | Complete | 2026-02-19 |
 | 6. ADR and Decision | v1.0 | 1/1 | Complete | 2026-02-19 |
 | 7. Infrastructure Fixes | v1.1 | 0/1 | Planned | - |
-| 8. Experiment Harness | v1.1 | 0/? | Not started | - |
+| 8. Experiment Harness | v1.1 | Complete    | 2026-02-20 | - |
 | 9. Run Experiments | v1.1 | 0/? | Not started | - |
 | 10. Review and ADR | v1.1 | 0/? | Not started | - |
