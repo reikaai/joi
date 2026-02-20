@@ -164,6 +164,73 @@ MCP Servers (TMDB, Transmission, Jackett, etc.)
 - Our architecture: prompt caching (3 breakpoints), observation masking, summarization at 80 msgs — deliberately token-efficient
 - **Source**: [Shelly Palmer](https://shellypalmer.com/2026/02/clawdbot-the-gap-between-ai-assistant-hype-and-reality/)
 
+### 19. Self-Improvement Loops Are Attack Amplifiers (The Retrovirus Insight)
+- **Without skills**: prompt injection → bad action → session ends → forgotten (a cold)
+- **With skills**: prompt injection → malicious skill created → persists forever → executes in future sessions (a retrovirus)
+- Self-improvement turns **transient attacks into persistent ones**
+- This is the qualitatively new risk that distinguishes skill systems from regular agent operation
+- Memory has the same persistence problem — poisoned memory entries are equally dangerous
+- **Source**: Security brainstorm (Feb 2026), first principles analysis
+
+### 20. The Threat Is Infection, Not Desire
+- The agent doesn't "want" to break out (unlike the kid analogy)
+- The real threat is **external influence** (prompt injection, malicious data, poisoned context) making the agent do something harmful
+- Reframes from "restrict capability" to "build an immune system against foreign instructions"
+- Three conditions ALL needed for a persistent attack: (1) something persists, (2) it gets loaded into context, (3) agent has a harmful tool — block any one and the chain breaks
+- **Source**: Security brainstorm (Feb 2026)
+
+### 21. Composition of Safe Primitives Is Not Guaranteed Safe
+- Individually safe tools CAN compose into dangerous workflows
+- Example: `web_search` (safe) + `send_email` (safe) = potential exfiltration when composed
+- BUT: composition is **more constrainable than code** because the composition language is simpler and auditable
+- You can write rules about tool-call sequences; you can't write rules about arbitrary Python
+- **Source**: Security brainstorm (Feb 2026), relates to Insight #3 (risk spectrum)
+
+### 22. Legitimate Use and Attacks Are Technically Identical
+- "Send meeting notes from Teams via email" = legitimate use
+- "Exfiltrate private data from Teams via email" = attack
+- Same technical flow. The difference is **intent**, which cannot be determined from mechanism alone
+- **Implication**: No technical architecture prevents ALL misuse while allowing ALL legitimate use — this is a constraint to design around, not a problem to solve
+- **Source**: Security brainstorm (Feb 2026)
+
+### 23. Taint Tracking Works Around the LLM, Not Through It
+- You CANNOT track information flow through LLM weights (the LLM mixes all data in a single reasoning stream)
+- You CAN track it at the **tool-call sequence level**: INBOUND tool → OUTBOUND tool = flagged
+- `run_code` is a taint-laundering boundary — any data passing through code loses its provenance tag
+- Tags don't block automatically — they give the human **provenance context** for meaningful HITL approvals
+- Cross-session tracking is unsolved: save in session 1, exfiltrate in session 2
+- **Source**: Security brainstorm (Feb 2026), analogous to web security taint analysis
+
+### 24. The Sub-Agent Composition Model (Skill = Sub-Agent Definition)
+- **Skill = sub-agent definition**, not code
+- Each sub-agent has: **purpose** (what it should do), **tool whitelist** (what it can do), **domain restrictions** (where it can operate)
+- Agent SELECTS and COMPOSES tools, doesn't CREATE them
+- Blast radius per sub-agent is bounded by its scope
+
+| Dimension | OpenClaw (skill = code) | Joi (skill = sub-agent composition) |
+|-----------|------------------------|-------------------------------------|
+| What agent creates | Python/bash scripts | Sub-agent definition: tools + persona + workflow |
+| Trust boundary | Code can do anything runtime allows | Sub-agent limited to tool whitelist |
+| Who creates tools | The agent itself | Human/marketplace — agent selects, doesn't create |
+| Auditability | Read the code (hard, deceptive) | Read the tool list (simple, verifiable) |
+| Blast radius | Unlimited within sandbox | Bounded by tool whitelist + domain restrictions |
+
+- **Source**: Security brainstorm (Feb 2026), extends Insight #1 (skills = compositions)
+
+### 25. HITL Granularity Matters
+- Per-tool-call HITL = unusable (approve every mouse click? no)
+- Per-sub-agent HITL = right level (approve "buy headphones on Amazon" — yes/no)
+- Provenance context (Insight #23) upgrades HITL from rubber-stamping to informed consent
+- But **no HITL protects against the "yes yes yes" user** — that's a UX problem, not security
+- **Source**: Security brainstorm (Feb 2026), extends Insight #4 (HITL alone isn't security)
+
+### 26. Two Distinct Security Problems
+1. **Protect user FROM the agent** (agent goes rogue via injection) → structural controls
+2. **Protect user FROM themselves** (user rubber-stamps) → UX design
+- OpenClaw fails at #1. Even perfect #1 doesn't solve #2.
+- Architecture must address BOTH: structural defense (layers 1-2) + informed consent UX (layers 3-4)
+- **Source**: Security brainstorm (Feb 2026)
+
 ---
 
 ## Research Sources & Findings
@@ -324,6 +391,15 @@ MCP Servers (TMDB, Transmission, Jackett, etc.)
 - **vox** (Rust): `Mic → VAD (Silero) → STT (Whisper) → Your Code → TTS (Kokoro) → Speaker`, pluggable
 - **Gap**: No "voice client for LangGraph agent" pattern exists. All embed their own orchestration.
 - [ShayneP/local-voice-ai](https://github.com/ShayneP/local-voice-ai), [mrtozner/vox](https://github.com/mrtozner/vox)
+
+### NeMo Guardrails
+- **What**: NVIDIA's Python library for adding programmable guardrails to LLM-powered applications
+- **Coverage**: Input rails (filter prompt injection), output rails (filter LLM output before execution), execution rails (validate/sanitize tool call inputs)
+- **Air-gapped gateway endorsement**: "LLM should have no ability to access authentication information" — aligns with our Insight #6
+- **Colang**: Domain-specific language for defining conversational guardrails as flows
+- **Gap for Joi**: NeMo doesn't handle skill persistence, sub-agent composition, cross-session flow tracking, or progressive trust. Joi builds ON TOP of NeMo, not inside it.
+- **Integration point**: Could wrap LangGraph tool execution pipeline with NeMo rails for layers 1-3 of defense architecture
+- [NeMo Guardrails GitHub](https://github.com/NVIDIA-NeMo/Guardrails), [Security Guidelines](https://docs.nvidia.com/nemo/guardrails/latest/security/guidelines.html), [Agent Safeguarding Blog](https://developer.nvidia.com/blog/how-to-safeguard-ai-agents-for-customer-service-with-nvidia-nemo-guardrails/)
 
 ### OpenClaw Deployment Architectures (Feb 2026)
 - **What**: 6 deployment models documented by community, from native install to hybrid
@@ -567,6 +643,51 @@ Within execution, three safety tiers:
 
 This mirrors the existing HITL pattern for mutation tools in the media delegate.
 
+### Layered Defense Architecture
+
+Six-layer defense model where security is **invisible to the user** (like iPhone's Secure Enclave). Each layer protects against a different class of attack:
+
+| Layer | What It Does | Protects Against |
+|-------|-------------|-----------------|
+| **1. Structural** (floor) | Tool whitelists, domain scoping, sandboxed execution (Monty), no shell, air-gapped gateway | Agent going rogue — even with rubber-stamping user |
+| **2. Flow Monitoring** | Tool-call sequence tagging (INBOUND→OUTBOUND flagged) | Composition attacks within a session (Insight #21, #23) |
+| **3. Smart HITL** | Sub-agent level approval with provenance context | Uninformed consent (Insight #25) |
+| **4. Progressive Trust** | New skills: always HITL. After N successful runs: auto-approve with monitoring | HITL fatigue |
+| **5. Damage Caps** | Spending limits, rate limits, undo mechanisms per sub-agent | Catastrophic single-incident harm |
+| **6. Monitoring** | Log all tool calls, anomaly detection on patterns | Post-hoc detection of sophisticated attacks |
+
+**Design principle**: Security should be INVISIBLE to the user. Joi's security layers run under the hood.
+
+**NeMo Guardrails fit**: Covers layers 1-3 as a Python library (input/output/execution rails). Joi builds layers 4-6 on top. See [NeMo Guardrails](#nemo-guardrails) in Research Sources.
+
+### Board of Advisors Design Recommendations
+
+Synthesized from thought experiment with security/systems experts:
+
+- **Schneier**: Cap the blast radius per sub-agent (credit card with $10 limit), separate read-the-world from change-the-world tools
+- **Goertzel**: Deterministic policy engine — no LLM reasoning touches security layer. LLM proposes, deterministic code disposes.
+- **Hickey**: Skills should be declarations (data), not code. Declarations are auditable.
+- **Hightower**: Container each skill execution. Stateless, ephemeral. No state leaks between runs.
+- **LeCun**: Accept the capability-security trade-off explicitly. Don't pretend you can have both. The ceiling trade-off will eventually force tool creation (OpenClaw convergence).
+
+### Dev Mode for Skill Development
+
+- Skill creation should be a **separate agent/mode/skill** enabled in dev mode only
+- Regular users don't create skills — they use pre-built or marketplace skills
+- Dev mode: Joi can propose, create, test, and iterate on skill definitions
+- This separates the "use" path (safe, curated) from the "build" path (experimental, supervised)
+- Potentially: a "skill developer" sub-agent with elevated privileges, only available when dev mode is on
+- Aligns with Insight #26: different security postures for different user types
+
+### Existing Security Infrastructure (Already Built)
+
+What we already have that maps to the layered defense:
+- **Monty (pydantic_monty)**: Sandboxed Python — no network, no env, no shell, path-traversal protected (`src/joi_agent_langgraph2/interpreter.py`) → Layer 1
+- **DiskSandboxOS**: File I/O restricted to `data/files/{user_id}/` per user → Layer 1
+- **HITL**: Already implemented for mutation tools via `interrupt_on` → Layer 3
+- **MCP tools**: Whitelisted, credentials managed by MCP servers (not by agent) → Layer 1
+- **Two interpreter instances**: `media_interpreter` (media MCP tools), `main_interpreter` (remember/recall only) → Layer 1 (separation of concerns)
+
 ---
 
 ## Remote Brain + Local Hands Architecture
@@ -725,6 +846,16 @@ What we'd build for PC Client:
 - **Trust escalation**: How does a skill "earn" more permissions over time? Auto-approve after N successful runs?
 - ~~**Scheduler primitive**: Many use cases need time-based triggers. Is this a skill or infrastructure?~~ **RESOLVED**: Infrastructure. Already built — `schedule_task()`, `list_tasks()`, `update_task()` in `tasks/tools.py`. Supports one-shot (delay_seconds, ISO datetime) and recurring (cron). Tasks execute on separate threads with full tool access.
 - ~~**Physical presence**: Containerization might break browser automation (different IP, fingerprint). When is real hardware required?~~ **RESOLVED**: PC Client architecture. Browser runs on user's actual machine via PC Client → Playwright. Brain stays on VPS. Best of both worlds — real hardware identity for browser, always-on for reasoning.
+
+### Security (from Feb 2026 brainstorm)
+- **Tool creation convergence**: The catalog model delays OpenClaw-convergence but doesn't prevent it. When the agent needs Jira/Notion/custom APIs, does it: (a) request human to build MCP, (b) install from marketplace, (c) create tools itself? (See Premortem #1)
+- **Cross-session flow tracking**: Tool-call monitoring breaks across sessions (save data in session 1, exfiltrate in session 2). Provenance tagging on memory entries? (See Insight #23)
+- **Progressive trust risks**: A poisoned skill could "earn trust" through legitimate early uses, then pivot to malicious behavior. (See Premortem #2)
+- **run_code in compositions**: Including Monty in skill compositions breaks taint tracking (taint laundering). Options: (a) all run_code output treated as tainted, (b) no run_code in compositions, (c) accept the gap. (See Insight #23)
+- **Capability level decision**: Option A (catalog only), B (catalog + HTTP), C (catalog + full Monty), or progressive A→B→C? User hasn't committed — this is the hardest decision in the project.
+- **NeMo Guardrails integration**: How to integrate with LangGraph tool execution pipeline. Colang rail definitions for tool-call flow control. Input/output rail patterns for agent (not chatbot) use cases.
+- **Information flow control standards**: Academic/industry standards for taint tracking at tool boundaries. Prior art beyond web security taint analysis.
+- **Sub-agent composition patterns**: How LangGraph handles dynamic sub-agent creation. Whether tool sets can be modified per-invocation.
 
 ### Implementation
 - **Skill retrieval**: Mem0 semantic search vs. file-based glob vs. both?
@@ -1131,6 +1262,72 @@ Future (v3+): Agent modifies a sandboxed copy → runs tests → human reviews d
 3. **Over-skilling**: Agent creates skill for every trivial task. Need: heuristic ("will I need this again?")
 4. **Skill conflicts**: Two skills for similar tasks. Need: deduplication + preference
 5. **Context bloat**: Too many skills loaded. Need: progressive disclosure (metadata only until activated)
+
+### Premortem: Top Failure Scenarios (Feb 2026)
+
+Scenario: "6 months from now, Joi's self-improvement architecture has failed." (Gary Klein technique)
+
+**#1 (Most Likely — USER'S TOP CONCERN): Capability ceiling kills adoption**
+- Users try to create skills but hit tool catalog limits immediately
+- Moment they want Jira/Notion/custom API → system says "sorry, no tool for that"
+- Marketplace doesn't materialize — nobody builds MCPs for unknown framework
+- Users go back to OpenClaw where they can just write Python
+- **The capability ceiling kills adoption before security ever becomes relevant**
+- Mitigation: Don't launch catalog-only. Ship with catalog + sandboxed HTTP at minimum. Build 20 high-value MCPs before launching skill system. Start with single power user (yourself) for 60 days.
+
+**#2: Progressive trust exploited (time bomb)**
+- Skill "daily weather briefing" runs 50 times, earns auto-approve
+- Run 51: prompt injection in weather API modifies skill to include emails
+- Tool-call pattern identical to legitimate behavior → monitoring doesn't catch it
+- Earned trust creates a time bomb
+- Mitigation: Progressive trust should never bypass flow monitoring (layer 2). Any skill behavior change resets trust.
+
+**#3: Skill proliferation chaos (self-deterioration)**
+- After 3 months: 200+ overlapping sub-agent definitions
+- Agent picks wrong skill, fails, creates ANOTHER skill for same task
+- Skill rot + duplication defeats cost amortization thesis
+- Self-improvement becomes self-confusion
+- Mitigation: Skill deduplication heuristic, skill usage tracking, automatic retirement of unused skills.
+
+### Use Case Tier Analysis (By Safety Level)
+
+Crosscuts the [Use Case Catalog](#use-case-catalog) — same use cases, viewed through a security lens:
+
+**Tier 1: Pure tool composition (SAFE, no code needed)**
+- Smart torrent search, morning briefings, scheduling, decision logging, media conversion
+- Needs: existing MCPs + weather/calendar/news MCPs
+- ~60% of Tier 1-2 combined covers the safe adoption path
+
+**Tier 2: HTTP composability (MEDIUM risk, domain-scoped)**
+- Research/summarize articles, price monitoring, RSS, stock alerts, CI/CD monitoring
+- Needs: sandboxed HTTP GET with domain allowlist (all read-only)
+- Key insight: these are all READ operations, inherently lower risk
+
+**Tier 3: Browser (PC Client, inherently risky)**
+- Amazon purchasing, job applications, SaaS interaction, flight check-in
+- Needs: PC Client with Playwright, domain-scoped per sub-agent
+- Physical presence required (Insight #10), mitigated by PC Client architecture
+
+**Tier 4: Email/messaging (HIGHEST risk, HIGHEST demand)**
+- Email triage, meeting notes, newsletter management
+- Needs: email MCP with per-action HITL + content preview
+- Where "wow" factor lives but also where composition attacks (Insight #21) are most dangerous
+
+**Key finding**: Tiers 1-2 cover ~60% of use cases safely. Tiers 3-4 are where the "wow" is but require PC Client (separate phase).
+
+### What's Different From OpenClaw (Security Architecture)
+
+Extends the comparison in [Remote Brain + Local Hands](#why-this-beats-openclaws-approach) with security-specific dimensions:
+
+| Aspect | OpenClaw | Joi (proposed) |
+|--------|----------|---------------|
+| Skill model | Agent writes Python/bash scripts | Agent composes sub-agents from vetted tools (Insight #24) |
+| Security approach | Procedural (HITL every action) | Structural (bounded blast radius per sub-agent) + 6-layer defense |
+| Credential handling | Agent has full OS access | Air-gapped gateway, agent never sees credentials (Insight #6) |
+| Self-improvement loop | Unrestricted code creation | Constrained composition + tool catalog growth |
+| Attack persistence | Skills = code = retrovirus vector | Skills = declarations = auditable, taint-trackable (Insight #19) |
+| HITL level | Per-tool-call (unusable) | Per-sub-agent with provenance context (Insight #25) |
+| Dev vs user | Same access for everyone | Dev mode for creation, curated catalog for users |
 
 ---
 

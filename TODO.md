@@ -45,5 +45,14 @@ The `progress` action only appends a log entry — it doesn't change status from
 ## Dev Workflow Tooling (PARKED — March 2026)
 SDD tooling ecosystem too immature (1-3 months old). All tools have significant open issues. No single tool solves brownfield + evolving requirements + codebase knowledge. Continue with Claude Code plan mode + CLAUDE.md + architecture docs. Full research in [docs/adr-dev-workflow-tooling.md](docs/adr-dev-workflow-tooling.md).
 
+## Research: Information Flow Control in Agent Systems
+Investigate academic/industry standards for taint tracking at tool-call boundaries. Key question: how to detect INBOUND→OUTBOUND tool sequences (e.g., read private data → send email) without tracking through LLM weights (impossible). Prior art beyond web security taint analysis. Cross-session tracking is the hard unsolved part — data saved in session 1, exfiltrated in session 2. See Insight #23 in ideation doc.
+
+## Research: Sub-Agent Composition Patterns
+How does LangGraph handle dynamic sub-agent creation? Can tool sets be modified per-invocation? This is critical for the "skill = sub-agent definition" model (Insight #24) — each skill needs its own tool whitelist and domain restrictions at runtime. Explore whether LangGraph's `Command` / dynamic tool binding supports this, or if we need a custom routing layer.
+
+## Research NeMo Agent Toolkit as LangGraph Alternative
+Evaluate NVIDIA NeMo Agent Toolkit as a potential alternative to LangGraph for the agent framework. Key questions: Does it support the same stateful graph patterns? How does it handle tool routing, HITL, memory? Does built-in NeMo Guardrails integration give us layers 1-3 of our defense architecture for free? Compare developer experience, deployment model, and community maturity. Context: brainstorm identified NeMo Guardrails as a fit for our security layers — if the full Agent Toolkit replaces LangGraph AND brings guardrails natively, that's a significant simplification.
+
 ## Cron Expressions Have No Timezone Context
 Cron strings pass raw to `langgraph.crons.create_for_thread` (`tasks/tools.py:97-101`) with no timezone conversion — LangGraph likely interprets as UTC. User saying "every morning at 8am" (Istanbul, UTC+3) → LLM outputs `0 8 * * *` → fires at 8am UTC = 11am Istanbul. Affects all task scheduling variants equally. Options: inject user TZ in system prompt so LLM offsets the cron, add explicit `tz` param to the tool, or convert cron to UTC before passing to LangGraph.
