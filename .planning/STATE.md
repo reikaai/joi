@@ -54,6 +54,6 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-20
-Stopped at: Phase 8 context gathered
-Resume file: .planning/phases/08-experiment-harness/08-CONTEXT.md
-Next step: /gsd:plan-phase 8
+Stopped at: Phase 8 planned (2 plans, verified)
+Resume file: .planning/phases/08-experiment-harness/08-01-PLAN.md
+Next step: /gsd:execute-phase 8
