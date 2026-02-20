@@ -22,7 +22,7 @@ Requirements for eval pipeline rebuild. Each maps to roadmap phases.
 - [x] **EXPR-01**: Zero-persona experiment mode isolates tool interface as the only variable (minimal system prompt, no personality)
 - [x] **EXPR-02**: Automated tool parity check verifies both variants can express all scenario behaviors
 - [x] **EXPR-03**: Fixed timestamp injection for reproducible results (no datetime.now())
-- [ ] **EXPR-04**: Clean scenario set — self-contained, no external context dependencies, each tests one thing
+- [x] **EXPR-04**: Clean scenario set — self-contained, no external context dependencies, each tests one thing
 
 ### Strategy Selection (ANLS)
 
@@ -62,7 +62,7 @@ Deferred to future. Formalize after seeing experiment data.
 | EXPR-01 | Phase 8 | Complete |
 | EXPR-02 | Phase 8 | Complete |
 | EXPR-03 | Phase 8 | Complete |
-| EXPR-04 | Phase 8 | Pending |
+| EXPR-04 | Phase 8 | Complete |
 | ANLS-01 | Phase 9 | Pending |
 | ANLS-02 | Phase 10 | Pending |
 | ANLS-03 | Phase 10 | Pending |
