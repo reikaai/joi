@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-20)
 
 **Core value:** Trustworthy experiment results so we can make defensible decisions about tool interfaces
-**Current focus:** Phase 9 — Run Experiments
+**Current focus:** Phase 10 — Review and ADR (COMPLETE)
 
 ## Current Position
 
-Phase: 9 of 10 (Run Experiments)
+Phase: 10 of 10 (Review and ADR)
 Plan: 1 of 1 in current phase
-Status: Phase 09 complete (all plans done)
-Last activity: 2026-02-20 — Completed 09-01 Run Experiments
+Status: Phase 10 complete (all plans done) -- v1.1 MILESTONE COMPLETE
+Last activity: 2026-02-20 — Completed 10-01 Review and ADR
 
-Progress: [======░░░░] 60% (v1.1)
+Progress: [==========] 100% (v1.1)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 4 (v1.1)
-- Average duration: 4.3min
-- Total execution time: 17min
+- Total plans completed: 5 (v1.1)
+- Average duration: 4.2min
+- Total execution time: 21min
 
 **By Phase:**
 
@@ -30,6 +30,7 @@ Progress: [======░░░░] 60% (v1.1)
 | Phase 07 | 1 | 2min | 2min |
 | Phase 08 | 2 | 6min | 3min |
 | Phase 09 | 1 | 9min | 9min |
+| Phase 10 | 1 | 4min | 4min |
 
 *Updated after each plan completion*
 
@@ -50,6 +51,9 @@ Recent decisions affecting current work:
 - [Phase 08]: Capture-only test pattern — log everything, assert nothing, defer evaluation to Phase 10
 - [Phase 09]: Tool-only responses (empty text + tool_calls) are valid — 35/120 results had this pattern
 - [Phase 09]: Force-added results/ to git despite .gitignore for Phase 10 traceability
+- [Phase 10]: REJECT app-like confirmed: no correctness benefit under clean methodology (100% vs 100%)
+- [Phase 10]: v1.0 routing penalty was persona artifact, not genuine tool interface effect
+- [Phase 10]: Tool parameter design influences LLM response style more than tool naming/decomposition
 
 ### Pending Todos
 
@@ -62,6 +66,6 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-20
-Stopped at: Completed 09-01-PLAN.md (Phase 09 complete)
-Resume file: .planning/phases/10-*/10-01-PLAN.md
-Next step: Begin Phase 10 — review results
+Stopped at: Completed 10-01-PLAN.md (Phase 10 complete -- v1.1 MILESTONE COMPLETE)
+Resume file: N/A (milestone complete)
+Next step: Begin next milestone planning

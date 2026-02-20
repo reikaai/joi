@@ -3,7 +3,7 @@
 ## Milestones
 
 - ✅ **v1.0 Codebase Alignment & Tasks Experiment** — Phases 1-6 (shipped 2026-02-19)
-- 🚧 **v1.1 Eval Pipeline Rebuild & Re-validation** — Phases 7-10 (in progress)
+- ✅ **v1.1 Eval Pipeline Rebuild & Re-validation** — Phases 7-10 (shipped 2026-02-20)
 
 ## Phases
 
@@ -28,7 +28,7 @@ Full details: `.planning/milestones/v1.0-ROADMAP.md`
 - [ ] **Phase 7: Infrastructure Fixes** — Fix serialization bug and invalidate corrupted cache so the measurement instrument works
 - [x] **Phase 8: Experiment Harness** — Build zero-persona isolated experiment mode with full capture, tool parity checks, clean scenarios, and fixed timestamps (completed 2026-02-20)
 - [x] **Phase 9: Run Experiments** — Execute both tool variants against clean scenarios and collect JSONL for review (completed 2026-02-20)
-- [ ] **Phase 10: Review and ADR** — Review experiment data via LangSmith + Claude Code and produce ADR with defensible conclusions
+- [x] **Phase 10: Review and ADR** — Review experiment data via LangSmith + Claude Code and produce ADR with defensible conclusions (completed 2026-02-20)
 
 ## Phase Details
 
@@ -84,7 +84,7 @@ Plans:
 **Plans**: 1 plan
 
 Plans:
-- [ ] 10-01-PLAN.md — Blind review of 120 transcripts, aggregate analysis, and ADR production
+- [x] 10-01-PLAN.md — Blind review of 120 transcripts, aggregate analysis, and ADR production
 
 ## Progress
 
@@ -102,4 +102,4 @@ Phases execute in numeric order: 7 -> 8 -> 9 -> 10
 | 7. Infrastructure Fixes | v1.1 | 0/1 | Planned | - |
 | 8. Experiment Harness | v1.1 | Complete    | 2026-02-20 | - |
 | 9. Run Experiments | v1.1 | Complete    | 2026-02-20 | - |
-| 10. Review and ADR | v1.1 | 0/? | Not started | - |
+| 10. Review and ADR | v1.1 | 1/1 | Complete | 2026-02-20 |
