@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-20)
 
 **Core value:** Trustworthy experiment results so we can make defensible decisions about tool interfaces
-**Current focus:** Phase 8 — Experiment Harness
+**Current focus:** Phase 9 — Run Experiments
 
 ## Current Position
 
-Phase: 8 of 10 (Experiment Harness)
-Plan: 2 of 2 in current phase
-Status: Phase 08 complete (all plans done)
-Last activity: 2026-02-20 — Completed 08-02 Experiment Scenarios & Test
+Phase: 9 of 10 (Run Experiments)
+Plan: 1 of 1 in current phase
+Status: Phase 09 complete (all plans done)
+Last activity: 2026-02-20 — Completed 09-01 Run Experiments
 
-Progress: [=====░░░░░] 50% (v1.1)
+Progress: [======░░░░] 60% (v1.1)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 3 (v1.1)
-- Average duration: 2.7min
-- Total execution time: 8min
+- Total plans completed: 4 (v1.1)
+- Average duration: 4.3min
+- Total execution time: 17min
 
 **By Phase:**
 
@@ -29,6 +29,7 @@ Progress: [=====░░░░░] 50% (v1.1)
 |-------|-------|-------|----------|
 | Phase 07 | 1 | 2min | 2min |
 | Phase 08 | 2 | 6min | 3min |
+| Phase 09 | 1 | 9min | 9min |
 
 *Updated after each plan completion*
 
@@ -47,6 +48,8 @@ Recent decisions affecting current work:
 - [Phase 08]: Deleted all v1.0 eval infrastructure (kept stats.py only)
 - [Phase 08]: 20 scenarios weighted toward differentiating categories (ambiguous 30%, routing 20%)
 - [Phase 08]: Capture-only test pattern — log everything, assert nothing, defer evaluation to Phase 10
+- [Phase 09]: Tool-only responses (empty text + tool_calls) are valid — 35/120 results had this pattern
+- [Phase 09]: Force-added results/ to git despite .gitignore for Phase 10 traceability
 
 ### Pending Todos
 
@@ -59,6 +62,6 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-20
-Stopped at: Completed 08-02-PLAN.md (Phase 08 complete)
-Resume file: .planning/phases/09-*/09-01-PLAN.md
-Next step: Begin Phase 9 — experiment execution
+Stopped at: Completed 09-01-PLAN.md (Phase 09 complete)
+Resume file: .planning/phases/10-*/10-01-PLAN.md
+Next step: Begin Phase 10 — review results

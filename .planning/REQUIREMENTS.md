@@ -26,7 +26,7 @@ Requirements for eval pipeline rebuild. Each maps to roadmap phases.
 
 ### Strategy Selection (ANLS)
 
-- [ ] **ANLS-01**: Clean experiment data collected on both tool variants with fixed pipeline
+- [x] **ANLS-01**: Clean experiment data collected on both tool variants with fixed pipeline
 - [ ] **ANLS-02**: Results reviewed via LangSmith annotations + Claude Code JSONL analysis (blind review protocol)
 - [ ] **ANLS-03**: ADR updated or replaced with conclusions from clean data
 
@@ -63,7 +63,7 @@ Deferred to future. Formalize after seeing experiment data.
 | EXPR-02 | Phase 8 | Complete |
 | EXPR-03 | Phase 8 | Complete |
 | EXPR-04 | Phase 8 | Complete |
-| ANLS-01 | Phase 9 | Pending |
+| ANLS-01 | Phase 9 | Complete |
 | ANLS-02 | Phase 10 | Pending |
 | ANLS-03 | Phase 10 | Pending |
 
