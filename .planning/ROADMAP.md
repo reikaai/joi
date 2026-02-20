@@ -54,11 +54,11 @@ Plans:
   3. All scenarios use injected fixed timestamps (no datetime.now()) so results are reproducible across runs
   4. Each scenario is self-contained, tests one thing, and has no external context dependencies
   5. Each experiment run produces a JSONL file containing prompt, response text, tool calls, tokens, and run metadata (model, git commit, timestamp, variant definitions) per scenario — sufficient for Claude Code batch review without re-running
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 08-01: TBD
-- [ ] 08-02: TBD
+- [ ] 08-01-PLAN.md — Experiment infrastructure: simplified variants, JSONL capture, parity checks, v1.0 cleanup
+- [ ] 08-02-PLAN.md — Scenario design and parametrized experiment test with dual capture
 
 ### Phase 9: Run Experiments
 **Goal**: Clean experiment data exists for both tool variants, collected with the fixed pipeline, ready for human review
