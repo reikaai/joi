@@ -14,14 +14,14 @@ Requirements for eval pipeline rebuild. Each maps to roadmap phases.
 
 ### Capture & Review (CAPT)
 
-- [ ] **CAPT-01**: Experiment runs produce JSONL with full context (prompt, response text, tool calls, tokens, metadata) for Claude Code review
-- [ ] **CAPT-02**: Run metadata captured alongside results (model, git commit, timestamp, variant definitions)
+- [x] **CAPT-01**: Experiment runs produce JSONL with full context (prompt, response text, tool calls, tokens, metadata) for Claude Code review
+- [x] **CAPT-02**: Run metadata captured alongside results (model, git commit, timestamp, variant definitions)
 
 ### Experiment Harness (EXPR)
 
-- [ ] **EXPR-01**: Zero-persona experiment mode isolates tool interface as the only variable (minimal system prompt, no personality)
-- [ ] **EXPR-02**: Automated tool parity check verifies both variants can express all scenario behaviors
-- [ ] **EXPR-03**: Fixed timestamp injection for reproducible results (no datetime.now())
+- [x] **EXPR-01**: Zero-persona experiment mode isolates tool interface as the only variable (minimal system prompt, no personality)
+- [x] **EXPR-02**: Automated tool parity check verifies both variants can express all scenario behaviors
+- [x] **EXPR-03**: Fixed timestamp injection for reproducible results (no datetime.now())
 - [ ] **EXPR-04**: Clean scenario set — self-contained, no external context dependencies, each tests one thing
 
 ### Strategy Selection (ANLS)
@@ -57,11 +57,11 @@ Deferred to future. Formalize after seeing experiment data.
 |-------------|-------|--------|
 | INFRA-01 | Phase 7 | Complete |
 | INFRA-02 | Phase 7 | Complete |
-| CAPT-01 | Phase 8 | Pending |
-| CAPT-02 | Phase 8 | Pending |
-| EXPR-01 | Phase 8 | Pending |
-| EXPR-02 | Phase 8 | Pending |
-| EXPR-03 | Phase 8 | Pending |
+| CAPT-01 | Phase 8 | Complete |
+| CAPT-02 | Phase 8 | Complete |
+| EXPR-01 | Phase 8 | Complete |
+| EXPR-02 | Phase 8 | Complete |
+| EXPR-03 | Phase 8 | Complete |
 | EXPR-04 | Phase 8 | Pending |
 | ANLS-01 | Phase 9 | Pending |
 | ANLS-02 | Phase 10 | Pending |
