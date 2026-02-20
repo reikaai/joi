@@ -109,3 +109,6 @@ tickets.jsonl
 # Eval cache (LLM response cache for regression tests)
 tests/eval/cache/*
 !tests/eval/cache/.gitkeep
+
+# Experiment results (JSONL output from experiment harness)
+results/

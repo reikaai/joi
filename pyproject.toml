@@ -106,4 +106,5 @@ markers = [
     "eval: marks tests as LLM evaluation tests (hits real API)",
     "e2e: marks tests as end-to-end tests (requires running services)",
     "langsmith: marks tests for LangSmith experiment tracking",
+    "experiment: marks tests as experiment harness tests (hits real API, captures JSONL)",
 ]
