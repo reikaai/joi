@@ -102,4 +102,4 @@ Phases execute in numeric order: 7 -> 8 -> 9 -> 10
 | 7. Infrastructure Fixes | v1.1 | 0/1 | Planned | - |
 | 8. Experiment Harness | v1.1 | Complete    | 2026-02-20 | - |
 | 9. Run Experiments | v1.1 | Complete    | 2026-02-20 | - |
-| 10. Review and ADR | v1.1 | 1/1 | Complete | 2026-02-20 |
+| 10. Review and ADR | v1.1 | Complete    | 2026-02-20 | 2026-02-20 |
