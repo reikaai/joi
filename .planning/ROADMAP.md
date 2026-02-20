@@ -81,10 +81,10 @@ Plans:
   1. Every failure transcript has been read by a human (via LangSmith traces and/or JSONL) — no conclusions drawn from aggregate statistics alone
   2. Results reviewed using blind protocol (read transcripts before looking at aggregate pass rates)
   3. ADR exists documenting hypothesis, methodology, results from clean data, and a clear ADOPT/REJECT/REVISIT decision on tool interface strategy
-**Plans**: TBD
+**Plans**: 1 plan
 
 Plans:
-- [ ] 10-01: TBD
+- [ ] 10-01-PLAN.md — Blind review of 120 transcripts, aggregate analysis, and ADR production
 
 ## Progress
 
