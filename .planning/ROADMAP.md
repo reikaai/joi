@@ -27,7 +27,7 @@ Full details: `.planning/milestones/v1.0-ROADMAP.md`
 
 - [ ] **Phase 7: Infrastructure Fixes** — Fix serialization bug and invalidate corrupted cache so the measurement instrument works
 - [x] **Phase 8: Experiment Harness** — Build zero-persona isolated experiment mode with full capture, tool parity checks, clean scenarios, and fixed timestamps (completed 2026-02-20)
-- [ ] **Phase 9: Run Experiments** — Execute both tool variants against clean scenarios and collect JSONL for review
+- [x] **Phase 9: Run Experiments** — Execute both tool variants against clean scenarios and collect JSONL for review (completed 2026-02-20)
 - [ ] **Phase 10: Review and ADR** — Review experiment data via LangSmith + Claude Code and produce ADR with defensible conclusions
 
 ## Phase Details
@@ -101,5 +101,5 @@ Phases execute in numeric order: 7 -> 8 -> 9 -> 10
 | 6. ADR and Decision | v1.0 | 1/1 | Complete | 2026-02-19 |
 | 7. Infrastructure Fixes | v1.1 | 0/1 | Planned | - |
 | 8. Experiment Harness | v1.1 | Complete    | 2026-02-20 | - |
-| 9. Run Experiments | v1.1 | 0/? | Not started | - |
+| 9. Run Experiments | v1.1 | Complete    | 2026-02-20 | - |
 | 10. Review and ADR | v1.1 | 0/? | Not started | - |
