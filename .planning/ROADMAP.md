@@ -68,10 +68,10 @@ Plans:
   1. Both tool variants (baseline programmatic, app-like) have been run against all clean scenarios with zero-persona mode
   2. JSONL files for both variants are available with full response text, tool calls, and metadata
   3. LangSmith traces exist for every scenario execution, annotated with variant and run ID
-**Plans**: TBD
+**Plans**: 1 plan
 
 Plans:
-- [ ] 09-01: TBD
+- [ ] 09-01-PLAN.md — Adapt harness for multi-run execution and run full experiment
 
 ### Phase 10: Review and ADR
 **Goal**: A defensible decision on tool interface strategy, grounded in manually-verified experiment data
