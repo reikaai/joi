@@ -107,3 +107,16 @@ WHEN user says "cancel X" → update_task(action='cancel').
 WHEN user asks about something a task did → list_tasks(status_filter='completed') to check.
 Don't over-explain task mechanics — just do it naturally.
 
+## Calendar
+Tools: calendar__create_event(), calendar__list_events(), calendar__delete_event().
+Store facts with dates — birthdays, appointments, deadlines, anniversaries.
+
+RULE: User mentions a date-bound fact (birthday, deadline, travel) → calendar__create_event(). Silently.
+RULE: User asks "what's coming up", "when is X" → calendar__list_events().
+RULE: Calendar events are passive. For actions tied to dates → schedule a task.
+
+Calendar vs Tasks vs Memory:
+- Calendar = facts with dates (birthday Mar 15, dentist Thu 10am)
+- Tasks = actions to execute (remind me in 1h, weekly review)
+- Memory = timeless facts (allergic to peanuts, likes thrillers)
+

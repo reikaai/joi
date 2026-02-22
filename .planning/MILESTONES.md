@@ -19,3 +19,22 @@
 
 ---
 
+## v1.1 Eval Pipeline Rebuild & Re-validation (Shipped: 2026-02-20)
+
+**Phases completed:** 4 phases, 5 plans
+**Timeline:** 2026-02-20, ~21min execution
+**Git range:** `4426a74`..`bd33a95` on `feat/arch1-gsd` (26 commits)
+**Files:** 60 files changed, 5,827 insertions, 1,669 deletions
+
+**Delivered:** Trustworthy experiment infrastructure and clean re-validation of tool interface decision — rebuilt eval pipeline from scratch with zero-persona isolation, ran 120 LLM calls, blind-reviewed every transcript, and confirmed REJECT of app-like interfaces with evidence that v1.0's routing penalty was a persona artifact.
+
+**Key accomplishments:**
+- Fixed AIMessage list-content serialization bug and wiped corrupted v1.0 eval cache
+- Built zero-persona experiment infrastructure: simplified variants, JSONL capture, 7 parity tests, deleted 1,344 lines of v1.0 eval code
+- Designed 20 difficulty-calibrated scenarios across 5 categories (sanity, ambiguous, routing, negative, implicit)
+- Executed 120 LLM calls (2 variants x 20 scenarios x 3 runs) at temp 0.2 with 100% collection rate
+- Blind-reviewed all 120 transcripts with 4-dimension rubric — REJECT confirmed: both variants 100% equivalent, v1.0 signal was persona artifact
+- Key insight: tool parameter design influences LLM response style more than tool naming/decomposition
+
+---
+

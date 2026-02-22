@@ -16,6 +16,8 @@ class Settings(BaseSettings):
     openrouter_api_key: str | None = None
     anthropic_api_key: str | None = None
     task_debug: bool = False
+    whisper_model: str = "large-v3-turbo"
+    whisper_compute_type: str = "int8"
 
     @computed_field
     @property

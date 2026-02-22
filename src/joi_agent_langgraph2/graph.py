@@ -11,12 +11,14 @@ from langgraph_sdk import get_client as get_langgraph
 from loguru import logger
 from mem0 import Memory
 
+from joi_agent_langgraph2.calendar.tools import create_calendar_tools
 from joi_agent_langgraph2.config import settings
 from joi_agent_langgraph2.delegates import create_media_delegate
 from joi_agent_langgraph2.interpreter import create_interpreter_tool
 from joi_agent_langgraph2.memory import create_memory_tools
 from joi_agent_langgraph2.tasks.tools import create_task_tools
 from joi_agent_langgraph2.tools import load_media_tools, prepare_tools
+from joi_agent_langgraph2.transcribe import create_transcribe_tool
 
 
 @tool
@@ -45,7 +47,7 @@ def get_model() -> ChatAnthropic:
     )
 
 
-@before_agent(state_schema=JoiState)
+@before_agent(state_schema=JoiState)  # ty: ignore[invalid-argument-type]  # upstream: langchain-ai/langchain#35244
 async def summarize_if_needed(state: dict[str, Any], runtime: Any) -> dict[str, Any] | None:
     messages = state["messages"]
     if len(messages) <= SUMMARIZE_AFTER:
@@ -131,6 +133,7 @@ class _GraphFactory:
         mem0 = await asyncio.to_thread(Memory.from_config, settings.mem0_config)
 
         task_tools = create_task_tools(langgraph, settings.assistant_id)
+        calendar_tools = create_calendar_tools()
         memory_tools = create_memory_tools(mem0)
 
         media_tools, self._mcp_client = await load_media_tools()
@@ -155,6 +158,8 @@ class _GraphFactory:
             "Last expression is the return value.",
         )
 
+        transcribe_tool = create_transcribe_tool()
+
         self._graph = create_agent(
             model=get_model(),
             tools=prepare_tools([
@@ -163,6 +168,8 @@ class _GraphFactory:
                 think,
                 main_interpreter,
                 *task_tools,
+                *calendar_tools,
+                transcribe_tool,
                 # Anthropic native server-side tools (no client execution needed)
                 {"type": "web_search_20250305", "name": "web_search", "max_uses": 5},
                 {"type": "web_fetch_20250910", "name": "web_fetch", "max_uses": 3, "citations": {"enabled": True}},

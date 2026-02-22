@@ -56,3 +56,13 @@ Evaluate NVIDIA NeMo Agent Toolkit as a potential alternative to LangGraph for t
 
 ## Cron Expressions Have No Timezone Context
 Cron strings pass raw to `langgraph.crons.create_for_thread` (`tasks/tools.py:97-101`) with no timezone conversion — LangGraph likely interprets as UTC. User saying "every morning at 8am" (Istanbul, UTC+3) → LLM outputs `0 8 * * *` → fires at 8am UTC = 11am Istanbul. Affects all task scheduling variants equally. Options: inject user TZ in system prompt so LLM offsets the cron, add explicit `tz` param to the tool, or convert cron to UTC before passing to LangGraph.
+
+## Study Agent Zero's Memory Auto-Extraction Pattern
+Agent Zero (github.com/agent0ai/agent-zero) auto-extracts two memory types from conversations:
+**fragments** (facts/info mentioned in passing) and **solutions** (successful approaches to problems).
+Extensions fire at monologue end to extract and store these via FAISS. Our Mem0 is explicit-only
+(remember/recall) — identified as 8/10 misalignment. Agent Zero's pattern is a concrete reference
+implementation for automatic memory accumulation. Also worth studying: their memory consolidation
+(AI-powered compression of accumulated knowledge) and project-scoped memory isolation.
+Key files in their repo: python/extensions/_50_memorize_fragments.py, _51_memorize_solutions.py,
+python/helpers/memory.py. Full comparison notes in session context (Feb 20, 2026).
